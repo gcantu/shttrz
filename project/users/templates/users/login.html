@@ -1,0 +1,53 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block header %}
+  <header class="noprint">
+    <div class="wrapper clearfix">
+
+      <div id="header-logo">
+        <img src="{% static 'core/img/shutterize_logo.png' %}" alt="Shutterize Software">
+      </div> <!-- END logo -->
+
+      <div id="header-text">
+        <a href="" title="Shutterize" rel="home">Shutterize</a>
+      </div> <!-- END title -->
+    </div>
+  </header>
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+
+
+{% block content %}
+
+{% if form.errors %}
+  <p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% if next %}
+  {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
+  {% else %}
+    <p>Please login to see this page.</p>
+  {% endif %}
+{% endif %}
+
+<div id="login-form">
+  <form method="post">
+  {% csrf_token %}
+    <h3>Please sign in</h3>
+    <div>
+      {% render_field  form.username class="form-control input-username" placeholder=form.username.label %}
+    </div>
+    <div>
+      {% render_field  form.password class="form-control input-password" placeholder=form.password.label %}
+    </div>
+    <div>
+      <input class="btn btn-block" type="submit" value="Sign in"/>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

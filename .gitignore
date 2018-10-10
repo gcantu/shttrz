@@ -6,3 +6,5 @@ project/project/__pycache__/
 venv/
 
 project/project/settings/__pycache__/
+
+*.pyc
