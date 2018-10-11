@@ -8,3 +8,5 @@ venv/
 project/project/settings/__pycache__/
 
 *.pyc
+
+project/static
