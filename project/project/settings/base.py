@@ -11,14 +11,28 @@ config = RawConfigParser()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# Custom user model
+AUTH_USER_MODEL = 'users.User'
+
+
+# Custom auth backend
+AUTHENTICATION_BACKENDS = (
+    'users.custom_auth.CustomUserModelBackend',
+    # 'django.contrib.auth.backends.ModelBackend',
+)
+
 # Application definition
 INSTALLED_APPS = [
+    'core.apps.CoreConfig',
+    'tenants.apps.TenantsConfig',
+    'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -80,3 +94,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
+
+# Login URL
+LOGIN_URL = 'users:login'
+
+# Login redirect
+LOGIN_REDIRECT_URL = 'core:home'
+
+# Logout redirect
+LOGOUT_REDIRECT_URL = 'users:login'

@@ -4,6 +4,7 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
+django-widget-tweaks==1.4.3
 django==2.1.2
 mysqlclient==1.3.13
 pytz==2018.5              # via django
