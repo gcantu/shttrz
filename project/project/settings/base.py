@@ -26,7 +26,8 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'tenants.apps.TenantsConfig',
     'users.apps.UsersConfig',
-    'django.contrib.admin',
+    'adminsite.apps.CustomAdminConfig',  # replaces 'django.contrib.admin'
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -50,7 +51,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

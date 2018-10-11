@@ -185,13 +185,13 @@ a:focus, a:active, a:hover {
 
 /* 3.0 Forms
 --------------------------------------------------------------*/
-#login-form {
+.login-form {
 	max-width: 300px;
 	text-align: center;
 	margin: 0 auto;
 }
 
-#login-form input {
+.login-form input {
 	margin-bottom: 10px;
 }
 
