@@ -1,0 +1,75 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block header %}
+  <header class="noprint">
+    <div class="wrapper clearfix">
+
+      <div id="header-logo">
+        <img src="{% static 'core/img/shutterize_logo.png' %}" alt="Shutterize Software">
+      </div> <!-- END logo -->
+
+      <div id="header-text">
+        <a href="" title="Shutterize" rel="home">Shutterize</a>
+      </div> <!-- END title -->
+
+      <div class="rf">
+        <a class="btn btn-radius btn-main" href="{% url 'users:login' %}" role="button">User Login</a>
+      </div> <!-- END user login button -->
+
+    </div>
+  </header>
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+
+
+{% block content %}
+{% if form.errors and not form.non_field_errors %}
+<p>
+{% if form.errors.items|length == 1 %}Please correct the error below.{% else %}Please correct the errors below.{% endif %}
+</p>
+{% endif %}
+
+{% if form.non_field_errors %}
+{% for error in form.non_field_errors %}
+  <p>{{ error }}</p>
+{% endfor %}
+{% endif %}
+
+{% if user.is_authenticated %}
+<p>
+  You are authenticated as {{ username }}, but are not authorized to
+  access this page. Would you like to login to a different account?
+</p>
+{% endif %}
+
+<div class="login-form">
+  <form action="{{ app_path }}" method="post" id="login-form">
+    {% csrf_token %}
+    <h3>Admin Login</h3>
+    <div>
+      {{ form.username.errors }}
+      {% render_field  form.username class="form-control input-username" placeholder=form.username.label %}
+    </div>
+    <div>
+      {{ form.password.errors }}
+      {% render_field  form.password class="form-control input-password" placeholder=form.password.label %}
+      <input type="hidden" name="next" value="{{ next }}">
+    </div>
+
+    {% url 'admin_password_reset' as password_reset_url %}
+    {% if password_reset_url %}
+    <div class="password-reset-link">
+      <a href="{{ password_reset_url }}">Forgotten your password or username?</a>
+    </div>
+    {% endif %}
+
+    <div>
+      <input class="btn btn-block" type="submit" value="Log in"/>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

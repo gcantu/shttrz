@@ -13,6 +13,11 @@
       <div id="header-text">
         <a href="" title="Shutterize" rel="home">Shutterize</a>
       </div> <!-- END title -->
+
+      <div class="rf">
+        <a class="btn btn-radius btn-main" href="{% url 'admin:login' %}" role="button">Admin Login</a>
+      </div> <!-- END admin login button -->
+
     </div>
   </header>
 {% endblock %}
@@ -34,10 +39,10 @@
   {% endif %}
 {% endif %}
 
-<div id="login-form">
+<div class="login-form">
   <form method="post">
   {% csrf_token %}
-    <h3>Please sign in</h3>
+    <h3>User Login</h3>
     <div>
       {% render_field  form.username class="form-control input-username" placeholder=form.username.label %}
     </div>
@@ -45,7 +50,7 @@
       {% render_field  form.password class="form-control input-password" placeholder=form.password.label %}
     </div>
     <div>
-      <input class="btn btn-block" type="submit" value="Sign in"/>
+      <input class="btn btn-block" type="submit" value="Log in"/>
     </div>
   </form>
 </div>
