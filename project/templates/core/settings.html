@@ -9,23 +9,17 @@
   <div class="col-3">
     <div class="settings-menu">
       <div class="wrapper">
-        <div class="title">Settings</div>
+        <div class="title">{% block settingsmenutitle %}User Settings{% endblock %}</div>
         <hr>
-        <ul>
-          <li class="{% block accountactiveclass %}{% endblock %}">
-            <a href="{% url 'users:update' %}" role="button">Account</a>
-          </li>
-          <li class="{% block passwordactiveclass %}{% endblock %}">
-            <a href="{% url 'users:change-password' %}" role="button">Password</a>
-          </li>
-        </ul>
+        {% block settingsmenulist %}{% endblock %}
       </div>
     </div>
   </div>
 
   <div class="col-6">
-    {% block settings %}
-    {% endblock %}
+    <div class="content-title">{% block settingscontenttitle %}{% endblock %}</div>
+    <hr/>
+    {% block settingscontent %}{% endblock %}
   </div>
 
 </div>
