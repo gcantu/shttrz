@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'tenants.apps.TenantsConfig',
     'users.apps.UsersConfig',
+    'customers.apps.CustomersConfig',
     'adminsite.apps.CustomAdminConfig',  # replaces 'django.contrib.admin'
     # 'django.contrib.admin',
     'django.contrib.auth',
