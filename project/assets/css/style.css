@@ -450,3 +450,60 @@ hr {
 	}
 
 }
+
+/*--------------------------------------------------------------
+12.0 ADMIN SITE
+--------------------------------------------------------------*/
+
+/* 12.1 Index
+--------------------------------------------------------------*/
+.index {
+	width: 500px;
+}
+
+.index-module {
+	border: 0.5px solid #aeb2b7;
+}
+
+.index-module .title {
+	background-color: #a8bdda;
+	color: #ffffff;
+	font-size: 14px;
+	font-weight: 400;
+	letter-spacing: 0.5px;
+	padding: 5px;
+	text-transform: uppercase;
+}
+
+.index-module a {
+	color: #447e9b;
+}
+
+.index-module th,
+.index-module td {
+	padding: 8px;
+}
+
+.index-module th {
+	font-weight: 300;
+	font-size: 14px;
+	color: #515151;
+	width: 100%;
+}
+
+/* ACTION ICONS */
+
+.view-link {
+    padding-left: 16px;
+    background: url(../img/icon-viewlink.svg) 0 1px no-repeat;
+}
+
+.add-link {
+    padding-left: 16px;
+    background: url(../img/icon-addlink.svg) 0 1px no-repeat;
+}
+
+.update-link {
+    padding-left: 16px;
+    background: url(../img/icon-changelink.svg) 0 1px no-repeat;
+}
