@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from tenants.models import AbstractTenant
-from .utils import custom_round
+from .utils import custom_round, as_fraction
 from deals.models import Deal
 
 BOOL_CHOICES = ((True, 'Active'), (False, 'Discontinued'))
@@ -78,12 +78,12 @@ class AbstractShutter(AbstractTenant):
         l = (measure - 0.125) if self.mount == 'In' else (measure - deduction)
         return l
 
-    def l_frame_width(self):
+    def _l_frame_width(self):
         mt = 'width'
         l = self._get_lframe(mt)
         return l
 
-    def l_frame_height(self):
+    def _l_frame_height(self):
         mt = 'height'
         l = self._get_lframe(mt)
         return l
@@ -95,7 +95,7 @@ class AbstractShutter(AbstractTenant):
     # rail, louver, stile, tilt rod
     # ------------------------------------------------------
     def _rail(self):
-        Lwidth = self.l_frame_width()
+        Lwidth = self._l_frame_width()
 
         if self.panels == 1:
             rail = Lwidth - 5.6875 # 5 11/16
@@ -110,13 +110,72 @@ class AbstractShutter(AbstractTenant):
         return round(louver, 4)
 
     def _stile(self):
-        Lheight = self.l_frame_height()
+        Lheight = self._l_frame_height()
         stile = Lheight - 1.75 # 1 3/4
         return round(stile, 4)
 
-    def _tiltrod(self):
+    def _tilt_rod(self):
         Trod = self._stile() - 9.875 # 9 7/8
         return round(Trod, 4)
+
+    # Qty
+    # ------------------------------------------------------
+    def louver_qty(self):
+        if self.panels == 1:
+            qty = round(((self._stile() - 6) / 3))
+        else:
+            qty = round(((self._stile() - 10) / 3) * self.panels)
+            qty = qty if (qty % 2) == 0 else (qty + 1) # if the number is not even, add 1
+        return qty
+
+    def rail_qty(self):
+        return self.panels * 2
+
+    def stile_qty(self):
+        return self.panels * 2
+
+    # calculate material needed
+    # ------------------------------------------------------
+    def l_frame_material(self):
+        material = ((self._l_frame_width() + self._l_frame_height()) / 12) * 2
+        return round(material, 4)
+
+    def louver_material(self):
+        material = (self._louver() / 12) * self.louver_qty()
+        return round(material, 4)
+
+    def rail_material(self):
+        material = (self._rail() / 12) * self.rail_qty()
+        return round(material, 4)
+
+    def stile_material(self):
+        material = (self._stile() / 12) * self.stile_qty()
+        return round(material, 4)
+
+    def tilt_rod_material(self):
+        material = (self._l_frame_width() / 12) * (self._l_frame_height() / 12)
+        return round(material, 4)
+
+    def panel_material(self):
+        material = (self._l_frame_height() / 12) * self.panels
+        return round(material, 4)
+
+    # calculate hardware needed
+    # ------------------------------------------------------
+    def total_hinges(self):
+        if self._l_frame_height() < 60:
+            hinges = self.panels * 2
+        elif self._l_frame_height() < 85:
+            hinges = self.panels * 3
+        else: # < 100
+            hinges = self.panels * 4
+        return hinges
+
+    def total_magnets(self):
+        return self.panels
+
+    def total_screws(self):
+        return self.total_hinges() * 6
 
     # price based on total sq. ft
     # ------------------------------------------------------
@@ -128,6 +187,26 @@ class AbstractShutter(AbstractTenant):
 
         tp = (w_ft_custom * h_ft_custom) * self.price_per_sq_ft
         return tp
+
+    # convert measurements to fraction for display
+    # ------------------------------------------------------
+    def l_frame_width(self):
+        return as_fraction(self._l_frame_width())
+
+    def l_frame_height(self):
+        return as_fraction(self._l_frame_height())
+
+    def rail_measure(self):
+        return as_fraction(self._rail())
+
+    def louver_measure(self):
+        return as_fraction(self._louver())
+
+    def stile_measure(self):
+        return as_fraction(self._stile())
+
+    def tilt_rod_measure(self):
+        return as_fraction(self._tilt_rod())
 
     class Meta:
         abstract = True

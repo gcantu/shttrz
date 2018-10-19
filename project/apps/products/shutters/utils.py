@@ -11,3 +11,17 @@ def custom_round(num):
     else:
         r = round(num)
     return r
+
+# display decimals as fractions
+def as_fraction(n):
+    number = int(n)
+    dec = round(n % 1, 4)
+
+    if (dec == 0):
+        return number
+    else:
+        ratio = dec.as_integer_ratio()
+        frac = '{}/{}'.format(ratio[0], ratio[1])
+        final = '{} {}'.format(number, frac)
+
+        return final
