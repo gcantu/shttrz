@@ -174,3 +174,20 @@ class Shutter(AbstractShutter):
 
     class Meta:
         db_table = 'shutter'
+
+
+
+class Material(AbstractTenant):
+    deal = models.OneToOneField(Deal, on_delete=models.CASCADE, primary_key=True)
+    l_frame_material = models.IntegerField(default=0)
+    louver_material = models.IntegerField(default=0)
+    rail_material = models.IntegerField(default=0)
+    stile_material = models.IntegerField(default=0)
+    tilt_rod_material = models.IntegerField(default=0)
+    panel_material = models.IntegerField(default=0)
+    total_hinges = models.IntegerField(default=0)
+    total_magnets = models.IntegerField(default=0)
+    total_screws = models.IntegerField(default=0)
+
+    def get_absolute_url(self):
+        return reverse('material-detail', kwargs={'pk': self.pk})
