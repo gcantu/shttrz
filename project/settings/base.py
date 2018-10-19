@@ -15,6 +15,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # add apps folder to project root
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps/products'))
+
 # Custom user model
 AUTH_USER_MODEL = 'users.User'
 
@@ -30,6 +32,9 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'tenants.apps.TenantsConfig',
     'users.apps.UsersConfig',
+    'customers.apps.CustomersConfig',
+    'deals.apps.DealsConfig',
+    'shutters.apps.ShuttersConfig',
     'adminsite.apps.CustomAdminConfig',  # replaces 'django.contrib.admin'
     # 'django.contrib.admin',
     'django.contrib.auth',

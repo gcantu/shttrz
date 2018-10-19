@@ -2,12 +2,21 @@
 {% load static %}
 {% load widget_tweaks %}
 
-{% block accountactiveclass %}active{% endblock %}
 
-{% block settings %}
-<div class="content-title">ACCOUNT</div>
-<hr/>
+{% block settingsmenulist %}
+<ul>
+  <li class="active">
+    <a href="{% url 'users:update' %}" role="button">Account</a>
+  </li>
+  <li>
+    <a href="{% url 'users:change-password' %}" role="button">Password</a>
+  </li>
+</ul>
+{% endblock %}
 
+{% block settingscontenttitle %}ACCOUNT{% endblock %}
+
+{% block settingscontent %}
 <form method="post">
   {% csrf_token %}
 

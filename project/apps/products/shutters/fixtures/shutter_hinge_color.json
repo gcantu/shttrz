@@ -1,0 +1,58 @@
+[
+  {
+    "model": "shutters.HingeColor",
+    "pk": 1,
+    "fields": {
+      "hinge_color": "Bronze",
+      "tenant": 1
+    }
+  },
+  {
+    "model": "shutters.HingeColor",
+    "pk": 2,
+    "fields": {
+      "hinge_color": "Nickel",
+      "tenant": 1
+    }
+  },
+  {
+    "model": "shutters.HingeColor",
+    "pk": 3,
+    "fields": {
+      "hinge_color": "White",
+      "tenant": 1
+    }
+  },
+  {
+    "model": "shutters.HingeColor",
+    "pk": 4,
+    "fields": {
+      "hinge_color": "Bright-White",
+      "tenant": 1
+    }
+  },
+  {
+    "model": "shutters.HingeColor",
+    "pk": 5,
+    "fields": {
+      "hinge_color": "Off-White",
+      "tenant": 1
+    }
+  },
+  {
+    "model": "shutters.HingeColor",
+    "pk": 6,
+    "fields": {
+      "hinge_color": "OTHER",
+      "tenant": 1
+    }
+  },
+  {
+    "model": "shutters.HingeColor",
+    "pk": 7,
+    "fields": {
+      "hinge_color": "MATCH FINISH",
+      "tenant": 1
+    }
+  }
+]
