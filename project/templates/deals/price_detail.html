@@ -1,0 +1,31 @@
+
+<table id="price-table">
+  <tbody>
+    <tr>
+      <th>Subtotal: </th>
+      <td>
+        <div>$ {{ price.subtotal }}</div>
+      </td>
+    </tr>
+
+    <tr class="underline">
+      <th>Tax: </th>
+      <td>$ {{ price.tax }} </td>
+    </tr>
+
+    <tr class="table-total-row">
+      <th>Total: </th>
+      <td>$ {{ price.total }}</td>
+    </tr>
+
+    <tr class="underline">
+      <th>Down Payment: </th>
+      <td>$ {{ price.down_payment }}</td>
+    </tr>
+
+    <tr class="table-total-row">
+      <th>Balance</th>
+      <td>$ {{ price.balance }}</td>
+    </tr>
+  </tbody>
+</table>

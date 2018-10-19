@@ -1,0 +1,67 @@
+{% extends "core/base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container wrapper">
+  <div class="row">
+
+    <div class="col col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
+    
+
+      <form id="customer-form" method="post">
+        {% csrf_token %}
+        {{ form.tenant.as_hidden }}
+        <div class="section">
+          <div class="section-wrapper">
+            <div class="form-title">Add Customer Info</div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                {% render_field  form.first_name class="form-control" placeholder=form.first_name.label %}
+              </div>
+              <div class="form-group col-md-6">
+                {% render_field  form.last_name class="form-control" placeholder=form.last_name.label %}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col">
+                {% render_field  form.address class="form-control" placeholder=form.address.label %}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                {% render_field  form.city class="form-control" placeholder=form.city.label %}
+              </div>
+              <div class="form-group col-md-6">
+                {% render_field  form.zip_code class="form-control" placeholder=form.zip_code.label %}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                {% render_field  form.home_phone class="form-control" placeholder=form.home_phone.label %}
+              </div>
+              <div class="form-group col-md-6">
+                {% render_field  form.mobile_phone class="form-control" placeholder=form.mobile_phone.label %}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col">
+                {% render_field  form.email class="form-control" placeholder=form.email.label %}
+              </div>
+            </div>
+
+          </div>
+          <button type="submit" class="btn-submit">
+            <i class="fas fa-user-plus"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

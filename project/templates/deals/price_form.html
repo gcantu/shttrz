@@ -1,0 +1,65 @@
+{% extends "core/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+
+{% block content %}
+<div class="container wrapper">
+  <div class="row">
+    <div class="col-md-8 offset-md-2 col-lg-6 offset-md-3">
+      <form id="price-form" method="post">
+        {% csrf_token %}
+        {{ form.deal.as_hidden }}
+        {{ form.tenant.as_hidden }}
+        {{ form.subtotal.as_hidden }}
+        {{ form.tax.as_hidden }}
+        {{ form.total.as_hidden }}
+        {{ form.balance.as_hidden }}
+
+        <div class="section">
+          <div class="section-wrapper">
+            <div class="form-title">Pricing Form</div>
+
+            <table id="price-table">
+              <tbody>
+                <tr>
+                  <th>Subtotal: </th>
+                  <td>$ {{ price.subtotal }}</td>
+                </tr>
+
+                <tr class="underline">
+                  <th>Tax  {% render_field  form.tax_rate class="form-control" %} {% render_field  form.add_tax %} </th>
+                  <td>$ {{ price.tax }} </td>
+                </tr>
+
+                <tr>
+                  <th>Total: </th>
+                  <td>$ {{ price.total }}</td>
+                </tr>
+
+                <tr class="underline">
+                  <th>{{ form.down_payment.label_tag }}</th>
+                  <td>{% render_field  form.down_payment class="form-control" %}</td>
+                </tr>
+
+                <tr>
+                  <th>Balance</th>
+                  <td>$ {{ price.balance }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <i class="fas fa-dollar-sign"></i>
+          </button>
+
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

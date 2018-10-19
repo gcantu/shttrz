@@ -6,6 +6,7 @@
 		1.2 Header
 		1.3 Footer
 		1.4 Wrappers
+		1.5 Sections
 2.0 Navigation
 	2.1 Links
 	2.2 Main Menu
@@ -13,9 +14,13 @@
 3.0 Forms
 4.0 Lists
 5.0 Buttons
+7.0 Tables
+8.0 Reports
 9.0 Clearings
 10.0 Others
 11.0 Responsive Structure
+	11.1 On screen resize
+	11.2 On print
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
@@ -52,6 +57,10 @@ html, body {
 #content {
    padding-bottom:60px; /* Height of the footer */
 	 height: 100%;
+}
+
+.container {
+	max-width: 100%;
 }
 
 .content-title {
@@ -136,6 +145,55 @@ html, body {
 	padding: 10px 15px;
 }
 
+.section-wrapper {
+	padding: 20px;
+}
+
+.section-wrapper.summary {
+	padding: 10px;
+	width: 100%;
+}
+
+.report-wrapper {
+	padding: 20px 30px;
+}
+
+/* 1.5 Sections
+--------------------------------------------------------------*/
+.section {
+	border: 0.5px solid #aeb2b7;
+	overflow: hidden;
+	height: 100%;
+	position: relative;
+}
+
+.section-title {
+	font-size: 14px;
+	letter-spacing: 1px;
+	font-weight: 500;
+}
+
+.list-section {
+	border: 0.5px solid #aeb2b7;
+	overflow: hidden;
+	margin-bottom: 15px;
+}
+
+.scroll-section {
+	overflow: scroll;
+}
+
+.report-section {
+	border: 0.5px solid #aeb2b7;
+	max-width: 980px;
+	min-width: 650px;
+	margin: auto;
+}
+
+.summary [class*="col-"] {
+    margin-bottom: 10px;
+}
+
 /*--------------------------------------------------------------
 2.0 Navigation
 --------------------------------------------------------------*/
@@ -195,6 +253,20 @@ a:focus, a:active, a:hover {
 
 /* 3.0 Forms
 --------------------------------------------------------------*/
+.form-title {
+	padding-bottom: 15px;
+	font-size: 28px;
+	color: #2eadb8;
+	font-weight: 400;
+	letter-spacing: 1px;
+}
+
+.form-section {
+  border: 0.5px solid #aeb2b7;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
 #login-form {
 	margin-top: 50px;
 }
@@ -203,15 +275,55 @@ a:focus, a:active, a:hover {
 	margin-bottom: 10px;
 }
 
-.form-control, .custom-select {
-  font-size: 13px;
-  border-radius: 0;
-  height: 30px;
-	margin-bottom: 10px;
+#customer-form,
+#deal-form,
+#price-form {
+	display: inline;
+	margin-left: 10px;
 }
 
-.errorlist {
-	color: #ad0817;
+#customer-form .section-wrapper,
+#deal-form .section-wrapper,
+#price-form .section-wrapper {
+	padding: 0 0 0 20px;
+	display:inline-block;
+	width: 73%;
+}
+
+#price-form .section-wrapper {
+	display:inline-block;
+	width: 86%;
+}
+
+#price-form .form-control {
+	text-align: right;
+	width: 60px;
+	height: 25px;
+	display: inline;
+	margin: 5px 0;
+}
+
+.no-label {
+  margin-top: 27px;
+}
+
+.form-control.notes-field {
+  height: 100px;
+}
+
+.form-control,
+.custom-select {
+  border-radius: 0;
+	margin-bottom: 10px;
+	height: 33px;
+	font-size: 13px;
+	padding: 0 5px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { /* hide up and down arrows */
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /* 4.0 Lists
@@ -226,16 +338,15 @@ li {
   margin-bottom: 10px;
 }
 
-
 /* 5.0 Buttons
 --------------------------------------------------------------*/
 .btn {
-  color: #fff;
-  padding: 2px 6px;
-  border-radius: 0;
-  font-size: 12px;
+	float: right;
+	padding: 1px 7px;
+	border-radius: 0;
+	color: #fff;
 	background-color: #424a5d;
-  border: 0.5px solid #424a5d;
+	font-size: 14px;
 	letter-spacing: 0.5px;
 }
 
@@ -258,7 +369,6 @@ li {
 .btn a:hover {
   color: #fff;
   background-color: #7a808d;
-  border-color: #7a808d;
   cursor: pointer;
 }
 
@@ -267,6 +377,7 @@ li {
 	border-color: #25b4c1;
 	letter-spacing: 1px;
 	padding: 5px 10px;
+	font-size: 14px;
 }
 
 .btn-main.btn:hover {
@@ -274,82 +385,168 @@ li {
 	border-color: #66cad3;
 }
 
-.btn-yellow {
-  background-color: #F6C042;
-  border: 0.5px solid #F6C042;
+.btn-delete {
+	color: #ad0817;
+	background-color: #e2b6b6;
 }
 
-.btn-yellow.btn:hover {
-	background-color: #f9d37a;
-	border-color: #f9d37a;
-}
-
-.btn-red {
+.btn-delete:hover {
 	background-color: #ad0817;
-  border: 0.5px solid #ad0817;
+	color: #e2b6b6;
 }
 
-.btn-red.btn:hover {
-	background-color: #cc7f7f;
-	border-color: #cc7f7f;
+.btn-complete,
+.btn-add {
+	color: #7bce28;
+	background-color: #d3f1b5;
 }
 
-.btn-green {
-	background-color: #84bc4d;
-  border: 0.5px solid #84bc4d;
+.btn-complete:hover,
+.btn-add:hover {
+	color: #d3f1b5;
+	background-color: #7bce28;
 }
 
-.btn-green.btn:hover {
-	background-color: #a2cc78;
-	border-color: #a2cc78;
-}
-
-
-.btn-delete, .btn-complete {
-	background-color: #aeb2b7;
-  border: 0.5px solid #aeb2b7;
-	border-radius: 50px;
-}
-
-.btn.btn-delete:hover {
-	background-color: #ad0817;
-  border: 0.5px solid #ad0817;
-}
-
-.btn.btn-complete:hover {
-	background-color: #5eb901;
-  border: 0.5px solid #5eb901;
-}
-
-#tax-button, #confirm-button {
-	padding: 0 5px;
-}
-
-#logout-button {
-	padding-top: 4px;
+.btn-submit { /* form submit button */
+	color: #2eadb8;
+	background-color: #bceaee;
+	font-size: 80px;
+	height: 100%;
 	float: right;
-}
-
-#confirm-delete-button {
-	display: inline-block;
-}
-
-.line-item-table-buttons {
-	display:none;
-}
-
-.icon-btn {
-	color: #f2f2f2;
-	font-size: 20px;
-	padding-right: 5px;
-}
-
-#header-user .btn {
-	background-color: #ffffff;
-	font-size: 14px;
 	border: none;
-	color: #424a5d;
+}
+
+.btn-edit { /* line item edit buttons - summary view */
+	color: #2eadb8;
+	background-color: #bceaee;
+}
+
+.btn-edit:hover,
+.btn-submit:hover {
+	color: #bceaee;
+	background-color: #2eadb8;
+	cursor: pointer;
+}
+
+.btn-edit.horizontal { /* edit buttons - summary view */
+	text-align: right;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+}
+
+.hidden-btn { /* line item edit buttons - summary view */
+	display: none;
+}
+
+[type=submit] {
+	-webkit-appearance: none;
+}
+
+html [type=button] {
+	-webkit-appearance: none;
+}
+
+/* 7.0 Tables
+--------------------------------------------------------------*/
+caption { /* customer name - customer detail table */
+	caption-side: top;
+	font-size: 18px;
+	letter-spacing: 1px;
+	padding-top: 0;
+	color: #515151;
+	margin-left: 3px;
+}
+
+table {
+	letter-spacing: 0.5px;
+	font-size: 13px;
+	width: 100%;
+	text-align: center;
+	white-space: nowrap;
 	font-weight: 300;
+}
+
+table td,
+table th {
+	padding: 1px 6px;
+}
+
+table th {
+	font-weight: 500;
+}
+
+#price-table th {
+	text-align: left;
+	width: 70%;
+}
+
+#price-table td,
+#deal-detail-table td {
+	text-align: right;
+}
+
+#price-table .underline {
+	border-bottom: 0.5px solid #aeb2b7;
+}
+
+#shutter-detail-table td,
+#shutter-detail-table th {
+	border: 0.5px solid #515151;
+}
+
+#shutter-detail-table th {
+	background-color: #e0e0e0;
+}
+
+#customer-detail-table,
+#deal-detail-table {
+	text-align: left;
+}
+
+#customer-detail-table th,
+#deal-detail-table th {
+	padding: 0;
+}
+
+/* summarized line items for proposal report */
+#proposal-table td,
+#proposal-table th {
+	text-align:left;
+	border: none;
+	padding-left: 10px;
+}
+
+#proposal-table td {
+	padding: 15px 10px;
+}
+
+#proposal-table tr {
+	border: 0.5px solid #aeb2b7;
+}
+
+/* 8.0 Reports
+--------------------------------------------------------------*/
+#report-logo img {
+  margin-bottom: 0;
+  max-height: 50px;
+  height: auto;
+  width: auto;
+}
+
+.report-title {
+	font-size: 34px;
+	letter-spacing: 1px;
+	font-weight: 500;
+	text-align: right;
+}
+
+#manufacturing-report .section-title {
+	background-color: #e0e0e0;
+	padding-left: 10px;
+	padding-top: 5px;
+	height: 30px;
+	margin-bottom: 5px;
 }
 
 /* 9.0 Clearings
@@ -381,7 +578,8 @@ li {
 }
 
 hr {
-  border: 0.5px solid #424a5d;
+	border-top: none;
+	border-bottom: 0.5px solid #515151;
   margin-top: 5px;
 	margin-bottom: 15px;
 }
@@ -400,6 +598,10 @@ hr {
 
 .lf {
   float: left;
+}
+
+.nf {
+	float: none;
 }
 
 .textcenter {
@@ -422,13 +624,11 @@ hr {
 	display: inline-block;
 }
 
-.fa-check {
-	color: #84bc4d;
-	font-size: 20px;
-	padding: 0 10px;
-}
+/*--------------------------------------------------------------
+11.0 RESPONSIVE STRUCTURE
+--------------------------------------------------------------*/
 
-/* 11.0 Responsive Structure
+/* 11.2 On Print
 --------------------------------------------------------------*/
 @media print {
 
@@ -436,25 +636,16 @@ hr {
         height: 99%;
     }
 
-  .noprint {
+	footer {
+		display: none;
+	}
+
+	.noprint {
     display: none;
   }
 
-  .wrapper {
-    margin:0;
-  }
-
-	.inner-wrapper {
-		padding-bottom: 0;
-	}
-
-  th, td {
-    border: 0.5px solid #aeb2b7;
-    color: #515151;
-  }
-
-	footer {
-		display: none;
+	body, table, tr, th, td, div {
+		color: #000 !important;
 	}
 
 }

@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from deals.models import Deal
 
 
 @login_required
 def Home(request):
-    return render(request, 'core/home.html')
+    deals = Deal.objects.all()
+    return render(request, 'core/home.html', {'deals': deals})
 
 
 @login_required

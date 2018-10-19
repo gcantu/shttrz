@@ -1,0 +1,61 @@
+
+<div class="section-title">LINE ITEM DETAILS</div>
+<hr>
+
+<div class="scroll-section">
+  <table id="shutter-detail-table">
+    <thead>
+      <tr>
+        <th class="hidden-btn"></th>
+        <th>#</th>
+        <th>Product</th>
+        <th>Location</th>
+        <th>Mount</th>
+        <th>Frame</th>
+        <th>Doors</th>
+        <th>T-posts</th>
+        <th>Louver</th>
+        <th>Tilt Rod</th>
+        <th>Finish</th>
+        <th>Stain</th>
+        <th>Color</th>
+        <th colspan=2>Hinges</th>
+        <th>Width</th>
+        <th>Height</th>
+        <th>Price/Sq. Ft.</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td class="hidden-btn no-padding">
+          <a class="btn btn-edit" type="button" href="{% url 'deals:edit-deal-item' item.id %}">
+            <i class="fas fa-pencil-alt"></i>
+          </a>
+        </td>
+
+        <td>{{ forloop.counter }}</td>
+        <td>{{ item.product }}</td>
+        <td>{{ item.location|title }}</td>
+        <td>{{ item.mount }}</td>
+        <td>{{ item.frame|default_if_none:"" }}</td>
+        <td>{{ item.panels }}</td>
+        <td>{{ item.t_post|default_if_none:"" }}</td>
+        <td>{{ item.get_louver_display }}</td>
+        <td>{{ item.tilt_rod }}</td>
+        <td>{{ item.finish }}</td>
+        <td>{{ item.stain|default_if_none:"" }}</td>
+        <td>{{ item.color|title }}</td>
+        <td>{{ item.hinges }}</td>
+        <td>{{ item.hinge_color }}</td>
+        <td>{{ item.width }} {{ item.get_width_fraction_display }}</td>
+        <td>{{ item.height|default_if_none:"" }} {{ item.get_height_fraction_display }}</td>
+        <td>$ {{ item.price_per_sq_ft }}</td>
+        <td>$ {{ item.total_price }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

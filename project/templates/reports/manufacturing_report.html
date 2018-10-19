@@ -1,0 +1,119 @@
+{% extends "reports/report_template.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block report %}
+
+<br>
+{% regroup items by product_id as product_list %}
+
+{% for i in product_list %}
+<div id="manufacturing-report" class="section wrapper no-padding">
+  {% for item in i.list %}
+  {% if forloop.first %}
+
+  <div class="section-title">
+  {{ item.product }}
+  </div> <!-- END section title -->
+
+    <div class="manuf-section-wrapper">
+      <div class="row">
+
+  {% endif %}
+  {% endfor %}
+
+          <div class="col no-padding">
+            <table class="table-theme02">
+              {% for item in i.list %}
+              {% if forloop.first %}
+              <thead>
+                <tr>
+                  <th colspan=2></th>
+                  <th colspan=2 class="left-border">L Frame</th>
+                  <th colspan=2 class="left-border">Louver</th>
+                  <th colspan=2 class="left-border">Rail</th>
+                  <th colspan=2 class="left-border">Stile</th>
+                  <th colspan=5 class="left-border"></th>
+                </tr>
+                <tr>
+                  <th>#</th>
+                  <th>Location</th>
+                  <th class="left-border">Width</th>
+                  <th>Height</th>
+                  <th class="left-border">Qty</th>
+                  <th>Measure</th>
+                  <th class="left-border">Qty</th>
+                  <th>Measure</th>
+                  <th class="left-border">Qty</th>
+                  <th>Measure</th>
+                  <th class="left-border">Frame</th>
+                  <th>Doors</th>
+                  <th>Tilt Rod</th>
+                  <th>Hinges</th>
+                  <th># Tpost</th>
+                </tr>
+              </thead>
+              {% endif %}
+              <tbody>
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ item.location }}</td>
+                  <td class="left-border">{{ item.l_frame_width }}</td>
+                  <td>{{ item.l_frame_height|default_if_none:"" }}</td>
+                  <td class="left-border">{{ item.louver_qty }}</td>
+                  <td>{{ item.louver_measure }}</td>
+                  <td class="left-border">{{ item.rail_qty }}</td>
+                  <td>{{ item.rail_measure }}</td>
+                  <td class="left-border">{{ item.stile_qty }}</td>
+                  <td>{{ item.stile_measure }}</td>
+                  <td>{{ item.frame }}</td>
+                  <td>{{ item.panels }}</td>
+                  <td>{{ item.tilt_rod_measure }}</td>
+                  <td>{{ item.hinges }}</td>
+                  <td>{{ item.t_post|default_if_none:"" }}</td>
+                </tr>
+              </tbody>
+              {% endfor %}
+            </table> <!-- END table -->
+          </div> <!-- END column -->
+        </div> <!-- END row -->
+      </div> <!-- END manuf section wrapper -->
+</div> <!-- END section wrapper -->
+<br>
+{% endfor %}
+
+<!-- ORDER MATERIALS -->
+<div class="row">
+  <div class="col-9">
+    <h6>MATERIALS:</h6>
+    <table class="table-theme03 mb">
+      <tbody>
+        <tr>
+          <td>L frame</td>
+          <td>Louver</td>
+          <td>Rail</td>
+          <td>Stile</td>
+          <td>Tilt Rod</td>
+          <td>Doors</td>
+          <td>Hinges</td>
+          <td>Magnets</td>
+          <td>Screws</td>
+        </tr>
+        <tr>
+          <td>{{ material.l_frame_material }} ft.</td>
+          <td>{{ material.louver_material }} ft.</td>
+          <td>{{ material.rail_material }} ft.</td>
+          <td>{{ material.stile_material }} ft.</td>
+          <td>{{ material.tilt_rod_material }} ft.</td>
+          <td>{{ material.panel_material }} ft.</td>
+          <td>{{ material.total_hinges }}</td>
+          <td>{{ material.total_magnets }}</td>
+          <td>{{ material.total_screws }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- END ORDER MATERIALS -->
+
+{% endblock %}
