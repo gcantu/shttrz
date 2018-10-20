@@ -126,6 +126,9 @@ class AbstractShutter(AbstractTenant):
         else:
             qty = round(((self._stile() - 10) / 3) * self.panels)
             qty = qty if (qty % 2) == 0 else (qty + 1) # if the number is not even, add 1
+
+        if self.height_divider: # if divider, subtract 1 louver per panel
+            qty = qty - self.panels
         return qty
 
     def rail_qty(self):
@@ -236,8 +239,10 @@ class Shutter(AbstractShutter):
     tilt_rod = models.ForeignKey(TiltRod, models.SET_NULL, blank=True, null=True)
     width = models.IntegerField(blank=True, null=True)
     height = models.IntegerField(blank=True, null=True)
+    height_divider = models.IntegerField(blank=True, null=True)
     width_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     height_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
+    height_divider_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     price_per_sq_ft = models.FloatField(blank=True, null=True)
 
     def save(self, *args, **kwargs):

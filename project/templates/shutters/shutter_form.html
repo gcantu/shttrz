@@ -127,10 +127,23 @@
                   </div>
                 </div>
 
+                <div class="form-section divider-field">
+                  <div class="form-row">
+                    <div class="col-3 col-md-2">
+                      <label>Divider</label>
+                      {% render_field  form.height_divider class="form-control" %}
+                    </div>
+                    <div class="col-3 col-md-2 col-lg-1 no-label">
+                      {% render_field  form.height_divider_fraction class="custom-select mr-sm-2" %}
+                    </div>
+                  </div>
+                </div>
+
                 <input class="btn btn-main" type="submit" value="Add"/>
                 <br>
 
           </form>
+          <button id="divider-button" class="btn nf">Add Divider</button>
         </div>
       </div>
     </div>

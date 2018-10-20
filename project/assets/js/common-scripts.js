@@ -27,6 +27,10 @@ $('#edit-items-toggle').on('click', function() { // show/hide line item edit but
    $(".hidden-btn").toggle();
 });
 
+$('#divider-button').on('click', function() { // add/remove divider field in line item form
+   $(".divider-field").toggle();
+});
+
 
 // FUNCTIONS
 

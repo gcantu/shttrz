@@ -22,6 +22,7 @@
         <th colspan=2>Hinges</th>
         <th>Width</th>
         <th>Height</th>
+        <th>Divider</th>
         <th>Price/Sq. Ft.</th>
         <th>Total</th>
       </tr>
@@ -52,6 +53,7 @@
         <td>{{ item.hinge_color }}</td>
         <td>{{ item.width }} {{ item.get_width_fraction_display }}</td>
         <td>{{ item.height|default_if_none:"" }} {{ item.get_height_fraction_display }}</td>
+        <td>{{ item.height_divider|default_if_none:"" }} {{ item.get_height_divider_fraction_display }}</td>
         <td>$ {{ item.price_per_sq_ft }}</td>
         <td>$ {{ item.total_price }}</td>
       </tr>

@@ -303,6 +303,10 @@ a:focus, a:active, a:hover {
 	margin: 5px 0;
 }
 
+#shutter-form .divider-field {
+	display: none;
+}
+
 .no-label {
   margin-top: 27px;
 }
