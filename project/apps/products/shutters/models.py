@@ -116,14 +116,20 @@ class AbstractShutter(AbstractTenant):
     # rail, louver, stile, tilt rod
     # ------------------------------------------------------
     def _rail(self):
-        Lwidth = self._l_frame_width()
+        l_width = self._l_frame_width()
+        hinge_offset = 0.125 # 1/8
+        opening_offset = 0.0625 # 1/16
 
         if self.panels == 1:
-            rail = Lwidth - 5.6875 # 5 11/16
+            reduction = (self.frame_style__measurement*2) + (self._stile_width()*2) + hinge_offset + opening_offset
+            rail = l_width - reduction
         elif self.panels == 2:
-            rail = ((Lwidth - 1.25) - 8.625) / 2
+            reduction = (self.frame_style__measurement*2) + (self._stile_width()*4) + (hinge_offset*2)
+            reduction = (reduction + self._t_post_width()) if self.t_post else (reduction + (opening_offset*2))
+            rail = (l_width - reduction) / 2
         else: # 4 panels
-            rail = (((Lwidth / 2) - 1.75) - 8.625) / 2 # 1 1/4, 8 5/8
+            reduction = (self.frame_style__measurement*2) + (self._stile_width()*8) + (hinge_offset*4) + (opening_offset*4) + self._t_post_width()
+            rail =(l_width - reduction) / 4
         return round(rail, 4)
 
     def _louver(self):
