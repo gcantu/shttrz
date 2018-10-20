@@ -5,18 +5,6 @@
 
 {% block content %}
 <div class="container wrapper">
-  {% if form.errors and not form.non_field_errors %}
-  <p>
-  {% if form.errors.items|length == 1 %}Please correct the error below.{% else %}Please correct the errors below.{% endif %}
-  </p>
-  {% endif %}
-
-  {% if form.non_field_errors %}
-  {% for error in form.non_field_errors %}
-    <p>{{ error }}</p>
-  {% endfor %}
-  {% endif %}
-
   <div class="row">
     <div class="col">
       <div class="section">
@@ -26,130 +14,127 @@
             {{ form.deal.as_hidden }}
             {{ form.tenant.as_hidden }}
 
-                <div class="form-title">Line Item Entry Form</div>
-                <div class="form-section">
-                  <div class="form-row">
-                    <div class="col-md-8 col-lg-6">
-                    {{ form.product.label_tag }}
-                    {% render_field  form.product class="custom-select mr-sm-2" %}
-                    </div>
-                    <div class="col-4 col-md-5 col-lg-2">
-                    {{ form.location.label_tag }}
-                    {% render_field  form.location class="form-control" %}
-                    </div>
-                    <div class="col-4 col-md-2">
-                    {{ form.mount.label_tag }}
-                    {% render_field  form.mount class="custom-select mr-sm-2" %}
-                    </div>
-                    <div class="col-4 col-md-2 frame-field hidden">
-                    {{ form.frame.label_tag }}
-                    {% render_field  form.frame class="custom-select mr-sm-2" %}
-                    </div>
-                  </div>
+            <div class="form-title">Line Item Entry Form</div>
+            <div class="form-section">
+              <div class="form-row">
+                <div class="col-md-8 col-lg-6">
+                {{ form.product.label_tag }}
+                {% render_field  form.product class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-4 col-md-5 col-lg-2">
+                {{ form.location.label_tag }}
+                {% render_field  form.location class="form-control" %}
+                </div>
+                <div class="col-4 col-md-2">
+                {{ form.mount.label_tag }}
+                {% render_field  form.mount class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-4 col-md-2 frame-field hidden">
+                {{ form.frame.label_tag }}
+                {% render_field  form.frame class="custom-select mr-sm-2" %}
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="form-row">
+                <div class="col-5 col-md-2">
+                  {{ form.width.label_tag }}
+                  {% render_field  form.width class="form-control" %}
+                </div>
+                <div class="col-3 col-md-2 col-lg-1 no-label">
+                  {% render_field  form.width_fraction class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-5 col-md-2">
+                  {{ form.height.label_tag }}
+                  {% render_field  form.height class="form-control" %}
+                </div>
+                <div class="col-3 col-md-2 col-lg-1 no-label">
+                  {% render_field  form.height_fraction class="custom-select mr-sm-2" %}
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="form-row">
+                <div class="col-3 col-md-1">
+                  <label>Doors</label>
+                  {% render_field  form.panels class="form-control" %}
                 </div>
 
-                <div class="form-section">
-                  <div class="form-row">
-                    <div class="col-5 col-md-2">
-                      {{ form.width.label_tag }}
-                      {% render_field  form.width class="form-control" %}
-                    </div>
-                    <div class="col-3 col-md-2 no-label">
-                      {% render_field  form.width_fraction class="custom-select mr-sm-2" %}
-                    </div>
-                    <div class="col-5 col-md-2 height-field">
-                      {{ form.height.label_tag }}
-                      {% render_field  form.height class="form-control" %}
-                    </div>
-                    <div class="col-3 col-md-2 no-label height-field">
-                      {% render_field  form.height_fraction class="custom-select mr-sm-2" %}
-                    </div>
-                  </div>
+                <div class="col-4 col-md-2">
+                  {{ form.hinges.label_tag }}
+                  {% render_field  form.hinges class="custom-select mr-sm-2" %}
                 </div>
 
-                <div class="form-section">
-                  <div class="form-row">
-                    <div class="col-3 col-md-1 panel-field">
-                      <label>Doors</label>
-                      {% render_field  form.panels class="form-control" %}
-                    </div>
-
-                    <div class="col-4 col-md-2">
-                      {{ form.hinges.label_tag }}
-                      {% render_field  form.hinges class="custom-select mr-sm-2" %}
-                    </div>
-
-                    <div class="col-5 col-md-3">
-                      {{ form.hinge_color.label_tag }}
-                      {% render_field  form.hinge_color class="custom-select mr-sm-2" %}
-                    </div>
-
-                    <div class="col-4 col-md-2">
-                      {{ form.tilt_rod.label_tag }}
-                      {% render_field  form.tilt_rod class="custom-select mr-sm-2" %}
-                    </div>
-
-                    <div class="col-4 col-md-2 louver-field">
-                      {{ form.louver.label_tag }}
-                      {% render_field  form.louver class="custom-select mr-sm-2" %}
-                    </div>
-
-                    <div class="col-4 col-md-2">
-                      <label># of T-post</label>
-                      {% render_field  form.t_post class="form-control" %}
-                    </div>
-                  </div>
+                <div class="col-5 col-md-3">
+                  {{ form.hinge_color.label_tag }}
+                  {% render_field  form.hinge_color class="custom-select mr-sm-2" %}
                 </div>
 
-                <div class="form-section">
-                  <div class="form-row">
-                    <div class="col-3 col-md-3 col-lg-2">
-                      {{ form.finish.label_tag }}
-                      {% render_field  form.finish class="custom-select mr-sm-2" %}
-                    </div>
-                    <div class="col-5 col-md-3 col-lg-2 stain-field hidden">
-                      {{ form.stain.label_tag }}
-                      {% render_field  form.stain class="custom-select mr-sm-2" %}
-                    </div>
-                    <div class="col-4 col-md-3 col-lg-2">
-                      {{ form.color.label_tag }}
-                      {% render_field  form.color class="form-control" %}
-                    </div>
-                  </div>
+                <div class="col-4 col-md-2">
+                  {{ form.tilt_rod.label_tag }}
+                  {% render_field  form.tilt_rod class="custom-select mr-sm-2" %}
                 </div>
 
-                <div class="form-section">
-                  <div class="form-row">
-                    <div class="col-4 col-md-3 col-lg-2">
-                      {{ form.price_per_sq_ft.label_tag }}
-                      {% render_field  form.price_per_sq_ft class="form-control" %}
-                    </div>
-                  </div>
+                <div class="col-4 col-md-2">
+                  {{ form.louver.label_tag }}
+                  {% render_field  form.louver class="custom-select mr-sm-2" %}
                 </div>
 
-                <div class="form-section divider-field">
-                  <div class="form-row">
-                    <div class="col-3 col-md-2">
-                      <label>Divider</label>
-                      {% render_field  form.height_divider class="form-control" %}
-                    </div>
-                    <div class="col-3 col-md-2 col-lg-1 no-label">
-                      {% render_field  form.height_divider_fraction class="custom-select mr-sm-2" %}
-                    </div>
-                  </div>
+                <div class="col-4 col-md-2">
+                  <label># of T-post</label>
+                  {% render_field  form.t_post class="form-control" %}
                 </div>
+              </div>
+            </div>
 
-                <input class="btn btn-main" type="submit" value="Add"/>
-                <br>
+            <div class="form-section">
+              <div class="form-row">
+                <div class="col-3 col-md-3 col-lg-2">
+                  {{ form.finish.label_tag }}
+                  {% render_field  form.finish class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-5 col-md-3 col-lg-2 stain-field hidden">
+                  {{ form.stain.label_tag }}
+                  {% render_field  form.stain class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-4 col-md-3 col-lg-2">
+                  {{ form.color.label_tag }}
+                  {% render_field  form.color class="form-control" %}
+                </div>
+              </div>
+            </div>
 
-          </form>
+            <div class="form-section">
+              <div class="form-row">
+                <div class="col-4 col-md-3 col-lg-2">
+                  {{ form.price_per_sq_ft.label_tag }}
+                  {% render_field  form.price_per_sq_ft class="form-control" %}
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section divider-field">
+              <div class="form-row">
+                <div class="col-3 col-md-2">
+                  <label>Divider</label>
+                  {% render_field  form.height_divider class="form-control" %}
+                </div>
+                <div class="col-3 col-md-2 col-lg-1 no-label">
+                  {% render_field  form.height_divider_fraction class="custom-select mr-sm-2" %}
+                </div>
+              </div>
+            </div>
+
+            <input class="btn btn-main" type="submit" value="Add"/><br>
+          </form> <!-- END form -->
+
           <button id="divider-button" class="btn nf">Add Divider</button>
         </div>
       </div>
     </div>
-  </div>
-
-  <br>
+  </div><br> <!-- END row -->
 
   {% if create %}
   <div class="row">
@@ -165,10 +150,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> <!-- END row -->
   {% endif %}
-</div>
-
-
-
+</div> <!-- END container wrapper -->
 {% endblock %}
