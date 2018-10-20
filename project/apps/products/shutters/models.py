@@ -79,6 +79,16 @@ class FrameStyle(AbstractTenant):
 
 
 class AbstractShutter(AbstractTenant):
+    # standard measurements
+    # ------------------------------------------------------
+    def _stile_width(self):
+        return 2
+
+    def _t_post_width(self):
+        return 1.25
+
+    # L frame reductions
+    # ------------------------------------------------------
     def _width(self):
         w = self.width + self.width_fraction
         return w
@@ -102,10 +112,6 @@ class AbstractShutter(AbstractTenant):
         mt = 'height'
         l = self._get_lframe(mt)
         return l
-
-    def total_sq_ft(self):
-        sq_ft = (self._width() * self._height())/144
-        return round(sq_ft, 2)
 
     # rail, louver, stile, tilt rod
     # ------------------------------------------------------
