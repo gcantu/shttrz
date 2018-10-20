@@ -63,6 +63,21 @@ class TiltRod(AbstractTenant):
         return reverse('tilt-rod-detail', kwargs={'pk': self.pk})
 
 
+class FrameStyle(AbstractTenant):
+    frame_style = models.CharField(max_length=50)
+    measurement = models.FloatField(blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        self.frame_style = self.frame_style.capitalize()
+        return super(Frame, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.frame_style
+
+    def get_absolute_url(self):
+        return reverse('frame-detail', kwargs={'pk': self.pk})
+
+
 class AbstractShutter(AbstractTenant):
     def _width(self):
         w = self.width + self.width_fraction
@@ -232,6 +247,7 @@ class Shutter(AbstractShutter):
     louver = models.FloatField(choices=LOUVER_CHOICES, blank=True, null=True)
     mount = models.CharField(max_length=3, choices=MOUNT_CHOICES, blank=True)
     frame = models.IntegerField(choices=FRAME_CHOICES, default=0)
+    frame_style = models.ForeignKey(FrameStyle, models.SET_NULL, blank=True, null=True)
     panels = models.IntegerField(blank=True, null=True)
     t_post = models.IntegerField(blank=True, null=True)
     hinges = models.CharField(max_length=2, choices=HINGE_CHOICES, blank=True)
@@ -248,6 +264,9 @@ class Shutter(AbstractShutter):
     def save(self, *args, **kwargs):
         self.location = self.location.capitalize()
         self.color = self.color.capitalize()
+
+        # use L frame for stain and Z frame for paint
+        self.frame_style_id = 1 if self.finish == 'Stain' else 2
         return super(Shutter, self).save(*args, **kwargs)
 
     def __str__(self):

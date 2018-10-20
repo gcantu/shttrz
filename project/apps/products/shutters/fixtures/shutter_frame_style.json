@@ -1,0 +1,20 @@
+[
+  {
+    "model": "shutters.FrameStyle",
+    "pk": 1,
+    "fields": {
+      "frame_style": "L Frame 3/4\"",
+      "measurement": 0.75,
+      "tenant": 1
+    }
+  },
+  {
+    "model": "shutters.FrameStyle",
+    "pk": 2,
+    "fields": {
+      "frame_style": "Z Frame 1\"",
+      "measurement": 1,
+      "tenant": 1
+    }
+  }
+]

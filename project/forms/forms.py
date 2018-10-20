@@ -25,4 +25,4 @@ class PriceForm(ModelForm):
 class ShutterForm(ModelForm):
     class Meta:
         model = Shutter
-        fields = '__all__'
+        exclude = ['frame_style']
