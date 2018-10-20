@@ -307,6 +307,13 @@ a:focus, a:active, a:hover {
 	display: none;
 }
 
+#shutter-form .field-message {
+	color: #2eadb8;
+	font-size: 14px;
+	letter-spacing: 1px;
+	font-weight: 400;
+}
+
 .no-label {
   margin-top: 27px;
 }

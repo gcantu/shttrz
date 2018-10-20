@@ -31,8 +31,43 @@ $('#divider-button').on('click', function() { // add/remove divider field in lin
    $(".divider-field").toggle();
 });
 
+$('#id_product').on('change', function() { // hide/unhide panel, center, left, and right height fields
+  var selectedItem = $(this).val();
+
+  showMeasureField(selectedItem);
+});
+
 
 // FUNCTIONS
+function showMeasureField(val){ // function to render hidden fields in line item form
+  var val = val;
+
+  if (val == 6 || val == 8 || val == 13 || val == 15) { // remove t-post from these models
+    $(".t-post-field").addClass("hidden");
+    $("#id_t_post").val("");
+  } else {
+    $(".t-post-field").removeClass("hidden");
+  }
+
+  if (val > 13) { // add panel height to model #14 and #15
+    $(".panel-height-field").removeClass("hidden");
+  } else {
+    $(".panel-height-field").addClass("hidden");
+  }
+
+  if (val > 11) { // add left and right height to models #12 - #15
+    $(".lr-height-field").removeClass("hidden");
+  } else {
+    $(".lr-height-field").addClass("hidden");
+  }
+
+  if (val == 13 || val == 15) { // add center height to models #13 and #15
+    $(".center-height-field").removeClass("hidden");
+  } else {
+    $(".center-height-field").addClass("hidden");
+  }
+
+};
 
 
 }); // Document is ready

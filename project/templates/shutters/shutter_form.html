@@ -42,15 +42,50 @@
                   {{ form.width.label_tag }}
                   {% render_field  form.width class="form-control" %}
                 </div>
-                <div class="col-3 col-md-2 col-lg-1 no-label">
+                <div class="col-3 col-md-1 no-label">
                   {% render_field  form.width_fraction class="custom-select mr-sm-2" %}
                 </div>
                 <div class="col-5 col-md-2">
                   {{ form.height.label_tag }}
                   {% render_field  form.height class="form-control" %}
                 </div>
-                <div class="col-3 col-md-2 col-lg-1 no-label">
+                <div class="col-3 col-md-1 no-label">
                   {% render_field  form.height_fraction class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-5 col-md-2 panel-height-field">
+                  <label>Panel Height:</label>
+                  {% render_field  form.height_panel class="form-control" %}
+                </div>
+                <div class="col-3 col-md-1 no-label panel-height-field">
+                  {% render_field  form.height_panel_fraction class="custom-select mr-sm-2" %}
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section lr-height-field">
+              <div class="field-message">Additional Height Measurements</div>
+              <br>
+              <div class="form-row">
+                <div class="col-5 col-md-2">
+                  <label>Left</label>
+                  {% render_field  form.height_left class="form-control" %}
+                </div>
+                <div class="col-3 col-md-1 no-label">
+                  {% render_field  form.height_left_fraction class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-5 col-md-2">
+                  <label>Right</label>
+                  {% render_field  form.height_right class="form-control" %}
+                </div>
+                <div class="col-3 col-md-1 no-label">
+                  {% render_field  form.height_right_fraction class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-5 col-md-2 center-height-field">
+                  <label>Center</label>
+                  {% render_field  form.height_center class="form-control" %}
+                </div>
+                <div class="col-3 col-md-1 no-label center-height-field">
+                  {% render_field  form.height_center_fraction class="custom-select mr-sm-2" %}
                 </div>
               </div>
             </div>
@@ -82,7 +117,7 @@
                   {% render_field  form.louver class="custom-select mr-sm-2" %}
                 </div>
 
-                <div class="col-4 col-md-2">
+                <div class="col-4 col-md-2 t-post-field">
                   <label># of T-post</label>
                   {% render_field  form.t_post class="form-control" %}
                 </div>

@@ -268,9 +268,17 @@ class Shutter(AbstractShutter):
     width = models.IntegerField(blank=True, null=True)
     height = models.IntegerField(blank=True, null=True)
     height_divider = models.IntegerField(blank=True, null=True)
+    height_panel = models.IntegerField(blank=True, null=True)
+    height_center = models.IntegerField(blank=True, null=True)
+    height_left = models.IntegerField(blank=True, null=True)
+    height_right = models.IntegerField(blank=True, null=True)
     width_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     height_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     height_divider_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
+    height_panel_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
+    height_center_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
+    height_left_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
+    height_right_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     price_per_sq_ft = models.FloatField(blank=True, null=True)
 
     def save(self, *args, **kwargs):
@@ -279,6 +287,20 @@ class Shutter(AbstractShutter):
 
         # use L frame for stain and Z frame for paint
         self.frame_style_id = 1 if self.finish == 'Stain' else 2
+
+        # set panel height for models #1, #7 and #8
+        if self.product_id == 1:
+            self.height_panel = self.height
+            self.height_panel_fraction = self.height_fraction
+        elif self.product_id == 7:
+            h = (self.height + self.height_fraction) - ((self.width + self.width_fraction)/2)
+            self.height_panel = int(h)
+            self.height_panel_fraction = round(h % 1, 2)
+        else: #8
+            h = (self.height + self.height_fraction) - (self.width + self.width_fraction)
+            self.height_panel = int(h)
+            self.height_panel_fraction = round(h % 1, 2)
+
         return super(Shutter, self).save(*args, **kwargs)
 
     def __str__(self):
