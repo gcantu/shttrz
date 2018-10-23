@@ -119,16 +119,18 @@ class AbstractShutter(AbstractTenant):
         l_width = self._l_frame_width()
         hinge_offset = 0.125 # 1/8
         opening_offset = 0.0625 # 1/16
+        framestyle_measurement = FrameStyle.objects.get(pk=self.frame_style_id)
+        framestyle_measurement = framestyle_measurement.measurement
 
         if self.panels == 1:
-            reduction = (self.frame_style__measurement*2) + (self._stile_width()*2) + hinge_offset + opening_offset
+            reduction = (framestyle_measurement*2) + (self._stile_width()*2) + hinge_offset + opening_offset
             rail = l_width - reduction
         elif self.panels == 2:
-            reduction = (self.frame_style__measurement*2) + (self._stile_width()*4) + (hinge_offset*2)
+            reduction = (framestyle_measurement*2) + (self._stile_width()*4) + (hinge_offset*2)
             reduction = (reduction + self._t_post_width()) if self.t_post else (reduction + (opening_offset*2))
             rail = (l_width - reduction) / 2
         else: # 4 panels
-            reduction = (self.frame_style__measurement*2) + (self._stile_width()*8) + (hinge_offset*4) + (opening_offset*4) + self._t_post_width()
+            reduction = (framestyle_measurement*2) + (self._stile_width()*8) + (hinge_offset*4) + (opening_offset*4) + self._t_post_width()
             rail =(l_width - reduction) / 4
         return round(rail, 4)
 
