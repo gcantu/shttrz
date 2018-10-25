@@ -4,17 +4,23 @@
 
 
 {% block content %}
-<div class="container wrapper">
-  <div class="row">
-    <div class="col">
-      <div class="section">
-        <div class="section-wrapper">
-          <form id="shutter-form" method="post">
-            {% csrf_token %}
-            {{ form.deal.as_hidden }}
-            {{ form.tenant.as_hidden }}
+<div class="wrapper">
+  <div class="section">
+    {% if not create %}
+    <div>
+      <a class="btn" href="{% url 'deals:deal-summary' deal_id %}" role="button">Go Back</a>
+    </div>
+    {% endif %}
 
-            <div class="form-title">Line Item Entry Form</div>
+    <form id="shutter-form" method="post">
+    {% csrf_token %}
+    {{ form.deal.as_hidden }}
+    {{ form.tenant.as_hidden }}
+      <div class="container">
+        <div class="form-title">Line Item Entry Form</div>
+
+        <div class="row">
+          <div class="col-9">
             <div class="form-section">
               <div class="form-row">
                 <div class="col-md-8 col-lg-6">
@@ -42,21 +48,21 @@
                   {{ form.width.label_tag }}
                   {% render_field  form.width class="form-control" %}
                 </div>
-                <div class="col-3 col-md-1 no-label">
+                <div class="col-3 col-md-2 no-label">
                   {% render_field  form.width_fraction class="custom-select mr-sm-2" %}
                 </div>
                 <div class="col-5 col-md-2">
                   {{ form.height.label_tag }}
                   {% render_field  form.height class="form-control" %}
                 </div>
-                <div class="col-3 col-md-1 no-label">
+                <div class="col-3 col-md-2 no-label">
                   {% render_field  form.height_fraction class="custom-select mr-sm-2" %}
                 </div>
                 <div class="col-5 col-md-2 panel-height-field">
                   <label>Panel Height:</label>
                   {% render_field  form.height_panel class="form-control" %}
                 </div>
-                <div class="col-3 col-md-1 no-label panel-height-field">
+                <div class="col-3 col-md-2 no-label panel-height-field">
                   {% render_field  form.height_panel_fraction class="custom-select mr-sm-2" %}
                 </div>
               </div>
@@ -70,21 +76,21 @@
                   <label>Left</label>
                   {% render_field  form.height_left class="form-control" %}
                 </div>
-                <div class="col-3 col-md-1 no-label">
+                <div class="col-3 col-md-2 no-label">
                   {% render_field  form.height_left_fraction class="custom-select mr-sm-2" %}
                 </div>
                 <div class="col-5 col-md-2">
                   <label>Right</label>
                   {% render_field  form.height_right class="form-control" %}
                 </div>
-                <div class="col-3 col-md-1 no-label">
+                <div class="col-3 col-md-2 no-label">
                   {% render_field  form.height_right_fraction class="custom-select mr-sm-2" %}
                 </div>
                 <div class="col-5 col-md-2 center-height-field">
                   <label>Center</label>
                   {% render_field  form.height_center class="form-control" %}
                 </div>
-                <div class="col-3 col-md-1 no-label center-height-field">
+                <div class="col-3 col-md-2 no-label center-height-field">
                   {% render_field  form.height_center_fraction class="custom-select mr-sm-2" %}
                 </div>
               </div>
@@ -124,17 +130,41 @@
               </div>
             </div>
 
+            <div class="form-section divider-field">
+              <div class="form-row">
+                <div class="col-3 col-md-2">
+                  <label>Divider</label>
+                  {% render_field  form.height_divider class="form-control" %}
+                </div>
+                <div class="col-3 col-md-2 col-lg-2 no-label">
+                  {% render_field  form.height_divider_fraction class="custom-select mr-sm-2" %}
+                </div>
+              </div>
+            </div>
+          </div> <!-- END col -->
+
+          <div class="col-3">
+            <div class="form-section textcenter">
+              {% with img_id=prod_id|stringformat:"s" %}
+              {% with 'img/model'|add:img_id|add:'.png' as image_static %}
+                <img class="product-img" src="{% static image_static %}" alt="hey">
+              {% endwith %}
+              {% endwith %}
+            </div>
+
+
+
             <div class="form-section">
               <div class="form-row">
-                <div class="col-3 col-md-3 col-lg-2">
+                <div class="col-12">
                   {{ form.finish.label_tag }}
                   {% render_field  form.finish class="custom-select mr-sm-2" %}
                 </div>
-                <div class="col-5 col-md-3 col-lg-2 stain-field hidden">
+                <div class="col-12 stain-field hidden">
                   {{ form.stain.label_tag }}
                   {% render_field  form.stain class="custom-select mr-sm-2" %}
                 </div>
-                <div class="col-4 col-md-3 col-lg-2">
+                <div class="col-12">
                   {{ form.color.label_tag }}
                   {% render_field  form.color class="form-control" %}
                 </div>
@@ -143,49 +173,45 @@
 
             <div class="form-section">
               <div class="form-row">
-                <div class="col-4 col-md-3 col-lg-2">
+                <div class="col">
                   {{ form.price_per_sq_ft.label_tag }}
                   {% render_field  form.price_per_sq_ft class="form-control" %}
                 </div>
               </div>
             </div>
 
-            <div class="form-section divider-field">
-              <div class="form-row">
-                <div class="col-3 col-md-2">
-                  <label>Divider</label>
-                  {% render_field  form.height_divider class="form-control" %}
-                </div>
-                <div class="col-3 col-md-2 col-lg-1 no-label">
-                  {% render_field  form.height_divider_fraction class="custom-select mr-sm-2" %}
-                </div>
-              </div>
-            </div>
+          </div> <!-- END col -->
+        </div> <!-- END row -->
 
-            <input class="btn btn-main" type="submit" value="Add"/><br>
-          </form> <!-- END form -->
+        <div class="row">
+          <div class="col">
+          </div> <!-- END col -->
+        </div> <!-- END row -->
 
-          <button id="divider-button" class="btn nf">Add Divider</button>
-        </div>
-      </div>
-    </div>
-  </div><br> <!-- END row -->
+        <input class="btn btn-main" type="submit" value="Add"/><br>
 
-  {% if create %}
-  <div class="row">
-    <div class="col">
-      <div class="section">
-        <div class="section-wrapper">
-          {% include 'shutters/shutter_detail.html' %}
-          <br>
-          <a class="btn" href="{% url 'deals:add-deal-price' deal_id %}" role="button">Continue</a>
-          <br>
+      </div> <!-- END container -->
+    </form> <!-- END form -->
+
+    <button id="divider-button" class="btn nf">Add Divider</button>
+
+    {% if create %}
+    <div class="row">
+      <div class="col">
+        <div class="section">
+          <div class="section-wrapper">
+            {% include 'shutters/shutter_detail.html' %}
+            <br>
+            <a class="btn" href="{% url 'deals:add-deal-price' deal_id %}" role="button">Continue</a>
+            <br>
+          </div>
+          <div class="section-decoration">
+          </div>
         </div>
-        <div class="section-decoration">
-        </div>
-      </div>
-    </div>
-  </div> <!-- END row -->
-  {% endif %}
-</div> <!-- END container wrapper -->
+      </div> <!-- END col -->
+    </div> <!-- END row -->
+    {% endif %}
+
+  </div> <!-- END section -->
+</div> <!-- END wrapper -->
 {% endblock %}

@@ -314,6 +314,11 @@ a:focus, a:active, a:hover {
 	font-weight: 400;
 }
 
+#shutter-form .product-img {
+	max-width: 150px;
+	max-height: 140px;
+}
+
 .no-label {
   margin-top: 27px;
 }

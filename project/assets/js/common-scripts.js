@@ -38,6 +38,12 @@ $('#id_product').on('change', function() { // hide/unhide panel, center, left, a
 });
 
 
+$('#id_product').on('change', function() { // render shutter model image
+  var model = "/static/img/model" + $(this).val() + ".png";
+  $('.product-img').prop('src', model);
+});
+
+
 // FUNCTIONS
 function showMeasureField(val){ // function to render hidden fields in line item form
   var val = val;
