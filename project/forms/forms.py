@@ -13,7 +13,7 @@ class CustomerForm(ModelForm):
 class DealForm(ModelForm):
     class Meta:
         model = Deal
-        fields = '__all__'
+        exclude = ['is_deleted']
 
 
 class PriceForm(ModelForm):
