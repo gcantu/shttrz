@@ -12,5 +12,8 @@ urlpatterns = [
     path('edit_deal/<int:pk>', views.edit_deal_info, name='edit-deal-info'),
     path('edit_item/<int:pk>', views.edit_deal_item, name='edit-deal-item'),
     path('edit_pricing/<int:pk>', views.edit_deal_price, name='edit-deal-price'),
+    path('delete_confirmation/<int:pk>', views.confirm_delete, name='confirm-delete'),
+    path('delete_deal/<int:pk>', views.delete_deal, name='delete-deal'),
+    path('delete_item/<int:pk>', views.DeleteItem.as_view(), name='delete-deal-item'),
     path('summary/<int:pk>', views.deal_summary, name='deal-summary'),
 ]

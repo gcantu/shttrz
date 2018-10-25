@@ -6,15 +6,7 @@
 
 <div class="list-section">
 
-  <div class="section-data x-small">
-    <div><h6 class="no-margin list-item-title">{{ deal.customer }} - ${{ deal.price__total|floatformat|intcomma }}</h6></div>
-    <br>
-    <div class="month-field" value="{{ p.created_date.month }}"><b>Created date:</b> {{ deal.created_date }}</div>
-    <div><b>Installation date:</b> {{ deal.install_date }}</div>
-    <br>
-  </div>
-
-  <a class="btn btn-delete" href="" role="button">
+  <a class="btn btn-delete" href="{% url 'deals:confirm-delete' deal.id %}" role="button">
     <i class="fas fa-times"></i>
   </a>
 
@@ -25,6 +17,14 @@
   <a class="btn btn-edit" href="{% url 'deals:deal-summary' deal.id %}" role="button">
     <i class="fas fa-pencil-alt"></i>
   </a>
+
+  <div class="wrapper">
+    <div><h6 class="no-margin list-item-title">{{ deal.customer }} - ${{ deal.price__total|floatformat|intcomma }}</h6></div>
+    <br>
+    <div class="month-field" value="{{ p.created_date.month }}"><b>Created date:</b> {{ deal.created_date }}</div>
+    <div><b>Installation date:</b> {{ deal.install_date }}</div>
+    <br>
+  </div>
 
 </div>
 

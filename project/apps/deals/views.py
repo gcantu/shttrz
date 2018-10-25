@@ -1,6 +1,7 @@
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import DeleteView
 from tenants.utils import tenant_from_request
 from .models import Deal, Price
 from shutters.models import Shutter, Material
@@ -98,7 +99,7 @@ def edit_deal_item(request, pk):
         form.save()
         return redirect(reverse('deals:add-deal-price', kwargs={'pk': shutter.deal_id}))
 
-    return render(request, 'shutters/shutter_form.html', {'form': form})
+    return render(request, 'shutters/shutter_form.html', {'form': form, 'prod_id': shutter.product_id, 'deal_id': shutter.deal_id})
 
 
 def edit_deal_info(request, pk):
@@ -126,6 +127,30 @@ def edit_deal_price(request, pk):
         return redirect(reverse('deals:deal-summary', kwargs={'pk': pk}))
 
     return render(request, 'deals/price_form.html', {'form': form, 'price': price})
+
+
+# -----------------------------------------------
+# DELETE VIEWS
+# -----------------------------------------------
+def confirm_delete(request, pk):
+    return render(request, 'deals/deal_delete.html', {'pk': pk})
+
+
+def delete_deal(request, pk):
+    deal = Deal.objects.get(pk=pk)
+    deal.is_deleted = True
+    deal.save()
+
+    return redirect(reverse('core:home'))
+
+
+class DeleteItem(DeleteView):
+    model = Shutter
+    template_name = 'shutters/shutter_delete.html'
+
+    def get_success_url(self):
+        return redirect(reverse('deals:add-deal-price', kwargs={'pk': self.get_object().deal_id}))
+        # return reverse('deals:deal-summary', kwargs={'pk': self.get_object().deal_id})
 
 
 # -----------------------------------------------

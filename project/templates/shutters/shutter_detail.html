@@ -38,6 +38,12 @@
           </a>
         </td>
 
+        <td class="hidden-btn no-padding">
+          <a class="btn btn-delete" type="button" href="{% url 'deals:delete-deal-item' item.id %}">
+            <i class="fas fa-times"></i>
+          </a>
+        </td>
+
         <td>{{ forloop.counter }}</td>
         <td>{{ item.product }}</td>
         <td>{{ item.location|title }}</td>
