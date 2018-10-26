@@ -13,6 +13,7 @@
         <th>Mount</th>
         <th>Frame</th>
         <th>Frame Style</th>
+        <th>Trim Style</th>
         <th>Doors</th>
         <th>T-posts</th>
         <th>Louver</th>
@@ -50,6 +51,7 @@
         <td>{{ item.mount }}</td>
         <td>{{ item.frame|default_if_none:"" }}</td>
         <td>{{ item.frame_style }}</td>
+        <td>{{ item.trim_style|default_if_none:"" }}</td>
         <td>{{ item.panels }}</td>
         <td>{{ item.t_post|default_if_none:"" }}</td>
         <td>{{ item.get_louver_display }}</td>

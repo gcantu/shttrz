@@ -9,6 +9,7 @@ $('#id_mount').on('change', function() { // show frame field when mount = 'outsi
   } else {
     $(".frame-field").addClass("hidden");
     $("#id_frame").val(0);
+    $("#id_trim_style").val("");
   }
 });
 

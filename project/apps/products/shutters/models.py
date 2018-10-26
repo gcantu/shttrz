@@ -69,13 +69,28 @@ class FrameStyle(AbstractTenant):
 
     def save(self, *args, **kwargs):
         self.frame_style = self.frame_style.capitalize()
-        return super(Frame, self).save(*args, **kwargs)
+        return super(FrameStyle, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.frame_style
 
     def get_absolute_url(self):
         return reverse('frame-detail', kwargs={'pk': self.pk})
+
+
+class TrimStyle(AbstractTenant):
+    trim_style = models.CharField(max_length=50)
+
+    def save(self, *args, **kwargs):
+        self.trim_style = self.trim_style.capitalize()
+        return super(TrimStyle, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.trim_style
+
+    def get_absolute_url(self):
+        return reverse('trim-detail', kwargs={'pk': self.pk})
+
 
 
 class AbstractShutter(AbstractTenant):
@@ -262,6 +277,7 @@ class Shutter(AbstractShutter):
     mount = models.CharField(max_length=3, choices=MOUNT_CHOICES, blank=True)
     frame = models.IntegerField(choices=FRAME_CHOICES, default=0)
     frame_style = models.ForeignKey(FrameStyle, models.SET_NULL, blank=True, null=True)
+    trim_style = models.ForeignKey(TrimStyle, models.SET_NULL, blank=True, null=True)
     panels = models.IntegerField(blank=True, null=True)
     t_post = models.IntegerField(blank=True, null=True)
     hinges = models.CharField(max_length=2, choices=HINGE_CHOICES, blank=True)

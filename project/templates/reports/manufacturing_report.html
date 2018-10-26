@@ -75,6 +75,11 @@
             <th>Mount:</th>
             <td>{{ item.frame_style }} {{ item.get_frame_display }}</td>
 
+            {% if item.trim_style %}
+            <th>Trim:</th>
+            <td>{{ item.trim_style }}</td>
+            {% endif %}
+
             <th>Panels:</th>
             <td>{{ item.panels }}</td>
 

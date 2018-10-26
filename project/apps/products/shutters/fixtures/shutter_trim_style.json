@@ -1,0 +1,34 @@
+[
+  {
+    "model": "shutters.TrimStyle",
+    "pk": 1,
+    "fields": {
+      "trim_style": "Decorative",
+      "tenant": 1
+    }
+  },
+  {
+    "model": "shutters.TrimStyle",
+    "pk": 2,
+    "fields": {
+      "trim_style": "Round",
+      "tenant": 1
+    }
+  },
+  {
+    "model": "shutters.TrimStyle",
+    "pk": 3,
+    "fields": {
+      "trim_style": "Square",
+      "tenant": 1
+    }
+  },
+  {
+    "model": "shutters.TrimStyle",
+    "pk": 4,
+    "fields": {
+      "trim_style": "Z (Primed)",
+      "tenant": 1
+    }
+  }
+]
