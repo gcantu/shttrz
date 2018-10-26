@@ -565,6 +565,49 @@ table th {
 	margin-bottom: 5px;
 }
 
+#manufacturing-report .product-img {
+	max-width: 100px;
+	max-height: 90px;
+}
+
+.item-measurements-table thead {
+	border-bottom: 0.5px solid #515151;
+}
+
+.item-measurements-table tr:first-child th {
+	border-right: 0.5px solid #515151;
+}
+
+.item-measurements-table tr:first-child th:last-child {
+	border: none;
+}
+
+.item-measurements-table th:nth-child(2),
+.item-measurements-table th:nth-child(4),
+.item-measurements-table th:nth-child(6),
+.item-measurements-table th:nth-child(8),
+.item-measurements-table th:nth-child(9),
+.item-measurements-table td:nth-child(2),
+.item-measurements-table td:nth-child(4),
+.item-measurements-table td:nth-child(6),
+.item-measurements-table td:nth-child(8),
+.item-measurements-table td:nth-child(9) {
+	border-right: 0.5px solid #515151;
+}
+
+.item-design-table th {
+	text-align: right;
+}
+
+.item-design-table td {
+	text-align: left;
+	padding: 1px 3px;
+}
+
+.materials-table th {
+	border-bottom: 0.5px solid #515151;
+}
+
 /* 9.0 Clearings
 --------------------------------------------------------------*/
 .clearfix {
