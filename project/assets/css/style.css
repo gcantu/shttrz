@@ -613,6 +613,11 @@ table th {
 	border-bottom: 0.5px solid #515151;
 }
 
+.signature {
+	border-top: 0.5px solid #aeb2b7;
+	margin-top: 40px;
+}
+
 /* 9.0 Clearings
 --------------------------------------------------------------*/
 .clearfix {

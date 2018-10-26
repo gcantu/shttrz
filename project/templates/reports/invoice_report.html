@@ -1,0 +1,76 @@
+{% extends "reports/report_template.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block report %}
+<div class="row">
+  <div class="col">
+    <table id="proposal-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Location</th>
+            <th>Description</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for item in items %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ item.location }}</td>
+            <td>
+              {{ item.product }}<br><br>
+              <b>Finish: </b>{{ item.stain|default_if_none:"" }} {{ item.finish }} - {{ item.color }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <b>Mount: </b>{{ item.mount }}, {{ item.frame|default_if_none:"" }} sides
+              {% if item.trim_style %}
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <b>Trim Style: </b>{{ item.trim_style }}
+              {% endif %}
+              <br>
+              <b>Doors: </b>{{ item.panels }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Louver: </b>{{ item.get_louver_display }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Hinge Color:
+              </b>{{ item.hinge_color }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Tilt rod: </b>{{ item.tilt_rod }}<br>
+            </td>
+            <td>$ {{ item.total_price }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+  </div>
+</div>
+
+<br>
+
+<div class="row">
+  <div class="col-8">
+    <div class="section wrapper">
+      <h5>Acceptance of Order: </h5>
+      <p>
+        The above prices, specifications and conditions are
+        satisfactory and are hereby accepted. You are authorized
+        to do the work as specified. I am fully aware that there are
+        <b>NO CANCELLATIONS</b> and my deposit will not be refunded
+        under no circumstances. Payment will be made as outlined
+        and agreed upon. By signing below I agree to the terms and
+        conditions specified above.
+      </p>
+    </div>
+  </div>
+
+  <div class="col-4">
+    <div class="section wrapper">
+      {% include 'deals/price_detail.html' %}
+    </div>
+  </div>
+</div><br>
+
+<div class="row justify-content-end">
+  <div class="col-4">
+    <p class="signature textcenter">Customer Signature</p>
+  </div>
+  <div class="col-2">
+    <p class="signature textcenter">Date</p>
+  </div>
+</div>
+{% endblock %}
