@@ -9,7 +9,7 @@ def proposal_report(request, pk):
     shutter = Shutter.objects.filter(deal_id=pk)
     price = Price.objects.get(pk=pk)
 
-    return render(request, 'reports/proposal_report.html', {'deal': deal, 'customer': customer, 'price': price, 'items': shutter})
+    return render(request, 'reports/proposal_report.html', {'deal': deal, 'customer': customer, 'price': price, 'items': shutter, 'report': 'Proposal'})
 
 
 def manufacturing_report(request, pk):
@@ -18,4 +18,4 @@ def manufacturing_report(request, pk):
     shutter = Shutter.objects.filter(deal_id=pk).order_by('product_id')
     material = Material.objects.get(pk=pk)
 
-    return render(request, 'reports/manufacturing_report.html', {'deal': deal, 'customer': customer, 'items': shutter, 'material': material})
+    return render(request, 'reports/manufacturing_report.html', {'deal': deal, 'customer': customer, 'items': shutter, 'material': material, 'report': 'Manufacturing Report'})
