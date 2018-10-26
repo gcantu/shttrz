@@ -198,24 +198,24 @@
     </form> <!-- END form -->
 
     <button id="divider-button" class="btn nf">Add Divider</button>
+  </div><br> <!-- END section -->
 
-    {% if create %}
-    <div class="row">
-      <div class="col">
-        <div class="section">
-          <div class="section-wrapper">
-            {% include 'shutters/shutter_detail.html' %}
-            <br>
-            <a class="btn" href="{% url 'deals:add-deal-price' deal_id %}" role="button">Continue</a>
-            <br>
-          </div>
-          <div class="section-decoration">
-          </div>
+  {% if create %}
+  <div class="row">
+    <div class="col">
+      <div class="section">
+        <div class="section-wrapper">
+          {% include 'shutters/shutter_detail.html' %}
+          <br>
+          <a class="btn" href="{% url 'deals:add-deal-price' deal_id %}" role="button">Continue</a>
+          <br>
         </div>
-      </div> <!-- END col -->
-    </div> <!-- END row -->
-    {% endif %}
+        <div class="section-decoration">
+        </div>
+      </div>
+    </div> <!-- END col -->
+  </div> <!-- END row -->
+  {% endif %}
 
-  </div> <!-- END section -->
 </div> <!-- END wrapper -->
 {% endblock %}
