@@ -1,0 +1,24 @@
+{% extends "core/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+
+{% block content %}
+<div class="container wrapper">
+  <div class="row">
+    <div class="col-6 offset-3 section">
+      <div class="section-wrapper textcenter">
+        <form action="{% url 'deals:complete-deal' pk %}" method=POST>
+        {% csrf_token %}
+        <p>Do you want to mark this deal as completed?</p>
+        <button class="btn inline nf" type="submit">Confirm</button>
+        </form>
+
+        <button class="btn inline nf">
+          <a  href="{% url 'core:home' %}">Cancel</a>
+        </button> <!-- CANCEL and back to homepage -->
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

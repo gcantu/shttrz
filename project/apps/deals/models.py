@@ -10,6 +10,7 @@ class Deal(AbstractTenant):
     customer = models.ForeignKey(Customer, models.SET_NULL, blank=True, null=True)
     notes = models.TextField(blank=True)
     is_deleted = models.BooleanField(default=False)
+    is_completed = models.BooleanField(default=False)
 
     def get_absolute_url(self):
         return reverse('deal-detail', kwargs={'pk': self.pk})

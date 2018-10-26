@@ -5,7 +5,7 @@ from deals.models import Deal
 
 @login_required
 def Home(request):
-    deals = Deal.objects.filter(is_deleted=False)
+    deals = Deal.objects.filter(is_deleted=False).filter(is_completed=False)
     return render(request, 'core/home.html', {'deals': deals})
 
 

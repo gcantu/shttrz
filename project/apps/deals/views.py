@@ -144,6 +144,18 @@ def delete_deal(request, pk):
     return redirect(reverse('core:home'))
 
 
+def confirm_complete(request, pk):
+    return render(request, 'deals/deal_complete.html', {'pk': pk})
+
+
+def complete_deal(request, pk):
+    deal = Deal.objects.get(pk=pk)
+    deal.is_completed = True
+    deal.save()
+
+    return redirect(reverse('core:home'))
+
+
 class DeleteItem(DeleteView):
     model = Shutter
     template_name = 'shutters/shutter_delete.html'
