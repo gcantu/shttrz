@@ -87,7 +87,7 @@
             <td>{{ item.get_louver_display }}</td>
 
             <th>Hinges:</th>
-            <td>{{ item.hinges }} - {{ item.hinge_color }}</td>
+            <td>{{ item.hinges }} - {{ item.hinge_color|default_if_none:"" }}</td>
 
             <th>Tilt Rod:</th>
             <td>{{ item.tilt_rod }}</td>
