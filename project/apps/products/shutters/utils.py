@@ -1,3 +1,5 @@
+import math
+
 
 # custom round for shutter pricing
 # if inches/12 = x.5 or less, round to 0.5. else, round to next integer
@@ -25,3 +27,7 @@ def as_fraction(n):
         final = '{} {}'.format(number, frac)
 
         return final
+
+# round up to next even number
+def round_up_to_even(f):
+    return math.ceil(f / 2.) * 2

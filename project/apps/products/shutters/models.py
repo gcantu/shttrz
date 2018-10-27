@@ -1,8 +1,9 @@
 from django.db import models
 from django.urls import reverse
 from tenants.models import AbstractTenant
-from .utils import custom_round, as_fraction
+from .utils import custom_round, as_fraction, round_up_to_even
 from deals.models import Deal
+import math
 
 BOOL_CHOICES = ((True, 'Active'), (False, 'Discontinued'))
 
@@ -168,8 +169,7 @@ class AbstractShutter(AbstractTenant):
         if self.panels == 1:
             qty = round(((self._stile() - 6) / 3))
         else:
-            qty = round(((self._stile() - 10) / 3) * self.panels)
-            qty = qty if (qty % 2) == 0 else (qty + 1) # if the number is not even, add 1
+            qty = round_up_to_even(((self._stile() - 10) / 3) * self.panels)
 
         if self.height_divider: # if divider, subtract 1 louver per panel
             qty = qty - self.panels
