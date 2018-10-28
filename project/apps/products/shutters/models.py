@@ -334,15 +334,20 @@ class Shutter(AbstractShutter):
 
 class Material(AbstractTenant):
     deal = models.OneToOneField(Deal, on_delete=models.CASCADE, primary_key=True)
-    l_frame_material = models.IntegerField(default=0)
-    louver_material = models.IntegerField(default=0)
-    rail_material = models.IntegerField(default=0)
-    stile_material = models.IntegerField(default=0)
-    tilt_rod_material = models.IntegerField(default=0)
-    panel_material = models.IntegerField(default=0)
-    total_hinges = models.IntegerField(default=0)
-    total_magnets = models.IntegerField(default=0)
-    total_screws = models.IntegerField(default=0)
+    l_frame_material = models.IntegerField("L Frame", default=0)
+    louver_material = models.IntegerField("Louver", default=0)
+    rail_material = models.IntegerField("Rail", default=0)
+    stile_material = models.IntegerField("Stile", default=0)
+    tilt_rod_material = models.IntegerField("Tilt Rod", default=0)
+    panel_material = models.IntegerField("Panels", default=0)
+    total_hinges = models.IntegerField("Hinges", default=0)
+    total_magnets = models.IntegerField("Magnets", default=0)
+    total_screws = models.IntegerField("Screws", default=0)
 
     def get_absolute_url(self):
         return reverse('material-detail', kwargs={'pk': self.pk})
+
+    def __iter__(self):
+        for field in self._meta.fields:
+            if field.name != 'tenant' and field.name != 'deal':
+                yield (field.verbose_name, field.value_to_string(self))
