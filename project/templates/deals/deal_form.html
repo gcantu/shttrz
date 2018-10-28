@@ -28,6 +28,17 @@
             </div>
 
             <div class="form-row">
+              <div class="form-group col-md-6">
+                {{ form.agent.label_tag }}
+                {% render_field  form.agent class="custom-select mr-sm-2" %}
+              </div>
+              <div class="form-group col-md-6">
+                {{ form.measured_by.label_tag }}
+                {% render_field  form.measured_by class="custom-select mr-sm-2" %}
+              </div>
+            </div>
+
+            <div class="form-row">
               <div class="col">
                 {{ form.notes.label_tag }}
                 {% render_field  form.notes class="form-control notes-field" %}

@@ -21,7 +21,7 @@ def add_customer(request):
         if form.is_valid():
             form.save()
             # create deal for new customer
-            deal = Deal.objects.create(customer_id=form.instance.id, tenant_id=tenant.id)
+            deal = Deal.objects.create(customer_id=form.instance.id, tenant_id=tenant.id, agent=request.user, measured_by=request.user)
             price = Price.objects.create(deal_id=deal.id, tenant_id=tenant.id)
             material = Material.objects.create(deal_id=deal.id, tenant_id=tenant.id)
             return redirect(reverse('deals:add-deal-item', kwargs={'pk': deal.id}))
@@ -104,7 +104,8 @@ def edit_deal_item(request, pk):
 
 def edit_deal_info(request, pk):
     deal = Deal.objects.get(pk=pk)
-    form = DealForm(request.POST or None, instance=deal)
+    tenant = tenant_from_request(request)
+    form = DealForm(tenant, request.POST or None, instance=deal)
 
     if form.is_valid():
         form.save()

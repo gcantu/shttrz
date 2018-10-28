@@ -10,5 +10,15 @@
       <th>Install Date: </th>
       <td>{{ deal.install_date }}</td>
     </tr>
+
+    <tr>
+      <th>Agent: </th>
+      <td>{{ deal.agent.first_name }} {{ deal.agent.last_name }}</td>
+    </tr>
+
+    <tr>
+      <th>Measured by: </th>
+      <td>{{ deal.measured_by.first_name }} {{ deal.measured_by.last_name }}</td>
+    </tr>
   </tbody>
 </table>

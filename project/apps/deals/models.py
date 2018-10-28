@@ -2,7 +2,9 @@ from django.db import models
 from datetime import datetime, date
 from tenants.models import AbstractTenant
 from customers.models import Customer
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 class Deal(AbstractTenant):
     created_date = models.DateTimeField(default=datetime.today)
@@ -11,6 +13,8 @@ class Deal(AbstractTenant):
     notes = models.TextField(blank=True)
     is_deleted = models.BooleanField(default=False)
     is_completed = models.BooleanField(default=False)
+    agent = models.ForeignKey(User, related_name='agent', on_delete=models.SET_NULL, blank=True, null=True)
+    measured_by = models.ForeignKey(User, related_name='measured_by', on_delete=models.SET_NULL, blank=True, null=True)
 
     def get_absolute_url(self):
         return reverse('deal-detail', kwargs={'pk': self.pk})
