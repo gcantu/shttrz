@@ -583,7 +583,9 @@ table th {
 	border-right: 0.5px solid #515151;
 }
 
-.item-measurements-table tr:first-child th:last-child {
+.item-measurements-table tr:first-child th:last-child,
+.item-measurements-table tr:first-child th:nth-child(5),
+.item-measurements-table tr:first-child th:nth-child(6) {
 	border: none;
 }
 
@@ -592,19 +594,29 @@ table th {
 .item-measurements-table th:nth-child(6),
 .item-measurements-table th:nth-child(8),
 .item-measurements-table th:nth-child(9),
+.item-measurements-table th:nth-child(10),
+.item-measurements-table th:nth-child(11),
+.item-measurements-table th:nth-child(12),
 .item-measurements-table td:nth-child(2),
 .item-measurements-table td:nth-child(4),
 .item-measurements-table td:nth-child(6),
 .item-measurements-table td:nth-child(8),
-.item-measurements-table td:nth-child(9) {
+.item-measurements-table td:nth-child(9),
+.item-measurements-table td:nth-child(10),
+.item-measurements-table td:nth-child(11),
+.item-measurements-table td:nth-child(12) {
 	border-right: 0.5px solid #515151;
 }
 
-.item-design-table th {
+table.item-specs-table {
+	width: auto;
+}
+
+.item-specs-table th {
 	text-align: right;
 }
 
-.item-design-table td {
+.item-specs-table td {
 	text-align: left;
 	padding: 1px 3px;
 }

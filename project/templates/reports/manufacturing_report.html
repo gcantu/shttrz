@@ -3,99 +3,103 @@
 {% load static %}
 
 {% block report %}
+<div id="specs" class="section wrapper">
+  <table>
+    <tr>
+      <tr>
+        {% for i in specs %}{% if i.val %}<th>{{ i.key }}</th>{% endif %}{% endfor %}
+      </tr>
+      <tr>
+        {% for i in specs %}{% if i.val %}<td>{{ i.val }}</td>{% endif %}{% endfor %}
+      </tr>
+    </tr>
+  </table>
+</div><br>
 
 {% for item in items %}
-<div id="manufacturing-report" class="section wrapper no-padding">
+<div id="manufacturing-report" class="section">
   <div class="section-title">
   {{ forloop.counter }}. {{ item.product }} ({{ item.location }})
   </div> <!-- END section title -->
+  <div class="container wrapper">
+    <div class="row">
+      <div class="col-1 img-col">
+      {% with img_id=item.product_id|stringformat:"s" %}
+      {% with 'img/model'|add:img_id|add:'.png' as image_static %}
+        <img class="product-img" src="{% static image_static %}" alt="">
+      {% endwith %}
+      {% endwith %}
+      </div> <!-- END image column -->
 
-  <div class="wrapper">
-    <div class="container">
-      <div class="row">
-
-        <div class="col-1 no-padding img-col">
-        {% with img_id=item.product_id|stringformat:"s" %}
-        {% with 'img/model'|add:img_id|add:'.png' as image_static %}
-          <img class="product-img" src="{% static image_static %}" alt="">
-        {% endwith %}
-        {% endwith %}
-        </div> <!-- END image column -->
-
-        <div class="col-9 offset-1">
-          <table class="item-measurements-table">
-            <thead>
-              <tr>
-                <th colspan=2>L Frame</th>
-                <th colspan=2>Louver</th>
-                <th colspan=2>Rail</th>
-                <th colspan=2>Stile</th>
-                <th></th>
-                {% if item.t_post %}<th></th>{% endif %}
-              </tr>
-              <tr>
-                <th>Width</th>
-                <th>Height</th>
-                <th>Qty</th>
-                <th>Measure</th>
-                <th>Qty</th>
-                <th>Measure</th>
-                <th>Qty</th>
-                <th>Measure</th>
-                <th>Tilt Rod</th>
-                {% if item.t_post %}<th># Tpost</th>{% endif %}
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{{ item.l_frame_width }}</td>
-                <td>{{ item.l_frame_height }}</td>
-                <td>{{ item.louver_qty }}</td>
-                <td>{{ item.louver_measure }}</td>
-                <td>{{ item.rail_qty }}</td>
-                <td>{{ item.rail_measure }}</td>
-                <td>{{ item.stile_qty }}</td>
-                <td>{{ item.stile_measure }}</td>
-                <td>{{ item.tilt_rod_measure }}</td>
-                {% if item.t_post %}
-                <td>{{ item.t_post|default_if_none:"" }}</td>
-                {% endif %}
-              </tr>
-            </tbody>
-          </table>
-        </div> <!-- END data column -->
-      </div><br> <!-- END row -->
-
-      <div class="row">
-        <table class="item-design-table">
-          <tr>
-            <th>Finish:</th>
-            <td>{{ item.stain|default_if_none:"" }} {{ item.finish }} - {{ item.color }}</td>
-
-            <th>Mount:</th>
-            <td>{{ item.frame_style }} {{ item.get_frame_display }}</td>
-
-            {% if item.trim_style %}
-            <th>Trim:</th>
-            <td>{{ item.trim_style }}</td>
-            {% endif %}
-
-            <th>Panels:</th>
-            <td>{{ item.panels }}</td>
-
-            <th>Louver:</th>
-            <td>{{ item.get_louver_display }}</td>
-
-            <th>Hinges:</th>
-            <td>{{ item.hinges }} - {{ item.hinge_color|default_if_none:"" }}</td>
-
-            <th>Tilt Rod:</th>
-            <td>{{ item.tilt_rod }}</td>
-          </tr>
+      <div class="col-9 offset-1">
+        <table class="item-measurements-table">
+          <thead>
+            <tr>
+              <th colspan=2>L Frame</th>
+              <th colspan=2>Louver</th>
+              <th colspan=2>Rail</th>
+              <th colspan=2>Stile</th>
+              <th colspan=2></th>
+              {% if item.mount == 'Out' %}<th></th>{% endif %}
+              {% if item.t_post %}<th></th>{% endif %}
+              {% if item.panels == 1 %}<th></th>{% endif %}
+            </tr>
+            <tr>
+              <th>Width</th>
+              <th>Height</th>
+              <th>Qty</th>
+              <th>Measure</th>
+              <th>Qty</th>
+              <th>Measure</th>
+              <th>Qty</th>
+              <th>Measure</th>
+              <th>Tilt Rod</th>
+              <th>Panels</th>
+              {% if item.mount == 'Out' %}<th>Mount</th>{% endif %}
+              {% if item.t_post %}<th># Tpost</th>{% endif %}
+              {% if item.panels == 1 %}<th>Hinges</th>{% endif %}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ item.l_frame_width }}</td>
+              <td>{{ item.l_frame_height }}</td>
+              <td>{{ item.louver_qty }}</td>
+              <td>{{ item.louver_measure }}</td>
+              <td>{{ item.rail_qty }}</td>
+              <td>{{ item.rail_measure }}</td>
+              <td>{{ item.stile_qty }}</td>
+              <td>{{ item.stile_measure }}</td>
+              <td>{{ item.tilt_rod_measure }}</td>
+              <td>{{ item.panels }}</td>
+              {% if item.mount == 'Out' %}<td>{{ item.get_frame_display|default_if_none:"" }}</td>{% endif %}
+              {% if item.t_post %}<td>{{ item.t_post|default_if_none:"" }}</td>{% endif %}
+              {% if item.panels == 1 %}<td>{{ item.hinges|default_if_none:"" }}</td>{% endif %}
+            </tr>
+          </tbody>
         </table>
-      </div> <!-- END row -->
-    </div> <!-- END container -->
-  </div> <!-- END wrapper -->
+      </div> <!-- END data column -->
+    </div><br> <!-- END row -->
+
+    <div class="row">
+      <div class="col">
+        <table class="item-specs-table">
+          <tbody>
+            <tr>
+            {% for i in fields %}
+              {% cycle specs.0.louver specs.1.finish specs.2.color specs.3.stain specs.4.frame_style specs.5.trim_style specs.6.tilt_rod specs.7.hinge_color as s_fields silent %}
+              {% cycle item.louver item.finish item.color item.stain.stain item.frame_style.frame_style item.trim_style.trim_style item.tilt_rod.tilt_rod item.hinge_color.hinge_color as i_fields silent %}
+              {% ifnotequal s_fields i_fields %}
+                <th>{{ i|title }}:</th>
+                <td>{{ i_fields|default_if_none:"" }}</td>
+              {% endifnotequal %}
+            {% endfor %}
+            </tr>
+          </tbody>
+        </table>
+      </div> <!-- END col -->
+    </div> <!-- END row -->
+  </div> <!-- END container -->
 </div><br> <!-- END item manufacturing report -->
 {% endfor %}
 
@@ -106,26 +110,10 @@
   <table class="materials-table">
     <tbody>
       <tr>
-        <th>L frame</th>
-        <th>Louver</th>
-        <th>Rail</th>
-        <th>Stile</th>
-        <th>Tilt Rod</th>
-        <th>Panels</th>
-        <th>Hinges</th>
-        <th>Magnets</th>
-        <th>Screws</th>
+        {% for field, val in material %}<th>{{ field }}</th>{% endfor %}
       </tr>
       <tr>
-        <td>{{ material.l_frame_material }} ft.</td>
-        <td>{{ material.louver_material }} ft.</td>
-        <td>{{ material.rail_material }} ft.</td>
-        <td>{{ material.stile_material }} ft.</td>
-        <td>{{ material.tilt_rod_material }} ft.</td>
-        <td>{{ material.panel_material }} ft.</td>
-        <td>{{ material.total_hinges }}</td>
-        <td>{{ material.total_magnets }}</td>
-        <td>{{ material.total_screws }}</td>
+        {% for field, val in material %}<td>{{ val }}</td>{% endfor %}
       </tr>
     </tbody>
   </table>

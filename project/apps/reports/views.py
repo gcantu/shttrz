@@ -2,6 +2,8 @@ from django.shortcuts import render
 from customers.models import Customer
 from deals.models import Deal, Price
 from shutters.models import Shutter, Material
+from django.db.models import Count
+from shutters.utils import as_fraction
 
 def proposal_report(request, pk):
     deal = Deal.objects.get(pk=pk)
@@ -18,7 +20,22 @@ def manufacturing_report(request, pk):
     shutter = Shutter.objects.filter(deal_id=pk).order_by('product_id')
     material = Material.objects.get(pk=pk)
 
-    return render(request, 'reports/manufacturing_report.html', {'deal': deal, 'customer': customer, 'items': shutter, 'material': material, 'report': 'Manufacturing Report'})
+    specs = []
+    fieldname = ['louver', 'finish', 'color', 'stain', 'frame_style', 'trim_style', 'tilt_rod', 'hinge_color']
+    keyname = ['Louver', 'Finish', 'Color', 'Stain', 'Frame Style', 'Trim Style', 'Tilt Rod', 'Hinge Color']
+
+    for i in range(0, len(fieldname)):
+        dict = {}
+        field = fieldname[i] if i < 3 else fieldname[i] + '__' + fieldname[i]
+        a = Shutter.objects.values(field).order_by(fieldname[i]).annotate(the_count=Count(fieldname[i]))
+        max_i = max(a, key=lambda x:x['the_count'])
+        dict[fieldname[i]] = max_i[field] if max_i[field] != None else ""
+        dict['key'] = keyname[i]
+        dict['val'] = as_fraction(max_i[field]) if field == 'louver' else (max_i[field] if max_i[field] != None else "")
+
+        specs.append(dict.copy())
+
+    return render(request, 'reports/manufacturing_report.html', {'deal': deal, 'customer': customer, 'items': shutter, 'material': material, 'report': 'Manufacturing Report', 'specs': specs, 'fields': fieldname})
 
 
 def invoice_report(request, pk):
