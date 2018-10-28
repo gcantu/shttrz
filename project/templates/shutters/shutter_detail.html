@@ -60,7 +60,7 @@
         <td>{{ item.stain|default_if_none:"" }}</td>
         <td>{{ item.color|title }}</td>
         <td>{{ item.hinges }}</td>
-        <td>{{ item.hinge_color }}</td>
+        <td>{{ item.hinge_color|default_if_none:"" }}</td>
         <td>{{ item.width }} {{ item.get_width_fraction_display }}</td>
         <td>{{ item.height|default_if_none:"" }} {{ item.get_height_fraction_display }}</td>
         <td>{{ item.height_divider|default_if_none:"" }} {{ item.get_height_divider_fraction_display }}</td>
