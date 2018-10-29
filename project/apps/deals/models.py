@@ -7,12 +7,15 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class Deal(AbstractTenant):
+    STATUS_CHOICES = (('Active', 'Active'), ('Completed', 'Completed'), ('Deleted', 'Deleted'))
+
     created_date = models.DateTimeField(default=datetime.today)
     install_date = models.DateField(default=date.today)
     customer = models.ForeignKey(Customer, models.SET_NULL, blank=True, null=True)
     notes = models.TextField(blank=True)
     is_deleted = models.BooleanField(default=False)
     is_completed = models.BooleanField(default=False)
+    status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='Active')
     agent = models.ForeignKey(User, related_name='agent', on_delete=models.SET_NULL, blank=True, null=True)
     measured_by = models.ForeignKey(User, related_name='measured_by', on_delete=models.SET_NULL, blank=True, null=True)
 

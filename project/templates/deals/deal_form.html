@@ -11,6 +11,7 @@
         {% csrf_token %}
         {{ form.customer.as_hidden }}
         {{ form.tenant.as_hidden }}
+        {{ form.status.as_hidden }}
 
         <div class="section">
           <div class="section-wrapper">
