@@ -41,6 +41,7 @@ $('#id_product').on('change', function() { // hide/unhide panel, center, left, a
 
 $('#id_product').on('change', function() { // render shutter model image
   var model = "/static/img/model" + $(this).val() + ".png";
+  $(".product-img-section").removeClass("hidden");
   $('.product-img').prop('src', model);
 });
 

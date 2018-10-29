@@ -35,7 +35,7 @@
                 {{ form.mount.label_tag }}
                 {% render_field  form.mount class="custom-select mr-sm-2" %}
                 </div>
-                <div class="col-3 frame-field hidden">
+                <div class="col-3 frame-field">
                 {{ form.frame.label_tag }}
                 {% render_field  form.frame class="custom-select mr-sm-2" %}
                 </div>
@@ -149,11 +149,13 @@
 
           <div class="col-3">
             <div class="form-section textcenter">
-              {% with img_id=prod_id|stringformat:"s" %}
-              {% with 'img/model'|add:img_id|add:'.png' as image_static %}
-                <img class="product-img" src="{% static image_static %}" alt="hey">
-              {% endwith %}
-              {% endwith %}
+              <div class="product-img-section hidden">
+                {% with img_id=prod_id|stringformat:"s" %}
+                {% with 'img/model'|add:img_id|add:'.png' as image_static %}
+                  <img class="product-img" src="{% static image_static %}" alt="hey">
+                {% endwith %}
+                {% endwith %}
+              </div>
             </div>
 
 
@@ -164,7 +166,7 @@
                   {{ form.finish.label_tag }}
                   {% render_field  form.finish class="custom-select mr-sm-2" %}
                 </div>
-                <div class="col-12 stain-field hidden">
+                <div class="col-12 stain-field">
                   {{ form.stain.label_tag }}
                   {% render_field  form.stain class="custom-select mr-sm-2" %}
                 </div>
