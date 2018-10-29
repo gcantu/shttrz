@@ -26,7 +26,14 @@ def manufacturing_report(request, pk):
     for i in range(0, len(fieldname)):
         field = fieldname[i] if i < 3 else fieldname[i] + '__' + fieldname[i]
         val = set(shutter.values_list(field, flat=True).distinct())
-        specs[fieldname[i]] = val.pop() if len(val) == 1 else ''
+
+        if len(val) == 1:
+            if field == 'louver':
+                specs[fieldname[i]] = as_fraction(val.pop())
+            else:
+                specs[fieldname[i]] = val.pop()
+        else:
+            specs[fieldname[i]] = ''
 
     return render(request, 'reports/manufacturing_report.html', {'deal': deal, 'customer': customer, 'items': shutter, 'material': material, 'report': 'Manufacturing Report', 'specs': specs})
 
