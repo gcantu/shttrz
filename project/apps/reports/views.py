@@ -20,22 +20,15 @@ def manufacturing_report(request, pk):
     shutter = Shutter.objects.filter(deal_id=pk).order_by('product_id')
     material = Material.objects.get(pk=pk)
 
-    specs = []
     fieldname = ['louver', 'finish', 'color', 'stain', 'frame_style', 'trim_style', 'tilt_rod', 'hinge_color']
-    keyname = ['Louver', 'Finish', 'Color', 'Stain', 'Frame Style', 'Trim Style', 'Tilt Rod', 'Hinge Color']
 
+    specs = {}
     for i in range(0, len(fieldname)):
-        dict = {}
         field = fieldname[i] if i < 3 else fieldname[i] + '__' + fieldname[i]
-        a = Shutter.objects.values(field).order_by(fieldname[i]).annotate(the_count=Count(fieldname[i]))
-        max_i = max(a, key=lambda x:x['the_count'])
-        dict[fieldname[i]] = max_i[field] if max_i[field] != None else ""
-        dict['key'] = keyname[i]
-        dict['val'] = as_fraction(max_i[field]) if field == 'louver' else (max_i[field] if max_i[field] != None else "")
+        val = set(shutter.values_list(field, flat=True).distinct())
+        specs[fieldname[i]] = val.pop() if len(val) == 1 else ''
 
-        specs.append(dict.copy())
-
-    return render(request, 'reports/manufacturing_report.html', {'deal': deal, 'customer': customer, 'items': shutter, 'material': material, 'report': 'Manufacturing Report', 'specs': specs, 'fields': fieldname})
+    return render(request, 'reports/manufacturing_report.html', {'deal': deal, 'customer': customer, 'items': shutter, 'material': material, 'report': 'Manufacturing Report', 'specs': specs})
 
 
 def invoice_report(request, pk):

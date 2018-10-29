@@ -3,18 +3,19 @@
 {% load static %}
 
 {% block report %}
-<div id="specs" class="section wrapper">
-  <table>
-    <tr>
+  <table id="specs-table">
+    <tbody>
       <tr>
-        {% for i in specs %}{% if i.val %}<th>{{ i.key }}</th>{% endif %}{% endfor %}
+        {% if specs.louver %}<td><b>Louver: </b> {{ specs.louver }}</td>{% endif %}
+        {% if specs.finish %}<td><b>Finish: </b> {{ specs.stain }} {{ specs.finish }}</td>{% endif %}
+        {% if specs.color %}<td><b>Color: </b> {{ specs.color }}</td>{% endif %}
+        {% if specs.frame_style %}<td><b>Frame: </b> {{ specs.frame_style }}</td>{% endif %}
+        {% if specs.trim_style %}<td><b>Trim: </b> {{ specs.trim_style }}</td>{% endif %}
+        {% if specs.tilt_rod %}<td><b>Tilt Rod: </b> {{ specs.tilt_rod }}</td>{% endif %}
+        {% if specs.hinge_color %}<td><b>Hinge Color: </b> {{ specs.hinge_color }}</td>{% endif %}
       </tr>
-      <tr>
-        {% for i in specs %}{% if i.val %}<td>{{ i.val }}</td>{% endif %}{% endfor %}
-      </tr>
-    </tr>
-  </table>
-</div><br>
+    </tbody>
+  </table><br>
 
 {% for item in items %}
 <div id="manufacturing-report" class="section">
@@ -83,17 +84,16 @@
 
     <div class="row">
       <div class="col">
-        <table class="item-specs-table">
+        <table id="item-specs-table">
           <tbody>
             <tr>
-            {% for i in fields %}
-              {% cycle specs.0.louver specs.1.finish specs.2.color specs.3.stain specs.4.frame_style specs.5.trim_style specs.6.tilt_rod specs.7.hinge_color as s_fields silent %}
-              {% cycle item.louver item.finish item.color item.stain.stain item.frame_style.frame_style item.trim_style.trim_style item.tilt_rod.tilt_rod item.hinge_color.hinge_color as i_fields silent %}
-              {% ifnotequal s_fields i_fields %}
-                <th>{{ i|title }}:</th>
-                <td>{{ i_fields|default_if_none:"" }}</td>
-              {% endifnotequal %}
-            {% endfor %}
+              {% ifnotequal specs.louver item.louver %}<td><b>Louver: </b> {{ item.louver }}</td>{% endifnotequal %}
+              {% ifnotequal specs.finish item.finish %}<td><b>Finish: </b> {{ item.stain|default_if_none:"" }} {{ item.finish }}</td>{% endifnotequal %}
+              {% ifnotequal specs.color item.color %}<td><b>Color: </b> {{ item.color|default_if_none:"" }}</td>{% endifnotequal %}
+              {% ifnotequal specs.frame_style item.frame_style.frame_style %}<td><b>Frame: </b> {{ item.frame_style|default_if_none:"" }}</td>{% endifnotequal %}
+              {% ifnotequal specs.trim_style item.trim_style.trim_style %}<td><b>Trim: </b> {{ item.trim_style|default_if_none:"" }}</td>{% endifnotequal %}
+              {% ifnotequal specs.tilt_rod item.tilt_rod.tilt_rod %}<td><b>Tilt Rod: </b> {{ item.tilt_rod|default_if_none:"" }}</td>{% endifnotequal %}
+              {% ifnotequal specs.hinge_color item.hinge_color.hinge_color %}<td><b>Hinge Color: </b> {{ item.hinge_color|default_if_none:"" }}</td>{% endifnotequal %}
             </tr>
           </tbody>
         </table>

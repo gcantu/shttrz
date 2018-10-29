@@ -546,6 +546,25 @@ table th {
 	border: 0.5px solid #aeb2b7;
 }
 
+#specs-table,
+#item-specs-table {
+	width: auto;
+}
+
+#specs-table td {
+	border: 0.5px solid #515151;
+	padding: 3px 15px;
+}
+
+#item-specs-table th {
+	text-align: right;
+}
+
+#item-specs-table td {
+	text-align: left;
+	padding: 3px 15px;
+}
+
 /* 8.0 Reports
 --------------------------------------------------------------*/
 #report-logo img {
@@ -606,19 +625,6 @@ table th {
 .item-measurements-table td:nth-child(11),
 .item-measurements-table td:nth-child(12) {
 	border-right: 0.5px solid #515151;
-}
-
-table.item-specs-table {
-	width: auto;
-}
-
-.item-specs-table th {
-	text-align: right;
-}
-
-.item-specs-table td {
-	text-align: left;
-	padding: 1px 3px;
 }
 
 .materials-table th {
