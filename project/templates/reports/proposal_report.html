@@ -33,7 +33,7 @@
               <b>Doors: </b>{{ item.panels }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Louver: </b>{{ item.get_louver_display }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Hinge Color:
               </b>{{ item.hinge_color }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Tilt rod: </b>{{ item.tilt_rod }}<br>
             </td>
-            <td>$ {{ item.total_price }}</td>
+            <td>$ {{ item.total_price|floatformat:"0" }}</td>
           </tr>
         {% endfor %}
         </tbody>
@@ -59,18 +59,18 @@
           <tr>
             <th>Subtotal: </th>
             <td>
-              <div>$ {{ price.subtotal }}</div>
+              <div>$ {{ price.subtotal|floatformat }}</div>
             </td>
           </tr>
 
           <tr class="underline">
             <th>Tax: </th>
-            <td>$ {{ price.tax }} </td>
+            <td>$ {{ price.tax|floatformat }} </td>
           </tr>
 
           <tr class="table-total-row">
             <th>Total: </th>
-            <td>$ {{ price.total }}</td>
+            <td>$ {{ price.total|floatformat }}</td>
           </tr>
         </tbody>
       </table> <!-- END total table -->

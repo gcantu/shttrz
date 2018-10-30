@@ -32,7 +32,7 @@
               <b>Doors: </b>{{ item.panels }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Louver: </b>{{ item.get_louver_display }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Hinge Color:
               </b>{{ item.hinge_color }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Tilt rod: </b>{{ item.tilt_rod }}<br>
             </td>
-            <td>$ {{ item.total_price }}</td>
+            <td>$ {{ item.total_price|floatformat:"0" }}</td>
           </tr>
         {% endfor %}
         </tbody>

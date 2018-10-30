@@ -4,28 +4,28 @@
     <tr>
       <th>Subtotal: </th>
       <td>
-        <div>$ {{ price.subtotal }}</div>
+        <div>$ {{ price.subtotal|floatformat }}</div>
       </td>
     </tr>
 
     <tr class="underline">
       <th>Tax: </th>
-      <td>$ {{ price.tax }} </td>
+      <td>$ {{ price.tax|floatformat }} </td>
     </tr>
 
     <tr class="table-total-row">
       <th>Total: </th>
-      <td>$ {{ price.total }}</td>
+      <td>$ {{ price.total|floatformat }}</td>
     </tr>
 
     <tr class="underline">
       <th>Down Payment: </th>
-      <td>$ {{ price.down_payment }}</td>
+      <td>$ {{ price.down_payment|floatformat }}</td>
     </tr>
 
     <tr class="table-total-row">
       <th>Balance</th>
-      <td>$ {{ price.balance }}</td>
+      <td>$ {{ price.balance|floatformat }}</td>
     </tr>
   </tbody>
 </table>
