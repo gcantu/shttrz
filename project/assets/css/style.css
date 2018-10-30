@@ -296,7 +296,7 @@ a:focus, a:active, a:hover {
 	width: 86%;
 }
 
-#price-form .form-control {
+#price-form .form-control.inline {
 	text-align: right;
 	width: 60px;
 	height: 25px;
@@ -549,6 +549,10 @@ table th {
 
 #price-table .underline {
 	border-bottom: 0.5px solid #aeb2b7;
+}
+
+#price-table .topline {
+	border-top: 0.5px solid #aeb2b7;
 }
 
 #shutter-detail-table td,

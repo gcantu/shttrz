@@ -6,6 +6,19 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+class PaymentMethod(AbstractTenant):
+    payment_method = models.CharField(max_length=100, blank=True)
+
+    def __str__(self):
+        return self.payment_method
+
+    def get_absolute_url(self):
+        return reverse('payment-method-detail', kwargs={'pk': self.pk})
+
+    class Meta:
+        db_table = 'payment_method'
+
+
 class Deal(AbstractTenant):
     STATUS_CHOICES = (('Active', 'Active'), ('Completed', 'Completed'), ('Deleted', 'Deleted'))
 
@@ -35,6 +48,11 @@ class Price(AbstractTenant):
     down_payment = models.FloatField(default=0)
     balance = models.FloatField(default=0)
     add_tax = models.BooleanField(default=True)
+    credit_card_fee = models.FloatField(default=0)
+    credit_card_fee_rate = models.FloatField(default=0.03)
+    add_credit_card_fee = models.BooleanField(default=True)
+    payment_method = models.ForeignKey(PaymentMethod, models.SET_NULL, blank=True, null=True, default=3)
+    check_number = models.CharField(max_length=100, blank=True)
 
     def get_absolute_url(self):
         return reverse('price-detail', kwargs={'pk': self.pk})

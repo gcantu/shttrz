@@ -45,6 +45,22 @@ $('#id_product').on('change', function() { // render shutter model image
   $('.product-img').prop('src', model);
 });
 
+$('#id_payment_method').on('change', function() { // hide/unhide panel, center, left, and right height fields
+  var selectedItem = $(this).val();
+
+  if (selectedItem == 3) { // show/hide credit card fee
+    $(".check-field").addClass("hidden");
+    $(".cc-fee-field").removeClass("hidden");
+  } else if (selectedItem == 2) {
+    $(".cc-fee-field").addClass("hidden");
+    $(".check-field").removeClass("hidden");
+  } else {
+    $(".cc-fee-field").addClass("hidden");
+    $(".check-field").addClass("hidden");
+  }
+
+});
+
 
 // FUNCTIONS
 function showMeasureField(val){ // function to render hidden fields in line item form

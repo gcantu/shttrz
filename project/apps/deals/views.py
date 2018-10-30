@@ -52,7 +52,8 @@ def add_deal_price(request, pk):
     subtotal = round(sum(i.total_price() for i in shutter), 2)
     price.subtotal = subtotal
     price.tax = price.subtotal * price.tax_rate
-    price.total = subtotal + price.tax
+    price.credit_card_fee = price.subtotal * price.credit_card_fee_rate
+    price.total = subtotal + price.tax + price.credit_card_fee
     price.balance = price.total
     price.save()
 
@@ -121,7 +122,9 @@ def edit_deal_price(request, pk):
     if form.is_valid():
         f = form.save(commit=False)
         f.tax = (f.tax_rate * f.subtotal) if f.add_tax else 0
-        f.total = f.subtotal + f.tax
+        f.add_credit_card_fee = True if f.payment_method_id == 3 else False # set to false if payment method != Credit Card
+        f.credit_card_fee = (f.credit_card_fee_rate * f.subtotal) if f.add_credit_card_fee else 0
+        f.total = f.subtotal + f.tax + f.credit_card_fee
         f.balance = f.total - f.down_payment
         f.save()
 
