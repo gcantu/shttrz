@@ -87,7 +87,7 @@
         <table id="item-specs-table">
           <tbody>
             <tr>
-              {% ifnotequal specs.louver item.louver %}<td><b>Louver: </b> {{ item.louver }}</td>{% endifnotequal %}
+              {% ifnotequal specs.louver item.get_louver_display %}<td><b>Louver: </b> {{ item.get_louver_display }}</td>{% endifnotequal %}
               {% ifnotequal specs.finish item.finish %}<td><b>Finish: </b> {{ item.stain|default_if_none:"" }} {{ item.finish }}</td>{% endifnotequal %}
               {% ifnotequal specs.color item.color %}<td><b>Color: </b> {{ item.color|default_if_none:"" }}</td>{% endifnotequal %}
               {% ifnotequal specs.frame_style item.frame_style.frame_style %}<td><b>Frame: </b> {{ item.frame_style|default_if_none:"" }}</td>{% endifnotequal %}
