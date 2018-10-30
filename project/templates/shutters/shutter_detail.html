@@ -63,9 +63,9 @@
         <td>{{ item.trim_style|default_if_none:"" }}</td>
         <td>{{ item.panels }}</td>
         <td>{{ item.t_post|default_if_none:"" }}</td>
-        <td>{{ item.get_louver_display }}</td>
-        <td>{{ item.tilt_rod }}</td>
-        <td>{{ item.finish }}</td>
+        <td>{{ item.get_louver_display|default_if_none:"" }}</td>
+        <td>{{ item.tilt_rod|default_if_none:"" }}</td>
+        <td>{{ item.finish|default_if_none:"" }}</td>
         <td>{{ item.stain|default_if_none:"" }}</td>
         <td>{{ item.color|title }}</td>
         <td>{{ item.hinges }}</td>
