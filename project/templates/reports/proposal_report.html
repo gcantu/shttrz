@@ -1,6 +1,7 @@
 {% extends "reports/report_template.html" %}
 {% load widget_tweaks %}
 {% load static %}
+{% load humanize %}
 
 
 {% block report %}
@@ -33,7 +34,7 @@
               <b>Doors: </b>{{ item.panels }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Louver: </b>{{ item.get_louver_display }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Hinge Color:
               </b>{{ item.hinge_color }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Tilt rod: </b>{{ item.tilt_rod }}<br>
             </td>
-            <td>$ {{ item.total_price|floatformat:"0" }}</td>
+            <td>$ {{ item.total_price|floatformat:"0"|intcomma }}</td>
           </tr>
         {% endfor %}
         </tbody>
@@ -59,18 +60,18 @@
           <tr>
             <th>Subtotal: </th>
             <td>
-              <div>$ {{ price.subtotal|floatformat }}</div>
+              <div>$ {{ price.subtotal|floatformat|intcomma }}</div>
             </td>
           </tr>
 
           <tr class="underline">
             <th>Tax: </th>
-            <td>$ {{ price.tax|floatformat }} </td>
+            <td>$ {{ price.tax|floatformat|intcomma }} </td>
           </tr>
 
           <tr class="table-total-row">
             <th>Total: </th>
-            <td>$ {{ price.total|floatformat }}</td>
+            <td>$ {{ price.total|floatformat|intcomma }}</td>
           </tr>
         </tbody>
       </table> <!-- END total table -->

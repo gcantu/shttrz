@@ -1,6 +1,7 @@
 {% extends "reports/report_template.html" %}
 {% load widget_tweaks %}
 {% load static %}
+{% load humanize %}
 
 {% block report %}
 <div class="row">
@@ -32,7 +33,7 @@
               <b>Doors: </b>{{ item.panels }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Louver: </b>{{ item.get_louver_display }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Hinge Color:
               </b>{{ item.hinge_color }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Tilt rod: </b>{{ item.tilt_rod }}<br>
             </td>
-            <td>$ {{ item.total_price|floatformat:"0" }}</td>
+            <td>$ {{ item.total_price|floatformat:"0"|intcomma }}</td>
           </tr>
         {% endfor %}
         </tbody>
