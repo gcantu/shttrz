@@ -297,7 +297,7 @@ class Shutter(AbstractShutter):
     height_center_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     height_left_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     height_right_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
-    price_per_sq_ft = models.FloatField(blank=True, null=True)
+    price_per_sq_ft = models.FloatField(default=0)
 
     def save(self, *args, **kwargs):
         self.location = self.location.capitalize()
