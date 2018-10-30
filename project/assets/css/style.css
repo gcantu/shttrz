@@ -14,6 +14,7 @@
 3.0 Forms
 4.0 Lists
 5.0 Buttons
+6.0 Dashboard
 7.0 Tables
 8.0 Reports
 9.0 Clearings
@@ -456,6 +457,27 @@ li {
 	bottom: 0;
 }
 
+.btn02 {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.btn-edit02 {
+	color: #424a5d;
+}
+
+.btn-complete02 {
+	color: #7bce28;
+}
+
+.btn-delete02 {
+	color: #e50b1e;
+}
+
+.btn02:hover {
+	color: #888888;
+}
+
 .hidden-btn { /* line item edit buttons - summary view */
 	display: none;
 }
@@ -466,6 +488,24 @@ li {
 
 html [type=button] {
 	-webkit-appearance: none;
+}
+
+/* 5.0 Dashboard
+--------------------------------------------------------------*/
+
+.filter-section .title {
+	background-color: #7a808d;
+	color: #fff;
+	font-weight: 500;
+	padding: 5px;
+	font-size: 14px;
+	letter-spacing: 1px;
+}
+
+.filter-section .filters {
+	background-color: #f4f4f4;
+	font-weight: 500;
+	padding: 10px 10px 40px 10px;
 }
 
 /* 7.0 Tables
@@ -563,6 +603,20 @@ table th {
 #item-specs-table td {
 	text-align: left;
 	padding: 3px 15px;
+}
+
+#deal-list-table tr {
+	border: 0.5px solid #e0e0e0;
+}
+
+#deal-list-table td {
+	padding: 15px 0;
+}
+
+#deal-list-table th {
+	padding: 8px 15px;
+	background-color: #7a808d;
+	color: #fff;
 }
 
 /* 8.0 Reports

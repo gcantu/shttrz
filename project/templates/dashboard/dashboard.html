@@ -1,0 +1,114 @@
+{% load widget_tweaks %}
+{% load humanize %}
+
+<div class="content-title">Order Summary</div><br>
+<div class="container">
+  <div class="row">
+    <div class="col-9">
+      <table id="deal-list-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>CUSTOMER</th>
+            <th>CREATED</th>
+            <th>DUE</th>
+            <th>TOTAL</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for obj in filter.qs %}
+          <tr>
+            <td>{{ obj.id }}</td>
+            <td>{{ obj.customer }}</td>
+            <td>{{ obj.created_date }}</td>
+            <td>{{ obj.install_date }}</td>
+            <td>$ {{ obj.price.total|intcomma }}</td>
+            <td class="no-padding">
+
+              <a class="btn02 btn-edit02" href="{% url 'deals:deal-summary' obj.id %}" role="button">
+                <i class="fas fa-pencil-alt"></i>
+              </a>
+
+              <a class="btn02 btn-complete02" href="{% url 'deals:confirm-complete' obj.id %}" role="button">
+                <i class="fas fa-check"></i>
+              </a>
+
+              <a class="btn02 btn-delete02" href="{% url 'deals:confirm-delete' obj.id %}" role="button">
+                <i class="fas fa-times"></i>
+              </a>
+
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-3 no-padding">
+      <div class="filter-section">
+        <div class="title">FILTER</div>
+        <div class="filters">
+          <form action="" method="get">
+              <div class="form-group">
+                {{ filter.form.date_range.label_tag }}
+                {% render_field  filter.form.date_range class="custom-select mr-sm-2" %}
+              </div>
+              <div class="form-group">
+                {{ filter.form.status.label_tag }}
+                <div>
+                  {% for choice in filter.form.status %}
+                    <label class="checkbox-inline">
+                      {{ choice.tag }} {{ choice.choice_label }}
+                    </label>
+                  {% endfor %}
+                </div>
+              </div>
+            <input class="btn" type="submit" value="Submit"/>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="container">
+  <div class="content-title">Order Summary</div>
+  <table>
+      <thead>
+        <tr>
+          <th>
+            <div class=”text”>
+              <a href=”#”>Category</a>
+            </div>
+          </th>
+          <th>
+            <div class=”text”>
+              <a href=”#”>Total</a>
+            </div>
+          </th>
+          <th>
+            <div class=”text”>
+              <a href=”#”>Total Sales</a>
+            </div>
+          </th>
+          <th>
+            <div class=”text”>
+              <a href=”#”>
+                <strong>% Of Total Sales</strong>
+              </a>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for row in shutter %}
+      <tr>
+        <td> {{ row.product__product }} </td>
+        <td> {{ row.total }} </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div> -->

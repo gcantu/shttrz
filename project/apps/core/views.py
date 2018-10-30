@@ -1,12 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from deals.models import Deal
 
 
 @login_required
 def Home(request):
-    deals = Deal.objects.filter(is_deleted=False).filter(is_completed=False)
-    return render(request, 'core/home.html', {'deals': deals})
+    return redirect('dashboard:deal-list')
 
 
 @login_required
