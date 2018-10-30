@@ -278,7 +278,7 @@ class Shutter(AbstractShutter):
     frame = models.IntegerField(choices=FRAME_CHOICES, default=0)
     frame_style = models.ForeignKey(FrameStyle, models.SET_NULL, blank=True, null=True)
     trim_style = models.ForeignKey(TrimStyle, models.SET_NULL, blank=True, null=True)
-    panels = models.IntegerField(blank=True, null=True)
+    panels = models.IntegerField()
     t_post = models.IntegerField(blank=True, null=True)
     hinges = models.CharField(max_length=2, choices=HINGE_CHOICES, blank=True)
     hinge_color = models.ForeignKey(HingeColor, models.SET_NULL, blank=True, null=True)
