@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'deals.apps.DealsConfig',
     'reports.apps.ReportsConfig',
     'shutters.apps.ShuttersConfig',
+    'dashboard.apps.DashboardConfig',
     'adminsite.apps.CustomAdminConfig',  # replaces 'django.contrib.admin'
     # 'django.contrib.admin',
     'django.contrib.auth',
