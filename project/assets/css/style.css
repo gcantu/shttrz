@@ -635,10 +635,13 @@ table th {
 	text-align: right;
 }
 
+#manufacturing-report.section {
+	height: auto;
+}
+
 #manufacturing-report .section-title {
 	background-color: #e0e0e0;
-	padding-left: 10px;
-	padding-top: 5px;
+	padding: 5px 10px 0 10px;
 	height: 30px;
 	margin-bottom: 5px;
 }
