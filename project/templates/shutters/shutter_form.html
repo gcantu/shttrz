@@ -15,8 +15,8 @@
             <div class="form-section">
               <div class="form-row">
                 <div class="col-12">
-                {{ form.product.label_tag }}
-                {% render_field  form.product class="custom-select mr-sm-2" %}
+                {{ form.product_type.label_tag }}
+                {% render_field  form.product_type class="custom-select mr-sm-2" %}
                 </div>
                 <div class="col-3">
                 {{ form.location.label_tag }}
@@ -142,7 +142,7 @@
           <div class="col-3">
             <div class="form-section textcenter">
               <div class="product-img-section hidden">
-                {% with img_id=prod_id|stringformat:"s" %}
+                {% with img_id=prod_type_id|stringformat:"s" %}
                 {% with 'img/model'|add:img_id|add:'.png' as image_static %}
                   <img class="product-img" src="{% static image_static %}" alt="hey">
                 {% endwith %}

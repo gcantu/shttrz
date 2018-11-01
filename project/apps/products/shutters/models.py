@@ -8,19 +8,19 @@ import math
 BOOL_CHOICES = ((True, 'Active'), (False, 'Discontinued'))
 
 
-class Product(AbstractTenant):
-    product = models.CharField(max_length=100)
+class ProductType(AbstractTenant):
+    product_type = models.CharField(max_length=100)
     status = models.BooleanField(choices=BOOL_CHOICES, default=True)
 
     def save(self, *args, **kwargs):
-        self.product = self.product.capitalize()
-        return super(Product, self).save(*args, **kwargs)
+        self.product_type = self.product_type.capitalize()
+        return super(ProductType, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.product
+        return self.product_type
 
     def get_absolute_url(self):
-        return reverse('product-detail', kwargs={'pk': self.pk})
+        return reverse('product-type-detail', kwargs={'pk': self.pk})
 
 
 class Stain(AbstractTenant):
@@ -158,17 +158,17 @@ class AbstractShutter(AbstractTenant):
 
     def _l_frame_height_center(self):
         mt = 'height_center'
-        l = self._get_lframe(mt) if (self.product_id == 13 or self.product_id == 15) else 0
+        l = self._get_lframe(mt) if (self.product_type_id == 13 or self.product_type_id == 15) else 0
         return l
 
     def _l_frame_height_left(self):
         mt = 'height_left'
-        l = self._get_lframe(mt) if (self.product_id > 11) else 0
+        l = self._get_lframe(mt) if (self.product_type_id > 11) else 0
         return l
 
     def _l_frame_height_right(self):
         mt = 'height_right'
-        l = self._get_lframe(mt) if (self.product_id > 11) else 0
+        l = self._get_lframe(mt) if (self.product_type_id > 11) else 0
         return l
 
     # rail, louver, stile, tilt rod
@@ -319,7 +319,8 @@ class Shutter(AbstractShutter):
     FRACTION_CHOICES = [(0, ''), (.125, '1/8'), (.25, '1/4'), (.375, '3/8'), (.5, '1/2'), (.625, '5/8'), (.75, '3/4'), (.875, '7/8')]
 
     deal = models.ForeignKey(Deal, models.SET_NULL, blank=True, null=True)
-    product = models.ForeignKey(Product, models.SET_NULL, blank=True, null=True)
+    product = models.CharField(max_length=10, default='Shutters')
+    product_type = models.ForeignKey(ProductType, models.SET_NULL, blank=True, null=True)
     finish = models.CharField(max_length=5, choices=FINISH_CHOICES, blank=True, null=True)
     stain = models.ForeignKey(Stain, models.SET_NULL, blank=True, null=True)
     color = models.CharField(max_length=100, blank=True)
@@ -358,14 +359,14 @@ class Shutter(AbstractShutter):
         self.frame_style_id = 1 if self.finish == 'Stain' else 2
 
         # set panel height for models #1, #7 and #8
-        if self.product_id == 1:
+        if self.product_type_id == 1:
             self.height_panel = self.height
             self.height_panel_fraction = self.height_fraction
-        elif self.product_id == 7:
+        elif self.product_type_id == 7:
             h = (self.height + self.height_fraction) - ((self.width + self.width_fraction)/2)
             self.height_panel = int(h)
             self.height_panel_fraction = round(h % 1, 2)
-        elif self.product_id == 8: #8
+        elif self.product_type_id == 8: #8
             h = (self.height + self.height_fraction) - (self.width + self.width_fraction)
             self.height_panel = int(h)
             self.height_panel_fraction = round(h % 1, 2)

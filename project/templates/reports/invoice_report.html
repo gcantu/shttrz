@@ -22,7 +22,7 @@
             <td>{{ forloop.counter }}</td>
             <td>{{ item.location|title }}</td>
             <td>
-              {{ item.product }}<br><br>
+              {{ item.product_type }}<br><br>
               <b>Finish: </b>{{ item.stain|default_if_none:"" }} {{ item.finish }} - {{ item.color }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <b>Mount: </b>{{ item.mount }}, {{ item.frame|default_if_none:"" }} sides
               {% if item.trim_style %}
