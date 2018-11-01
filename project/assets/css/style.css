@@ -11,6 +11,7 @@
 	2.1 Links
 	2.2 Main Menu
 	2.3 Settings Menu
+	2.4 Content Menu
 3.0 Forms
 5.0 Buttons
 6.0 Dashboard
@@ -52,7 +53,7 @@ html, body {
 	max-width: 100%;
   min-height: 100%;
   position: relative;
-	min-width: 1000px;
+	/* min-width: 1000px; */
 }
 
 #content {
@@ -155,10 +156,6 @@ html, body {
 	width: 100%;
 }
 
-.report-wrapper {
-	padding: 20px 30px;
-}
-
 /* 1.5 Sections
 --------------------------------------------------------------*/
 .section {
@@ -184,14 +181,17 @@ html, body {
 	overflow: scroll;
 }
 
-.report-section {
-	border: 0.5px solid #aeb2b7;
+/* .report-section {
 	max-width: 980px;
 	margin: auto;
-}
+	padding: 20px 30px;
+} */
 
-.summary [class*="col-"] {
-    margin-bottom: 10px;
+#report-template.section {
+	min-width: 775px;
+	max-width: 980px;
+	padding: 10px 20px;
+	margin: auto;
 }
 
 /*--------------------------------------------------------------
@@ -258,6 +258,45 @@ a:focus, a:active, a:hover {
 .settings-menu li.active a {
   background-color: #424a5d;
 	color: #ffffff;
+}
+
+/* 2.4 Content Menu
+--------------------------------------------------------------*/
+#content-menu {
+	padding-top: 10px;
+}
+
+#content-menu a {
+  color: #33475b;
+	font-weight: 400;
+	letter-spacing: 0.5px;
+	font-size: 14px;
+}
+
+#content-menu li {
+	padding: 0 20px;
+}
+
+#content-menu li a:hover {
+	color: #25b4c1;
+}
+
+#content-menu .dropdown-menu a:hover {
+	background-color: #dde7ef;
+	color: #33475b;
+}
+
+#content-menu .nav-link {
+  padding: 0;
+}
+
+#content-menu .dropdown-item {
+	color: #424a5d;
+	font-size: 14px;
+	font-weight: 400;
+	letter-spacing: 1px;
+	padding: 3px 12px;
+  min-width: 7rem;
 }
 
 /* 3.0 Forms
@@ -403,26 +442,41 @@ input[type=number]::-webkit-outer-spin-button { /* hide up and down arrows */
 	border-color: #66cad3;
 }
 
+.icon-btn {
+	margin-left: 5px;
+	margin-right: 5px;
+	background-color: transparent;
+	border: none;
+	color: #424a5d;
+	font-weight: 400;
+	letter-spacing: 0.5px;
+	font-size: 14px;
+}
+
+.icon-btn:hover {
+	color: #25b4c1;
+}
+
 .btn-delete {
-	color: #ad0817;
-	background-color: #e2b6b6;
+	color: #e50b1e;
 }
 
 .btn-delete:hover {
-	background-color: #ad0817;
 	color: #e2b6b6;
 }
 
-.btn-complete,
 .btn-add {
 	color: #7bce28;
-	background-color: #d3f1b5;
 }
 
-.btn-complete:hover,
 .btn-add:hover {
 	color: #d3f1b5;
-	background-color: #7bce28;
+}
+
+.btn-submit:hover {
+	color: #bceaee;
+	background-color: #2eadb8;
+	cursor: pointer;
 }
 
 .btn-submit { /* form submit button */
@@ -434,44 +488,16 @@ input[type=number]::-webkit-outer-spin-button { /* hide up and down arrows */
 	border: none;
 }
 
-.btn-edit { /* line item edit buttons - summary view */
-	color: #2eadb8;
-	background-color: #bceaee;
+.btn-restore { /* Deleted Items list */
+	border: 1px solid #25b4c1;
+	color: #25b4c1;
+	padding: 3px 5px;
+	background-color: transparent;
 }
 
-.btn-edit:hover,
-.btn-submit:hover {
-	color: #bceaee;
-	background-color: #2eadb8;
-	cursor: pointer;
-}
-
-.btn-edit.horizontal { /* edit buttons - summary view */
-	text-align: right;
-	width: 100%;
-	position: absolute;
-	bottom: 0;
-}
-
-.btn02 {
-	margin-left: 5px;
-	margin-right: 5px;
-}
-
-.btn-edit02 {
-	color: #424a5d;
-}
-
-.btn-complete02 {
-	color: #7bce28;
-}
-
-.btn-delete02 {
-	color: #e50b1e;
-}
-
-.btn02:hover {
-	color: #888888;
+.btn-restore:hover {
+	background-color: #25b4c1;
+	color: #fff;
 }
 
 .hidden-btn { /* line item edit buttons - summary view */
@@ -489,19 +515,10 @@ html [type=button] {
 /* 5.0 Dashboard
 --------------------------------------------------------------*/
 
-.filter-section .title {
-	background-color: #7a808d;
-	color: #fff;
+.sidebar .title {
 	font-weight: 500;
-	padding: 5px;
-	font-size: 14px;
+	font-size: 16px;
 	letter-spacing: 1px;
-}
-
-.filter-section .filters {
-	background-color: #f4f4f4;
-	font-weight: 500;
-	padding: 10px 10px 40px 10px;
 }
 
 /* 7.0 Tables
@@ -562,13 +579,18 @@ table th {
 }
 
 #customer-detail-table,
-#deal-detail-table {
+#deal-detail-table th {
 	text-align: left;
 }
 
 #customer-detail-table th,
 #deal-detail-table th {
 	padding: 0;
+}
+
+#order-summary-details [class*="col-"],
+#order-summary-details .col {
+    margin-bottom: 10px;
 }
 
 /* summarized line items for proposal report */

@@ -23,9 +23,24 @@
 
       <div id="content">
         <div class="wrapper">
-          {% block content %}
-          {{ content }}
-          {% endblock %}
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <div class="content-title noprint">
+                  {% block contenttitle %}
+                  {% endblock %}
+
+                  {% block menu %}
+                  <a class="btn btn-radius btn-main rf" href="{% url 'deals:add-customer' %}" role="button"><i class="fas fa-plus"></i> New</a>
+                  {% endblock %}
+                  <hr>
+                </div>
+              </div> <!-- END col -->
+            </div> <!-- END row -->
+            {% block content %}
+            {{ content }}
+            {% endblock %}
+          </div>
         </div>
       </div> <!-- END content -->
 

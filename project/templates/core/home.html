@@ -2,9 +2,15 @@
 {% load static %}
 {% load widget_tweaks %}
 
+{% block contenttitle %}Deals{% endblock %}
 
 {% block content %}
-<div class="container wrapper">
-  {% include "dashboard/dashboard.html" %}
+<div class="row">
+  <div class="col-2">
+    {% include "deals/deal_filters.html" %}
+  </div>
+  <div class="col-9 offset-1">
+    {% include "deals/deal_list.html" %}
+  </div>
 </div>
 {% endblock %}

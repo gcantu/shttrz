@@ -2,41 +2,51 @@
 {% load widget_tweaks %}
 {% load static %}
 
+{% block contenttitle %}
+{{ report }}
+{% endblock %}
+
+{% block menu %}
+<div id="content-menu" class="rf noprint">
+  <ul class="nav justify-content-end">
+    <li class="nav-item">
+      <button class="icon-btn rf no-padding" onclick="javascript:print();">Print</button>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link icon-btn rf" href="{% url 'deals:deal-summary' deal.id %}">Order Summary</a>
+    </li>
+  </ul>
+</div>
+{% endblock %}
 
 {% block content %}
-<div class="row noprint textcenter">
-  <div class="col ">
-    <button class="btn nf" onclick="javascript:print();">Print</button>
-    <a class="btn nf" href="{% url 'deals:deal-summary' deal.id %}" role="button">Order Summary</a>
+<div class="row">
+  <div class="col">
+    <div id="report-template" class="section">
+
+      <div class="row mt">
+        {% include "core/letterhead.html" %}
+      </div><hr> <!-- END letterhead -->
+
+      <div class="report-title">{{ report }}</div><br><br>
+
+      <div class="row">
+        <div class="col-4">
+          <div class="section-title">Prepared For</div><hr>
+          {% include "customers/customer_detail.html" %}
+        </div>
+        <div class="col-4 offset-4">
+          <div class="section-title">Details</div><hr>
+          {% include "deals/deal_detail.html" %}
+        </div>
+      </div> <!-- END customer and deal details -->
+
+      <br><br>
+      {% block report %}
+      {% endblock %} <!-- END proposal items -->
+      <br>
+    </div><br> <!-- END report section -->
   </div>
-</div><br> <!-- END buttons -->
-
-<div class="report-section">
-  <div class="report-wrapper">
-
-    <div class="row mt">
-      {% include "core/letterhead.html" %}
-    </div><hr> <!-- END letterhead -->
-    
-    <div class="report-title">{{ report }}</div><br><br>
-
-    <div class="row">
-      <div class="col-4">
-        <div class="section-title small">Prepared For</div><hr>
-        {% include "customers/customer_detail.html" %}
-      </div>
-      <div class="col-4 offset-4">
-        <div class="section-title small">Details</div><hr>
-        {% include "deals/deal_detail.html" %}
-      </div>
-    </div> <!-- END customer and deal details -->
-
-    <br><br><br>
-    {% block report %}
-    {% endblock %} <!-- END proposal items -->
-    <br>
-
-  </div> <!-- END report wrapper -->
-</div><br> <!-- END report section -->
+</div>
 
 {% endblock %}

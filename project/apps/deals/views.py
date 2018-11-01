@@ -26,7 +26,7 @@ def add_customer(request):
             material = Material.objects.create(deal_id=deal.id, tenant_id=tenant.id)
             return redirect(reverse('deals:add-deal-item', kwargs={'pk': deal.id}))
 
-    return render(request, 'customers/customer_form.html', {'form': f})
+    return render(request, 'core/form_template.html', {'form': f, 'create': True, 'form_name': 'Customer', 'create': True})
 
 
 def add_deal_item(request, pk):
@@ -41,7 +41,7 @@ def add_deal_item(request, pk):
             form.save()
             return redirect(reverse('deals:add-deal-item', kwargs={'pk': pk}))
 
-    return render(request, 'shutters/shutter_form.html', {'form': f, 'items': items, 'deal_id':pk, 'create': True})
+    return render(request, 'core/form_template.html', {'form': f, 'items': items, 'deal_id':pk, 'form_name': 'Item', 'create': True})
 
 
 def add_deal_price(request, pk):
@@ -89,7 +89,7 @@ def edit_customer(request, pk):
         form.save()
         return redirect(reverse('deals:deal-summary', kwargs={'pk': pk}))
 
-    return render(request, 'customers/customer_form.html', {'form': form})
+    return render(request, 'core/form_template.html', {'form': form, 'form_name': 'Customer', 'deal_id': pk})
 
 
 def edit_deal_item(request, pk):
@@ -100,7 +100,7 @@ def edit_deal_item(request, pk):
         form.save()
         return redirect(reverse('deals:add-deal-price', kwargs={'pk': shutter.deal_id}))
 
-    return render(request, 'shutters/shutter_form.html', {'form': form, 'prod_id': shutter.product_id, 'deal_id': shutter.deal_id})
+    return render(request, 'core/form_template.html', {'form': form, 'prod_id': shutter.product_id, 'form_name': 'Item', 'deal_id': shutter.deal_id})
 
 
 def edit_deal_info(request, pk):
@@ -112,7 +112,7 @@ def edit_deal_info(request, pk):
         form.save()
         return redirect(reverse('deals:deal-summary', kwargs={'pk': pk}))
 
-    return render(request, 'deals/deal_form.html', {'form': form})
+    return render(request, 'core/form_template.html', {'form': form, 'form_name': 'Deal', 'deal_id': pk})
 
 
 def edit_deal_price(request, pk):
@@ -130,7 +130,7 @@ def edit_deal_price(request, pk):
 
         return redirect(reverse('deals:deal-summary', kwargs={'pk': pk}))
 
-    return render(request, 'deals/price_form.html', {'form': form, 'price': price})
+    return render(request, 'core/form_template.html', {'form': form, 'price': price, 'form_name': 'Price', 'deal_id': pk})
 
 
 # -----------------------------------------------
@@ -143,6 +143,7 @@ def confirm_delete(request, pk):
 def delete_deal(request, pk):
     deal = Deal.objects.get(pk=pk)
     deal.is_deleted = True
+    deal.status = 'Deleted'
     deal.save()
 
     return redirect(reverse('core:home'))

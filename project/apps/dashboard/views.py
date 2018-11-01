@@ -4,11 +4,11 @@ from shutters.models import Deal
 import django_filters
 from django import forms
 
-STATUS_CHOICES = (('Active', 'Active'), ('Completed', 'Completed'), ('Deleted', 'Deleted'))
+STATUS_CHOICES = (('Active', 'Active'), ('Completed', 'Completed'))
 
 
 class DealFilter(django_filters.FilterSet):
-    status = django_filters.MultipleChoiceFilter(choices=STATUS_CHOICES, widget=forms.CheckboxSelectMultiple)
+    status = django_filters.ChoiceFilter(choices=STATUS_CHOICES)
     date_range = django_filters.DateRangeFilter(field_name='created_date')
 
     class Meta:
@@ -17,6 +17,10 @@ class DealFilter(django_filters.FilterSet):
 
 
 @login_required
-def deal_list(request):
-    filter = DealFilter(request.GET, queryset=Deal.objects.all())
-    return render(request, 'core/home.html', {'filter': filter})
+def deal_list(request, status):
+    if status == 'Deleted':
+        filter = DealFilter(request.GET, queryset=Deal.objects.filter(status='Deleted'))
+        return render(request, 'deals/deleted_deals_list.html', {'filter': filter, 'status': status})
+    else:
+        filter = DealFilter(request.GET, queryset=Deal.objects.exclude(status='Deleted'))
+        return render(request, 'core/home.html', {'filter': filter, 'status': status})

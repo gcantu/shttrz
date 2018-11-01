@@ -2,94 +2,83 @@
 {% load widget_tweaks %}
 {% load static %}
 
+{% block contenttitle %}Deal Summary{% endblock %}
+
+{% block menu %}
+<div id="content-menu" class="rf">
+  <ul class="nav justify-content-end">
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reports</a>
+      <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item" href="{% url 'reports:proposal-report' deal.id %}">Proposal</a>
+        <a class="dropdown-item" href="{% url 'reports:manufacturing-report' deal.id %}">Manufacturing</a>
+        <a class="dropdown-item" href="{% url 'reports:invoice-report' deal.id %}">Invoice</a>
+      </div>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Actions</a>
+      <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item" href="#">Mark as completed</a>
+        <a class="dropdown-item" href="#">Delete</a>
+      </div>
+    </li>
+  </ul>
+</div>
+{% endblock %}
 
 {% block content %}
 <!-- <div id="dealId" value="{{ deal.id }}">Order ID: {{ deal.id }}</div> -->
-<div class="container wrapper summary">
-
-  <div class="row">
-    <div class="col">
-      <div class="content-title">ORDER SUMMARY</div>
+<div id="order-summary-details" class="row">
+  <div class="col-12 col-lg-5 col-xl-4">
+    <div class="section">
+      <div class="section-wrapper summary">
+        <div class="section-title">CUSTOMER DETAILS
+          <a class="icon-btn rf" href="{% url 'deals:edit-customer' deal.id %}" role="button"><i class="fas fa-pencil-alt"></i></a>
+        </div><hr>
+        {% include 'customers/customer_detail.html' %}
+      </div>
     </div>
-  </div>
+  </div> <!-- END customer detail -->
 
-  <br>
-
-  <div class="row">
-    <div class="col col-md-11 col-lg-5 col-xl-4">
-      <div class="section">
-        <div class="section-wrapper summary">
-          <div class="section-title">CUSTOMER DETAILS</div><hr>
-          {% include 'customers/customer_detail.html' %}
-        </div>
-
+  <div class="col">
+    <div class="section">
+      <div class="section-wrapper summary">
+        <div class="section-title">ORDER DETAILS
+          <a class="icon-btn rf" href="{% url 'deals:edit-deal-info' deal.id %}" role="button"><i class="fas fa-pencil-alt"></i></a>
+        </div><hr>
+        {% include 'deals/deal_detail.html' %}
         <br>
-
-        <a class="btn btn-edit horizontal edit-customer-button" href="{% url 'deals:edit-customer' deal.id %}" role="button">
-          <i class="fas fa-pencil-alt"></i>
-        </a>
+        <div class="section-title">Notes: </div>
+        {{ deal.notes }}
       </div>
-    </div> <!-- END col -->
+    </div>
+  </div> <!-- END deal detail -->
 
-    <div class="col-12 col-md-6 col-lg-4">
-      <div class="section">
-        <div class="section-wrapper summary">
-          <div class="section-title">ORDER DETAILS</div><hr>
-          {% include 'deals/deal_detail.html' %}
-          <br>
-          <div class="section-title">Notes: </div>
-          {{ deal.notes }}
-        </div>
-
-        <br>
-
-        <a class="btn btn-edit horizontal" href="{% url 'deals:edit-deal-info' deal.id %}" role="button">
-          <i class="fas fa-pencil-alt"></i>
-        </a>
+  <div class="col">
+    <div class="section">
+      <div class="section-wrapper summary">
+        <div class="section-title">PRICING DETAILS
+          <a class="icon-btn rf" href="{% url 'deals:edit-deal-price' deal.id %}" role="button"><i class="fas fa-pencil-alt"></i></a>
+        </div><hr>
+        {% include 'deals/price_detail.html' %}
       </div>
-    </div> <!-- END col -->
+    </div>
+  </div> <!-- END pricing detail -->
+</div><br> <!-- END row -->
 
-    <div class="col col-md-5 col-lg-3 col-xl-4">
-      <div class="section">
-        <div class="section-wrapper summary">
-          <div class="section-title">PRICING DETAILS</div>
-          <hr>
-          {% include 'deals/price_detail.html' %}
-        </div>
 
-        <br>
+<div class="row">
+  <div class="col">
+    <div class="section-title">LINE ITEM DETAILS
+      <button id="edit-items-toggle" class="icon-btn rf">
+        <i class="fas fa-pencil-alt"></i>
+      </button>
+      <a class="icon-btn btn-add rf" href="{% url 'deals:add-deal-item' deal.id %}">
+        <i class="fas fa-plus"></i>
+      </a>
+    </div><hr>
+      {% include 'shutters/shutter_detail.html' %}
+  </div> <!-- END shutter detail -->
+</div> <!-- END row -->
 
-        <a class="btn btn-edit horizontal" href="{% url 'deals:edit-deal-price' deal.id %}" role="button">
-          <i class="fas fa-pencil-alt"></i>
-        </a>
-      </div>
-    </div> <!-- END col -->
-  </div> <!-- END row -->
-
-  <br>
-
-  <div class="row">
-    <div class="col">
-        <a class="btn btn-add" href="{% url 'deals:add-deal-item' deal.id %}">
-          <i class="fas fa-plus"></i>
-        </a>
-        <button id="edit-items-toggle" class="btn btn-edit">
-          <i class="fas fa-pencil-alt"></i>
-        </button>
-        {% include 'shutters/shutter_detail.html' %}
-    </div> <!-- END col -->
-  </div> <!-- END row -->
-
-  <br>
-
-  <div class="row">
-    <div class="col">
-      <a class="btn ml" href="{% url 'reports:invoice-report' deal.id %}" role="button">Invoice</a>
-      <a class="btn ml" href="{% url 'reports:manufacturing-report' deal.id %}" role="button">Manufacturing Report</a>
-      <a class="btn" href="{% url 'reports:proposal-report' deal.id %}" role="button">Proposal</a>
-
-    </div> <!-- END col -->
-  </div> <!-- END row -->
-
-</div> <!-- END container -->
 {% endblock %}

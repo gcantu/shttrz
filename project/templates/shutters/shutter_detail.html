@@ -1,18 +1,15 @@
 
-<div class="section-title">LINE ITEM DETAILS</div>
-<hr>
-
 <div class="scroll-section">
   <table id="shutter-detail-table">
     <thead>
       <tr>
-        <th colspan=2 class="hidden-btn"></th>
+        <th class="hidden-btn"></th>
         <th colspan=18></th>
         <th colspan=3>Height</th>
         <th colspan=3></th>
       </tr>
       <tr>
-        <th colspan=2 class="hidden-btn"></th>
+        <th class="hidden-btn"></th>
         <th>#</th>
         <th>Product</th>
         <th>Location</th>
@@ -43,13 +40,11 @@
       {% for item in items %}
       <tr>
         <td class="hidden-btn no-padding">
-          <a class="btn btn-edit" type="button" href="{% url 'deals:edit-deal-item' item.id %}">
+          <a class="icon-btn" type="button" href="{% url 'deals:edit-deal-item' item.id %}">
             <i class="fas fa-pencil-alt"></i>
           </a>
-        </td>
 
-        <td class="hidden-btn no-padding">
-          <a class="btn btn-delete" type="button" href="{% url 'deals:delete-deal-item' item.id %}">
+          <a class="icon-btn btn-delete" type="button" href="{% url 'deals:delete-deal-item' item.id %}">
             <i class="fas fa-times"></i>
           </a>
         </td>
