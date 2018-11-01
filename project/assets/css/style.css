@@ -208,16 +208,25 @@ a:focus, a:active, a:hover {
 
 /* 2.2 Main Menu
 --------------------------------------------------------------*/
-.main-menu {
+#main-menu .nav {
   background-color: #424a5d;
-	height: 45px;
-	padding: 8px 15px;
+	padding: 5px 10px;
+	letter-spacing: 1px;
+	font-size: 14px;
 }
 
-.home-btn { /* navbar home icon button */
+#main-menu a {
+  color: #f2f2f2;
+}
+
+#main-menu a:hover {
+  color: #25b4c1;
+}
+
+.home-icon-btn { /* navbar home icon button */
 	color: #f2f2f2;
 	font-size: 20px;
-	padding-right: 5px;
+	padding: 0 0 0 15px;
 }
 
 /* 2.3 Settings Menu
