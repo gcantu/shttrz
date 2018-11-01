@@ -18,8 +18,8 @@
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Actions</a>
       <div class="dropdown-menu dropdown-menu-right">
-        <a class="dropdown-item" href="#">Mark as completed</a>
-        <a class="dropdown-item" href="#">Delete</a>
+        <a class="dropdown-item" href="{% url 'deals:confirm-complete' deal.id %}">Mark as completed</a>
+        <a class="dropdown-item" href="{% url 'deals:confirm-delete' deal.id %}">Delete</a>
       </div>
     </li>
   </ul>
