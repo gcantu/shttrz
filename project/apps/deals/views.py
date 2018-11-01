@@ -137,7 +137,7 @@ def edit_deal_price(request, pk):
 # DELETE VIEWS
 # -----------------------------------------------
 def confirm_delete(request, pk):
-    return render(request, 'deals/deal_delete.html', {'pk': pk})
+    return render(request, 'deals/confirm_action_template.html', {'pk': pk, 'action_url': 'delete-deal', 'action': 'Delete'})
 
 
 def delete_deal(request, pk):
@@ -150,13 +150,25 @@ def delete_deal(request, pk):
 
 
 def confirm_complete(request, pk):
-    return render(request, 'deals/deal_complete.html', {'pk': pk})
+    return render(request, 'deals/confirm_action_template.html', {'pk': pk, 'action_url': 'complete-deal', 'action': 'Complete'})
 
 
 def complete_deal(request, pk):
     deal = Deal.objects.get(pk=pk)
     deal.is_completed = True
     deal.status = 'Completed'
+    deal.save()
+
+    return redirect(reverse('core:home'))
+
+
+def confirm_restore(request, pk):
+    return render(request, 'deals/confirm_action_template.html', {'pk': pk, 'action_url': 'restore-deal', 'action': 'Restore'})
+
+def restore_deal(request, pk):
+    deal = Deal.objects.get(pk=pk)
+    deal.is_deleted = False
+    deal.status = 'Active'
     deal.save()
 
     return redirect(reverse('core:home'))

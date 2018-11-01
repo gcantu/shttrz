@@ -765,6 +765,10 @@ hr {
 	margin: 0;
 }
 
+.auto-margin {
+	margin: auto;
+}
+
 .inline {
 	display: inline-block;
 }

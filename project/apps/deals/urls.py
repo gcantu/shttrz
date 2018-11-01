@@ -16,6 +16,8 @@ urlpatterns = [
     path('delete_deal/<int:pk>', views.delete_deal, name='delete-deal'),
     path('complete_confirmation/<int:pk>', views.confirm_complete, name='confirm-complete'),
     path('complete_deal/<int:pk>', views.complete_deal, name='complete-deal'),
+    path('restore_confirmation/<int:pk>', views.confirm_restore, name='confirm-restore'),
+    path('restore_deal/<int:pk>', views.restore_deal, name='restore-deal'),
     path('delete_item/<int:pk>', views.DeleteItem.as_view(), name='delete-deal-item'),
     path('summary/<int:pk>', views.deal_summary, name='deal-summary'),
 ]
