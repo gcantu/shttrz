@@ -4,3 +4,5 @@ django
 mysqlclient
 
 django-widget-tweaks
+
+django-filter

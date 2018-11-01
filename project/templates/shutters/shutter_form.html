@@ -1,0 +1,191 @@
+{% load widget_tweaks %}
+{% load static %}
+
+<div class="col">
+  <div class="section">
+    <form id="shutter-form" method="post">
+    {% csrf_token %}
+    {{ form.deal.as_hidden }}
+    {{ form.tenant.as_hidden }}
+      <div class="container">
+        <div class="form-title">Item Details</div>
+
+        <div class="row">
+          <div class="col-9">
+            <div class="form-section">
+              <div class="form-row">
+                <div class="col-12">
+                {{ form.product.label_tag }}
+                {% render_field  form.product class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-3">
+                {{ form.location.label_tag }}
+                {% render_field  form.location class="form-control" %}
+                </div>
+                <div class="col-3">
+                {{ form.mount.label_tag }}
+                {% render_field  form.mount class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-3 frame-field">
+                {{ form.frame.label_tag }}
+                {% render_field  form.frame class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-3 frame-field">
+                {{ form.trim_style.label_tag }}
+                {% render_field  form.trim_style class="custom-select mr-sm-2" %}
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="form-row">
+                <div class="col-2">
+                  {{ form.width.label_tag }}
+                  {% render_field  form.width class="form-control" %}
+                </div>
+                <div class="col-2 no-label">
+                  {% render_field  form.width_fraction class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-2">
+                  {{ form.height.label_tag }}
+                  {% render_field  form.height class="form-control" %}
+                </div>
+                <div class="col-2 no-label">
+                  {% render_field  form.height_fraction class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-2 panel-height-field">
+                  <label>Panel Height:</label>
+                  {% render_field  form.height_panel class="form-control" %}
+                </div>
+                <div class="col-2 no-label panel-height-field">
+                  {% render_field  form.height_panel_fraction class="custom-select mr-sm-2" %}
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section lr-height-field">
+              <div class="field-message">Additional Height Measurements</div>
+              <br>
+              <div class="form-row">
+                <div class="col-2">
+                  <label>Left</label>
+                  {% render_field  form.height_left class="form-control" %}
+                </div>
+                <div class="col-2 no-label">
+                  {% render_field  form.height_left_fraction class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-2">
+                  <label>Right</label>
+                  {% render_field  form.height_right class="form-control" %}
+                </div>
+                <div class="col-2 no-label">
+                  {% render_field  form.height_right_fraction class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-2 center-height-field">
+                  <label>Center</label>
+                  {% render_field  form.height_center class="form-control" %}
+                </div>
+                <div class="col-2 no-label center-height-field">
+                  {% render_field  form.height_center_fraction class="custom-select mr-sm-2" %}
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="form-row">
+                <div class="col-1">
+                  <label>Panels</label>
+                  {{ field.errors }}
+                  {% render_field  form.panels class="form-control" %}
+                </div>
+
+                <div class="col-2">
+                  {{ form.hinges.label_tag }}
+                  {% render_field  form.hinges class="custom-select mr-sm-2" %}
+                </div>
+
+                <div class="col-3">
+                  {{ form.hinge_color.label_tag }}
+                  {% render_field  form.hinge_color class="custom-select mr-sm-2" %}
+                </div>
+
+                <div class="col-2">
+                  {{ form.tilt_rod.label_tag }}
+                  {% render_field  form.tilt_rod class="custom-select mr-sm-2" %}
+                </div>
+
+                <div class="col-2">
+                  {{ form.louver.label_tag }}
+                  {% render_field  form.louver class="custom-select mr-sm-2" %}
+                </div>
+
+                <div class="col-2 t-post-field">
+                  <label># of T-post</label>
+                  {% render_field  form.t_post class="form-control" %}
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section divider-field">
+              <div class="form-row">
+                <div class="col-3 col-md-2">
+                  <label>Divider</label>
+                  {% render_field  form.height_divider class="form-control" %}
+                </div>
+                <div class="col-3 col-md-2 col-lg-2 no-label">
+                  {% render_field  form.height_divider_fraction class="custom-select mr-sm-2" %}
+                </div>
+              </div>
+            </div>
+          </div> <!-- END col -->
+
+          <div class="col-3">
+            <div class="form-section textcenter">
+              <div class="product-img-section hidden">
+                {% with img_id=prod_id|stringformat:"s" %}
+                {% with 'img/model'|add:img_id|add:'.png' as image_static %}
+                  <img class="product-img" src="{% static image_static %}" alt="hey">
+                {% endwith %}
+                {% endwith %}
+              </div>
+            </div>
+
+
+
+            <div class="form-section">
+              <div class="form-row">
+                <div class="col-12">
+                  {{ form.finish.label_tag }}
+                  {% render_field  form.finish class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-12 stain-field">
+                  {{ form.stain.label_tag }}
+                  {% render_field  form.stain class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-12">
+                  {{ form.color.label_tag }}
+                  {% render_field  form.color class="form-control" %}
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="form-row">
+                <div class="col">
+                  {{ form.price_per_sq_ft.label_tag }}
+                  {% render_field  form.price_per_sq_ft class="form-control" %}
+                </div>
+              </div>
+            </div>
+
+          </div> <!-- END col -->
+        </div> <!-- END row -->
+
+        <input class="btn btn-main" type="submit" value="Add"/><br>
+
+      </div> <!-- END container -->
+    </form> <!-- END form -->
+
+    <button id="divider-button" class="btn nf ml">Add Divider</button>
+  </div><br> <!-- END section -->
+</div>

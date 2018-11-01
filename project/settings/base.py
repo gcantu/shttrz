@@ -34,7 +34,9 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'customers.apps.CustomersConfig',
     'deals.apps.DealsConfig',
+    'reports.apps.ReportsConfig',
     'shutters.apps.ShuttersConfig',
+    'dashboard.apps.DashboardConfig',
     'adminsite.apps.CustomAdminConfig',  # replaces 'django.contrib.admin'
     # 'django.contrib.admin',
     'django.contrib.auth',
@@ -43,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'django.contrib.humanize',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -104,7 +108,7 @@ USE_I18N = False
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'

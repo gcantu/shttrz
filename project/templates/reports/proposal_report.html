@@ -1,0 +1,83 @@
+{% extends "reports/report_template.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{% load humanize %}
+
+
+{% block report %}
+<div class="row">
+  <div class="col">
+    <table id="proposal-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Location</th>
+            <th>Description</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for item in items %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ item.location|title }}</td>
+            <td>
+              {{ item.product }}<br><br>
+              <b>Finish: </b>{{ item.stain|default_if_none:"" }} {{ item.finish }} - {{ item.color }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <b>Mount: </b>{{ item.mount }}, {{ item.frame|default_if_none:"" }} sides
+              {% if item.trim_style %}
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <b>Trim Style: </b>{{ item.trim_style }}
+              {% endif %}
+              <br>
+              <b>Doors: </b>{{ item.panels }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Louver: </b>{{ item.get_louver_display }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Hinge Color:
+              </b>{{ item.hinge_color }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Tilt rod: </b>{{ item.tilt_rod }}<br>
+            </td>
+            <td>$ {{ item.total_price|floatformat:"0"|intcomma }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+  </div>
+</div>
+
+<br>
+
+<div class="row">
+
+  <div class="col-8">
+    <div class="section wrapper">
+      <h6>Notes: </h6>
+      {{ deal.notes }}
+    </div>
+  </div>
+
+  <div class="col-4">
+    <div class="section wrapper">
+      <table id="price-table">
+        <tbody>
+          <tr>
+            <th>Subtotal: </th>
+            <td>
+              <div>$ {{ price.subtotal|floatformat|intcomma }}</div>
+            </td>
+          </tr>
+
+          <tr class="underline">
+            <th>Tax: </th>
+            <td>$ {{ price.tax|floatformat|intcomma }} </td>
+          </tr>
+
+          <tr class="table-total-row">
+            <th>Total: </th>
+            <td>$ {{ price.total|floatformat|intcomma }}</td>
+          </tr>
+        </tbody>
+      </table> <!-- END total table -->
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

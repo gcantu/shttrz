@@ -1,0 +1,91 @@
+{% load widget_tweaks %}
+{% load static %}
+
+<div class="col-9 col-md-8 offset-md-2">
+  <form id="price-form" method="post">
+    {% csrf_token %}
+    {{ form.deal.as_hidden }}
+    {{ form.tenant.as_hidden }}
+    {{ form.subtotal.as_hidden }}
+    {{ form.tax.as_hidden }}
+    {{ form.credit_card_fee.as_hidden }}
+    {{ form.total.as_hidden }}
+    {{ form.balance.as_hidden }}
+
+    <div class="section">
+      <div class="section-wrapper">
+        <div class="form-title">Pricing Details</div>
+
+        <div class="row">
+          <div class="col-5">
+            {{ form.payment_method.label_tag }}
+            {% render_field  form.payment_method class="custom-select mr-sm-2" %}
+          </div>
+
+          <div class="col-4">
+            {% if price.payment_method.payment_method == 'Credit Card' %}
+            <div class="cc-fee-field">
+              <label>Credit Card Fee Rate</label>
+              {% render_field  form.credit_card_fee_rate class="form-control" %}
+            </div>
+            <div class="check-field hidden">
+              <label>Check No</label>
+              {% render_field  form.check_number class="form-control" %}
+            </div>
+            {% elif price.payment_method.payment_method == 'Check' %}
+            <div class="check-field">
+              <label>Check No</label>
+              {% render_field  form.check_number class="form-control" %}
+            </div>
+            <div class="cc-fee-field hidden">
+              <label>Credit Card Fee Rate</label>
+              {% render_field  form.credit_card_fee_rate class="form-control" %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <table id="price-table">
+          <tbody>
+            <tr>
+              <th>Subtotal: </th>
+              <td>$ {{ price.subtotal }}</td>
+            </tr>
+
+            <tr>
+              <th>Tax  {% render_field  form.tax_rate class="form-control inline" %} {% render_field  form.add_tax %} </th>
+              <td>$ {{ price.tax }} </td>
+            </tr>
+
+            <tr class="cc-fee-field">
+              <th>Credit Card Fee</th>
+              <td>$ {{ price.credit_card_fee }} </td>
+            </tr>
+
+            <tr class="topline">
+              <th>Total: </th>
+              <td>$ {{ price.total }}</td>
+            </tr>
+
+            <tr class="underline">
+              <th>{{ form.down_payment.label_tag }}</th>
+              <td>{% render_field  form.down_payment class="form-control inline" %}</td>
+            </tr>
+
+            <tr>
+              <th>Balance</th>
+              <td>$ {{ price.balance }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+      <button type="submit" class="btn-submit">
+        <i class="fas fa-dollar-sign"></i>
+      </button>
+
+    </div>
+
+  </form>
+</div>

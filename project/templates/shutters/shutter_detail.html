@@ -1,0 +1,80 @@
+
+<div class="scroll-section">
+  <table id="shutter-detail-table">
+    <thead>
+      <tr>
+        <th class="hidden-btn"></th>
+        <th colspan=18></th>
+        <th colspan=3>Height</th>
+        <th colspan=3></th>
+      </tr>
+      <tr>
+        <th class="hidden-btn"></th>
+        <th>#</th>
+        <th>Product</th>
+        <th>Location</th>
+        <th>Mount</th>
+        <th>Frame</th>
+        <th>Frame Style</th>
+        <th>Trim Style</th>
+        <th>Panels</th>
+        <th>T-posts</th>
+        <th>Louver</th>
+        <th>Tilt Rod</th>
+        <th>Finish</th>
+        <th>Stain</th>
+        <th>Color</th>
+        <th colspan=2>Hinges</th>
+        <th>Width</th>
+        <th>Height</th>
+        <th>Center</th>
+        <th>Left</th>
+        <th>Right</th>
+        <th>Divider</th>
+        <th>Price/Sq. Ft.</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td class="hidden-btn no-padding">
+          <a class="icon-btn" type="button" href="{% url 'deals:edit-deal-item' item.id %}">
+            <i class="fas fa-pencil-alt"></i>
+          </a>
+
+          <a class="icon-btn btn-delete" type="button" href="{% url 'deals:delete-deal-item' item.id %}">
+            <i class="fas fa-times"></i>
+          </a>
+        </td>
+
+        <td>{{ forloop.counter }}</td>
+        <td>{{ item.product }}</td>
+        <td>{{ item.location|title }}</td>
+        <td>{{ item.mount }}</td>
+        <td>{{ item.frame|default_if_none:"" }}</td>
+        <td>{{ item.frame_style }}</td>
+        <td>{{ item.trim_style|default_if_none:"" }}</td>
+        <td>{{ item.panels }}</td>
+        <td>{{ item.t_post|default_if_none:"" }}</td>
+        <td>{{ item.get_louver_display|default_if_none:"" }}</td>
+        <td>{{ item.tilt_rod|default_if_none:"" }}</td>
+        <td>{{ item.finish|default_if_none:"" }}</td>
+        <td>{{ item.stain|default_if_none:"" }}</td>
+        <td>{{ item.color|title }}</td>
+        <td>{{ item.hinges }}</td>
+        <td>{{ item.hinge_color|default_if_none:"" }}</td>
+        <td>{{ item.width }} {{ item.get_width_fraction_display }}</td>
+        <td>{{ item.height|default_if_none:"" }} {{ item.get_height_fraction_display }}</td>
+        <td>{{ item.height_center|default_if_none:"" }} {{ item.get_height_center_fraction_display }}</td>
+        <td>{{ item.height_left|default_if_none:"" }} {{ item.get_height_left_fraction_display }}</td>
+        <td>{{ item.height_right|default_if_none:"" }} {{ item.get_height_right_fraction_display }}</td>
+        <td>{{ item.height_divider|default_if_none:"" }} {{ item.get_height_divider_fraction_display }}</td>
+        <td>$ {{ item.price_per_sq_ft }}</td>
+        <td>$ {{ item.total_price }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

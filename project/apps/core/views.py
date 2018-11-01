@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from deals.models import Deal
 
 
 @login_required
 def Home(request):
-    return render(request, 'core/home.html')
+    return redirect(reverse('dashboard:deal-list', kwargs={'status': 'All'}))
 
 
 @login_required
