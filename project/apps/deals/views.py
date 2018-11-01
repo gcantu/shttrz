@@ -156,6 +156,7 @@ def confirm_complete(request, pk):
 def complete_deal(request, pk):
     deal = Deal.objects.get(pk=pk)
     deal.is_completed = True
+    deal.status = 'Completed'
     deal.save()
 
     return redirect(reverse('core:home'))
