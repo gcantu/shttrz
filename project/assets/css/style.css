@@ -543,7 +543,8 @@ table th {
 	text-align: right;
 }
 
-#price-table .underline {
+#price-table .underline,
+#item-measurements-table th {
 	border-bottom: 0.5px solid #aeb2b7;
 }
 
