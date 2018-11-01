@@ -3,47 +3,59 @@
 {% load static %}
 
 {% block report %}
-  <table id="specs-table">
-    <tbody>
-      <tr>
-        {% if specs.louver %}<td><b>Louver: </b> {{ specs.louver }}</td>{% endif %}
-        {% if specs.finish %}<td><b>Finish: </b> {{ specs.stain }} {{ specs.finish }}</td>{% endif %}
-        {% if specs.color %}<td><b>Color: </b> {{ specs.color }}</td>{% endif %}
-        {% if specs.frame_style %}<td><b>Frame: </b> {{ specs.frame_style }}</td>{% endif %}
-        {% if specs.trim_style %}<td><b>Trim: </b> {{ specs.trim_style }}</td>{% endif %}
-        {% if specs.tilt_rod %}<td><b>Tilt Rod: </b> {{ specs.tilt_rod }}</td>{% endif %}
-        {% if specs.hinge_color %}<td><b>Hinge Color: </b> {{ specs.hinge_color }}</td>{% endif %}
-      </tr>
-    </tbody>
-  </table><br>
 
 {% for item in items %}
 <div id="manufacturing-report" class="section">
   <div class="section-title">
-  {{ forloop.counter }}. {{ item.product }} ({{ item.location }})
+  {{ forloop.counter }}. {{ item.product }} ({{ item.location|title }})
+  {% if item.t_post %}<span class="rf mr"><b>T-Post: {{ item.t_post|default_if_none:"" }}</b></span>{% endif %}
   </div> <!-- END section title -->
+
   <div class="container wrapper">
     <div class="row">
-      <div class="col-1 img-col">
+      <div class="col">
+        <table id="item-specs-table">
+          <thead>
+            <tr>
+              <th>Panels</th>
+              <th>Louver</th>
+              <th>Frame</th>
+              {% if item.mount == 'Out' %}<th>Trim</th>{% endif %}
+              <th>Finish</th>
+              <th>Hinges</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>{{ item.panels }}</td>
+              <td>{{ item.get_louver_display }}</td>
+              <td>{{ item.frame_style|default_if_none:"" }}</td>
+              {% if item.mount == 'Out' %}<td>{{ item.trim_style|default_if_none:"" }}, {{ item.get_frame_display|default_if_none:"" }}</td>{% endif %}
+              <td>{{ item.stain|default_if_none:"" }} {{ item.finish }} {% if item.color %}- {{ item.color|default_if_none:"" }}{% endif %}</td>
+              <td>{{ item.hinges|default_if_none:"" }}, {{ item.hinge_color|default_if_none:"" }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div><hr> <!-- END item specs row -->
+
+    <div class="row">
+      <div class="col">
       {% with img_id=item.product_id|stringformat:"s" %}
       {% with 'img/model'|add:img_id|add:'.png' as image_static %}
-        <img class="product-img" src="{% static image_static %}" alt="">
+        <img class="product-img lf" src="{% static image_static %}" alt="">
       {% endwith %}
       {% endwith %}
-      </div> <!-- END image column -->
 
-      <div class="col-9 offset-1">
-        <table class="item-measurements-table">
+        <table id="item-measurements-table">
           <thead>
             <tr>
               <th colspan=2>L Frame</th>
               <th colspan=2>Louver</th>
               <th colspan=2>Rail</th>
               <th colspan=2>Stile</th>
-              <th colspan=2></th>
-              {% if item.mount == 'Out' %}<th></th>{% endif %}
-              {% if item.t_post %}<th></th>{% endif %}
-              {% if item.panels == 1 %}<th></th>{% endif %}
+              <th colspan=2>Tilt Rod</th>
             </tr>
             <tr>
               <th>Width</th>
@@ -54,11 +66,7 @@
               <th>Measure</th>
               <th>Qty</th>
               <th>Measure</th>
-              <th>Tilt Rod</th>
-              <th>Panels</th>
-              {% if item.mount == 'Out' %}<th>Mount</th>{% endif %}
-              {% if item.t_post %}<th># Tpost</th>{% endif %}
-              {% if item.panels == 1 %}<th>Hinges</th>{% endif %}
+              <th colspan=2></th>
             </tr>
           </thead>
           <tbody>
@@ -71,34 +79,13 @@
               <td>{{ item.rail_measure }}</td>
               <td>{{ item.stile_qty }}</td>
               <td>{{ item.stile_measure }}</td>
+              <td>{{ item.tilt_rod|default_if_none:"" }}</td>
               <td>{{ item.tilt_rod_measure }}</td>
-              <td>{{ item.panels }}</td>
-              {% if item.mount == 'Out' %}<td>{{ item.get_frame_display|default_if_none:"" }}</td>{% endif %}
-              {% if item.t_post %}<td>{{ item.t_post|default_if_none:"" }}</td>{% endif %}
-              {% if item.panels == 1 %}<td>{{ item.hinges|default_if_none:"" }}</td>{% endif %}
             </tr>
           </tbody>
         </table>
-      </div> <!-- END data column -->
+      </div> <!-- END column -->
     </div><br> <!-- END row -->
-
-    <div class="row">
-      <div class="col">
-        <table id="item-specs-table">
-          <tbody>
-            <tr>
-              {% ifnotequal specs.louver item.get_louver_display %}<td><b>Louver: </b> {{ item.get_louver_display }}</td>{% endifnotequal %}
-              {% ifnotequal specs.finish item.finish %}<td><b>Finish: </b> {{ item.stain|default_if_none:"" }} {{ item.finish }}</td>{% endifnotequal %}
-              {% ifnotequal specs.color item.color %}<td><b>Color: </b> {{ item.color|default_if_none:"" }}</td>{% endifnotequal %}
-              {% ifnotequal specs.frame_style item.frame_style.frame_style %}<td><b>Frame: </b> {{ item.frame_style|default_if_none:"" }}</td>{% endifnotequal %}
-              {% ifnotequal specs.trim_style item.trim_style.trim_style %}<td><b>Trim: </b> {{ item.trim_style|default_if_none:"" }}</td>{% endifnotequal %}
-              {% ifnotequal specs.tilt_rod item.tilt_rod.tilt_rod %}<td><b>Tilt Rod: </b> {{ item.tilt_rod|default_if_none:"" }}</td>{% endifnotequal %}
-              {% ifnotequal specs.hinge_color item.hinge_color.hinge_color %}<td><b>Hinge Color: </b> {{ item.hinge_color|default_if_none:"" }}</td>{% endifnotequal %}
-            </tr>
-          </tbody>
-        </table>
-      </div> <!-- END col -->
-    </div> <!-- END row -->
   </div> <!-- END container -->
 </div><br> <!-- END item manufacturing report -->
 {% endfor %}
@@ -107,7 +94,7 @@
 <!-- ORDER MATERIALS -->
 <div class="section-wrapper">
   <h6>MATERIALS:</h6>
-  <table class="materials-table">
+  <table id="materials-table">
     <tbody>
       <tr>
         {% for field, val in material %}<th>{{ field }}</th>{% endfor %}
