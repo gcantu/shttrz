@@ -21,7 +21,7 @@
         {% for item in items %}
           <tr>
             <td>{{ forloop.counter }}</td>
-            <td>{{ item.location }}</td>
+            <td>{{ item.location|title }}</td>
             <td>
               {{ item.product }}<br><br>
               <b>Finish: </b>{{ item.stain|default_if_none:"" }} {{ item.finish }} - {{ item.color }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
