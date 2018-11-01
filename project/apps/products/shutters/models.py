@@ -314,7 +314,7 @@ class Shutter(AbstractShutter):
             h = (self.height + self.height_fraction) - ((self.width + self.width_fraction)/2)
             self.height_panel = int(h)
             self.height_panel_fraction = round(h % 1, 2)
-        else: #8
+        elif self.product_id == 8: #8
             h = (self.height + self.height_fraction) - (self.width + self.width_fraction)
             self.height_panel = int(h)
             self.height_panel_fraction = round(h % 1, 2)
