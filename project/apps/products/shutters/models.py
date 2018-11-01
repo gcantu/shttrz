@@ -113,9 +113,36 @@ class AbstractShutter(AbstractTenant):
         h = self.height + self.height_fraction
         return h
 
+    def _height_panel(self):
+        h = self.height_panel + self.height_panel_fraction
+        return h
+
+    def _height_center(self):
+        h = self.height_center + self.height_center_fraction
+        return h
+
+    def _height_left(self):
+        h = self.height_left + self.height_left_fraction
+        return h
+
+    def _height_right(self):
+        h = self.height_right + self.height_right_fraction
+        return h
+
     def _get_lframe(self, measure_type):
-        measure = self._width() if measure_type == 'width' else self._height()
+        if measure_type == 'width':
+            measure = self._width()
+        elif measure_type == 'height':
+            measure = self._height()
+        elif measure_type == 'height_center':
+            measure = self._height_center()
+        elif measure_type == 'height_left':
+            measure = self._height_left()
+        elif measure_type == 'height_right':
+            measure = self._height_right()
+
         deduction = 0.375 if measure_type == 'width' else 0.25 # 3/8 for width, 1/4 for height
+
         l = (measure - 0.125) if self.mount == 'In' else (measure - deduction)
         return l
 
@@ -127,6 +154,21 @@ class AbstractShutter(AbstractTenant):
     def _l_frame_height(self):
         mt = 'height'
         l = self._get_lframe(mt)
+        return l
+
+    def _l_frame_height_center(self):
+        mt = 'height_center'
+        l = self._get_lframe(mt) if (self.product_id == 13 or self.product_id == 15) else 0
+        return l
+
+    def _l_frame_height_left(self):
+        mt = 'height_left'
+        l = self._get_lframe(mt) if (self.product_id > 11) else 0
+        return l
+
+    def _l_frame_height_right(self):
+        mt = 'height_right'
+        l = self._get_lframe(mt) if (self.product_id > 11) else 0
         return l
 
     # rail, louver, stile, tilt rod
@@ -242,6 +284,15 @@ class AbstractShutter(AbstractTenant):
 
     def l_frame_height(self):
         return as_fraction(self._l_frame_height())
+
+    def l_frame_height_center(self):
+        return as_fraction(self._l_frame_height_center())
+
+    def l_frame_height_left(self):
+        return as_fraction(self._l_frame_height_left())
+
+    def l_frame_height_right(self):
+        return as_fraction(self._l_frame_height_right())
 
     def rail_measure(self):
         return as_fraction(self._rail())

@@ -52,6 +52,11 @@
           <thead>
             <tr>
               <th colspan=2>L Frame</th>
+              {% if item.product_id == 12 or item.product_id == 14 %}
+              <th colspan=2>Height</th>
+              {% elif item.product_id == 13 or item.product_id == 15 %}
+              <th colspan=3>Height</th>
+              {% endif %}
               <th colspan=2>Louver</th>
               <th colspan=2>Rail</th>
               <th colspan=2>Stile</th>
@@ -60,6 +65,13 @@
             <tr>
               <th>Width</th>
               <th>Height</th>
+              {% if item.product_id == 13 or item.product_id == 15 %}
+              <th>Center</th>
+              {% endif %}
+              {% if item.product_id > 11 %}
+              <th>Left</th>
+              <th>Right</th>
+              {% endif %}
               <th>Qty</th>
               <th>Measure</th>
               <th>Qty</th>
@@ -73,6 +85,15 @@
             <tr>
               <td>{{ item.l_frame_width }}</td>
               <td>{{ item.l_frame_height }}</td>
+
+              {% if item.product_id == 13 or item.product_id == 15 %}
+              <td>{{ item.l_frame_height_center }}</td>
+              {% endif %}
+              {% if item.product_id > 11 %}
+              <td>{{ item.l_frame_height_left }}</td>
+              <td>{{ item.l_frame_height_right }}</td>
+              {% endif %}
+
               <td>{{ item.louver_qty }}</td>
               <td>{{ item.louver_measure }}</td>
               <td>{{ item.rail_qty }}</td>
