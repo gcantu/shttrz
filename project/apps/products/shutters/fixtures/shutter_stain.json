@@ -1,0 +1,42 @@
+[
+  {
+    "model": "shutters.Stain",
+    "pk": 1,
+    "fields": {
+      "stain": "Ash",
+      "tenant": 1
+    }
+  },
+  {
+    "model": "shutters.Stain",
+    "pk": 2,
+    "fields": {
+      "stain": "Basswood",
+      "tenant": 1
+    }
+  },
+  {
+    "model": "shutters.Stain",
+    "pk": 3,
+    "fields": {
+      "stain": "Knotty Alder",
+      "tenant": 1
+    }
+  },
+  {
+    "model": "shutters.Stain",
+    "pk": 4,
+    "fields": {
+      "stain": "Maple",
+      "tenant": 1
+    }
+  },
+  {
+    "model": "shutters.Stain",
+    "pk": 5,
+    "fields": {
+      "stain": "Pine",
+      "tenant": 1
+    }
+  }
+]

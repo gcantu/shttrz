@@ -1,0 +1,43 @@
+{% load static %}<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static 'css/bootstrap.min.css' %}{% endblock %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+    {% block responsive %}<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">{% endblock %}
+    {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE"/>{% endblock %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  </head>
+
+  <body>
+    <div id="page">
+
+      {% block header %}
+      {% include "core/header.html" %}
+      {% endblock %}
+
+      {% block navbar %}
+      {% include "core/navbar.html" %}
+      {% endblock %}
+
+      <div id="content">
+        <div class="wrapper">
+          {% block content %}
+          {{ content }}
+          {% endblock %}
+        </div>
+      </div> <!-- END content -->
+
+      {% block footer %}
+      {% include "core/footer.html" %}
+      {% endblock %}
+
+    </div> <!-- END page -->
+
+    <!--common JS -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-3.3.1.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/common-scripts.js' %}"></script>
+  </body>
+</html>

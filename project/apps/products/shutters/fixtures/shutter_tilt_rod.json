@@ -1,0 +1,26 @@
+[
+  {
+    "model": "shutters.TiltRod",
+    "pk": 1,
+    "fields": {
+      "tilt_rod": "Front",
+      "tenant": 1
+    }
+  },
+  {
+    "model": "shutters.TiltRod",
+    "pk": 2,
+    "fields": {
+      "tilt_rod": "Back",
+      "tenant": 1
+    }
+  },
+  {
+    "model": "shutters.TiltRod",
+    "pk": 3,
+    "fields": {
+      "tilt_rod": "Aluminum",
+      "tenant": 1
+    }
+  }
+]

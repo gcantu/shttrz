@@ -1,0 +1,52 @@
+{% extends "core/base.html" %}
+{% load i18n static %}
+
+
+{% block content %}
+<div class="container">
+  <div class="content-title">SITE ADMINISTRATION</div>
+  <hr>
+  <br>
+
+  <div class="index">
+  {% if app_list %}
+
+    {% for app in app_list %}
+      <div class="app-{{ app.app_label }} index-module">
+      {% if app.name == 'Users' %}
+        <div class="title">Authentication</div>
+      {% else %}
+        <div class="title">Manage Product</div>
+      {% endif %}
+
+        <table>
+        {% for model in app.models %}
+          <tbody>
+            <tr class="model-{{ model.object_name|lower }}">
+              <th scope="row">{{ model.name }}</th>
+
+              {% if model.admin_url %}
+                {% if model.view_only %}
+                  <td><a href="{{ model.admin_url }}" class="view-link">View</a></td>
+                {% else %}
+                  <td><a href="{{ model.admin_url }}" class="update-link">Update</a></td>
+                {% endif %}
+              {% else %}
+                <td>&nbsp;</td>
+              {% endif %}
+
+            </tr>
+          </tbody>
+        {% endfor %}
+        </table>
+      </div>
+      <br>
+    {% endfor %}
+  {% else %}
+
+  <p>{% trans "You don't have permission to view or edit anything." %}</p>
+
+  {% endif %}
+  </div>
+</div>
+{% endblock %}

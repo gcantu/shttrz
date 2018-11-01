@@ -1,0 +1,26 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+<div class="row">
+
+  <div class="col-3">
+    <div class="settings-menu">
+      <div class="wrapper">
+        <div class="title">{% block settingsmenutitle %}User Settings{% endblock %}</div>
+        <hr>
+        {% block settingsmenulist %}{% endblock %}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-6">
+    <div class="content-title">{% block settingscontenttitle %}{% endblock %}</div>
+    <hr/>
+    {% block settingscontent %}{% endblock %}
+  </div>
+
+</div>
+{% endblock %}

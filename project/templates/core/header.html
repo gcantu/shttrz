@@ -1,0 +1,27 @@
+{% load static %}
+
+<header class="noprint">
+  <div class="wrapper clearfix">
+
+    <div id="header-logo">
+      <img src="{% static 'img/shutterize_logo.png' %}" alt="Shutterize Software">
+    </div> <!-- END logo -->
+
+    <div id="header-text">
+      <a href="{% url 'core:home' %}" title="Shutterize" rel="home">Shutterize</a>
+    </div> <!-- END title -->
+
+    <div id="header-user" class="dropdown rf">
+      <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-user-circle"></i>
+        {{ request.user }}
+      </a>
+
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" href="{% url 'users:update' %}">Settings</a>
+        <a class="dropdown-item" href="{% url 'users:logout' %}">Logout</a>
+      </div>
+    </div> <!-- END user menu -->
+
+  </div>
+</header>
