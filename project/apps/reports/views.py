@@ -17,7 +17,7 @@ def proposal_report(request, pk):
 def manufacturing_report(request, pk):
     deal = Deal.objects.get(pk=pk)
     customer = Customer.objects.get(deal__id=pk)
-    shutter = Shutter.objects.filter(deal_id=pk).order_by('product_id')
+    shutter = Shutter.objects.filter(deal_id=pk).order_by('shutter_type_id')
     material = Material.objects.get(pk=pk)
 
     fieldname = ['louver', 'finish', 'color', 'stain', 'frame_style', 'trim_style', 'tilt_rod', 'hinge_color']

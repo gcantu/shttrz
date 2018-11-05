@@ -32,14 +32,14 @@ $('#divider-button').on('click', function() { // add/remove divider field in lin
    $(".divider-field").toggle();
 });
 
-$('#id_product').on('change', function() { // hide/unhide panel, center, left, and right height fields
+$('#id_product_type').on('change', function() { // hide/unhide panel, center, left, and right height fields
   var selectedItem = $(this).val();
 
   showMeasureField(selectedItem);
 });
 
 
-$('#id_product').on('change', function() { // render shutter model image
+$('#id_product_type').on('change', function() { // render shutter model image
   var model = "/static/img/model" + $(this).val() + ".png";
   $(".product-img-section").removeClass("hidden");
   $('.product-img').prop('src', model);

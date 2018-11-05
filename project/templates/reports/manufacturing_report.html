@@ -7,7 +7,7 @@
 {% for item in items %}
 <div id="manufacturing-report" class="section">
   <div class="section-title">
-  {{ forloop.counter }}. {{ item.product }} ({{ item.location|title }})
+  {{ forloop.counter }}. {{ item.shutter_type }} ({{ item.location|title }})
   {% if item.t_post %}<span class="rf mr"><b>T-Post: {{ item.t_post|default_if_none:"" }}</b></span>{% endif %}
   </div> <!-- END section title -->
 
@@ -42,7 +42,7 @@
 
     <div class="row">
       <div class="col">
-      {% with img_id=item.product_id|stringformat:"s" %}
+      {% with img_id=item.shutter_type_id|stringformat:"s" %}
       {% with 'img/model'|add:img_id|add:'.png' as image_static %}
         <img class="product-img lf" src="{% static image_static %}" alt="">
       {% endwith %}
@@ -52,9 +52,9 @@
           <thead>
             <tr>
               <th colspan=2>L Frame</th>
-              {% if item.product_id == 12 or item.product_id == 14 %}
+              {% if item.shutter_type_id == 12 or item.shutter_type_id == 14 %}
               <th colspan=2>Height</th>
-              {% elif item.product_id == 13 or item.product_id == 15 %}
+              {% elif item.shutter_type_id == 13 or item.shutter_type_id == 15 %}
               <th colspan=3>Height</th>
               {% endif %}
               <th colspan=2>Louver</th>
@@ -65,10 +65,10 @@
             <tr>
               <th>Width</th>
               <th>Height</th>
-              {% if item.product_id == 13 or item.product_id == 15 %}
+              {% if item.shutter_type_id == 13 or item.shutter_type_id == 15 %}
               <th>Center</th>
               {% endif %}
-              {% if item.product_id > 11 %}
+              {% if item.shutter_type_id > 11 %}
               <th>Left</th>
               <th>Right</th>
               {% endif %}
@@ -86,10 +86,10 @@
               <td>{{ item.l_frame_width }}</td>
               <td>{{ item.l_frame_height }}</td>
 
-              {% if item.product_id == 13 or item.product_id == 15 %}
+              {% if item.shutter_type_id == 13 or item.shutter_type_id == 15 %}
               <td>{{ item.l_frame_height_center }}</td>
               {% endif %}
-              {% if item.product_id > 11 %}
+              {% if item.shutter_type_id > 11 %}
               <td>{{ item.l_frame_height_left }}</td>
               <td>{{ item.l_frame_height_right }}</td>
               {% endif %}

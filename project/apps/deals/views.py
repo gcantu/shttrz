@@ -100,7 +100,7 @@ def edit_deal_item(request, pk):
         form.save()
         return redirect(reverse('deals:add-deal-price', kwargs={'pk': shutter.deal_id}))
 
-    return render(request, 'core/form_template.html', {'form': form, 'prod_id': shutter.product_id, 'form_name': 'Item', 'deal_id': shutter.deal_id})
+    return render(request, 'core/form_template.html', {'form': form, 'prod_type_id': shutter.product_type_id, 'form_name': 'Item', 'deal_id': shutter.deal_id})
 
 
 def edit_deal_info(request, pk):
