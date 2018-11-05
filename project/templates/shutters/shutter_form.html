@@ -1,6 +1,15 @@
+{% extends "core/base.html" %}
 {% load widget_tweaks %}
 {% load static %}
 
+{% block contenttitle %}
+Create Item
+{% endblock %}
+
+{% block menu %}
+{% endblock %}
+
+{% block content %}
 <div class="col">
   <div class="section">
     <form id="shutter-form" method="post">
@@ -189,3 +198,4 @@
     <button id="divider-button" class="btn nf ml">Add Divider</button>
   </div><br> <!-- END section -->
 </div>
+{% endblock %}

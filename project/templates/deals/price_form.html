@@ -1,6 +1,15 @@
+{% extends "core/base.html" %}
 {% load widget_tweaks %}
 {% load static %}
 
+{% block contenttitle %}
+Update Pricing
+{% endblock %}
+
+{% block menu %}
+{% endblock %}
+
+{% block content %}
 <div class="col-9 col-md-8 offset-md-2">
   <form id="price-form" method="post">
     {% csrf_token %}
@@ -89,3 +98,4 @@
 
   </form>
 </div>
+{% endblock %}
