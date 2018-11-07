@@ -323,26 +323,6 @@ a:focus, a:active, a:hover {
 	margin-bottom: 10px;
 }
 
-#customer-form,
-#deal-form,
-#price-form {
-	display: inline;
-	margin-left: 10px;
-}
-
-#customer-form .section-wrapper,
-#deal-form .section-wrapper,
-#price-form .section-wrapper {
-	padding: 0 0 0 20px;
-	display:inline-block;
-	width: 73%;
-}
-
-#price-form .section-wrapper {
-	display:inline-block;
-	width: 86%;
-}
-
 #price-form .form-control.inline {
 	text-align: right;
 	width: 60px;
@@ -482,9 +462,7 @@ input[type=number]::-webkit-outer-spin-button { /* hide up and down arrows */
 .btn-submit { /* form submit button */
 	color: #2eadb8;
 	background-color: #bceaee;
-	font-size: 80px;
-	height: 100%;
-	float: right;
+	font-size: 30px;
 	border: none;
 }
 
