@@ -29,7 +29,7 @@ def manufacturing_report(request, pk):
 
         if len(val) == 1:
             if field == 'louver':
-                specs[fieldname[i]] = as_fraction(val.pop())
+                specs[fieldname[i]] = as_fraction(val.pop() or 0)
             else:
                 specs[fieldname[i]] = val.pop()
         else:
