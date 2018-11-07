@@ -2,6 +2,12 @@
 {% load widget_tweaks %}
 {% load static %}
 
+{% block contenttitle %}
+Confirm Delete?
+{% endblock %}
+
+{% block menu %}
+{% endblock %}
 
 {% block content %}
 <div class="container wrapper">
@@ -11,11 +17,11 @@
         <form method="post">
           {% csrf_token %}
           <p>Are you sure you want to delete this item?</p>
-          <input class="btn inline nf" type="submit" value="Confirm"> <!-- CONFIRM delete -->
+
+          <a  class="btn inline nf" type="button" href="{% url 'deals:deal-summary' object.deal_id %}">Cancel</a> <!-- CANCEL -->
+
+          <input class="btn inline nf" type="submit" value="Confirm"/> <!-- CONFIRM delete -->
         </form>
-        <button class="btn inline nf">
-          <a  href="{% url 'deals:deal-summary' object.deal_id %}">Cancel</a>
-        </button> <!-- CANCEL and back to deal summary -->
       </div>
     </div>
   </div>

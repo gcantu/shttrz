@@ -40,11 +40,11 @@
       {% for item in items %}
       <tr>
         <td class="hidden-btn no-padding">
-          <a class="icon-btn" type="button" href="{% url 'deals:edit-deal-item' item.id %}">
+          <a class="icon-btn" type="button" href="{% url 'deals:update-shutter-item' item.id item.deal_id %}">
             <i class="fas fa-pencil-alt"></i>
           </a>
 
-          <a class="icon-btn btn-delete" type="button" href="{% url 'deals:delete-deal-item' item.id %}">
+          <a class="icon-btn btn-delete" type="button" href="{% url 'deals:delete-shutter-item' item.id %}">
             <i class="fas fa-times"></i>
           </a>
         </td>

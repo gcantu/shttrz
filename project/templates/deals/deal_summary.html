@@ -18,8 +18,8 @@
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Actions</a>
       <div class="dropdown-menu dropdown-menu-right">
-        <a class="dropdown-item" href="{% url 'deals:confirm-complete' deal.id %}">Mark as completed</a>
-        <a class="dropdown-item" href="{% url 'deals:confirm-delete' deal.id %}">Delete</a>
+        <a class="dropdown-item" href="{% url 'deals:update-deal-status' deal.id 'Completed' %}">Mark as completed</a>
+        <a class="dropdown-item" href="{% url 'deals:update-deal-status' deal.id 'Deleted' %}">Delete</a>
       </div>
     </li>
   </ul>
@@ -33,7 +33,7 @@
     <div class="section">
       <div class="section-wrapper summary">
         <div class="section-title">CUSTOMER DETAILS
-          <a class="icon-btn rf" href="{% url 'deals:edit-customer' deal.id %}" role="button"><i class="fas fa-pencil-alt"></i></a>
+          <a class="icon-btn rf" href="{% url 'deals:update-customer' customer.id deal.id %}" role="button"><i class="fas fa-pencil-alt"></i></a>
         </div><hr>
         {% include 'customers/customer_detail.html' %}
       </div>
@@ -44,7 +44,7 @@
     <div class="section">
       <div class="section-wrapper summary">
         <div class="section-title">ORDER DETAILS
-          <a class="icon-btn rf" href="{% url 'deals:edit-deal-info' deal.id %}" role="button"><i class="fas fa-pencil-alt"></i></a>
+          <a class="icon-btn rf" href="{% url 'deals:update-deal' deal.id %}" role="button"><i class="fas fa-pencil-alt"></i></a>
         </div><hr>
         {% include 'deals/deal_detail.html' %}
         <br>
@@ -58,7 +58,7 @@
     <div class="section">
       <div class="section-wrapper summary">
         <div class="section-title">PRICING DETAILS
-          <a class="icon-btn rf" href="{% url 'deals:edit-deal-price' deal.id %}" role="button"><i class="fas fa-pencil-alt"></i></a>
+          <a class="icon-btn rf" href="{% url 'deals:update-price' deal.id %}" role="button"><i class="fas fa-pencil-alt"></i></a>
         </div><hr>
         {% include 'deals/price_detail.html' %}
       </div>
@@ -73,7 +73,7 @@
       <button id="edit-items-toggle" class="icon-btn rf">
         <i class="fas fa-pencil-alt"></i>
       </button>
-      <a class="icon-btn btn-add rf" href="{% url 'deals:add-deal-item' deal.id %}">
+      <a class="icon-btn btn-add rf" href="{% url 'deals:create-shutter-item' deal.id %}">
         <i class="fas fa-plus"></i>
       </a>
     </div><hr>

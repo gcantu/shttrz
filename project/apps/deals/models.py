@@ -26,8 +26,6 @@ class Deal(AbstractTenant):
     install_date = models.DateField(default=date.today)
     customer = models.ForeignKey(Customer, models.SET_NULL, blank=True, null=True)
     notes = models.TextField(blank=True)
-    is_deleted = models.BooleanField(default=False)
-    is_completed = models.BooleanField(default=False)
     status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='Active')
     agent = models.ForeignKey(User, related_name='agent', on_delete=models.SET_NULL, blank=True, null=True)
     measured_by = models.ForeignKey(User, related_name='measured_by', on_delete=models.SET_NULL, blank=True, null=True)
@@ -50,7 +48,6 @@ class Price(AbstractTenant):
     add_tax = models.BooleanField(default=True)
     credit_card_fee = models.FloatField(default=0)
     credit_card_fee_rate = models.FloatField(default=0.03)
-    add_credit_card_fee = models.BooleanField(default=True)
     payment_method = models.ForeignKey(PaymentMethod, models.SET_NULL, blank=True, null=True, default=3)
     check_number = models.CharField(max_length=100, blank=True)
 

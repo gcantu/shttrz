@@ -2,15 +2,27 @@
 {% load static %}
 {% load widget_tweaks %}
 
-{% block contenttitle %}Deals{% endblock %}
+{% block contenttitle %}{{ status }} Deals{% endblock %}
+
+{% block menu %}
+  {% if status == "Deleted" %}
+  {% else %}
+  <a class="btn btn-radius btn-main rf" href="{% url 'deals:create-customer' %}" role="button"><i class="fas fa-plus"></i> New</a>
+  {% endif %}
+{% endblock %}
 
 {% block content %}
 <div class="row">
+
+  {% if status == "All" %}
   <div class="col-2">
     {% include "deals/deal_filters.html" %}
   </div>
+  {% endif %}
+
   <div class="col-9 offset-1">
     {% include "deals/deal_list.html" %}
   </div>
+
 </div>
 {% endblock %}

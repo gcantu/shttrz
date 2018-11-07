@@ -198,4 +198,18 @@ Create Item
     <button id="divider-button" class="btn nf ml">Add Divider</button>
   </div><br> <!-- END section -->
 </div>
+
+
+<br>
+  <div class="col-12">
+    <div class="section">
+      <div class="section-wrapper">
+        {% include 'shutters/shutter_detail.html' %}
+        <br>
+        <a class="btn" href="{% url 'deals:deal-specs' form.deal.value %}" role="button">Continue</a>
+        <br>
+      </div>
+    </div>
+  </div>
+
 {% endblock %}

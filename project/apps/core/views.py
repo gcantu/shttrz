@@ -6,7 +6,7 @@ from deals.models import Deal
 
 @login_required
 def Home(request):
-    return redirect(reverse('dashboard:deal-list', kwargs={'status': 'All'}))
+    return redirect(reverse('deals:deal-list', kwargs={'status': 'All'}))
 
 
 @login_required

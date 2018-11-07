@@ -1,69 +1,74 @@
 from django.urls import reverse
 from django.shortcuts import render, redirect
-from django.views.generic.detail import DetailView
-from django.views.generic.edit import DeleteView
+from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import DeleteView, CreateView, UpdateView
+from django.views.generic import ListView
 from tenants.utils import tenant_from_request
 from .models import Deal, Price
 from shutters.models import Shutter, Material
 from customers.models import Customer
 from forms.forms import DealForm, CustomerForm, ShutterForm, PriceForm
+from .utils import DealFilter
 
 # -----------------------------------------------
 # CREATE VIEWS
 # -----------------------------------------------
-def add_customer(request):
+class CustomCreateView(CreateView):
+    def get_initial(self):
+        """Return the initial data to use for forms on this view."""
+        i = {}
+        tenant = tenant_from_request(self.request)
+        i = {'tenant': tenant.id, 'deal': self.kwargs.get('deal_id')}
+        return i.copy()
+
+
+class CreateCustomer(CustomCreateView):
+    model = Customer
+    form_class = CustomerForm
+
+    def get_success_url(self):
+        return reverse('deals:new-deal', kwargs={'customer_id': self.object.id})
+
+
+class CreateShutterItem(CustomCreateView):
+    form_class = ShutterForm
+    model = Shutter
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the items
+        # context['deal_id'] = self.kwargs.get('deal_id')
+        context['items'] = Shutter.objects.filter(deal_id=self.kwargs.get('deal_id'))
+        return context
+
+    def get_success_url(self):
+        return reverse('deals:create-shutter-item', kwargs={'deal_id': self.object.deal_id})
+
+
+def new_deal(request, customer_id):
     tenant = tenant_from_request(request)
-    f = CustomerForm(initial={'tenant': tenant.id})
-
-    if request.method == 'POST':
-        form = CustomerForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            # create deal for new customer
-            deal = Deal.objects.create(customer_id=form.instance.id, tenant_id=tenant.id, agent=request.user, measured_by=request.user)
-            price = Price.objects.create(deal_id=deal.id, tenant_id=tenant.id)
-            material = Material.objects.create(deal_id=deal.id, tenant_id=tenant.id)
-            return redirect(reverse('deals:add-deal-item', kwargs={'pk': deal.id}))
-
-    return render(request, 'core/form_template.html', {'form': f, 'create': True, 'form_name': 'Customer', 'create': True})
+    deal = Deal.objects.create(tenant_id=tenant.id, agent=request.user, measured_by=request.user, customer_id=customer_id)
+    price = Price.objects.create(deal_id=deal.id, tenant_id=tenant.id)
+    material = Material.objects.create(deal_id=deal.id, tenant_id=tenant.id)
+    return redirect(reverse('deals:create-shutter-item', kwargs={'deal_id': deal.id}))
 
 
-def add_deal_item(request, pk):
-    tenant = tenant_from_request(request)
-    f = ShutterForm(initial={'deal': pk, 'tenant': tenant.id})
-    items = Shutter.objects.filter(deal_id=pk)
-
-    if request.method == 'POST':
-        form = ShutterForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            return redirect(reverse('deals:add-deal-item', kwargs={'pk': pk}))
-
-    return render(request, 'core/form_template.html', {'form': f, 'items': items, 'deal_id':pk, 'form_name': 'Item', 'create': True})
-
-
-def add_deal_price(request, pk):
-    shutter = Shutter.objects.filter(deal_id=pk)
-    price = Price.objects.get(deal_id=pk)
+def deal_specs(request, deal_id):
+    shutter = Shutter.objects.filter(deal_id=deal_id)
+    price = Price.objects.get(deal_id=deal_id)
+    material = Material.objects.get(deal_id=deal_id)
 
     # calculate deal totals
     subtotal = round(sum(i.total_price() for i in shutter), 2)
     price.subtotal = subtotal
-    price.tax = price.subtotal * price.tax_rate
-    price.credit_card_fee = price.subtotal * price.credit_card_fee_rate
-    price.total = subtotal + price.tax + price.credit_card_fee
-    price.balance = price.total
+    price.tax = (price.subtotal * price.tax_rate) if price.add_tax else 0
+    price.credit_card_fee = (price.subtotal * price.credit_card_fee_rate) if price.payment_method_id == 3 else 0
+    price.total = price.subtotal + price.tax + price.credit_card_fee
+    price.balance = price.total - price.down_payment
     price.save()
 
-    return redirect(reverse('deals:add-material', kwargs={'pk': pk}))
-
-
-def add_material(request, pk):
-    shutter = Shutter.objects.filter(deal_id=pk)
-    material = Material.objects.get(deal_id=pk)
-
+    # calculate materials needed
     material.l_frame_material = round(sum(i.l_frame_material() for i in shutter))
     material.louver_material = round(sum(i.louver_material() for i in shutter))
     material.rail_material = round(sum(i.rail_material() for i in shutter))
@@ -75,118 +80,88 @@ def add_material(request, pk):
     material.total_screws = round(sum(i.total_screws() for i in shutter))
     material.save()
 
-    return redirect(reverse('deals:deal-summary', kwargs={'pk': pk}))
+    return redirect(reverse('deals:deal-summary', kwargs={'pk': deal_id}))
 
 
 # -----------------------------------------------
 # EDIT VIEWS
 # -----------------------------------------------
-def edit_customer(request, pk):
-    customer = Customer.objects.get(deal__id=pk)
-    form = CustomerForm(request.POST or None, instance=customer)
+class UpdateCustomer(UpdateView):
+    model = Customer
+    form_class = CustomerForm
 
-    if form.is_valid():
-        form.save()
-        return redirect(reverse('deals:deal-summary', kwargs={'pk': pk}))
-
-    return render(request, 'core/form_template.html', {'form': form, 'form_name': 'Customer', 'deal_id': pk})
+    def get_success_url(self):
+        return reverse('deals:deal-summary', kwargs={'pk': self.kwargs.get('deal_id')})
 
 
-def edit_deal_item(request, pk):
-    shutter = Shutter.objects.get(pk=pk)
-    form = ShutterForm(request.POST or None, instance=shutter)
+class UpdateShutterItem(UpdateView):
+    model = Shutter
+    form_class = ShutterForm
 
-    if form.is_valid():
-        form.save()
-        return redirect(reverse('deals:add-deal-price', kwargs={'pk': shutter.deal_id}))
-
-    return render(request, 'core/form_template.html', {'form': form, 'prod_type_id': shutter.product_type_id, 'form_name': 'Item', 'deal_id': shutter.deal_id})
+    def get_success_url(self):
+        return reverse('deals:deal-specs', kwargs={'deal_id': self.kwargs.get('deal_id')})
 
 
-def edit_deal_info(request, pk):
-    deal = Deal.objects.get(pk=pk)
-    tenant = tenant_from_request(request)
-    form = DealForm(tenant, request.POST or None, instance=deal)
+class UpdateDeal(UpdateView):
+    model = Deal
+    form_class = DealForm
 
-    if form.is_valid():
-        form.save()
-        return redirect(reverse('deals:deal-summary', kwargs={'pk': pk}))
+    def get_form_kwargs(self):
+        tenant = tenant_from_request(self.request)
+        kwargs = super().get_form_kwargs()
+        kwargs['tenant'] = tenant.id
+        return kwargs
 
-    return render(request, 'core/form_template.html', {'form': form, 'form_name': 'Deal', 'deal_id': pk})
+    def get_success_url(self):
+        return reverse('deals:deal-summary', kwargs={'pk': self.kwargs.get('pk')})
 
 
-def edit_deal_price(request, pk):
-    price = Price.objects.get(pk=pk)
-    form = PriceForm(request.POST or None, instance=price)
+class UpdatePrice(UpdateView):
+    model = Price
+    form_class = PriceForm
 
-    if form.is_valid():
-        f = form.save(commit=False)
-        f.tax = (f.tax_rate * f.subtotal) if f.add_tax else 0
-        f.add_credit_card_fee = True if f.payment_method_id == 3 else False # set to false if payment method != Credit Card
-        f.credit_card_fee = (f.credit_card_fee_rate * f.subtotal) if f.add_credit_card_fee else 0
-        f.total = f.subtotal + f.tax + f.credit_card_fee
-        f.balance = f.total - f.down_payment
-        f.save()
+    def get_success_url(self):
+        return reverse('deals:deal-specs', kwargs={'deal_id': self.kwargs.get('pk')})
 
-        return redirect(reverse('deals:deal-summary', kwargs={'pk': pk}))
 
-    return render(request, 'core/form_template.html', {'form': form, 'price': price, 'form_name': 'Price', 'deal_id': pk})
+class UpdateDealStatus(UpdateView):
+    model = Deal
+    fields = ['status']
+    template_name = 'deals/deal_confirm_status.html'
+
+    def get_initial(self): # set deal status from URL pattern
+        i = {}
+        i = {'status': self.kwargs.get('status')}
+        return i.copy()
+
+    def get_success_url(self):
+        return reverse('core:home')
 
 
 # -----------------------------------------------
 # DELETE VIEWS
 # -----------------------------------------------
-def confirm_delete(request, pk):
-    return render(request, 'deals/confirm_action_template.html', {'pk': pk, 'action_url': 'delete-deal', 'action': 'Delete'})
-
-
-def delete_deal(request, pk):
-    deal = Deal.objects.get(pk=pk)
-    deal.is_deleted = True
-    deal.status = 'Deleted'
-    deal.save()
-
-    return redirect(reverse('core:home'))
-
-
-def confirm_complete(request, pk):
-    return render(request, 'deals/confirm_action_template.html', {'pk': pk, 'action_url': 'complete-deal', 'action': 'Complete'})
-
-
-def complete_deal(request, pk):
-    deal = Deal.objects.get(pk=pk)
-    deal.is_completed = True
-    deal.status = 'Completed'
-    deal.save()
-
-    return redirect(reverse('core:home'))
-
-
-def confirm_restore(request, pk):
-    return render(request, 'deals/confirm_action_template.html', {'pk': pk, 'action_url': 'restore-deal', 'action': 'Restore'})
-
-def restore_deal(request, pk):
-    deal = Deal.objects.get(pk=pk)
-    deal.is_deleted = False
-    deal.status = 'Active'
-    deal.save()
-
-    return redirect(reverse('core:home'))
-
-
 class DeleteItem(DeleteView):
     model = Shutter
-    template_name = 'shutters/shutter_delete.html'
 
     def get_success_url(self):
-        return redirect(reverse('deals:add-deal-price', kwargs={'pk': self.get_object().deal_id}))
-        # return reverse('deals:deal-summary', kwargs={'pk': self.get_object().deal_id})
+        return reverse('deals:deal-specs', kwargs={'deal_id': self.get_object().deal_id})
+
+
+# -----------------------------------------------
+# DISPLAY VIEWS
+# -----------------------------------------------
+@login_required
+def deal_list(request, status):
+    q = Deal.objects.filter(status='Deleted') if status == 'Deleted' else Deal.objects.exclude(status='Deleted')
+    filter = DealFilter(request.GET, queryset=q)
+    
+    return render(request, 'core/home.html', {'filter': filter, 'status': status})
 
 
 # -----------------------------------------------
 # SUMMARY VIEW
 # -----------------------------------------------
-
 def deal_summary(request, pk):
     deal = Deal.objects.get(id=pk)
     price = Price.objects.get(deal_id=pk)
