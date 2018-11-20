@@ -1,0 +1,43 @@
+{% load humanize %}
+
+<table id="proposal-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Location</th>
+        <th>Description</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    {% for item in items %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+
+        <td>{{ item.location|title }}</td>
+
+        <td>
+          {{ item.shutter_type }}<br><br>
+          <table class="inner-table">
+            <tr>
+              <td colspan=2><b>Finish: </b>{{ item.stain|default_if_none:"" }} {{ item.finish|default_if_none:"" }} - {{ item.color|default_if_none:"" }}</td>
+            </tr>
+            <tr>
+              <td><b>Panels: </b>{{ item.panels|default_if_none:"" }}</td>
+              <td><b>Louver: </b>{{ item.get_louver_display|default_if_none:"" }}</td>
+              <td><b>Tilt rod: </b>{{ item.tilt_rod|default_if_none:"" }}</td>
+            </tr>
+            <tr>
+              <td><b>Mount: </b>{{ item.mount|default_if_none:"" }}, {{ item.frame|default_if_none:"" }} sides</td>
+              <td><b>Trim: </b>{{ item.trim_style|default_if_none:"" }}</td>
+              <td><b>Hinges: </b>{{ item.hinge_color|default_if_none:"" }}</td>
+            </tr>
+          </table>
+        </td>
+
+        <td>$ {{ item.total_price|floatformat:"0"|intcomma }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
