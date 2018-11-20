@@ -74,6 +74,20 @@ html, body {
 
 /* 1.2 Header
 --------------------------------------------------------------*/
+header {
+	position: fixed;
+	width: 100%;
+	z-index: 1;
+	background-color: #fff;
+}
+
+#main-menu {
+	margin-top: 50px;
+	z-index: 2;
+	position: fixed;
+	width: 100%;
+}
+
 #header-logo {
 	float: left;
 	padding: 0 5px;
