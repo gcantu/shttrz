@@ -12,6 +12,7 @@
 	2.2 Main Menu
 	2.3 Settings Menu
 	2.4 Content Menu
+	2.5 Filter Menu
 3.0 Forms
 5.0 Buttons
 6.0 Dashboard
@@ -339,6 +340,35 @@ a:focus, a:active, a:hover {
 	letter-spacing: 1px;
 	padding: 3px 12px;
   min-width: 7rem;
+}
+
+/* 2.5 Filter Menu
+--------------------------------------------------------------*/
+#filter-menu {
+	float: right;
+	color: #424a5d;
+}
+
+#filter-menu > .btn {
+	background-color: #fff;
+	border: none;
+	color: #424a5d;
+	font-weight: 400;
+}
+
+#filter-menu .dropdown-menu {
+	min-width: 15rem;
+	padding: 10px 20px;
+	transform: translate3d(-157px, 40px, 0px) !important;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#filter-menu .dropdown-item {
+	color: #424a5d;
+	font-size: 14px;
+	font-weight: 400;
+	letter-spacing: 1px;
+	padding: 3px 12px;
 }
 
 /* 3.0 Forms
