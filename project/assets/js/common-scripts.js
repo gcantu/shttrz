@@ -24,12 +24,37 @@ $('#id_finish').on('change', function() { // show stain field when finish = 'sta
   }
 });
 
-$('#edit-items-toggle').on('click', function() { // show/hide line item edit buttons
-   $(".hidden-btn").toggle();
+$('#edit-item-button').on('click', function() { // show/hide line item edit buttons
+  $(".hidden-title").removeClass("hidden");
+  $(".edit-hidden-btn").removeClass("hidden");
+  $(".delete-hidden-btn").addClass("hidden");
+  $(".style-hidden-btn").addClass("hidden");
+   $(".hidden-btn").removeClass("hidden");
+});
+
+$('#delete-item-button').on('click', function() { // show/hide line item edit buttons
+  $(".hidden-title").removeClass("hidden");
+  $(".edit-hidden-btn").addClass("hidden");
+  $(".delete-hidden-btn").removeClass("hidden");
+  $(".style-hidden-btn").addClass("hidden");
+  $(".hidden-btn").removeClass("hidden");
+});
+
+$('#style-item-button').on('click', function() { // show/hide line item edit buttons
+  $(".hidden-title").addClass("hidden");
+  $(".edit-hidden-btn").addClass("hidden");
+  $(".delete-hidden-btn").addClass("hidden");
+  $(".style-hidden-btn").removeClass("hidden");
+  $(".hidden-btn").removeClass("hidden");
 });
 
 $('#divider-button').on('click', function() { // add/remove divider field in line item form
    $(".divider-field").toggle();
+   $(".hidden-btn").toggle();
+});
+
+$('#style-button').on('click', function() { // show/hide style section in line item form
+   $(".style-section").toggle();
 });
 
 $('#id_shutter_type').on('change', function() { // hide/unhide panel, center, left, and right height fields

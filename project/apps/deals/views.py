@@ -138,6 +138,45 @@ class UpdateDealStatus(UpdateView):
         return reverse('core:home')
 
 
+def set_style_default(request):
+    id_list = request.POST.getlist('item_list')
+    items = Shutter.objects.filter(id__in=id_list)
+
+    for item in items:
+        item.default_style = True
+        item.save()
+
+    return redirect(reverse('deals:update-shutter-style', kwargs={'pk': id_list[0]}))
+
+
+class UpdateShutterStyle(UpdateView):
+    model = Shutter
+    fields = ['deal', 'finish', 'stain', 'color', 'louver', 'tilt_rod', 'trim_style', 'hinge_color']
+    template_name = 'shutters/shutter_style_form.html'
+
+    def form_valid(self, form):
+        self.object.default_style = False
+        self.object = form.save()
+
+        # update remaining deal items
+        items = Shutter.objects.filter(default_style=True)
+
+        for item in items:
+            item.finish = self.object.finish
+            item.stain = self.object.stain
+            item.color = self.object.color
+            item.louver = self.object.louver
+            item.tilt_rod = self.object.tilt_rod
+            item.trim_style = self.object.trim_style
+            item.hinge_color = self.object.hinge_color
+            item.default_style = False
+            item.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('deals:deal-summary', kwargs={'pk': self.get_object().deal_id})
+
+
 # -----------------------------------------------
 # DELETE VIEWS
 # -----------------------------------------------

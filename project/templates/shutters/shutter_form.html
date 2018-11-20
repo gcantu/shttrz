@@ -4,7 +4,7 @@
 
 {% block pageid %}shutterFormPage{% endblock %}
 
-{% block contenttitle %}Create Item{% endblock %}
+{% block contenttitle %}Create Item<hr>{% endblock %}
 
 {% block content %}
 <div class="row">
@@ -39,10 +39,6 @@
                 {{ form.frame.label_tag }}
                 {% render_field  form.frame class="custom-select mr-sm-2" %}
                 </div>
-                <div class="col frame-field">
-                {{ form.trim_style.label_tag }}
-                {% render_field  form.trim_style class="custom-select mr-sm-2" %}
-                </div>
               </div>
             </div>
 
@@ -55,7 +51,7 @@
                 <div class="col col-md-2 no-label">
                   {% render_field  form.width_fraction class="custom-select mr-sm-2" %}
                 </div>
-                <div class="col col-md-2">
+                <div class="col col-md-2 offset-sm-1">
                   {{ form.height.label_tag }}
                   {% render_field  form.height class="form-control" %}
                 </div>
@@ -174,43 +170,35 @@
 
         <div class="row">
           <div class="col-12">
-            <div class="form-section">
+            <button id="style-button" class="btn btn-block" type="button">Style</button>
+
+            <div class="form-section style-section">
               <div class="form-row">
-                <div class="col-3 col-md-2">
+                <div class="col-4">
                   {{ form.finish.label_tag }}
                   {% render_field  form.finish class="custom-select mr-sm-2" %}
                 </div>
-
-                <div class="col-5 col-md-4 stain-field">
+                <div class="col-4 stain-field">
                   {{ form.stain.label_tag }}
                   {% render_field  form.stain class="custom-select mr-sm-2" %}
                 </div>
-
-                <div class="col-4 col-sm-3">
+                <div class="col-4">
                   {{ form.color.label_tag }}
-                  {% render_field  form.color class="custom-select mr-sm-2" %}
+                  {% render_field  form.color class="form-control" %}
                 </div>
-              </div>
-            </div>
-          </div> <!-- END form col -->
-        </div> <!-- END row -->
-
-
-        <div class="row">
-          <div class="col-12">
-            <div class="form-section">
-              <div class="form-row">
-                <div class="col-3 col-md-2">
+                <div class="col-4 col-sm-2">
                   {{ form.louver.label_tag }}
                   {% render_field  form.louver class="custom-select mr-sm-2" %}
                 </div>
-
-                <div class="col-5 col-md-4">
+                <div class="col-4 col-sm-3">
                   {{ form.tilt_rod.label_tag }}
                   {% render_field  form.tilt_rod class="custom-select mr-sm-2" %}
                 </div>
-
                 <div class="col-4 col-sm-3">
+                {{ form.trim_style.label_tag }}
+                {% render_field  form.trim_style class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-4 col-sm-4">
                   {{ form.hinge_color.label_tag }}
                   {% render_field  form.hinge_color class="custom-select mr-sm-2" %}
                 </div>
@@ -224,7 +212,7 @@
         <input class="btn btn-main" type="submit" value="Add"/><br>
 
       </div> <!-- END container -->
-    </form> <!-- END form -->
+    </form><br> <!-- END form -->
   </div><br> <!-- END section -->
 </div> <!-- END col -->
 </div><br> <!-- END row -->

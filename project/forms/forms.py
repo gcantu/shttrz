@@ -34,4 +34,4 @@ class PriceForm(ModelForm):
 class ShutterForm(ModelForm):
     class Meta:
         model = Shutter
-        exclude = ['frame_style', 'product']
+        exclude = ['frame_style', 'product', 'default_style']

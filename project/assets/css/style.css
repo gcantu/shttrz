@@ -403,7 +403,12 @@ a:focus, a:active, a:hover {
 	margin: 5px 0;
 }
 
-#shutter-form .divider-field {
+#shutter-form {
+	margin-top: 10px;
+}
+
+#shutter-form .divider-field,
+#shutter-form .style-section {
 	display: none;
 }
 
@@ -560,8 +565,17 @@ input[type=number]::-webkit-outer-spin-button { /* hide up and down arrows */
 	color: #fff;
 }
 
-.hidden-btn { /* line item edit buttons - summary view */
-	display: none;
+.btn-style { /* Deleted Items list */
+	color: #fff;
+	padding: 0 5px;
+	font-size: 12px;
+	background-color: #25b4c1;
+	border-color: #25b4c1;
+}
+
+.btn-style:hover {
+	background-color: #66cad3;
+	cursor: pointer;
 }
 
 [type=submit] {
@@ -570,6 +584,12 @@ input[type=number]::-webkit-outer-spin-button { /* hide up and down arrows */
 
 html [type=button] {
 	-webkit-appearance: none;
+}
+
+#divider-button,
+#style-button {
+	padding: 0;
+	margin-bottom: 10px;
 }
 
 /* 5.0 Dashboard
