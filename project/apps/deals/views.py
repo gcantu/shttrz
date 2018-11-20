@@ -153,9 +153,15 @@ class DeleteItem(DeleteView):
 # -----------------------------------------------
 @login_required
 def deal_list(request, status):
-    q = Deal.objects.filter(status='Deleted') if status == 'Deleted' else Deal.objects.exclude(status='Deleted')
+    if status == 'Deleted':
+        q = Deal.objects.filter(status='Deleted')
+    elif status == 'Completed':
+        q = Deal.objects.filter(status='Completed')
+    else:
+        q = Deal.objects.filter(status='Active')
+
     filter = DealFilter(request.GET, queryset=q)
-    
+
     return render(request, 'core/home.html', {'filter': filter, 'status': status})
 
 
