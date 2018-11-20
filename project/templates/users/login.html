@@ -38,23 +38,22 @@
   {% endif %}
 {% endif %}
 
-<div class="container">
-  <div class="row">
-    <div class="col-6 col-md-4 offset-3 offset-md-4 textcenter">
-      <form id="login-form" method="post">
-      {% csrf_token %}
-        <h3>User Login</h3>
-        <div>
-          {% render_field  form.username class="form-control input-username" placeholder=form.username.label %}
-        </div>
-        <div>
-          {% render_field  form.password class="form-control input-password" placeholder=form.password.label %}
-        </div>
-        <div>
-          <input class="btn btn-block" type="submit" value="Log in"/>
-        </div>
-      </form>
-    </div>
+
+<div class="row">
+  <div class="col-7 col-md-5 col-lg-4 col-xl-3 auto-margin textcenter">
+    <form id="login-form" method="post">
+    {% csrf_token %}
+      <h3>User Login</h3>
+      <div>
+        {% render_field  form.username class="form-control input-username" placeholder=form.username.label %}
+      </div>
+      <div>
+        {% render_field  form.password class="form-control input-password" placeholder=form.password.label %}
+      </div>
+      <div>
+        <input class="btn btn-block" type="submit" value="Log in"/>
+      </div>
+    </form>
   </div>
 </div>
 
