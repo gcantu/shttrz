@@ -2,6 +2,8 @@
 {% load widget_tweaks %}
 {% load static %}
 
+{% block pageid %}dealSummaryPage{% endblock %}
+
 {% block contenttitle %}Deal Summary{% endblock %}
 
 {% block menu %}
@@ -23,7 +25,7 @@
       </div>
     </li>
   </ul>
-</div>
+</div><hr>
 {% endblock %}
 
 {% block content %}
@@ -70,12 +72,22 @@
 <div class="row">
   <div class="col">
     <div class="section-title">LINE ITEM DETAILS
-      <button id="edit-items-toggle" class="icon-btn rf">
-        <i class="fas fa-pencil-alt"></i>
+      <button id="style-item-button" class="icon-btn rf">
+        <i class="fas fa-paint-roller"></i> Style
       </button>
+
+      <button id="edit-item-button" class="icon-btn rf">
+        <i class="fas fa-pencil-alt"></i> Edit
+      </button>
+
+      <button id="delete-item-button" class="icon-btn rf">
+        <i class="fas fa-times"></i> Delete
+      </button>
+
       <a class="icon-btn btn-add rf" href="{% url 'deals:create-shutter-item' deal.id %}">
-        <i class="fas fa-plus"></i>
+        <i class="fas fa-plus"></i> Add
       </a>
+
     </div><hr>
       {% include 'shutters/shutter_detail.html' %}
   </div> <!-- END shutter detail -->

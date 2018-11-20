@@ -2,25 +2,23 @@
 {% load widget_tweaks %}
 {% load static %}
 
-{% block contenttitle %}
-Update Status?
-{% endblock %}
+{% block pageid %}confirmStatusPage{% endblock %}
+
+{% block contenttitle %}Update Status?<hr>{% endblock %}
 
 {% block content %}
-<div class="container wrapper">
-  <div class="row">
-    <div class="col-6 offset-3 section">
-      <div class="section-wrapper textcenter">
-        <form method="post">
-          {% csrf_token %}
-          {{ form.status.as_hidden }}
-          <p>Are you sure you want to update deal status?</p>
+<div class="row">
+  <div class="col">
+    <div class="section section-wrapper textcenter">
+      <form method="post">
+        {% csrf_token %}
+        {{ form.status.as_hidden }}
+        <p>Are you sure you want to update deal status?</p>
 
-          <a  class="btn inline nf" type="button" href="{% url 'deals:deal-summary' object.id %}">Cancel</a> <!-- CANCEL -->
+        <a  class="btn inline nf" type="button" href="{% url 'deals:deal-summary' object.id %}">Cancel</a> <!-- CANCEL -->
 
-          <input class="btn inline nf" type="submit" value="Confirm"/> <!-- CONFIRM delete -->
-        </form>
-      </div>
+        <input class="btn inline nf" type="submit" value="Confirm"/> <!-- CONFIRM delete -->
+      </form>
     </div>
   </div>
 </div>

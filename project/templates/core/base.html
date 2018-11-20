@@ -11,7 +11,7 @@
   </head>
 
   <body>
-    <div id="page">
+    <div id="page" class="{% block pageclass %}{% endblock %}">
 
       {% block header %}
       {% include "core/header.html" %}
@@ -23,7 +23,7 @@
 
       <div id="content">
         <div class="wrapper">
-          <div class="container">
+          <div id="{% block pageid %}{% endblock %}" class="container wrapper">
             <div class="row">
               <div class="col">
                 <div class="content-title noprint">
@@ -32,7 +32,6 @@
 
                   {% block menu %}
                   {% endblock %}
-                  <hr>
                 </div>
               </div> <!-- END col -->
             </div> <!-- END row -->

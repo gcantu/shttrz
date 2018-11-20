@@ -2,6 +2,8 @@
 {% load widget_tweaks %}
 {% load static %}
 
+{% block pageid %}reportPage{% endblock %}
+
 {% block contenttitle %}
 {{ report }}
 {% endblock %}
@@ -16,7 +18,7 @@
       <a class="nav-link icon-btn rf" href="{% url 'deals:deal-summary' deal.id %}">Order Summary</a>
     </li>
   </ul>
-</div>
+</div><hr>
 {% endblock %}
 
 {% block content %}
@@ -44,7 +46,6 @@
       <br><br>
       {% block report %}
       {% endblock %} <!-- END proposal items -->
-      <br>
     </div><br> <!-- END report section -->
   </div>
 </div>

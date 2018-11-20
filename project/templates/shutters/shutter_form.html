@@ -2,11 +2,12 @@
 {% load widget_tweaks %}
 {% load static %}
 
-{% block contenttitle %}
-Create Item
-{% endblock %}
+{% block pageid %}shutterFormPage{% endblock %}
+
+{% block contenttitle %}Create Item{% endblock %}
 
 {% block content %}
+<div class="row">
 <div class="col">
   <div class="section">
     <form id="shutter-form" method="post">
@@ -14,7 +15,6 @@ Create Item
     {{ form.deal.as_hidden }}
     {{ form.tenant.as_hidden }}
       <div class="container">
-        <div class="form-title">Item Details</div>
 
         <div class="row">
           <div class="col-9">
@@ -194,19 +194,21 @@ Create Item
 
     <button id="divider-button" class="btn nf ml">Add Divider</button>
   </div><br> <!-- END section -->
-</div>
+</div> <!-- END col -->
+</div><br> <!-- END row -->
 
+{% if items %}
+<div class="row">
+    <div class="col">
+      <div class="section">
+        <div class="section-wrapper">
+          {% include 'shutters/shutter_detail.html' %}<br>
 
-<br>
-  <div class="col-12">
-    <div class="section">
-      <div class="section-wrapper">
-        {% include 'shutters/shutter_detail.html' %}
-        <br>
-        <a class="btn" href="{% url 'deals:deal-specs' form.deal.value %}" role="button">Continue</a>
-        <br>
+          <a class="btn" href="{% url 'deals:deal-specs' form.deal.value %}" role="button">Continue</a><br>
+        </div>
       </div>
     </div>
-  </div>
+</div>
+{% endif %}
 
 {% endblock %}
