@@ -114,7 +114,7 @@ class AbstractShutter(AbstractTenant):
         return h
 
     def _height_panel(self):
-        h = self.height_panel + self.height_panel_fraction
+        h = (self.height_panel + self.height_panel_fraction) if self.height_panel else None
         return h
 
     def _height_center(self):
@@ -122,11 +122,11 @@ class AbstractShutter(AbstractTenant):
         return h
 
     def _height_left(self):
-        h = self.height_left + self.height_left_fraction
+        h = (self.height_left + self.height_left_fraction) if self.height_left else 0
         return h
 
     def _height_right(self):
-        h = self.height_right + self.height_right_fraction
+        h = (self.height_right + self.height_right_fraction) if self.height_right else 0
         return h
 
     def _get_lframe(self, measure_type):
@@ -294,6 +294,9 @@ class AbstractShutter(AbstractTenant):
     def l_frame_height_right(self):
         return as_fraction(self._l_frame_height_right())
 
+    def panel_height(self):
+        return as_fraction(self._height_panel()) if self._height_panel() else None
+
     def rail_measure(self):
         return as_fraction(self._rail())
 
@@ -366,11 +369,11 @@ class Shutter(AbstractShutter):
         elif self.shutter_type_id == 7:
             h = (self.height + self.height_fraction) - ((self.width + self.width_fraction)/2)
             self.height_panel = int(h)
-            self.height_panel_fraction = round(h % 1, 2)
+            self.height_panel_fraction = round(h % 1, 4)
         elif self.shutter_type_id == 8: #8
             h = (self.height + self.height_fraction) - (self.width + self.width_fraction)
             self.height_panel = int(h)
-            self.height_panel_fraction = round(h % 1, 2)
+            self.height_panel_fraction = round(h % 1, 4)
 
         return super(Shutter, self).save(*args, **kwargs)
 
