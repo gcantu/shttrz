@@ -65,6 +65,13 @@
 
           <div class="col-4">
             <div class="form-section textcenter">
+              <div class="form-group row wrapper side-field">
+                <label class="col-4 col-md-3 col-lg-2 col-form-label">Side: </label>
+                <div class="col-8 col-sm-7 col-md-5 col-lg-4">
+                  {% render_field  form.side class="custom-select mr-sm-2" %}
+                </div>
+              </div>
+
               <div class="product-img-section hidden">
                 {% with img_id=shutter_type_id|stringformat:"s" %}
                 {% with 'img/model'|add:img_id|add:'.png' as image_static %}
@@ -95,18 +102,18 @@
             <div class="form-section lr-height-field">
               <div class="field-message">Additional Height Measurements</div>
               <div class="form-row">
-                <div class="col">
+                <div class="col left-field">
                   <label>Left</label>
                   {% render_field  form.height_left class="form-control" %}
                 </div>
-                <div class="col no-label">
+                <div class="col no-label left-field">
                   {% render_field  form.height_left_fraction class="custom-select mr-sm-2" %}
                 </div>
-                <div class="col offset-sm-1">
+                <div class="col offset-sm-1 right-field">
                   <label>Right</label>
                   {% render_field  form.height_right class="form-control" %}
                 </div>
-                <div class="col no-label">
+                <div class="col no-label right-field">
                   {% render_field  form.height_right_fraction class="custom-select mr-sm-2" %}
                 </div>
                 <div class="col offset-sm-1 center-height-field">

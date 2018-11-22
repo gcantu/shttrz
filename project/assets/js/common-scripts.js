@@ -70,6 +70,23 @@ $('#id_shutter_type').on('change', function() { // render shutter model image
   $('.product-img').prop('src', model);
 });
 
+$('#id_side').on('change', function() { // render shutter model image
+  var prod_type = $('#id_shutter_type').val()
+  var side = $(this).val()
+  var model = "/static/img/model" + prod_type + "_" + side + ".png";
+  $(".product-img-section").removeClass("hidden");
+  $('.product-img').prop('src', model);
+
+  if (side == "L") {
+    $(".left-field").removeClass("hidden");
+    $(".right-field").addClass("hidden");
+  } else {
+    $(".left-field").addClass("hidden");
+    $(".right-field").removeClass("hidden");
+  }
+
+});
+
 $('#id_payment_method').on('change', function() { // hide/unhide panel, center, left, and right height fields
   var selectedItem = $(this).val();
 
@@ -95,9 +112,12 @@ function showMeasureField(val){ // function to render hidden fields in line item
     $(".panel-field").addClass("hidden");
     $(".t-post-field").addClass("hidden");
     $("#id_t_post").val("");
+    $(".side-field").removeClass("hidden");
   } else {
     $(".panel-field").removeClass("hidden");
     $(".t-post-field").removeClass("hidden");
+    $(".side-field").addClass("hidden");
+    $("#id_side").val("");
   }
 
   if (val > 13) { // add panel height to model #14 and #15

@@ -320,10 +320,12 @@ class Shutter(AbstractShutter):
     FRAME_CHOICES = [(0, ''), (2, '2 sides'), (3, '3 sides'), (4, '4 sides')]
     HINGE_CHOICES = [('LR', 'Left/Right'), ('L', 'Left'), ('R', 'Right')]
     FRACTION_CHOICES = [(0, ''), (.125, '1/8'), (.25, '1/4'), (.375, '3/8'), (.5, '1/2'), (.625, '5/8'), (.75, '3/4'), (.875, '7/8')]
+    SIDE_CHOICES = [('L', 'Left'), ('R', 'Right')]
 
     deal = models.ForeignKey(Deal, models.SET_NULL, blank=True, null=True)
     product = models.CharField(max_length=10, default='Shutters')
     shutter_type = models.ForeignKey(ShutterType, models.SET_NULL, blank=True, null=True)
+    side = models.CharField(max_length=5, choices=SIDE_CHOICES, blank=True, null=True)
     finish = models.CharField(max_length=5, choices=FINISH_CHOICES, blank=True, null=True)
     stain = models.ForeignKey(Stain, models.SET_NULL, blank=True, null=True)
     color = models.CharField(max_length=100, blank=True)
