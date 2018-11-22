@@ -690,6 +690,20 @@ table th {
 	border: 0.5px solid #aeb2b7;
 }
 
+#proposal-table thead tr,
+#proposal-table tbody {
+	border: 0.5px solid #aeb2b7;
+}
+
+#proposal-table .inner-table tbody {
+	border: none;
+}
+
+#proposal-table .inner-table tr,
+#proposal-table .inner-table td {
+	padding: 0;
+	border: none;
+}
 #item-specs-table {
 	width: auto;
 }
