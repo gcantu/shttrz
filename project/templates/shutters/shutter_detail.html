@@ -14,7 +14,7 @@
         <th>Frame</th>
         <th>Frame Style</th>
         <th>Trim Style</th>
-        <th>Panels</th>
+        <th># Panels</th>
         <th>T-posts</th>
         <th>Louver</th>
         <th>Tilt Rod</th>
@@ -27,6 +27,7 @@
         <th>Center</th>
         <th>Left</th>
         <th>Right</th>
+        <th>Panel</th>
         <th>Divider</th>
         <th>Price/Sq. Ft.</th>
         <th>Total</th>
@@ -75,6 +76,7 @@
         <td>{{ item.height_center|default_if_none:"" }} {{ item.get_height_center_fraction_display }}</td>
         <td>{{ item.height_left|default_if_none:"" }} {{ item.get_height_left_fraction_display }}</td>
         <td>{{ item.height_right|default_if_none:"" }} {{ item.get_height_right_fraction_display }}</td>
+        <td>{{ item.panel_height|default_if_none:"" }}</td>
         <td>{{ item.height_divider|default_if_none:"" }} {{ item.get_height_divider_fraction_display }}</td>
         <td>$ {{ item.price_per_sq_ft }}</td>
         <td>$ {{ item.total_price }}</td>
