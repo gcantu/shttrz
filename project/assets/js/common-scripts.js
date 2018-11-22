@@ -92,9 +92,11 @@ function showMeasureField(val){ // function to render hidden fields in line item
   var val = val;
 
   if (val == 6 || val == 8 || val == 13 || val == 15) { // remove t-post from these models
+    $(".panel-field").addClass("hidden");
     $(".t-post-field").addClass("hidden");
     $("#id_t_post").val("");
   } else {
+    $(".panel-field").removeClass("hidden");
     $(".t-post-field").removeClass("hidden");
   }
 
