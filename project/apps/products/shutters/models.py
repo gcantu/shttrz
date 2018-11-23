@@ -163,12 +163,12 @@ class AbstractShutter(AbstractTenant):
 
     def _l_frame_height_left(self):
         mt = 'height_left'
-        l = self._get_lframe(mt) if (self.shutter_type_id > 11) else 0
+        l = self._get_lframe(mt) if (self.shutter_type_id > 11 and self.side != 'R') else 0
         return l
 
     def _l_frame_height_right(self):
         mt = 'height_right'
-        l = self._get_lframe(mt) if (self.shutter_type_id > 11) else 0
+        l = self._get_lframe(mt) if (self.shutter_type_id > 11 and self.side != 'L') else 0
         return l
 
     # rail, louver, stile, tilt rod
@@ -286,13 +286,16 @@ class AbstractShutter(AbstractTenant):
         return as_fraction(self._l_frame_height())
 
     def l_frame_height_center(self):
-        return as_fraction(self._l_frame_height_center())
+        x = as_fraction(self._l_frame_height_center())
+        return x if x != 0 else None
 
     def l_frame_height_left(self):
-        return as_fraction(self._l_frame_height_left())
+        x = as_fraction(self._l_frame_height_left())
+        return x if x != 0 else None
 
     def l_frame_height_right(self):
-        return as_fraction(self._l_frame_height_right())
+        x = as_fraction(self._l_frame_height_right())
+        return x if x != 0 else None
 
     def panel_height(self):
         return as_fraction(self._height_panel()) if self._height_panel() else None
