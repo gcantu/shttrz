@@ -78,7 +78,9 @@ html, body {
 #shutterFormPage,
 #dealSummaryPage,
 #dealStyleFormPage,
-#reportPage,
+#manufacturingPage,
+#proposalPage,
+#invoicePage,
 #confirmStatusPage {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -92,7 +94,12 @@ html, body {
 	max-width: 985px;
 }
 
-#reportPage {
+#manufacturingPage {
+	width: 1200px;
+}
+
+#proposalPage,
+#invoicePage {
 	max-width: 920px;
 }
 
@@ -877,12 +884,28 @@ hr {
 --------------------------------------------------------------*/
 @media print {
 
-	html, body, #content, #page {
-        height: 99%;
-    }
+	body {
+		height: 29.7cm;
+    margin: 10mm 0 5mm 0;
+	}
+
+	#report-template {
+		width: 25cm;
+		margin-left: auto;
+		margin-right: auto;
+		padding: 0;
+	}
 
 	#content {
 		padding-top: 0;
+	}
+
+	.remove-padding {
+		padding: 0;
+	}
+
+	#proposalPage {
+		margin: 0;
 	}
 
 	footer {

@@ -2,7 +2,9 @@
 {% load widget_tweaks %}
 {% load static %}
 
-{% block pageid %}reportPage{% endblock %}
+
+
+{% block pageid %}{{ page_id }}{% endblock %}
 
 {% block contenttitle %}
 {{ report }}
@@ -23,8 +25,8 @@
 
 {% block content %}
 <div class="row">
-  <div class="col">
-    <div id="report-template" class="section">
+  <div class="col remove-padding">
+    <div id="report-template" class="section {% block extraclass %}{% endblock %}">
 
       <div class="row mt">
         {% include "core/letterhead.html" %}
