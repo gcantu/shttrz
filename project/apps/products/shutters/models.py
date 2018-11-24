@@ -190,11 +190,11 @@ class AbstractShutter(AbstractTenant):
         else: # 4 panels
             reduction = (framestyle_measurement*2) + (self._stile_width()*8) + (hinge_offset*4) + (opening_offset*4) + self._t_post_width()
             rail =(l_width - reduction) / 4
-        return round(rail, 4)
+        return rail
 
     def _louver(self):
         louver = self._rail() - 0.0625 # 1/16
-        return round(louver, 4)
+        return louver
 
     def _stile(self):
         Lheight = self._l_frame_height()

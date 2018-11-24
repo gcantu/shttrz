@@ -17,7 +17,7 @@ def custom_round(num):
 # display decimals as fractions
 def as_fraction(n):
     number = int(n)
-    dec = round(n % 1, 4)
+    dec = n % 1
 
     if (dec == 0):
         return number
