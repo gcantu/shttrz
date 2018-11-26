@@ -100,7 +100,7 @@ html, body {
 
 #proposalPage,
 #invoicePage {
-	max-width: 920px;
+	max-width: 1100px;
 }
 
 #confirmStatusPage {
@@ -238,6 +238,10 @@ header {
 #report-template.section {
 	padding: 10px 20px;
 	font-size: 12px;
+}
+
+#report-template .section {
+	border: 0.5px solid #515151;
 }
 
 #report-template table {
@@ -650,7 +654,7 @@ table th {
 
 #price-table .underline,
 #item-measurements-table th {
-	border-bottom: 0.5px solid #aeb2b7;
+	border-bottom: 0.5px solid #515151;
 }
 
 #price-table .topline {
@@ -691,27 +695,13 @@ table th {
 }
 
 #proposal-table td {
-	padding: 15px 10px;
+	padding: 5px 10px;
 }
 
-#proposal-table tr {
-	border: 0.5px solid #aeb2b7;
+#proposal-table thead {
+	border-bottom: 0.5px solid #515151;
 }
 
-#proposal-table thead tr,
-#proposal-table tbody {
-	border: 0.5px solid #aeb2b7;
-}
-
-#proposal-table .inner-table tbody {
-	border: none;
-}
-
-#proposal-table .inner-table tr,
-#proposal-table .inner-table td {
-	padding: 0;
-	border: none;
-}
 #item-specs-table {
 	width: auto;
 }
@@ -835,7 +825,7 @@ hr {
 	border-top: none;
 	border-bottom: 0.5px solid #515151;
   margin-top: 5px;
-	margin-bottom: 15px;
+	margin-bottom: 8px;
 }
 
 .ra {
@@ -900,6 +890,7 @@ hr {
 		margin-left: auto;
 		margin-right: auto;
 		padding: 0;
+		border: none;
 	}
 
 	#content {
@@ -914,7 +905,8 @@ hr {
 		margin: 0;
 	}
 
-	footer {
+	footer,
+	header {
 		display: none;
 	}
 
