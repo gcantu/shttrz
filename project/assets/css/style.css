@@ -237,7 +237,7 @@ header {
 
 #report-template.section {
 	padding: 10px 20px;
-	font-size: 13px;
+	font-size: 12px;
 }
 
 #report-template table {
@@ -615,6 +615,7 @@ caption { /* customer name - customer detail table */
 	font-size: 18px;
 	letter-spacing: 1px;
 	padding-top: 0;
+	padding-bottom: 3px;
 	color: #515151;
 	margin-left: 3px;
 }
@@ -773,6 +774,7 @@ table th {
 	letter-spacing: 1px;
 	font-weight: 500;
 	text-align: right;
+	margin-bottom: 5px;
 }
 
 #manufacturing-report.section {
@@ -805,6 +807,10 @@ table th {
 
 /* 10.0 Others
 --------------------------------------------------------------*/
+p {
+	margin-bottom: 5px;
+}
+
 .mt {
 	margin-top: 10px;
 }

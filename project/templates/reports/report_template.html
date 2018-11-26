@@ -28,11 +28,11 @@
   <div class="col remove-padding">
     <div id="report-template" class="section {% block extraclass %}{% endblock %}">
 
-      <div class="row mt">
+      <div class="row">
         {% include "core/letterhead.html" %}
       </div><hr> <!-- END letterhead -->
 
-      <div class="report-title">{{ report }}</div><br><br>
+      <div class="report-title">{{ report }}</div>
 
       <div class="row">
         <div class="col-4">
@@ -45,7 +45,7 @@
         </div>
       </div> <!-- END customer and deal details -->
 
-      <br><br>
+      <br>
       {% block report %}
       {% endblock %} <!-- END proposal items -->
     </div><br> <!-- END report section -->
