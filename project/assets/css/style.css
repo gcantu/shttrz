@@ -635,7 +635,7 @@ table {
 
 table td,
 table th {
-	padding: 1px 6px;
+	padding: 3px 6px;
 }
 
 table th {
@@ -702,6 +702,25 @@ table th {
 	border-bottom: 0.5px solid #515151;
 }
 
+#manufacturing-t th,
+#manufacturing-t td {
+	border-right: 0.5px solid #515151;
+}
+
+#manufacturing-t thead,
+#manufacturing-t tbody {
+	border: 0.5px solid #515151;
+}
+
+#manufacturing-t thead tr {
+	border-bottom: 0.5px solid #515151;
+}
+
+#manufacturing-specs-table {
+	border: 0.5px solid #515151;
+	margin-bottom: 20px;
+}
+
 #item-specs-table {
 	width: auto;
 }
@@ -710,6 +729,14 @@ table th {
 #item-specs-table th {
 	text-align: center;
 	padding: 3px 45px 3px 0;
+}
+
+#detailed-specs-table {
+	width: 500px;
+}
+
+#detailed-specs-table thead {
+	border-bottom: 0.5px solid #515151;
 }
 
 #item-measurements-table {
@@ -767,12 +794,9 @@ table th {
 	margin-bottom: 5px;
 }
 
-#manufacturing-report.section {
-	height: auto;
-}
-
 #manufacturing-report .section-title {
-	background-color: #e0e0e0;
+	/* background-color: #e0e0e0; */
+	border-bottom: 0.5px solid #515151;
 	padding: 5px 10px 0 10px;
 	height: 30px;
 	margin-bottom: 5px;
@@ -781,7 +805,11 @@ table th {
 #manufacturing-report .product-img {
 	max-width: 100px;
 	max-height: 90px;
-	margin-right: 20px;
+	margin: 15px 15px 5px 10px;
+}
+
+#manufacturing-report.section {
+	height: auto;
 }
 
 .signature {
@@ -872,6 +900,10 @@ hr {
 	display: inline-block;
 }
 
+.auto-width {
+	width: auto;
+}
+
 /*--------------------------------------------------------------
 11.0 RESPONSIVE STRUCTURE
 --------------------------------------------------------------*/
@@ -880,17 +912,30 @@ hr {
 --------------------------------------------------------------*/
 @media print {
 
-	body {
-		height: 29.7cm;
-    margin: 10mm 0 5mm 0;
+	html, body {
+		height: 99%;
+	}
+
+	.page-break	{
+		display: block;
+		page-break-before: always;
 	}
 
 	#report-template {
-		width: 25cm;
-		margin-left: auto;
-		margin-right: auto;
 		padding: 0;
 		border: none;
+	}
+
+	.portrait {
+		width: 25cm;
+		margin: 10mm 0 5mm 10mm;
+
+	}
+
+	.landscape {
+		height: 750px;
+		width: 1200px;
+		margin: 5mm 0 5mm 0;
 	}
 
 	#content {

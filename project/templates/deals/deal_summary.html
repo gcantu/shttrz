@@ -13,7 +13,8 @@
       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reports</a>
       <div class="dropdown-menu dropdown-menu-right">
         <a class="dropdown-item" href="{% url 'reports:proposal-report' deal.id %}">Proposal</a>
-        <a class="dropdown-item" href="{% url 'reports:manufacturing-report' deal.id %}">Manufacturing</a>
+        <a class="dropdown-item" href="{% url 'reports:manufacturing-report' deal.id 'Detailed' %}">Manufacturing (Detailed)</a>
+        <a class="dropdown-item" href="{% url 'reports:manufacturing-report' deal.id 'Condensed' %}">Manufacturing (Condensed)</a>
         <a class="dropdown-item" href="{% url 'reports:invoice-report' deal.id %}">Invoice</a>
       </div>
     </li>

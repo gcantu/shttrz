@@ -14,11 +14,13 @@ def proposal_report(request, pk):
     return render(request, 'reports/proposal_report.html', {'deal': deal, 'customer': customer, 'price': price, 'items': shutter, 'report': 'Proposal', 'page_id': 'proposalPage'})
 
 
-def manufacturing_report(request, pk):
+def manufacturing_report(request, pk, type):
     deal = Deal.objects.get(pk=pk)
     customer = Customer.objects.get(deal__id=pk)
     shutter = Shutter.objects.filter(deal_id=pk).order_by('shutter_type_id')
     material = Material.objects.get(pk=pk)
+
+    template = 'reports/manufacturing_report.html' if type == 'Detailed' else 'reports/manufacturing_report_condensed.html'
 
     fieldname = ['louver', 'finish', 'color', 'stain', 'frame_style', 'trim_style', 'tilt_rod', 'hinge_color']
 
