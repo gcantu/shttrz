@@ -2,6 +2,10 @@
 {% load widget_tweaks %}
 {% load static %}
 
+
+
+{% block pageid %}{{ page_id }}{% endblock %}
+
 {% block contenttitle %}
 {{ report }}
 {% endblock %}
@@ -16,19 +20,19 @@
       <a class="nav-link icon-btn rf" href="{% url 'deals:deal-summary' deal.id %}">Order Summary</a>
     </li>
   </ul>
-</div>
+</div><hr>
 {% endblock %}
 
 {% block content %}
 <div class="row">
-  <div class="col">
-    <div id="report-template" class="section">
+  <div class="col remove-padding">
+    <div id="report-template" class="section {% block extraclass %}{% endblock %}">
 
-      <div class="row mt">
+      <div class="row">
         {% include "core/letterhead.html" %}
       </div><hr> <!-- END letterhead -->
 
-      <div class="report-title">{{ report }}</div><br><br>
+      <div class="report-title">{{ report }}</div>
 
       <div class="row">
         <div class="col-4">
@@ -41,10 +45,9 @@
         </div>
       </div> <!-- END customer and deal details -->
 
-      <br><br>
+      <br>
       {% block report %}
       {% endblock %} <!-- END proposal items -->
-      <br>
     </div><br> <!-- END report section -->
   </div>
 </div>

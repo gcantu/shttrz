@@ -1,7 +1,6 @@
 {% load widget_tweaks %}
 
 <div class="filter-section">
-  <div class="title"><b>Filter By</b></div><br>
   <form action="" method="get">
       <div class="form-group">
         {{ filter.form.date_range.label_tag }}
@@ -15,9 +14,13 @@
   </form><br>
 
   <div style="margin-top:40px;">
-    <a class="icon-btn" href="{% url 'dashboard:deal-list' 'Deleted' %}">
+    <a class="icon-btn" href="{% url 'deals:deal-list' 'Deleted' %}">
       <i class="fas fa-trash-alt"></i>
-      &nbsp;Deleted Deals
+      &nbsp;Deleted
+    </a><br>
+    <a class="icon-btn" href="{% url 'deals:deal-list' 'Completed' %}">
+      <i class="fas fa-check"></i>
+      &nbsp;Completed
     </a>
   </div>
 </div>

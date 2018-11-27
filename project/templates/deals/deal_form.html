@@ -1,12 +1,15 @@
+{% extends "core/base.html" %}
 {% load widget_tweaks %}
 {% load static %}
 
+{% block contenttitle %}
+Update Deal
+{% endblock %}
+
+{% block content %}
 <div class="col col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
   <form id="deal-form" method="post">
     {% csrf_token %}
-    {{ form.customer.as_hidden }}
-    {{ form.tenant.as_hidden }}
-    {{ form.status.as_hidden }}
 
     <div class="section">
       <div class="section-wrapper">
@@ -40,12 +43,13 @@
             {% render_field  form.notes class="form-control notes-field" %}
           </div>
         </div>
-      </div>
 
-      <button type="submit" class="btn-submit">
-        <i class="fas fa-check"></i>
-      </button>
+        <button type="submit" class="btn-submit btn-block">
+          <i class="fas fa-check"></i>
+        </button>
+      </div>
     </div>
 
   </form>
 </div>
+{% endblock %}

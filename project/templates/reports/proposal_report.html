@@ -3,49 +3,16 @@
 {% load static %}
 {% load humanize %}
 
+{% block extraclass %}portrait{% endblock %}
 
 {% block report %}
 <div class="row">
   <div class="col">
-    <table id="proposal-table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Location</th>
-            <th>Description</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-
-        <tbody>
-        {% for item in items %}
-          <tr>
-            <td>{{ forloop.counter }}</td>
-            <td>{{ item.location|title }}</td>
-            <td>
-              {{ item.product }}<br><br>
-              <b>Finish: </b>{{ item.stain|default_if_none:"" }} {{ item.finish }} - {{ item.color }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <b>Mount: </b>{{ item.mount }}, {{ item.frame|default_if_none:"" }} sides
-              {% if item.trim_style %}
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <b>Trim Style: </b>{{ item.trim_style }}
-              {% endif %}
-              <br>
-              <b>Doors: </b>{{ item.panels }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Louver: </b>{{ item.get_louver_display }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Hinge Color:
-              </b>{{ item.hinge_color }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Tilt rod: </b>{{ item.tilt_rod }}<br>
-            </td>
-            <td>$ {{ item.total_price|floatformat:"0"|intcomma }}</td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+    {% include "reports/item_list.html" %}
   </div>
-</div>
-
-<br>
+</div><br>
 
 <div class="row">
-
   <div class="col-8">
     <div class="section wrapper">
       <h6>Notes: </h6>
@@ -77,7 +44,5 @@
       </table> <!-- END total table -->
     </div>
   </div>
-
 </div>
-
 {% endblock %}

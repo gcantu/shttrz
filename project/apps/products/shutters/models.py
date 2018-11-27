@@ -8,19 +8,19 @@ import math
 BOOL_CHOICES = ((True, 'Active'), (False, 'Discontinued'))
 
 
-class Product(AbstractTenant):
-    product = models.CharField(max_length=100)
+class ShutterType(AbstractTenant):
+    shutter_type = models.CharField(max_length=100)
     status = models.BooleanField(choices=BOOL_CHOICES, default=True)
 
     def save(self, *args, **kwargs):
-        self.product = self.product.capitalize()
-        return super(Product, self).save(*args, **kwargs)
+        self.shutter_type = self.shutter_type.capitalize()
+        return super(ShutterType, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.product
+        return self.shutter_type
 
     def get_absolute_url(self):
-        return reverse('product-detail', kwargs={'pk': self.pk})
+        return reverse('shutter-type-detail', kwargs={'pk': self.pk})
 
 
 class Stain(AbstractTenant):
@@ -114,7 +114,7 @@ class AbstractShutter(AbstractTenant):
         return h
 
     def _height_panel(self):
-        h = self.height_panel + self.height_panel_fraction
+        h = (self.height_panel + self.height_panel_fraction) if self.height_panel else None
         return h
 
     def _height_center(self):
@@ -122,11 +122,11 @@ class AbstractShutter(AbstractTenant):
         return h
 
     def _height_left(self):
-        h = self.height_left + self.height_left_fraction
+        h = (self.height_left + self.height_left_fraction) if self.height_left else 0
         return h
 
     def _height_right(self):
-        h = self.height_right + self.height_right_fraction
+        h = (self.height_right + self.height_right_fraction) if self.height_right else 0
         return h
 
     def _get_lframe(self, measure_type):
@@ -158,17 +158,17 @@ class AbstractShutter(AbstractTenant):
 
     def _l_frame_height_center(self):
         mt = 'height_center'
-        l = self._get_lframe(mt) if (self.product_id == 13 or self.product_id == 15) else 0
+        l = self._get_lframe(mt) if (self.shutter_type_id == 13 or self.shutter_type_id == 15) else 0
         return l
 
     def _l_frame_height_left(self):
         mt = 'height_left'
-        l = self._get_lframe(mt) if (self.product_id > 11) else 0
+        l = self._get_lframe(mt) if (self.shutter_type_id > 11 and self.side != 'R') else 0
         return l
 
     def _l_frame_height_right(self):
         mt = 'height_right'
-        l = self._get_lframe(mt) if (self.product_id > 11) else 0
+        l = self._get_lframe(mt) if (self.shutter_type_id > 11 and self.side != 'L') else 0
         return l
 
     # rail, louver, stile, tilt rod
@@ -190,11 +190,11 @@ class AbstractShutter(AbstractTenant):
         else: # 4 panels
             reduction = (framestyle_measurement*2) + (self._stile_width()*8) + (hinge_offset*4) + (opening_offset*4) + self._t_post_width()
             rail =(l_width - reduction) / 4
-        return round(rail, 4)
+        return rail
 
     def _louver(self):
         louver = self._rail() - 0.0625 # 1/16
-        return round(louver, 4)
+        return louver
 
     def _stile(self):
         Lheight = self._l_frame_height()
@@ -286,13 +286,19 @@ class AbstractShutter(AbstractTenant):
         return as_fraction(self._l_frame_height())
 
     def l_frame_height_center(self):
-        return as_fraction(self._l_frame_height_center())
+        x = as_fraction(self._l_frame_height_center())
+        return x if x != 0 else None
 
     def l_frame_height_left(self):
-        return as_fraction(self._l_frame_height_left())
+        x = as_fraction(self._l_frame_height_left())
+        return x if x != 0 else None
 
     def l_frame_height_right(self):
-        return as_fraction(self._l_frame_height_right())
+        x = as_fraction(self._l_frame_height_right())
+        return x if x != 0 else None
+
+    def panel_height(self):
+        return as_fraction(self._height_panel()) if self._height_panel() else None
 
     def rail_measure(self):
         return as_fraction(self._rail())
@@ -317,9 +323,12 @@ class Shutter(AbstractShutter):
     FRAME_CHOICES = [(0, ''), (2, '2 sides'), (3, '3 sides'), (4, '4 sides')]
     HINGE_CHOICES = [('LR', 'Left/Right'), ('L', 'Left'), ('R', 'Right')]
     FRACTION_CHOICES = [(0, ''), (.125, '1/8'), (.25, '1/4'), (.375, '3/8'), (.5, '1/2'), (.625, '5/8'), (.75, '3/4'), (.875, '7/8')]
+    SIDE_CHOICES = [('L', 'Left'), ('R', 'Right')]
 
     deal = models.ForeignKey(Deal, models.SET_NULL, blank=True, null=True)
-    product = models.ForeignKey(Product, models.SET_NULL, blank=True, null=True)
+    product = models.CharField(max_length=10, default='Shutters')
+    shutter_type = models.ForeignKey(ShutterType, models.SET_NULL, blank=True, null=True)
+    side = models.CharField(max_length=5, choices=SIDE_CHOICES, blank=True, null=True)
     finish = models.CharField(max_length=5, choices=FINISH_CHOICES, blank=True, null=True)
     stain = models.ForeignKey(Stain, models.SET_NULL, blank=True, null=True)
     color = models.CharField(max_length=100, blank=True)
@@ -329,7 +338,7 @@ class Shutter(AbstractShutter):
     frame = models.IntegerField(choices=FRAME_CHOICES, default=0)
     frame_style = models.ForeignKey(FrameStyle, models.SET_NULL, blank=True, null=True)
     trim_style = models.ForeignKey(TrimStyle, models.SET_NULL, blank=True, null=True)
-    panels = models.IntegerField()
+    panels = models.IntegerField(default=1)
     t_post = models.IntegerField(blank=True, null=True)
     hinges = models.CharField(max_length=2, choices=HINGE_CHOICES, blank=True)
     hinge_color = models.ForeignKey(HingeColor, models.SET_NULL, blank=True, null=True)
@@ -349,6 +358,7 @@ class Shutter(AbstractShutter):
     height_left_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     height_right_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     price_per_sq_ft = models.FloatField(default=0)
+    default_style = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         self.location = self.location.capitalize()
@@ -358,17 +368,17 @@ class Shutter(AbstractShutter):
         self.frame_style_id = 1 if self.finish == 'Stain' else 2
 
         # set panel height for models #1, #7 and #8
-        if self.product_id == 1:
+        if self.shutter_type_id == 1:
             self.height_panel = self.height
             self.height_panel_fraction = self.height_fraction
-        elif self.product_id == 7:
+        elif self.shutter_type_id == 7:
             h = (self.height + self.height_fraction) - ((self.width + self.width_fraction)/2)
             self.height_panel = int(h)
-            self.height_panel_fraction = round(h % 1, 2)
-        elif self.product_id == 8: #8
+            self.height_panel_fraction = round(h % 1, 4)
+        elif self.shutter_type_id == 8: #8
             h = (self.height + self.height_fraction) - (self.width + self.width_fraction)
             self.height_panel = int(h)
-            self.height_panel_fraction = round(h % 1, 2)
+            self.height_panel_fraction = round(h % 1, 4)
 
         return super(Shutter, self).save(*args, **kwargs)
 

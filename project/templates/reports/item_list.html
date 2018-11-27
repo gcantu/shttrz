@@ -1,0 +1,35 @@
+{% load humanize %}
+
+<table id="proposal-table">
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>Model</th>
+        <th>Location</th>
+        <th>Panels</th>
+        <th>Louver</th>
+        <th>T-rod</th>
+        <th>Trim</th>
+        <th>Finish</th>
+        <th>Hinges</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    {% for item in items %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td># {{ item.shutter_type_id }}</td>
+        <td>{{ item.location|title }}</td>
+        <td>{{ item.panels|default_if_none:"" }}</td>
+        <td>{{ item.get_louver_display }}</td>
+        <td>{{ item.tilt_rod }}</td>
+        <td>{{ item.trim_style|default_if_none:"" }} /{{ item.frame|default_if_none:"" }}</td>
+        <td>{{ item.stain|default_if_none:"" }} {{ item.finish|default_if_none:"" }} - {{ item.color|default_if_none:"" }}</td>
+        <td>{{ item.hinge_color|default_if_none:"" }}</td>
+        <td>$ {{ item.total_price|floatformat:"0"|intcomma }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>

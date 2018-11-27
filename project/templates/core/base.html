@@ -11,7 +11,7 @@
   </head>
 
   <body>
-    <div id="page">
+    <div id="page" class="{% block pageclass %}{% endblock %}">
 
       {% block header %}
       {% include "core/header.html" %}
@@ -22,8 +22,8 @@
       {% endblock %}
 
       <div id="content">
-        <div class="wrapper">
-          <div class="container">
+        <div class="wrapper remove-padding">
+          <div id="{% block pageid %}{% endblock %}" class="container wrapper remove-padding">
             <div class="row">
               <div class="col">
                 <div class="content-title noprint">
@@ -31,9 +31,7 @@
                   {% endblock %}
 
                   {% block menu %}
-                  <a class="btn btn-radius btn-main rf" href="{% url 'deals:add-customer' %}" role="button"><i class="fas fa-plus"></i> New</a>
                   {% endblock %}
-                  <hr>
                 </div>
               </div> <!-- END col -->
             </div> <!-- END row -->

@@ -16,21 +16,22 @@ class CustomerForm(ModelForm):
 class DealForm(ModelForm):
     class Meta:
         model = Deal
-        exclude = ['is_deleted']
+        exclude = ['is_deleted', 'customer', 'status', 'tenant']
 
-    def __init__(self, tenant, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
+        self.tenant = kwargs.pop('tenant')
         super(DealForm, self).__init__(*args, **kwargs)
-        self.fields['agent'].queryset = User.objects.filter(tenant_id=tenant).exclude(is_superuser=True)
-        self.fields['measured_by'].queryset = User.objects.filter(tenant_id=tenant).exclude(is_superuser=True)
+        self.fields['agent'].queryset = User.objects.filter(tenant_id=self.tenant).exclude(is_superuser=True)
+        self.fields['measured_by'].queryset = User.objects.filter(tenant_id=self.tenant).exclude(is_superuser=True)
 
 
 class PriceForm(ModelForm):
     class Meta:
         model = Price
-        fields = '__all__'
+        exclude = ['deal', 'tenant', 'subtotal', 'tax', 'credit_card_fee', 'total', 'balance']
 
 
 class ShutterForm(ModelForm):
     class Meta:
         model = Shutter
-        exclude = ['frame_style']
+        exclude = ['frame_style', 'product', 'default_style']
