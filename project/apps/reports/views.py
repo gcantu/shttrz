@@ -20,7 +20,7 @@ def manufacturing_report(request, pk, type):
     shutter = Shutter.objects.filter(deal_id=pk).order_by('shutter_type_id')
     material = Material.objects.get(pk=pk)
 
-    template = 'reports/manufacturing_report.html' if type == 'Detailed' else 'reports/manufacturing_report_condensed.html'
+    template = 'reports/manufacturing_report.html' if type == 'Detailed' else 'reports/manufacturing_report_simple.html'
 
     fieldname = ['louver', 'finish', 'color', 'stain', 'frame_style', 'trim_style', 'tilt_rod', 'hinge_color']
 
