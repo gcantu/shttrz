@@ -25,27 +25,27 @@ $('#id_finish').on('change', function() { // show stain field when finish = 'sta
 });
 
 $('#edit-item-button').on('click', function() { // show/hide line item edit buttons
-  $(".hidden-title").removeClass("hidden");
-  $(".edit-hidden-btn").removeClass("hidden");
+  $(".hidden-colname").toggleClass("hidden");
+  $(".edit-hidden-btn").toggleClass("hidden");
   $(".delete-hidden-btn").addClass("hidden");
   $(".style-hidden-btn").addClass("hidden");
-   $(".hidden-btn").removeClass("hidden");
 });
 
 $('#delete-item-button').on('click', function() { // show/hide line item edit buttons
-  $(".hidden-title").removeClass("hidden");
+  $(".hidden-colname").toggleClass("hidden");
+  $(".delete-hidden-btn").toggleClass("hidden");
   $(".edit-hidden-btn").addClass("hidden");
-  $(".delete-hidden-btn").removeClass("hidden");
   $(".style-hidden-btn").addClass("hidden");
-  $(".hidden-btn").removeClass("hidden");
 });
 
 $('#style-item-button').on('click', function() { // show/hide line item edit buttons
-  $(".hidden-title").addClass("hidden");
+  $(".hidden-colname").addClass("hidden");
+  $(".style-hidden-btn").toggleClass("hidden");
+  $(".style-colname").toggleClass("hidden");
+  $(".style-dropdown").toggleClass("hidden");
   $(".edit-hidden-btn").addClass("hidden");
   $(".delete-hidden-btn").addClass("hidden");
-  $(".style-hidden-btn").removeClass("hidden");
-  $(".hidden-btn").removeClass("hidden");
+
 });
 
 $('#divider-button').on('click', function() { // add/remove divider field in line item form
@@ -101,6 +101,40 @@ $('#id_payment_method').on('change', function() { // hide/unhide panel, center, 
     $(".check-field").addClass("hidden");
   }
 
+});
+
+$('input:checkbox').on('click', function() {
+  $(this).parent().parent().toggleClass("checked-row");
+});
+
+$("#checkAll").on('click', function () {
+    $(".item-checkbox").prop('checked', $(this).prop('checked'));
+
+    if ($('#checkAll:checked').length) {
+        $('.nav-link').removeClass('disabled');
+        $('input:submit').prop('disabled', false)
+        $('.item-checkbox').parent().parent().addClass("checked-row");
+    } else {
+        $('.nav-link').addClass('disabled');
+        $('input:submit').prop('disabled', true)
+        $('.item-checkbox').parent().parent().removeClass("checked-row");
+    }
+});
+
+$(".item-checkbox").on('change', function() {
+  if (!$(this).prop("checked")) {
+    $("#checkAll").prop("checked", false);
+  }
+});
+
+$('input:checkbox').on('change', function() {
+    if ($('input:checkbox:checked').length) {
+        $('.nav-link').removeClass('disabled');
+        $('input:submit').prop('disabled', false)
+    } else {
+        $('.nav-link').addClass('disabled');
+        $('input:submit').prop('disabled', true)
+    }
 });
 
 

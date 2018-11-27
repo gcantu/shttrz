@@ -5,7 +5,7 @@ from django.views.generic.edit import DeleteView, CreateView, UpdateView
 from django.views.generic import ListView
 from tenants.utils import tenant_from_request
 from .models import Deal, Price
-from shutters.models import Shutter, Material
+from shutters.models import Shutter, Material, TrimStyle, TiltRod, HingeColor, Stain
 from customers.models import Customer
 from forms.forms import DealForm, CustomerForm, ShutterForm, PriceForm
 from .utils import DealFilter
@@ -140,18 +140,54 @@ class UpdateDealStatus(UpdateView):
 
 def set_style_default(request):
     id_list = request.POST.getlist('item_list')
-    items = Shutter.objects.filter(id__in=id_list)
+    d = Shutter.objects.get(id=id_list[0])
+    deal_id = d.deal_id
+    dict = request.POST.dict()
 
-    for item in items:
-        item.default_style = True
-        item.save()
+    if 'finish' in request.POST:
+        f = dict.pop('finish')
+        Shutter.objects.filter(id__in=id_list).update(finish=f)
 
-    return redirect(reverse('deals:update-shutter-style', kwargs={'pk': id_list[0]}))
+        if f == 'Paint':
+            Shutter.objects.filter(id__in=id_list).update(stain='')
+
+    elif 'trim_style' in request.POST:
+        ts = dict.pop('trim_style')
+        ts = TrimStyle.objects.get(trim_style=ts)
+        Shutter.objects.filter(id__in=id_list).update(trim_style=ts)
+    elif 'tilt_rod' in request.POST:
+        tr = dict.pop('tilt_rod')
+        tr = TiltRod.objects.get(tilt_rod=tr)
+        Shutter.objects.filter(id__in=id_list).update(tilt_rod=tr)
+    elif 'hinge_color' in request.POST:
+        hc = dict.pop('hinge_color')
+        hc = HingeColor.objects.get(hinge_color=hc)
+        Shutter.objects.filter(id__in=id_list).update(hinge_color=hc)
+    elif 'stain' in request.POST:
+        s = dict.pop('stain')
+        s = Stain.objects.get(stain=s)
+        Shutter.objects.filter(id__in=id_list).update(stain=s)
+    elif 'louver' in request.POST:
+        l = dict.pop('louver')
+        if l == '2 1/2':
+            Shutter.objects.filter(id__in=id_list).update(louver=2.5)
+        elif l == '3 1/2':
+            Shutter.objects.filter(id__in=id_list).update(louver=3.5)
+        else:
+            Shutter.objects.filter(id__in=id_list).update(louver=4.5)
+    else:
+        Shutter.objects.filter(id__in=id_list).update(default_style=True)
+
+
+    if 'color' in request.POST:
+        return redirect(reverse('deals:update-shutter-style', kwargs={'pk': id_list[0]}))
+    else:
+        return redirect(reverse('deals:deal-summary', kwargs={'pk': deal_id}))
 
 
 class UpdateShutterStyle(UpdateView):
     model = Shutter
-    fields = ['deal', 'finish', 'stain', 'color', 'louver', 'tilt_rod', 'trim_style', 'hinge_color']
+    fields = ['deal', 'color']
     template_name = 'shutters/shutter_style_form.html'
 
     def form_valid(self, form):
@@ -162,13 +198,7 @@ class UpdateShutterStyle(UpdateView):
         items = Shutter.objects.filter(default_style=True)
 
         for item in items:
-            item.finish = self.object.finish
-            item.stain = self.object.stain
             item.color = self.object.color
-            item.louver = self.object.louver
-            item.tilt_rod = self.object.tilt_rod
-            item.trim_style = self.object.trim_style
-            item.hinge_color = self.object.hinge_color
             item.default_style = False
             item.save()
         return super().form_valid(form)

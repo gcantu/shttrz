@@ -1,3 +1,4 @@
+{% load widget_tweaks %}
 
 <div class="scroll-section">
   <form action="{% url 'deals:style-default' %}" method="post">
@@ -5,23 +6,88 @@
   <table id="shutter-detail-table">
     <thead>
       <tr>
-        <th class="hidden hidden-title"></th>
-        <th class="hidden style-hidden-btn no-padding"><input class="btn-style" type="submit" name="style" value="Style" /></th>
+        <th class="hidden hidden-colname"></th>
+        <th class="hidden style-hidden-btn no-padding"><input type="checkbox" id="checkAll" name="checkAll"/></th>
         <th>#</th>
         <th>Product</th>
         <th>Location</th>
+        <th># Panels</th>
+        <th>T-posts</th>
         <th>Mount</th>
         <th>Frame</th>
         <th>Frame Style</th>
-        <th>Trim Style</th>
-        <th># Panels</th>
-        <th>T-posts</th>
-        <th>Louver</th>
-        <th>Tilt Rod</th>
-        <th>Finish</th>
-        <th>Stain</th>
-        <th>Color</th>
-        <th colspan=2>Hinges</th>
+        <th class="style-colname">Trim Style</th>
+        <th class="style-colname">Louver</th>
+        <th class="style-colname">Tilt Rod</th>
+        <th class="style-colname">Finish</th>
+        <th class="style-colname">Stain</th>
+        <th class="style-colname">Color</th>
+        <th class="style-colname" colspan=2>Hinges</th>
+
+        <th class="nav-item dropdown style-dropdown hidden">
+          <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Trim Style</a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <input class="dropdown-item" type="submit" name="trim_style" value="Decorative" />
+            <input class="dropdown-item" type="submit" name="trim_style" value="Round" />
+            <input class="dropdown-item" type="submit" name="trim_style" value="Square" />
+            <input class="dropdown-item" type="submit" name="trim_style" value="Z (Primed)" />
+          </div>
+        </th>
+
+        <th class="nav-item dropdown style-dropdown hidden">
+          <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Louver</a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <input class="dropdown-item" type="submit" name="louver" value="2 1/2" />
+            <input class="dropdown-item" type="submit" name="louver" value="3 1/2" />
+            <input class="dropdown-item" type="submit" name="louver" value="4 1/2" />
+          </div>
+        </th>
+
+        <th class="nav-item dropdown style-dropdown hidden">
+          <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Tilt Rod</a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <input class="dropdown-item" type="submit" name="tilt_rod" value="Front" />
+            <input class="dropdown-item" type="submit" name="tilt_rod" value="Back" />
+            <input class="dropdown-item" type="submit" name="tilt_rod" value="Aluminum" />
+          </div>
+        </th>
+
+        <th class="nav-item dropdown style-dropdown hidden">
+          <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Finish</a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <input class="dropdown-item" type="submit" name="finish" value="Paint" />
+            <input class="dropdown-item" type="submit" name="finish" value="Stain" />
+          </div>
+        </th>
+
+        <th class="nav-item dropdown style-dropdown hidden">
+          <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Stain</a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <input class="dropdown-item" type="submit" name="stain" value="Ash" />
+            <input class="dropdown-item" type="submit" name="stain" value="Baswood" />
+            <input class="dropdown-item" type="submit" name="stain" value="Knotty Alder" />
+            <input class="dropdown-item" type="submit" name="stain" value="Maple" />
+            <input class="dropdown-item" type="submit" name="stain" value="Pine" />
+          </div>
+        </th>
+
+        <th class="nav-item dropdown style-dropdown hidden">
+          <input class="nav-link disabled" disabled type="submit" name="color" value="Color" />
+        </th>
+
+        <th colspan=2 class="nav-item dropdown style-dropdown hidden">
+          <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Hinges</a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <input class="dropdown-item" type="submit" name="hinge_color" value="Bronze" />
+            <input class="dropdown-item" type="submit" name="hinge_color" value="Nickel" />
+            <input class="dropdown-item" type="submit" name="hinge_color" value="White" />
+            <input class="dropdown-item" type="submit" name="hinge_color" value="Bright-White" />
+            <input class="dropdown-item" type="submit" name="hinge_color" value="Off-White" />
+            <input class="dropdown-item" type="submit" name="hinge_color" value="OTHER" />
+            <input class="dropdown-item" type="submit" name="hinge_color" value="MATCH FINISH" />
+          </div>
+        </th>
+
         <th>Width</th>
         <th>Height</th>
         <th>Center</th>
@@ -53,17 +119,15 @@
           </a>
         </td>
 
-
-
         <td>{{ forloop.counter }}</td>
         <td>{{ item.shutter_type }}</td>
         <td>{{ item.location|title }}</td>
+        <td>{{ item.panels }}</td>
+        <td>{{ item.t_post|default_if_none:"" }}</td>
         <td>{{ item.mount }}</td>
         <td>{{ item.frame|default_if_none:"" }}</td>
         <td>{{ item.frame_style }}</td>
         <td>{{ item.trim_style|default_if_none:"" }}</td>
-        <td>{{ item.panels }}</td>
-        <td>{{ item.t_post|default_if_none:"" }}</td>
         <td>{{ item.get_louver_display|default_if_none:"" }}</td>
         <td>{{ item.tilt_rod|default_if_none:"" }}</td>
         <td>{{ item.finish|default_if_none:"" }}</td>

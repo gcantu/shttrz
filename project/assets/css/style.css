@@ -1,3 +1,48 @@
+#shutter-detail-table .nav-link.disabled {
+	background-color: #e0e0e0;
+	color: #515151;
+}
+
+[type=submit] {
+	cursor: pointer;
+}
+
+.checked-row {
+	background-color: #ccdde9;
+}
+
+#shutter-detail-table th.style-dropdown {
+	padding: 0;
+}
+
+#shutter-detail-table .nav-link {
+	background-color: #424a5d;
+	color: #fff;
+	border: 0.5px solid #e0e0e0;
+	padding: 3px 5px;
+	width: 100%;
+}
+
+:focus {
+	outline-style: none;
+}
+
+.dropdown-item:focus,
+.dropdown-item:hover {
+	background-color: #ccdde9;
+}
+
+.style-dropdown a:hover {
+	background-color: #7a808d;
+	color: #fff;
+	cursor: pointer;
+}
+
+.color-form .btn-submit {
+	font-size: 12px;
+}
+
+
 /*--------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
@@ -481,6 +526,7 @@ input[type=number]::-webkit-outer-spin-button { /* hide up and down arrows */
 	background-color: #424a5d;
 	font-size: 14px;
 	letter-spacing: 0.5px;
+	padding: 1px 3px;
 }
 
 .btn a {
