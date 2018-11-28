@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from tenants.models import AbstractTenant
 from deals.models import Deal
+from shutters.utils import custom_round
 
 class AbstractBlind(AbstractTenant):
     # measurements
@@ -13,6 +14,17 @@ class AbstractBlind(AbstractTenant):
     def _height(self):
         h = self.height + self.height_fraction
         return h
+
+    # price based on total sq. ft
+    # ------------------------------------------------------
+    def total_price(self):
+        w_ft = self._width()/12
+        h_ft = self._height()/12
+        w_ft_custom = custom_round(w_ft)
+        h_ft_custom = custom_round(h_ft)
+
+        tp = (w_ft_custom * h_ft_custom) * self.price_per_sq_ft
+        return tp
 
     class Meta:
         abstract = True
