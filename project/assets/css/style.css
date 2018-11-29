@@ -119,6 +119,8 @@ html, body {
 	background-color: #fff;
 }
 
+#homePage,
+#settingsPage,
 #customerFormPage,
 #shutterFormPage,
 #dealSummaryPage,
@@ -128,6 +130,15 @@ html, body {
 #invoicePage,
 #confirmStatusPage {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#homePage {
+	min-width: 635px;
+	max-width: 1018px;
+}
+
+#settingsPage {
+	max-width: 700px;
 }
 
 #customerFormPage,
@@ -163,7 +174,7 @@ html, body {
 header {
 	position: fixed;
 	width: 100%;
-	z-index: 1;
+	z-index: 99;
 	background-color: #fff;
 }
 
@@ -308,7 +319,7 @@ a:focus, a:active, a:hover {
 --------------------------------------------------------------*/
 #main-menu {
   background-color: #424a5d;
-	padding: 5px 15px 3px 10px;
+	padding: 10px 15px 3px 10px;
 	letter-spacing: 1px;
 	font-size: 14px;
 }
@@ -332,6 +343,7 @@ a:focus, a:active, a:hover {
 .settings-menu {
   border: 0.5px solid #888888;
 	font-size: 14px;
+	margin-bottom: 20px;
 }
 
 .settings-menu .title {
@@ -950,6 +962,11 @@ hr {
 	width: auto;
 }
 
+ul, li {
+	list-style-type: none;
+	-webkit-padding-start: 0;
+}
+
 /*--------------------------------------------------------------
 11.0 RESPONSIVE STRUCTURE
 --------------------------------------------------------------*/
@@ -1028,7 +1045,8 @@ and (-webkit-min-device-pixel-ratio: 1){
 		font-size: 18px;
 	}
 
-	.btn {
+	.btn,
+	.settings-menu {
 		font-size: 18px;
 	}
 

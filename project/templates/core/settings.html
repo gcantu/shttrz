@@ -2,11 +2,12 @@
 {% load static %}
 {% load widget_tweaks %}
 
+{% block pageid %}settingsPage{% endblock %}
 
 {% block content %}
 <div class="row">
 
-  <div class="col-3">
+  <div class="col-12 col-sm-5">
     <div class="settings-menu">
       <div class="wrapper">
         <div class="title">{% block settingsmenutitle %}User Settings{% endblock %}</div>
@@ -14,9 +15,9 @@
         {% block settingsmenulist %}{% endblock %}
       </div>
     </div>
-  </div>
+  </div><br>
 
-  <div class="col-6">
+  <div class="col-12 col-sm-7">
     <div class="content-title">{% block settingscontenttitle %}{% endblock %}</div>
     <hr/>
     {% block settingscontent %}{% endblock %}
