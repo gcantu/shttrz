@@ -40,6 +40,11 @@ class Deal(AbstractTenant):
 class Price(AbstractTenant):
     deal = models.OneToOneField(Deal, on_delete=models.CASCADE, primary_key=True)
     subtotal = models.FloatField(default=0)
+    shutters_subtotal = models.FloatField(default=0)
+    blinds_subtotal = models.FloatField(default=0)
+    shades_subtotal = models.FloatField(default=0)
+    sunscreens_subtotal = models.FloatField(default=0)
+    subtotal = models.FloatField(default=0)
     tax_rate = models.FloatField(default=0.0825)
     tax = models.FloatField(default=0)
     total = models.FloatField(default=0)

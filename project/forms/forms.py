@@ -28,7 +28,7 @@ class DealForm(ModelForm):
 class PriceForm(ModelForm):
     class Meta:
         model = Price
-        exclude = ['deal', 'tenant', 'subtotal', 'tax', 'credit_card_fee', 'total', 'balance']
+        exclude = ['deal', 'tenant', 'shutters_subtotal', 'blinds_subtotal', 'shades_subtotal', 'sunscreens_subtotal', 'subtotal', 'tax', 'credit_card_fee', 'total', 'balance']
 
 
 class ShutterForm(ModelForm):
