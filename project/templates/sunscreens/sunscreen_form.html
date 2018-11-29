@@ -1,0 +1,98 @@
+{% extends "core/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block pageid %}sunscreenFormPage{% endblock %}
+
+{% block contenttitle %}Create Item<hr>{% endblock %}
+
+{% block content %}
+<div class="row">
+<div class="col">
+  <div class="section">
+    <form id="sunscreen-form" class="product-form" method="post">
+    {% csrf_token %}
+    {{ form.deal.as_hidden }}
+    {{ form.tenant.as_hidden }}
+      <div class="container">
+
+        <div class="row">
+          <div class="col-6 col-sm-8">
+            <div class="form-section">
+              <div class="form-row">
+                <div class="col-12 col-sm-6">
+                {{ form.sunscreen_type.label_tag }}
+                {% render_field  form.sunscreen_type class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-12 col-sm-6">
+                {{ form.location.label_tag }}
+                {% render_field  form.location class="form-control" %}
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="form-row">
+                <div class="col-6 col-sm-3 col-md-2">
+                  {{ form.width.label_tag }}
+                  {% render_field  form.width class="form-control" %}
+                </div>
+                <div class="col-6 col-sm-3 col-md-2 no-label">
+                  {% render_field  form.width_fraction class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-6 col-sm-3 col-md-2">
+                  {{ form.height.label_tag }}
+                  {% render_field  form.height class="form-control" %}
+                </div>
+                <div class="col-6 col-sm-3 col-md-2 no-label">
+                  {% render_field  form.height_fraction class="custom-select mr-sm-2" %}
+                </div>
+              </div>
+            </div>
+          </div> <!-- END col -->
+
+          <div class="col-6 col-sm-4">
+            <div class="form-section textcenter">
+              <div class="product-img-section hidden">
+                {% with img_id=sunscreen_type_id|stringformat:"s" %}
+                {% with 'img/model'|add:img_id|add:'.png' as image_static %}
+                  <img class="product-img" src="{% static image_static %}" alt="hey">
+                {% endwith %}
+                {% endwith %}
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="form-row">
+                <div class="col col-md-8">
+                  {{ form.price_per_sq_ft.label_tag }}
+                  {% render_field  form.price_per_sq_ft class="form-control" %}
+                </div>
+              </div>
+            </div>
+          </div> <!-- END form col -->
+        </div> <!-- END row -->
+
+        <input class="btn btn-main" type="submit" value="Add"/><br>
+
+      </div> <!-- END container -->
+    </form> <!-- END form -->
+  </div><br> <!-- END section -->
+</div> <!-- END col -->
+</div><br> <!-- END row -->
+
+{% if sunscreen_items %}
+<div class="row">
+    <div class="col">
+      <div class="section">
+        <div class="section-wrapper">
+          {% include 'sunscreens/sunscreen_detail.html' %}<br>
+
+          <a class="btn" href="{% url 'deals:deal-specs' form.deal.value %}" role="button">Continue</a><br>
+        </div>
+      </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

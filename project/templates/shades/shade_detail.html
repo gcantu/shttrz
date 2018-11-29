@@ -1,0 +1,44 @@
+{% load widget_tweaks %}
+
+<div class="scroll-section">
+  <table id="shutter-detail-table">
+    <thead>
+      <tr>
+        <th class="hidden hidden-colname"></th>
+        <th>#</th>
+        <th>Product</th>
+        <th>Location</th>
+        <th>Width</th>
+        <th>Height</th>
+        <th>Price/Sq. Ft.</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    {% for item in shade_items %}
+      <tr>
+        <td class="hidden edit-hidden-btn no-padding">
+          <a class="icon-btn" type="button" href="{% url 'premiumplans:update-shade-item' item.id item.deal_id %}">
+            <i class="fas fa-pencil-alt"></i>
+          </a>
+        </td>
+
+        <td class="hidden delete-hidden-btn no-padding">
+          <a class="icon-btn btn-delete" type="button" href="{% url 'premiumplans:delete-shade-item' item.id %}">
+            <i class="fas fa-times"></i>
+          </a>
+        </td>
+
+        <td>{{ forloop.counter }}</td>
+        <td>{{ item.shade_type }}</td>
+        <td>{{ item.location|title }}</td>
+        <td>{{ item.width }} {{ item.get_width_fraction_display }}</td>
+        <td>{{ item.height|default_if_none:"" }} {{ item.get_height_fraction_display }}</td>
+        <td>$ {{ item.price_per_sq_ft }}</td>
+        <td>$ {{ item.total_price }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>

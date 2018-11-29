@@ -1,0 +1,94 @@
+{% extends "core/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block pageid %}blindFormPage{% endblock %}
+
+{% block contenttitle %}Create Item<hr>{% endblock %}
+
+{% block content %}
+<div class="row">
+<div class="col">
+  <div class="section">
+    <form id="blind-form" class="product-form" method="post">
+    {% csrf_token %}
+    {{ form.deal.as_hidden }}
+    {{ form.tenant.as_hidden }}
+      <div class="container">
+
+        <div class="row">
+          <div class="col">
+            <div class="form-section">
+              <div class="form-row">
+                <div class="col-12 col-md-6 col-lg-5">
+                {{ form.blind_type.label_tag }}
+                {% render_field  form.blind_type class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-6 col-sm-5 col-lg-3 faux-wood-field hidden">
+                <label for='id_faux_wood_style'>Style:</label>
+                {% render_field  form.faux_wood_style class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-6 col-sm-3 col-lg-3">
+                {{ form.color.label_tag }}
+                {% render_field  form.color class="form-control" %}
+                </div>
+                <div class="col-6 col-sm-4 col-lg-3">
+                {{ form.location.label_tag }}
+                {% render_field  form.location class="form-control" %}
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="form-row">
+                <div class="col-3 col-sm-2 col-lg-1">
+                  {{ form.width.label_tag }}
+                  {% render_field  form.width class="form-control" %}
+                </div>
+                <div class="col-3 col-sm-2 col-lg-1 no-label">
+                  {% render_field  form.width_fraction class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-3 col-sm-2 col-lg-1">
+                  {{ form.height.label_tag }}
+                  {% render_field  form.height class="form-control" %}
+                </div>
+                <div class="col-3 col-sm-2 col-lg-1 no-label">
+                  {% render_field  form.height_fraction class="custom-select mr-sm-2" %}
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="form-row">
+                <div class="col-4 col-md-3 col-lg-2">
+                  {{ form.price_per_sq_ft.label_tag }}
+                  {% render_field  form.price_per_sq_ft class="form-control" %}
+                </div>
+              </div>
+            </div>
+          </div> <!-- END col -->
+        </div> <!-- END row -->
+
+        <input class="btn btn-main" type="submit" value="Add"/><br>
+
+      </div> <!-- END container -->
+    </form> <!-- END form -->
+  </div><br> <!-- END section -->
+</div> <!-- END col -->
+</div><br> <!-- END row -->
+
+{% if blind_items %}
+<div class="row">
+    <div class="col">
+      <div class="section">
+        <div class="section-wrapper">
+          {% include 'blinds/blind_detail.html' %}<br>
+
+          <a class="btn" href="{% url 'deals:deal-specs' form.deal.value %}" role="button">Continue</a><br>
+        </div>
+      </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "core/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block pageid %}sunscreenFormPage{% endblock %}
+
+{% block contenttitle %}Create Item<hr>{% endblock %}
+
+{% block content %}
+<div class="row">
+<div class="col">
+  <div class="section">
+    <form id="shade-form" class="product-form" method="post">
+    {% csrf_token %}
+    {{ form.deal.as_hidden }}
+    {{ form.tenant.as_hidden }}
+      <div class="container">
+
+        <div class="row">
+          <div class="col-6 col-sm-8">
+            <div class="form-section">
+              <div class="form-row">
+                <div class="col-12 col-sm-6">
+                {{ form.shade_type.label_tag }}
+                {% render_field  form.shade_type class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-12 col-sm-6">
+                {{ form.location.label_tag }}
+                {% render_field  form.location class="form-control" %}
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="form-row">
+                <div class="col-6 col-sm-3 col-md-2">
+                  {{ form.width.label_tag }}
+                  {% render_field  form.width class="form-control" %}
+                </div>
+                <div class="col-6 col-sm-3 col-md-2 no-label">
+                  {% render_field  form.width_fraction class="custom-select mr-sm-2" %}
+                </div>
+                <div class="col-6 col-sm-3 col-md-2">
+                  {{ form.height.label_tag }}
+                  {% render_field  form.height class="form-control" %}
+                </div>
+                <div class="col-6 col-sm-3 col-md-2 no-label">
+                  {% render_field  form.height_fraction class="custom-select mr-sm-2" %}
+                </div>
+              </div>
+            </div>
+          </div> <!-- END col -->
+
+          <div class="col-6 col-sm-4">
+            <div class="form-section">
+              <div class="form-row">
+                <div class="col col-md-8">
+                  {{ form.price_per_sq_ft.label_tag }}
+                  {% render_field  form.price_per_sq_ft class="form-control" %}
+                </div>
+              </div>
+            </div>
+          </div> <!-- END form col -->
+        </div> <!-- END row -->
+
+        <input class="btn btn-main" type="submit" value="Add"/><br>
+
+      </div> <!-- END container -->
+    </form> <!-- END form -->
+  </div><br> <!-- END section -->
+</div> <!-- END col -->
+</div><br> <!-- END row -->
+
+{% if shade_items %}
+<div class="row">
+    <div class="col">
+      <div class="section">
+        <div class="section-wrapper">
+          {% include 'shades/shade_detail.html' %}<br>
+
+          <a class="btn" href="{% url 'deals:deal-specs' form.deal.value %}" role="button">Continue</a><br>
+        </div>
+      </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
