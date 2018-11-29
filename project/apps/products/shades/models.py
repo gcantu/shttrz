@@ -4,6 +4,24 @@ from tenants.models import AbstractTenant
 from deals.models import Deal
 from shutters.utils import custom_round
 
+BOOL_CHOICES = ((True, 'Active'), (False, 'Discontinued'))
+
+
+class ShadeType(AbstractTenant):
+    shade_type = models.CharField(max_length=100)
+    status = models.BooleanField(choices=BOOL_CHOICES, default=True)
+
+    def save(self, *args, **kwargs):
+        self.shade_type = self.shade_type.capitalize()
+        return super(ShadeType, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.shade_type
+
+    def get_absolute_url(self):
+        return reverse('shade-type-detail', kwargs={'pk': self.pk})
+
+
 class AbstractShade(AbstractTenant):
     # measurements
     # ------------------------------------------------------
@@ -35,7 +53,7 @@ class Shade(AbstractShade):
 
     deal = models.ForeignKey(Deal, models.SET_NULL, blank=True, null=True)
     product = models.CharField(max_length=10, default='Shades')
-    # shade_type = models.ForeignKey(ShadeType, models.SET_NULL, blank=True, null=True)
+    shade_type = models.ForeignKey(ShadeType, models.SET_NULL, blank=True, null=True)
     location = models.CharField(max_length=100, blank=True)
     width = models.IntegerField(blank=True, null=True)
     height = models.IntegerField(blank=True, null=True)

@@ -4,6 +4,38 @@ from tenants.models import AbstractTenant
 from deals.models import Deal
 from shutters.utils import custom_round
 
+BOOL_CHOICES = ((True, 'Active'), (False, 'Discontinued'))
+
+
+class BlindType(AbstractTenant):
+    blind_type = models.CharField(max_length=100)
+    status = models.BooleanField(choices=BOOL_CHOICES, default=True)
+
+    def save(self, *args, **kwargs):
+        self.blind_type = self.blind_type.capitalize()
+        return super(BlindType, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.blind_type
+
+    def get_absolute_url(self):
+        return reverse('blind-type-detail', kwargs={'pk': self.pk})
+
+
+class FauxWoodStyle(AbstractTenant):
+    faux_wood_style = models.CharField(max_length=50)
+
+    def save(self, *args, **kwargs):
+        self.faux_wood_style = self.faux_wood_style.capitalize()
+        return super(FauxWoodStyle, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.faux_wood_style
+
+    def get_absolute_url(self):
+        return reverse('faux-wood-detail', kwargs={'pk': self.pk})
+
+
 class AbstractBlind(AbstractTenant):
     # measurements
     # ------------------------------------------------------
@@ -35,7 +67,9 @@ class Blind(AbstractBlind):
 
     deal = models.ForeignKey(Deal, models.SET_NULL, blank=True, null=True)
     product = models.CharField(max_length=10, default='Blinds')
-    # blind_type = models.ForeignKey(BlindType, models.SET_NULL, blank=True, null=True)
+    blind_type = models.ForeignKey(BlindType, models.SET_NULL, blank=True, null=True)
+    faux_wood_style = models.ForeignKey(FauxWoodStyle, models.SET_NULL, blank=True, null=True)
+    color = models.CharField(max_length=100, blank=True)
     location = models.CharField(max_length=100, blank=True)
     width = models.IntegerField(blank=True, null=True)
     height = models.IntegerField(blank=True, null=True)
