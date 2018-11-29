@@ -26,7 +26,11 @@
       {% if status == 'Deleted' %}
         <a class="btn-restore" href="{% url 'deals:update-deal-status' obj.id 'Active' %}">Restore</a>
       {% else %}
-        <a class="icon-btn" href="{% url 'deals:deal-summary' obj.id %}" role="button"><i class="fas fa-pencil-alt"></i></a>
+        {% if obj.tenant.plan == 'Basic' %}
+          <a class="icon-btn" href="{% url 'deals:deal-summary' obj.id %}" role="button"><i class="fas fa-pencil-alt"></i></a>
+        {% else %}
+          <a class="icon-btn" href="{% url 'premiumplans:deal-summary' obj.id %}" role="button"><i class="fas fa-pencil-alt"></i></a>
+        {% endif %}
       {% endif %}
       </td>
     </tr>

@@ -1,0 +1,73 @@
+{% load humanize %}
+
+<div>
+  <b>Payment Method -  </b> {{ price.payment_method.payment_method }}
+  {% if price.check_number %}
+  <div><b>Check No. </b>{{ price.check_number }}</div>
+  {% endif %}
+</div>
+<br>
+
+<table id="price-table">
+  <tbody>
+    <tr>
+      <th>Shutters: </th>
+      <td>
+        <div>$ {{ price.shutters_subtotal|floatformat|intcomma }}</div>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Blinds: </th>
+      <td>
+        <div>$ {{ price.blinds_subtotal|floatformat|intcomma }}</div>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Shades: </th>
+      <td>
+        <div>$ {{ price.shades_subtotal|floatformat|intcomma }}</div>
+      </td>
+    </tr>
+
+    <tr class="underline">
+      <th>Sunscreens: </th>
+      <td>
+        <div>$ {{ price.sunscreens_subtotal|floatformat|intcomma }}</div>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Subtotal: </th>
+      <td>
+        <div>$ {{ price.subtotal|floatformat|intcomma }}</div>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Tax: </th>
+      <td>$ {{ price.tax|floatformat|intcomma }} </td>
+    </tr>
+
+    <tr class="underline">
+      <th>Credit Card Fee: </th>
+      <td>$ {{ price.credit_card_fee|floatformat|intcomma }} </td>
+    </tr>
+
+    <tr class="table-total-row">
+      <th>Total: </th>
+      <td>$ {{ price.total|floatformat|intcomma }}</td>
+    </tr>
+
+    <tr class="underline">
+      <th>Down Payment: </th>
+      <td>$ {{ price.down_payment|floatformat|intcomma }}</td>
+    </tr>
+
+    <tr class="table-total-row">
+      <th>Balance</th>
+      <td>$ {{ price.balance|floatformat|intcomma }}</td>
+    </tr>
+  </tbody>
+</table>

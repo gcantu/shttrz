@@ -54,7 +54,11 @@ def new_deal(request, customer_id):
     deal = Deal.objects.create(tenant_id=tenant.id, agent=request.user, measured_by=request.user, customer_id=customer_id)
     price = Price.objects.create(deal_id=deal.id, tenant_id=tenant.id)
     material = Material.objects.create(deal_id=deal.id, tenant_id=tenant.id)
-    return redirect(reverse('deals:create-shutter-item', kwargs={'deal_id': deal.id}))
+
+    if deal.tenant.plan == 'Basic':
+        return redirect(reverse('deals:create-shutter-item', kwargs={'deal_id': deal.id}))
+    else:
+        return redirect(reverse('premiumplans:select-product', kwargs={'deal_id': deal.id}))
 
 
 def deal_specs(request, deal_id):
@@ -95,7 +99,10 @@ def deal_specs(request, deal_id):
         material.total_screws = round(sum(i.total_screws() for i in shutter))
         material.save()
 
-    return redirect(reverse('deals:deal-summary', kwargs={'pk': deal_id}))
+    if price.tenant.plan == 'Basic':
+        return redirect(reverse('deals:deal-summary', kwargs={'pk': deal_id}))
+    else:
+        return redirect(reverse('premiumplans:deal-summary', kwargs={'pk': deal_id}))
 
 
 # -----------------------------------------------

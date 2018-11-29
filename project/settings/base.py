@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'customers.apps.CustomersConfig',
     'deals.apps.DealsConfig',
+    'premiumplans.apps.PremiumplansConfig',
     'reports.apps.ReportsConfig',
     'shutters.apps.ShuttersConfig',
     'blinds.apps.BlindsConfig',

@@ -1,0 +1,22 @@
+{% extends "core/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block pageid %}confirmStatusPage{% endblock %}
+
+{% block contenttitle %}Select Product{% endblock %}
+
+{% block content %}
+<div class="container wrapper">
+  <div class="row">
+    <div class="col-6 offset-3 section">
+      <div class="section-wrapper textcenter">
+          <a class="btn nf btn-block" type="button" href="{% url 'deals:create-shutter-item' deal_id %}">Shutters</a>
+          <a class="btn nf btn-block" type="button" href="{% url 'premiumplans:create-blind-item' deal_id %}">Blinds</a>
+          <a class="btn nf btn-block" type="button" href="{% url 'premiumplans:create-shade-item' deal_id %}">Shades</a>
+          <a class="btn nf btn-block" type="button" href="{% url 'premiumplans:create-sunscreen-item' deal_id %}">Sunscreens</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
