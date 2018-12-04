@@ -25,7 +25,7 @@ Update Pricing
             {% if price.payment_method.payment_method == 'Credit Card' %}
             <div class="cc-fee-field">
               <label>Credit Card Fee Rate</label>
-              {% render_field  form.credit_card_fee_rate class="form-control" %}
+              {% render_field  form.credit_card_fee_rate class="form-control inline auto-width" %} %
             </div>
             <div class="check-field hidden">
               <label>Check No</label>
@@ -38,7 +38,7 @@ Update Pricing
             </div>
             <div class="cc-fee-field hidden">
               <label>Credit Card Fee Rate</label>
-              {% render_field  form.credit_card_fee_rate class="form-control" %}
+              {% render_field  form.credit_card_fee_rate class="form-control inline auto-width" %} %
             </div>
             {% else %}
             <div class="check-field hidden">
@@ -47,7 +47,7 @@ Update Pricing
             </div>
             <div class="cc-fee-field hidden">
               <label>Credit Card Fee Rate</label>
-              {% render_field  form.credit_card_fee_rate class="form-control" %}
+              {% render_field  form.credit_card_fee_rate class="form-control inline auto-width" %} %
             </div>
             {% endif %}
           </div>

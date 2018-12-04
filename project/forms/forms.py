@@ -4,6 +4,8 @@ from customers.models import Customer
 from shutters.models import Shutter
 from tenants.utils import tenant_from_request
 from django.contrib.auth import get_user_model
+from django.forms.widgets import TextInput
+from django.forms import fields
 
 User = get_user_model()
 
@@ -25,10 +27,30 @@ class DealForm(ModelForm):
         self.fields['measured_by'].queryset = User.objects.filter(tenant_id=self.tenant).exclude(is_superuser=True)
 
 
+class PercentageInput(TextInput):
+    def render(self, name, value, attrs=None, renderer=None):
+        try:
+            value = float(value)
+            value *= 100
+        except ValueError:
+            pass
+        return super(PercentageInput, self).render(name, value, attrs)
+
+class FormPercentageField(fields.FloatField):
+    widget = PercentageInput
+
+    def to_python(self, value):
+        value = super(FormPercentageField, self).to_python(value)
+        return value / 100
+
+
 class PriceForm(ModelForm):
+    tax_rate = FormPercentageField()
+    credit_card_fee_rate = FormPercentageField()
+
     class Meta:
         model = Price
-        exclude = ['deal', 'tenant', 'subtotal', 'tax', 'credit_card_fee', 'total', 'balance']
+        exclude = ['deal', 'tenant', 'subtotal', 'tax', 'credit_card_fee', 'total', 'balance', 'add_tax']
 
 
 class ShutterForm(ModelForm):

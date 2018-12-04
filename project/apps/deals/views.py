@@ -62,7 +62,7 @@ def deal_specs(request, deal_id):
     # calculate deal totals
     subtotal = round(sum(i.total_price() for i in shutter), 2)
     price.subtotal = subtotal
-    price.tax = (price.subtotal * price.tax_rate) if price.add_tax else 0
+    price.tax = (price.subtotal * price.tax_rate)
     price.credit_card_fee = (price.subtotal * price.credit_card_fee_rate) if price.payment_method_id == 3 else 0
     price.total = price.subtotal + price.tax + price.credit_card_fee
     price.balance = price.total - price.down_payment
