@@ -2,30 +2,28 @@
 {% load widget_tweaks %}
 {% load static %}
 
-{% block contenttitle %}
-Update Pricing
-{% endblock %}
+{% block pageclass %}price-form-page{% endblock %}
+
+{% block contenttitle %}Update Pricing<hr>{% endblock %}
 
 {% block content %}
-<div class="col-9 col-md-8 offset-md-2">
-  <form id="price-form" method="post">
-    {% csrf_token %}
+<div class="row">
+  <div class="col">
+    <form id="price-form" method="post">
+      {% csrf_token %}
 
-    <div class="section">
-      <div class="section-wrapper">
-        <div class="form-title">Pricing Details</div>
-
+      <div class="section wrapper">
         <div class="row">
-          <div class="col-5">
+          <div class="col-12 col-sm-6">
             {{ form.payment_method.label_tag }}
             {% render_field  form.payment_method class="custom-select mr-sm-2" %}
           </div>
 
-          <div class="col-4">
+          <div class="col-12 col-sm-6">
             {% if price.payment_method.payment_method == 'Credit Card' %}
             <div class="cc-fee-field">
               <label>Credit Card Fee Rate</label>
-              {% render_field  form.credit_card_fee_rate class="form-control" %}
+              {% render_field  form.credit_card_fee_rate class="form-control inline auto-width" %} %
             </div>
             <div class="check-field hidden">
               <label>Check No</label>
@@ -38,7 +36,7 @@ Update Pricing
             </div>
             <div class="cc-fee-field hidden">
               <label>Credit Card Fee Rate</label>
-              {% render_field  form.credit_card_fee_rate class="form-control" %}
+              {% render_field  form.credit_card_fee_rate class="form-control inline auto-width" %} %
             </div>
             {% else %}
             <div class="check-field hidden">
@@ -47,7 +45,7 @@ Update Pricing
             </div>
             <div class="cc-fee-field hidden">
               <label>Credit Card Fee Rate</label>
-              {% render_field  form.credit_card_fee_rate class="form-control" %}
+              {% render_field  form.credit_card_fee_rate class="form-control inline auto-width" %} %
             </div>
             {% endif %}
           </div>
@@ -61,11 +59,11 @@ Update Pricing
             </tr>
 
             <tr>
-              <th>Tax  {% render_field  form.tax_rate class="form-control inline" %} {% render_field  form.add_tax %} </th>
+              <th>Tax  {% render_field  form.tax_rate class="form-control inline" %} % </th>
               <td>$ {{ price.tax }} </td>
             </tr>
 
-            <tr class="cc-fee-field">
+            <tr class="cc-fee-field underline">
               <th>Credit Card Fee</th>
               <td>$ {{ price.credit_card_fee }} </td>
             </tr>
@@ -87,12 +85,12 @@ Update Pricing
           </tbody>
         </table><br>
 
-        <button type="submit" class="btn-submit btn-block">
+        <button type="submit" class="btn btn-block">
           <i class="fas fa-dollar-sign"></i>
         </button>
       </div>
-    </div>
 
-  </form>
+    </form>
+  </div>
 </div>
 {% endblock %}

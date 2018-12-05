@@ -2,24 +2,27 @@
 {% load static %}
 {% load widget_tweaks %}
 
+{% block pageclass %}settings-page{% endblock %}
 
 {% block content %}
 <div class="row">
 
-  <div class="col-3">
-    <div class="settings-menu">
+  <div class="col-4">
+    <div id="settings-menu">
       <div class="wrapper">
-        <div class="title">{% block settingsmenutitle %}User Settings{% endblock %}</div>
+        <div>{% block settingsmenutitle %}User Settings{% endblock %}</div>
         <hr>
         {% block settingsmenulist %}{% endblock %}
       </div>
     </div>
-  </div>
+  </div><br>
 
-  <div class="col-6">
-    <div class="content-title">{% block settingscontenttitle %}{% endblock %}</div>
-    <hr/>
-    {% block settingscontent %}{% endblock %}
+  <div class="col-8">
+    <div class="wrapper">
+      <div class="heading-md">{% block settingscontenttitle %}{% endblock %}</div>
+      <hr/>
+      {% block settingscontent %}{% endblock %}
+    </div>
   </div>
 
 </div>

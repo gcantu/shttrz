@@ -2,6 +2,8 @@
 {% load widget_tweaks %}
 {% load static %}
 
+{% block manufacturingtab %}active{% endblock %}
+
 {% block extraclass %}landscape{% endblock %}
 
 {% block report %}
@@ -33,9 +35,9 @@
         {% endif %}
         {% endfor %}
       </tbody>
-    </table>
+    </table><br>
 
-    <table id="manufacturing-t">
+    <table id="manufacturing-table">
       <thead>
         <tr>
           <th>No.</th>
@@ -86,17 +88,18 @@
       </tbody>
     </table><br>
 
-
-
     <!-- ORDER MATERIALS -->
     <div>
-      <div class="section-title">Materials:</div>
-      <hr>
+      <div class="heading-sm">Materials:</div>
+
       <table>
-        <tbody>
+        <thead>
           <tr>
             {% for field, val in material %}<th>{{ field }}</th>{% endfor %}
           </tr>
+        </thead>
+
+        <tbody>
           <tr>
             {% for field, val in material %}
             <td>

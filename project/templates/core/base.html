@@ -23,21 +23,24 @@
 
       <div id="content">
         <div class="wrapper remove-padding">
-          <div id="{% block pageid %}{% endblock %}" class="container wrapper remove-padding">
-            <div class="row">
-              <div class="col">
-                <div class="content-title noprint">
-                  {% block contenttitle %}
-                  {% endblock %}
+          {% block extracontent %}
+          {% endblock %}
 
-                  {% block menu %}
-                  {% endblock %}
-                </div>
-              </div> <!-- END col -->
-            </div> <!-- END row -->
-            {% block content %}
-            {{ content }}
-            {% endblock %}
+          <div class="container main-container wrapper remove-padding">
+              <div class="row">
+                <div class="col">
+                  <div class="heading-md noprint">
+                    {% block contenttitle %}
+                    {% endblock %}
+
+                    {% block menu %}
+                    {% endblock %}
+                  </div>
+                </div> <!-- END col -->
+              </div> <!-- END row -->
+              {% block content %}
+              {{ content }}
+              {% endblock %}
           </div>
         </div>
       </div> <!-- END content -->

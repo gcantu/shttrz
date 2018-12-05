@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 {% load static %}
 
-{% block pageid %}customerFormPage{% endblock %}
+{% block pageclass %}customer-form-page{% endblock %}
 
 {% block contenttitle %}Create Customer<hr>{% endblock %}
 
@@ -12,52 +12,49 @@
     <form id="customer-form" method="post">
       {% csrf_token %}
       {{ form.tenant.as_hidden }}
-      <div class="section">
-        <div class="section-wrapper">
-
-          <div class="form-row">
-            <div class="form-group col-sm-6">
-              {% render_field  form.first_name class="form-control" placeholder=form.first_name.label %}
-            </div>
-            <div class="form-group col-sm-6">
-              {% render_field  form.last_name class="form-control" placeholder=form.last_name.label %}
-            </div>
+      <div class="section wrapper">
+        <div class="form-row">
+          <div class="form-group col-sm-6">
+            {% render_field  form.first_name class="form-control" placeholder=form.first_name.label %}
           </div>
-
-          <div class="form-row">
-            <div class="form-group col">
-              {% render_field  form.address class="form-control" placeholder=form.address.label %}
-            </div>
+          <div class="form-group col-sm-6">
+            {% render_field  form.last_name class="form-control" placeholder=form.last_name.label %}
           </div>
-
-          <div class="form-row">
-            <div class="form-group col-sm-6">
-              {% render_field  form.city class="form-control" placeholder=form.city.label %}
-            </div>
-            <div class="form-group col-sm-6">
-              {% render_field  form.zip_code class="form-control" placeholder=form.zip_code.label %}
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group col-sm-6">
-              {% render_field  form.home_phone class="form-control" placeholder=form.home_phone.label %}
-            </div>
-            <div class="form-group col-sm-6">
-              {% render_field  form.mobile_phone class="form-control" placeholder=form.mobile_phone.label %}
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group col">
-              {% render_field  form.email class="form-control" placeholder=form.email.label %}
-            </div>
-          </div>
-
-          <button type="submit" class="btn-submit btn-block">
-            <i class="fas fa-user-plus"></i>
-          </button>
         </div>
+
+        <div class="form-row">
+          <div class="form-group col">
+            {% render_field  form.address class="form-control" placeholder=form.address.label %}
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-sm-6">
+            {% render_field  form.city class="form-control" placeholder=form.city.label %}
+          </div>
+          <div class="form-group col-sm-6">
+            {% render_field  form.zip_code class="form-control" placeholder=form.zip_code.label %}
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-sm-6">
+            {% render_field  form.home_phone class="form-control" placeholder=form.home_phone.label %}
+          </div>
+          <div class="form-group col-sm-6">
+            {% render_field  form.mobile_phone class="form-control" placeholder=form.mobile_phone.label %}
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col">
+            {% render_field  form.email class="form-control" placeholder=form.email.label %}
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-block">
+          <i class="fas fa-user-plus"></i>
+        </button>
       </div>
     </form>
   </div>

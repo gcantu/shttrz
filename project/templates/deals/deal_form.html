@@ -2,19 +2,17 @@
 {% load widget_tweaks %}
 {% load static %}
 
-{% block contenttitle %}
-Update Deal
-{% endblock %}
+{% block pageclass %}deal-form-page{% endblock %}
+
+{% block contenttitle %}Update Deal<hr>{% endblock %}
 
 {% block content %}
-<div class="col col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
-  <form id="deal-form" method="post">
-    {% csrf_token %}
+<div class="row">
+  <div class="col">
+    <form id="deal-form" method="post">
+      {% csrf_token %}
 
-    <div class="section">
-      <div class="section-wrapper">
-        <div class="form-title">Deal Details</div>
-
+      <div class="section wrapper">
         <div class="form-row">
           <div class="form-group col-md-6">
             {{ form.created_date.label_tag }}
@@ -44,12 +42,12 @@ Update Deal
           </div>
         </div>
 
-        <button type="submit" class="btn-submit btn-block">
+        <button type="submit" class="btn btn-block">
           <i class="fas fa-check"></i>
         </button>
       </div>
-    </div>
 
-  </form>
+    </form>
+  </div>
 </div>
 {% endblock %}

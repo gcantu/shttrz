@@ -18,4 +18,5 @@ urlpatterns = [
     path('update_status/<int:pk>/<status>', views.UpdateDealStatus.as_view(), name='update-deal-status'),
     path('<status>', views.deal_list, name='deal-list'),
     path('summary/<int:pk>', views.deal_summary, name='deal-summary'),
+    path('summary_items/<int:pk>', views.deal_summary_items, name='deal-summary-items'),
 ]

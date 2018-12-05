@@ -1,6 +1,11 @@
 $(function() {
 
 // EVENTS
+$('#delete-deal-toggle').on('click', function() { // show/hide deal edit button
+  $(".hidden-deal-btn").toggleClass("hidden");
+  $(".goto-deal-btn").toggleClass("hidden");
+});
+
 $('#id_mount').on('change', function() { // show frame field when mount = 'outside'
   var selectedItem = $(this).val();
 
@@ -25,21 +30,18 @@ $('#id_finish').on('change', function() { // show stain field when finish = 'sta
 });
 
 $('#edit-item-button').on('click', function() { // show/hide line item edit buttons
-  $(".hidden-colname").toggleClass("hidden");
   $(".edit-hidden-btn").toggleClass("hidden");
   $(".delete-hidden-btn").addClass("hidden");
   $(".style-hidden-btn").addClass("hidden");
 });
 
 $('#delete-item-button').on('click', function() { // show/hide line item edit buttons
-  $(".hidden-colname").toggleClass("hidden");
   $(".delete-hidden-btn").toggleClass("hidden");
   $(".edit-hidden-btn").addClass("hidden");
   $(".style-hidden-btn").addClass("hidden");
 });
 
 $('#style-item-button').on('click', function() { // show/hide line item edit buttons
-  $(".hidden-colname").addClass("hidden");
   $(".style-hidden-btn").toggleClass("hidden");
   $(".style-colname").toggleClass("hidden");
   $(".style-dropdown").toggleClass("hidden");

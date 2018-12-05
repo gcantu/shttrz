@@ -2,8 +2,11 @@
 {% load static %}
 {% load widget_tweaks %}
 
+{% block pageclass %}success-page{% endblock %}
 
 {% block content %}
-<i class="fas fa-check"></i>
-<span class="content-title">ACCOUNT UPDATED SUCCESSFULLY</span>
+<div class="section wrapper">
+  <i class="fas fa-check"></i>
+  <span class="heading-md">ACCOUNT UPDATED SUCCESSFULLY</span>
+</div>
 {% endblock %}
