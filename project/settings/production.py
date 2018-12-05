@@ -11,7 +11,7 @@ SECRET_KEY = config.get('keys','SECRET_KEY')
 # Disable debug for production
 DEBUG = False
 
-ALLOWED_HOSTS = ['18.222.117.200', 'ec2-18-222-117-200.us-east-2.compute.amazonaws.com', 'jmblinds.shutterize.io', 'dummy.shutterize.io']
+ALLOWED_HOSTS = ['18.222.117.200', 'ec2-18-222-117-200.us-east-2.compute.amazonaws.com', 'jmblinds.shutterize.io', 'demo.shutterize.io']
 
 # Server database
 DATABASES = {
