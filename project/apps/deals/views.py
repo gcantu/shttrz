@@ -222,12 +222,14 @@ class DeleteItem(DeleteView):
 # -----------------------------------------------
 @login_required
 def deal_list(request, status):
+    tenant = tenant_from_request(request)
+
     if status == 'Deleted':
-        q = Deal.objects.filter(status='Deleted')
+        q = Deal.objects.filter(tenant_id=tenant.id, status='Deleted')
     elif status == 'Completed':
-        q = Deal.objects.filter(status='Completed')
+        q = Deal.objects.filter(tenant_id=tenant.id, status='Completed')
     else:
-        q = Deal.objects.filter(status='Active')
+        q = Deal.objects.filter(tenant_id=tenant.id, status='Active')
 
     filter = DealFilter(request.GET, queryset=q)
 
