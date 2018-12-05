@@ -1,0 +1,42 @@
+{% extends "core/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block pageid %}dealStyleFormPage{% endblock %}
+
+{% block contenttitle %}Shutter Specs{% endblock %}
+
+{% block menu %}
+<a class="nav-link btn rf" href="{% url 'deals:deal-summary' form.deal.value %}">Cancel</a><hr>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col">
+    <div class="section">
+      <form id="deal-form" method="post">
+        {% csrf_token %}
+        {{ form.deal.as_hidden }}
+
+        <div class="section">
+          <div class="section-wrapper">
+            <div class="form-section style-section">
+              <div class="form-row">
+                <div class="col-4">
+                  {{ form.color.label_tag }}
+                  {% render_field  form.color class="form-control" %}
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-submit btn-block">
+              <i class="fas fa-check"></i>
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

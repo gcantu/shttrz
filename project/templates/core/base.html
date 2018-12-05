@@ -7,10 +7,11 @@
     {% block responsive %}<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">{% endblock %}
     {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE"/>{% endblock %}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400" rel="stylesheet">
   </head>
 
   <body>
-    <div id="page">
+    <div id="page" class="{% block pageclass %}{% endblock %}">
 
       {% block header %}
       {% include "core/header.html" %}
@@ -21,10 +22,23 @@
       {% endblock %}
 
       <div id="content">
-        <div class="wrapper">
-          {% block content %}
-          {{ content }}
-          {% endblock %}
+        <div class="wrapper remove-padding">
+          <div id="{% block pageid %}{% endblock %}" class="container wrapper remove-padding">
+            <div class="row">
+              <div class="col">
+                <div class="content-title noprint">
+                  {% block contenttitle %}
+                  {% endblock %}
+
+                  {% block menu %}
+                  {% endblock %}
+                </div>
+              </div> <!-- END col -->
+            </div> <!-- END row -->
+            {% block content %}
+            {{ content }}
+            {% endblock %}
+          </div>
         </div>
       </div> <!-- END content -->
 

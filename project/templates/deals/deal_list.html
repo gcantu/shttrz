@@ -1,0 +1,35 @@
+{% load widget_tweaks %}
+{% load humanize %}
+
+<table id="deal-list-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Customer</th>
+      <th>Created</th>
+      <th>Due</th>
+      <th>Total</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for obj in filter.qs %}
+    <tr>
+      <td>{{ obj.id }}</td>
+      <td>{{ obj.customer }}</td>
+      <td>{{ obj.created_date.date }}</td>
+      <td>{{ obj.install_date }}</td>
+      <td>$ {{ obj.price.total|intcomma }}</td>
+      <td>{{ obj.status }}</td>
+      <td class="no-padding">
+      {% if status == 'Deleted' %}
+        <a class="btn-restore" href="{% url 'deals:update-deal-status' obj.id 'Active' %}">Restore</a>
+      {% else %}
+        <a class="icon-btn" href="{% url 'deals:deal-summary' obj.id %}" role="button"><i class="fas fa-pencil-alt"></i></a>
+      {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>

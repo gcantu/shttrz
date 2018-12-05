@@ -1,0 +1,48 @@
+{% extends "reports/report_template.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{% load humanize %}
+
+{% block extraclass %}portrait{% endblock %}
+
+{% block report %}
+<div class="row">
+  <div class="col">
+    {% include "reports/item_list.html" %}
+  </div>
+</div><br>
+
+<div class="row">
+  <div class="col-8">
+    <div class="section wrapper">
+      <h6>Notes: </h6>
+      {{ deal.notes }}
+    </div>
+  </div>
+
+  <div class="col-4">
+    <div class="section wrapper">
+      <table id="price-table">
+        <tbody>
+          <tr>
+            <th>Subtotal: </th>
+            <td>
+              <div>$ {{ price.subtotal|floatformat|intcomma }}</div>
+            </td>
+          </tr>
+
+          <tr class="underline">
+            <th>Tax: </th>
+            <td>$ {{ price.tax|floatformat|intcomma }} </td>
+          </tr>
+
+          <tr class="table-total-row">
+            <th>Total: </th>
+            <td>$ {{ price.total|floatformat|intcomma }}</td>
+          </tr>
+        </tbody>
+      </table> <!-- END total table -->
+    </div>
+  </div>
+</div>
+{% endblock %}

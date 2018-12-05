@@ -1,0 +1,28 @@
+
+<table id="customer-detail-table">
+  <caption>
+    <div class="inline noprint">
+      <i class="fas fa-user"></i>&nbsp;
+    </div>
+    {{ customer.first_name }} {{ customer.last_name }}
+  </caption>
+
+  <tbody>
+    <tr>
+      <th>Address: </th>
+      <td>{{ customer.address|title }}, {{ customer.city|title }}, {{ customer.zip_code }}</td>
+    </tr>
+
+    {% if report != "Manufacturing Report" %}
+    <tr>
+      <th>Phone: </th>
+      <td>{{ customer.home_phone }}</td>
+    </tr>
+    {% endif %}
+    
+    <tr>
+      <th>Email:</th>
+      <td>{{ customer.email }}</td>
+    </tr>
+  </tbody>
+</table>
