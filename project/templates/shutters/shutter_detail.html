@@ -6,7 +6,8 @@
   <table id="shutter-detail-table">
     <thead>
       <tr>
-        <th class="hidden hidden-colname"></th>
+        <th class="hidden edit-hidden-btn"></th>
+        <th class="hidden delete-hidden-btn"></th>
         <th class="hidden style-hidden-btn no-padding"><input type="checkbox" id="checkAll" name="checkAll"/></th>
         <th>#</th>
         <th>Product</th>
@@ -107,13 +108,13 @@
           <input class="item-checkbox" type="checkbox" name="item_list" value="{{item.id}}" />
         </td>
 
-        <td class="hidden edit-hidden-btn no-padding">
+        <td class="hidden edit-hidden-btn">
           <a class="icon-btn" type="button" href="{% url 'deals:update-shutter-item' item.id item.deal_id %}">
             <i class="fas fa-pencil-alt"></i>
           </a>
         </td>
 
-        <td class="hidden delete-hidden-btn no-padding">
+        <td class="hidden delete-hidden-btn">
           <a class="icon-btn btn-delete" type="button" href="{% url 'deals:delete-shutter-item' item.id %}">
             <i class="fas fa-times"></i>
           </a>

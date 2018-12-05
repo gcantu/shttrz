@@ -1,47 +1,3 @@
-#shutter-detail-table .nav-link.disabled {
-	background-color: #e0e0e0;
-	color: #515151;
-}
-
-[type=submit] {
-	cursor: pointer;
-}
-
-.checked-row {
-	background-color: #ccdde9;
-}
-
-#shutter-detail-table th.style-dropdown {
-	padding: 0;
-}
-
-#shutter-detail-table .nav-link {
-	background-color: #424a5d;
-	color: #fff;
-	border: 0.5px solid #e0e0e0;
-	padding: 3px 5px;
-	width: 100%;
-}
-
-:focus {
-	outline-style: none;
-}
-
-.dropdown-item:focus,
-.dropdown-item:hover {
-	background-color: #ccdde9;
-}
-
-.style-dropdown a:hover {
-	background-color: #7a808d;
-	color: #fff;
-	cursor: pointer;
-}
-
-.color-form .btn-submit {
-	font-size: 12px;
-}
-
 
 /*--------------------------------------------------------------
 >>> TABLE OF CONTENTS:
@@ -51,28 +7,30 @@
 		1.2 Header
 		1.3 Footer
 		1.4 Wrappers
-		1.5 Sections
-2.0 Navigation
-	2.1 Links
-	2.2 Main Menu
-	2.3 Settings Menu
-	2.4 Content Menu
-	2.5 Filter Menu
-3.0 Forms
-5.0 Buttons
-6.0 Dashboard
+2.0 Pages
+	2.1 Login
+	2.2 Home
+	2.3 Settings
+	2.4 Deal Summary
+	2.5 Reports
+	2.6 Forms
+	2.7 Confirmation & Success Pages
+3.0 Headings
+4.0 Links
+5.0 Navigation
+	5.1 Main Menu
+	5.2 Settings Menu
+	5.3 Filter Menu
+	5.4 Deal Summary Tabs
+6.0 Buttons
 7.0 Tables
-8.0 Reports
-9.0 Clearings
-10.0 Others
-11.0 Responsive Structure
-	11.1 On screen resize
-	11.2 On print
-	11.3 Ipad
+8.0 Clearings
+9.0 Others
+10.0 Responsive Structure
+	10.1 Print
+	10.2 Ipad
 --------------------------------------------------------------*/
-.cc-fee-field {
-	margin-top: 20px;
-}
+
 /*--------------------------------------------------------------
 1.0 Content
 --------------------------------------------------------------*/
@@ -103,17 +61,12 @@ html, body {
   min-height: 100%;
   position: relative;
 	background-color: #f2f2f2;
-	/* min-width: 1000px; */
-}
-
-#page.login-page {
-	background-color: #fff;
 }
 
 #content {
    padding-bottom:60px; /* Height of the footer */
 	 height: 100%;
-	 padding-top: 95px;
+	 padding-top: 100px;
 }
 
 .container {
@@ -121,54 +74,8 @@ html, body {
 	background-color: #fff;
 }
 
-#homePage,
-#settingsPage,
-#customerFormPage,
-#shutterFormPage,
-#dealSummaryPage,
-#dealStyleFormPage,
-#manufacturingPage,
-#proposalPage,
-#invoicePage,
-#confirmStatusPage {
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-#homePage {
-	min-width: 635px;
-	max-width: 1018px;
-}
-
-#settingsPage {
-	max-width: 700px;
-}
-
-#customerFormPage,
-#dealStyleFormPage {
-	max-width: 750px;
-}
-
-#shutterFormPage {
-	max-width: 985px;
-}
-
-#manufacturingPage {
-	width: 1200px;
-}
-
-#proposalPage,
-#invoicePage {
-	max-width: 1100px;
-}
-
-#confirmStatusPage {
-	max-width: 475px;
-}
-.content-title {
-	font-size: 24px;
-	color : #424a5d;
-	letter-spacing: 1px;
-	font-weight: 500;
+.main-container {
+	box-shadow: 2px 8px 25px -2px rgba(0,0,0,0.3);
 }
 
 /* 1.2 Header
@@ -178,13 +85,6 @@ header {
 	width: 100%;
 	z-index: 99;
 	background-color: #fff;
-}
-
-#main-menu {
-	margin-top: 50px;
-	z-index: 2;
-	position: fixed;
-	width: 100%;
 }
 
 #header-logo {
@@ -201,8 +101,6 @@ header {
 
 #header-text{
 	float: left;
-	font-size: 22px;
-	letter-spacing: 1px;
 }
 
 #header-text a {
@@ -215,42 +113,41 @@ header {
 
 #header-user {
 	float: right;
-	color: #424a5d;
 }
 
 #header-user .btn {
 	background-color: #fff;
 	border: none;
 	color: #424a5d;
-	font-weight: 300;
+}
+
+#header-user .btn:hover {
+	color: #25b4c1;
 }
 
 #header-user i {
 	font-size: 16px;
 	padding-top: 2px;
-
-}
-
-#header-user .dropdown-menu {
-	min-width: 7rem;
 }
 
 #header-user .dropdown-item {
 	color: #424a5d;
-	font-size: 14px;
-	font-weight: 400;
-	letter-spacing: 1px;
-	padding: 3px 12px;
+	padding: 10px 0 10px 10px;
+}
+
+#header-user .dropdown-item:hover {
+	background-color: #eef3f7;
 }
 
 /* 1.3 Footer
 --------------------------------------------------------------*/
 #footer {
   background-color: #424a5d;
-  color: #f2f2f2;
+	color: #fff;
   position: absolute;
   bottom: 0;
   width:100%;
+	text-align: right;
 }
 
 /* 1.4 Wrappers
@@ -259,17 +156,6 @@ header {
 	padding: 10px 15px;
 }
 
-.section-wrapper {
-	padding: 20px;
-}
-
-.section-wrapper.summary {
-	padding: 10px;
-	width: 100%;
-}
-
-/* 1.5 Sections
---------------------------------------------------------------*/
 .section {
 	border: 0.5px solid #aeb2b7;
 	overflow: hidden;
@@ -277,209 +163,144 @@ header {
 	position: relative;
 }
 
-.section-title {
-	font-size: 14px;
-	letter-spacing: 1px;
-	font-weight: 500;
-}
-
-.list-section {
-	border: 0.5px solid #aeb2b7;
-	overflow: hidden;
-	margin-bottom: 15px;
-}
-
-.scroll-section {
-	overflow: scroll;
-}
-
-#report-template.section {
-	padding: 10px 20px;
-	font-size: 12px;
-}
-
-#report-template .section {
-	border: 0.5px solid #515151;
-}
-
-#report-template table {
-	font-size: 13px;
-}
-
 /*--------------------------------------------------------------
-2.0 Navigation
+2.0 Pages
 --------------------------------------------------------------*/
 
-/* 2.1 Links
+/* 2.1 Login
 --------------------------------------------------------------*/
-a:focus, a:active, a:hover {
-	text-decoration: none;
-	color: #bceaee;
-}
-
-/* 2.2 Main Menu
---------------------------------------------------------------*/
-#main-menu {
-  background-color: #424a5d;
-	padding: 10px 15px 3px 10px;
-	letter-spacing: 1px;
-	font-size: 14px;
-}
-
-#main-menu a {
-  color: #f2f2f2;
-}
-
-#main-menu a:hover {
-  color: #25b4c1;
-}
-
-.home-icon-btn { /* navbar home icon button */
-	color: #f2f2f2;
-	font-size: 20px;
-	padding: 0 0 0 15px;
-}
-
-/* 2.3 Settings Menu
---------------------------------------------------------------*/
-.settings-menu {
-  border: 0.5px solid #888888;
-	font-size: 14px;
-	margin-bottom: 20px;
-}
-
-.settings-menu .title {
-	font-size: 16px;
-	font-weight: 400;
-	letter-spacing: 1px;
-}
-
-.settings-menu hr {
-  border: 0.5px solid #888888;
-}
-
-.settings-menu a {
-	color: #888888;
-}
-
-.settings-menu li {
-	padding: 5px 10px;
-	color: #888888;
-}
-
-.settings-menu li.active,
-.settings-menu li.active a {
-  background-color: #424a5d;
-	color: #ffffff;
-}
-
-/* 2.4 Content Menu
---------------------------------------------------------------*/
-#content-menu {
-	padding-top: 10px;
-}
-
-#content-menu a {
-  color: #33475b;
-	font-weight: 400;
-	letter-spacing: 0.5px;
-	font-size: 14px;
-}
-
-#content-menu li {
-	padding: 0 20px;
-}
-
-#content-menu li a:hover {
-	color: #25b4c1;
-}
-
-#content-menu .dropdown-menu a:hover {
-	background-color: #dde7ef;
-	color: #33475b;
-}
-
-#content-menu .nav-link {
-  padding: 0;
-}
-
-#content-menu .dropdown-item {
-	color: #424a5d;
-	font-size: 14px;
-	font-weight: 400;
-	letter-spacing: 1px;
-	padding: 3px 12px;
-  min-width: 7rem;
-}
-
-/* 2.5 Filter Menu
---------------------------------------------------------------*/
-#filter-menu {
-	float: right;
-	color: #424a5d;
-}
-
-#filter-menu > .btn {
+#page.login-page {
 	background-color: #fff;
-	border: none;
-	color: #424a5d;
-	font-weight: 400;
 }
 
-#filter-menu .dropdown-menu {
-	min-width: 15rem;
-	padding: 10px 20px;
-	transform: translate3d(-157px, 40px, 0px) !important;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+.login-page .main-container {
+	max-width: 400px;
 }
 
-#filter-menu .dropdown-item {
-	color: #424a5d;
-	font-size: 14px;
-	font-weight: 400;
-	letter-spacing: 1px;
-	padding: 3px 12px;
-}
-
-/* 3.0 Forms
+/* 2.2 Home
 --------------------------------------------------------------*/
-.form-title {
-	padding-bottom: 15px;
-	font-size: 28px;
-	color: #2eadb8;
-	font-weight: 400;
-	letter-spacing: 1px;
+.home-page .main-container {
+	min-width: 530px;
+	max-width: 1000px;
 }
 
-.form-section {
-  border: 0.5px solid #aeb2b7;
-  padding: 10px;
-  margin-bottom: 10px;
+#delete-deal-toggle {
+	margin-right: 20px;
 }
 
-#login-form {
-	margin-top: 50px;
+/* 2.3 Settings
+--------------------------------------------------------------*/
+.settings-page .main-container {
+	max-width: 800px;
+	padding-bottom: 25px;
 }
 
-#login-form input {
+/* 2.4 Deal Summary
+--------------------------------------------------------------*/
+.deal-summary-page .main-container {
+	max-width: 800px;
+}
+
+.deal-summary-page .nav-tabs {
+	max-width: 800px;
+}
+
+.deal-summary-items-page .main-container {
+	min-width: 700px;
+}
+
+.deal-summary-items-page .nav-tabs {
+	min-width: 700px;
+}
+
+.deal-summary-items-page .btn-outline {
+	margin-left: 20px;
+	min-width: 85px;
+}
+
+.deal-summary-items-page .scroll-section {
+	min-height: 300px;
+}
+
+/* 2.5 Reports
+--------------------------------------------------------------*/
+.proposal-page .main-container,
+.invoice-page .main-container,
+.proposal-page .nav-tabs,
+.invoice-page .nav-tabs {
+	min-width: 815px;
+	max-width: 950px;
+}
+
+.manufacturing-page .main-container,
+.manufacturing-page .nav-tabs {
+	min-width: 990px;
+	max-width: 1200px;
+}
+
+#report-template p {
+	margin-bottom: 5px;
+}
+
+#report-template .heading-sm {
+	font-size: 14px;
+}
+
+#report-template .heading-lg {
 	margin-bottom: 10px;
+}
+
+#report-template #deal-detail-table td {
+	text-align: right;
+}
+
+#report-logo img {
+  margin-bottom: 0;
+  max-height: 50px;
+  height: auto;
+  width: auto;
+}
+
+.signature {
+	border-top: 0.5px solid #515151;
+	margin-top: 40px;
+}
+
+/* 2.6 Forms
+--------------------------------------------------------------*/
+.customer-form-page .main-container {
+	max-width: 750px;
+}
+
+.deal-form-page .main-container {
+	max-width: 750px;
+}
+
+.price-form-page .main-container {
+	max-width: 650px;
+}
+
+.shutter-form-page .main-container {
+	max-width: 985px;
+}
+
+.shutter-style-form-page .main-container {
+	max-width: 350px;
 }
 
 #price-form .form-control.inline {
 	text-align: right;
-	width: 60px;
-	height: 25px;
+	width: 80px;
 	display: inline;
 	margin: 5px 0;
 }
 
-#shutter-form {
-	margin-top: 10px;
+#price-form .cc-fee-field {
+	margin-top: 23px;
 }
 
-#shutter-form .divider-field,
-#shutter-form .style-section {
-	display: none;
+#shutter-form {
+	padding-top: 10px;
 }
 
 #shutter-form .field-message {
@@ -489,27 +310,31 @@ a:focus, a:active, a:hover {
 	font-weight: 400;
 }
 
-#shutter-form .product-img {
-	max-width: 150px;
-	max-height: 160px;
-}
-
 #shutter-form [class*="col-"] {
 	padding-right: 5px;
 	padding-left: 5px;
 }
 
-#customer-form .form-control {
-	font-size: 18px;
-	height: 45px;
+#shutter-form .product-img {
+	max-width: 150px;
+	max-height: 160px;
 }
 
-.no-label {
-  margin-top: 27px;
+#shutter-form .divider-field {
+	padding-top: 35px;
 }
 
-.form-control.notes-field {
-  height: 100px;
+#shutter-form .style-section .form-row {
+	padding-top: 15px;
+}
+
+#shutter-form .divider-field,
+#shutter-form .style-section {
+	display: none;
+}
+
+#shutter-form .btn {
+	margin-top: 10px;
 }
 
 .form-control,
@@ -521,17 +346,192 @@ a:focus, a:active, a:hover {
 	padding: 0 5px;
 }
 
+.form-control.notes-field {
+  height: 100px;
+}
+
+.form-section {
+  border: 0.5px solid #aeb2b7;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.no-label {
+  margin-top: 27px;
+}
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button { /* hide up and down arrows */
   -webkit-appearance: none;
   margin: 0;
 }
 
-#id_shutter_type {
-	font-size: 16px;
+/* 2.7 Confirmation & Success Pages
+--------------------------------------------------------------*/
+.confirmation-page .main-container {
+	max-width: 475px;
 }
 
-/* 5.0 Buttons
+.success-page .main-container {
+	max-width: 550px;
+}
+
+/* 3.0 Headings
+--------------------------------------------------------------*/
+[class*="heading-"] {
+	letter-spacing: 0.5px;
+}
+
+.heading-xs {
+	font-size: 14px;
+	letter-spacing: 2px;
+}
+
+.heading-sm {
+	font-size: 20px;
+	letter-spacing: 2px;
+}
+
+.heading-md {
+	font-size: 22px;
+	letter-spacing: 2px;
+}
+
+.heading-lg {
+	font-size: 28px;
+	letter-spacing: 2px;
+}
+
+/* 4.0 Links
+--------------------------------------------------------------*/
+a {
+	color: #424a5d;
+}
+
+a:focus, a:active, a:hover {
+	text-decoration: none;
+	color: #25b4c1;
+}
+
+/*--------------------------------------------------------------
+5.0 Navigation
+--------------------------------------------------------------*/
+
+/* 5.1 Main Menu
+--------------------------------------------------------------*/
+#main-menu {
+	margin-top: 53px;
+	z-index: 15;
+	position: fixed;
+	width: 100%;
+	background-color: #424a5d;
+	padding: 5px 15px 0 25px;
+}
+
+/* 5.2 Settings Menu
+--------------------------------------------------------------*/
+#settings-menu {
+  border: 0.5px solid #888888;
+	margin-top: 10px;
+}
+
+#settings-menu li {
+  margin-bottom: 10px;
+	padding-top: 2px;
+}
+
+#settings-menu li.active a {
+  background-color: #424a5d;
+	color: #fff;
+}
+
+#settings-menu li a:hover {
+  background-color: #7a808d;
+	color: #fff;
+}
+
+/* 5.3 Filter Menu
+--------------------------------------------------------------*/
+#filter-menu .dropdown-menu {
+	min-width: 15rem;
+	padding: 10px 20px;
+	transform: translate3d(-157px, 40px, 0px) !important;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* 5.4 Deal Summary Tabs
+--------------------------------------------------------------*/
+.nav-tabs {
+	border-bottom: none;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.nav-tabs * {
+	box-sizing: unset;
+}
+
+.nav-tabs .nav-link {
+	border: none;
+}
+
+ul.nav-tabs {
+	height: 50px;
+	overflow: hidden;
+}
+
+ul.nav-tabs .nav-item {
+	min-width: 120px;
+	text-align: center;
+}
+
+ul.nav-tabs .nav-item a {
+	position: relative;
+	height: 30px;
+	margin-top: 10px;
+	padding: 10px 20px 0 20px;
+	color: #fff;
+	background: #25b4c1;
+  box-shadow: 8px 12px 25px 2px rgba(0,0,0,0.4);
+  transition: padding 0.2s ease, margin 0.2s ease;
+}
+
+.nav-tabs .nav-item:first-child a {
+	z-index: 5;
+	border-top-left-radius: 8px;
+}
+
+.nav-tabs .nav-item:nth-child(2) a {
+	z-index: 4;
+}
+
+.nav-tabs .nav-item:nth-child(3) a {
+	z-index: 3;
+}
+
+.nav-tabs .nav-item:nth-child(4) a {
+	z-index: 2;
+}
+
+.nav-tabs .nav-item:last-child a {
+	z-index: 1;
+	border-top-right-radius: 8px;
+  box-shadow: 2px 8px 25px -2px rgba(0,0,0,0.3);
+}
+
+ul.nav-tabs .nav-item a:hover {
+	margin: 5px 0 0 0;
+	padding: 10px 20px 5px 20px;
+}
+
+ul.nav-tabs .nav-item a.active {
+	margin: 0;
+	padding: 10px 20px;
+	color: #25b4c1;
+	z-index: 6;
+}
+
+/* 6.0 Buttons
 --------------------------------------------------------------*/
 .btn {
 	float: right;
@@ -540,136 +540,114 @@ input[type=number]::-webkit-outer-spin-button { /* hide up and down arrows */
 	background-color: #424a5d;
 	font-size: 14px;
 	letter-spacing: 0.5px;
-	padding: 1px 3px;
+	padding: 3px 5px;
+}
+
+.btn:hover {
+	color: #fff;
+  background-color: #7a808d;
 }
 
 .btn a {
   color: #fff;
 }
 
-.btn-radius {
-	border-radius: 4px;
+.btn:focus {
+  box-shadow: none;
+}
+
+.btn-block {
+	height: 33px;
+}
+
+.btn-icon-round {
+	border: 1px solid #25b4c1;
+	color: #25b4c1;
+	border-radius: 100%;
+	float: none;
+	padding: 3px 6px 0 7px;
+	margin-left: 10px;
+}
+
+.btn-icon-round:hover {
+	background-color: #25b4c1;
+	color: #fff;
+	transition: .5s;
+}
+
+.home-btn { /* navbar home icon btn */
+	color: #f2f2f2;
+	font-size: 20px;
+	padding: 0 0 0 15px;
+	float: right;
+}
+
+.icon-btn {
+	font-size: 20px;
+	width: 20px;
+}
+
+a.icon-btn:hover {
+	font-size: 30px;
 }
 
 .btn-disabled {
 	background-color: #ffffff;
-  border: 1px solid #888888;
-	color: #888888;
+  border: 1px solid #c7c7c7;
+	color: #bababa;
 }
 
-.btn:hover, .btn:focus,
-.btn:active, .btn.active,
-.btn a:hover {
-  color: #fff;
-  background-color: #7a808d;
-  cursor: pointer;
-}
-
-.btn-main {
-	background-color: #25b4c1;
-	border-color: #25b4c1;
-	letter-spacing: 1px;
-	padding: 1px 10px;
-	font-size: 14px;
-}
-
-.btn-main.btn:hover {
-	background-color: #66cad3;
-	border-color: #66cad3;
-}
-
-.icon-btn {
-	margin-left: 5px;
-	margin-right: 5px;
-	background-color: transparent;
+.btn-link {
+	background-color: #fff;
 	border: none;
-	color: #424a5d;
-	font-weight: 400;
-	letter-spacing: 0.5px;
-	font-size: 14px;
-	padding-top: 0;
-}
-
-.icon-btn:hover {
 	color: #25b4c1;
-	cursor: pointer;
+	font-weight: 400;
+	float: right;
 }
 
-.btn-delete {
-	color: #e50b1e;
+.btn-link:hover {
+	color: #424a5d;
+	text-decoration: none;
 }
 
-.btn-delete:hover {
-	color: #e2b6b6;
-}
-
-.btn-add {
-	color: #7bce28;
-}
-
-.btn-add:hover {
-	color: #d3f1b5;
-}
-
-.btn-submit:hover {
-	color: #bceaee;
-	background-color: #2eadb8;
-	cursor: pointer;
-}
-
-.btn-submit { /* form submit button */
-	color: #2eadb8;
-	background-color: #bceaee;
-	font-size: 30px;
-	border: none;
-}
-
-.btn-restore { /* Deleted Items list */
+.btn-outline {
 	border: 1px solid #25b4c1;
 	color: #25b4c1;
 	padding: 3px 5px;
 	background-color: transparent;
 }
 
-.btn-restore:hover {
+.btn-outline:hover {
 	background-color: #25b4c1;
 	color: #fff;
+	transition: .5s;
 }
 
-.btn-style { /* Deleted Items list */
+.btn-red {
+	color: #e50b1e;
+}
+
+.btn-red:hover {
+	color: #e2b6b6;
+}
+
+.btn-green {
+	color: #7bce28;
+	border-color: #7bce28;
+}
+
+.btn-green:hover {
 	color: #fff;
-	padding: 0 5px;
-	font-size: 12px;
-	background-color: #25b4c1;
-	border-color: #25b4c1;
-}
-
-.btn-style:hover {
-	background-color: #66cad3;
-	cursor: pointer;
-}
-
-[type=submit] {
-	-webkit-appearance: none;
+	background-color: #7bce28;
+	border-color: #7bce28;
 }
 
 html [type=button] {
 	-webkit-appearance: none;
 }
 
-#divider-button,
-#style-button {
-	padding: 0;
-	margin-bottom: 10px;
-}
-
-/* 5.0 Dashboard
---------------------------------------------------------------*/
-
-.sidebar .title {
-	font-weight: 500;
-	font-size: 16px;
-	letter-spacing: 1px;
+[type=submit] {
+	-webkit-appearance: none;
 }
 
 /* 7.0 Tables
@@ -685,12 +663,9 @@ caption { /* customer name - customer detail table */
 }
 
 table {
-	letter-spacing: 0.5px;
-	font-size: 13px;
 	width: 100%;
 	text-align: center;
 	white-space: nowrap;
-	font-weight: 300;
 }
 
 table td,
@@ -702,23 +677,49 @@ table th {
 	font-weight: 500;
 }
 
-#price-table th {
-	text-align: left;
-	width: 70%;
-}
-
-#price-table td,
-#deal-detail-table td {
-	text-align: right;
-}
-
-#price-table .underline,
-#item-measurements-table th {
+table thead {
 	border-bottom: 0.5px solid #515151;
 }
 
-#price-table .topline {
-	border-top: 0.5px solid #aeb2b7;
+#deal-list-table tr {
+	height: 50px;
+}
+
+#deal-list-table tr:nth-child(even) {
+	background-color: #eef3f7;
+}
+
+#deal-list-table .goto-deal-btn {
+	min-width: 50px;
+}
+
+.deal-summary-page table {
+	width: auto;
+}
+
+#deal-detail-table th,
+#deal-detail-table td,
+#customer-detail-table th,
+#customer-detail-table td,
+#price-table th {
+	text-align: left;
+}
+
+#deal-detail-table th,
+#customer-detail-table th {
+	padding-right: 30px;
+}
+
+#price-table {
+	width: 100%;
+}
+
+#price-table td {
+	text-align: right;
+}
+
+#shutter-detail-table th {
+	background-color: #e0e0e0;
 }
 
 #shutter-detail-table td,
@@ -726,187 +727,74 @@ table th {
 	border: 0.5px solid #515151;
 }
 
-#shutter-detail-table th {
+#shutter-detail-table .nav-link {
+	background-color: #424a5d;
+	color: #fff;
+	border: 0.5px solid #e0e0e0;
+	padding: 3px 5px;
+	width: 100%;
+}
+
+#shutter-detail-table .nav-link.disabled {
 	background-color: #e0e0e0;
+	color: #515151;
 }
 
-#customer-detail-table,
-#deal-detail-table th {
-	text-align: left;
-}
-
-#customer-detail-table th,
-#deal-detail-table th {
+#shutter-detail-table th.style-dropdown {
 	padding: 0;
-	width: 80px;
 }
 
-#order-summary-details [class*="col-"],
-#order-summary-details .col {
-    margin-bottom: 10px;
+#shutter-detail-table .dropdown-item {
+	color: #424a5d;
+	padding: 10px 0 10px 10px;
 }
 
-/* summarized line items for proposal report */
-#proposal-table td,
-#proposal-table th {
-	text-align:left;
-	border: none;
-	padding-left: 10px;
-}
-
-#proposal-table td {
-	padding: 5px 10px;
-}
-
-#proposal-table thead {
-	border-bottom: 0.5px solid #515151;
-}
-
-#manufacturing-t th,
-#manufacturing-t td {
-	border-right: 0.5px solid #515151;
-}
-
-#manufacturing-t thead,
-#manufacturing-t tbody {
-	border: 0.5px solid #515151;
-}
-
-#manufacturing-t thead tr {
-	border-bottom: 0.5px solid #515151;
-}
-
-#manufacturing-specs-table {
-	border: 0.5px solid #515151;
-	margin-bottom: 20px;
-}
-
-#item-specs-table {
-	width: auto;
-}
-
-#item-specs-table td,
-#item-specs-table th {
-	text-align: center;
-	padding: 3px 45px 3px 0;
-}
-
-#detailed-specs-table {
-	width: 500px;
-}
-
-#detailed-specs-table thead {
-	border-bottom: 0.5px solid #515151;
-}
-
-#item-measurements-table {
-	min-width: 650px;
-	width: auto;
-	border: 0.5px solid #aeb2b7;
-}
-
-#item-measurements-table th,
-#item-measurements-table td {
-	border-right: 0.5px solid #aeb2b7;
-}
-
-#item-measurements-table td  {
-	padding: 10px 3px;
-}
-
-#item-measurements-table th {
-	background-color: #e0e0e0;
-}
-
-#materials-table th,
-#deal-list-table th {
-	border-bottom: 0.5px solid #515151;
-}
-
-#deal-list-table td {
-	border-bottom: 0.5px solid #e0e0e0;
-}
-
-#deal-list-table td,
-#deal-list-table th {
-	padding: 15px 0;
-}
-
-#deal-list-table tr:nth-child(even) {
+#shutter-detail-table .dropdown-item:hover {
 	background-color: #eef3f7;
 }
 
-
-/* 8.0 Reports
---------------------------------------------------------------*/
-#report-logo img {
-  margin-bottom: 0;
-  max-height: 50px;
-  height: auto;
-  width: auto;
+#proposal-table td,
+#proposal-table th {
+	text-align:left;
 }
 
-.report-title {
-	font-size: 34px;
-	letter-spacing: 1px;
-	font-weight: 500;
-	text-align: right;
-	margin-bottom: 5px;
+#manufacturing-table th,
+#manufacturing-table td {
+	border-right: 0.5px solid #aeb2b7;
 }
 
-#manufacturing-report .section-title {
-	/* background-color: #e0e0e0; */
-	border-bottom: 0.5px solid #515151;
-	padding: 5px 10px 0 10px;
-	height: 30px;
-	margin-bottom: 5px;
+#manufacturing-table {
+	border: 0.5px solid #aeb2b7;
 }
 
-#manufacturing-report .product-img {
-	max-width: 100px;
-	max-height: 90px;
-	margin: 15px 15px 5px 10px;
+.scroll-section {
+	overflow: scroll;
 }
 
-#manufacturing-report.section {
-	height: auto;
+.checked-row {
+	background-color: #ccdde9;
+	transition: .2s;
 }
 
-.signature {
-	border-top: 0.5px solid #aeb2b7;
-	margin-top: 40px;
+[type=submit] {
+	cursor: pointer;
 }
 
-/* 9.0 Clearings
+input:matches([type="button"], [type="submit"]),
+button {
+	border: none;
+}
+
+/* 8.0 Clearings
 --------------------------------------------------------------*/
 .clearfix {
 	display: block;
 }
 
-/* 10.0 Others
+/* 9.0 Others
 --------------------------------------------------------------*/
-p {
-	margin-bottom: 5px;
-}
-
-.mt {
-	margin-top: 10px;
-}
-
-.ml {
-	margin-left: 10px;
-}
-
-.mb {
-	margin-bottom: 10px;
-}
-
-.pl {
-	padding-left: 10px;
-}
-
-.pb {
-	padding-bottom: 20px;
+.textcenter {
+	text-align: center;
 }
 
 hr {
@@ -916,52 +804,12 @@ hr {
 	margin-bottom: 8px;
 }
 
-.ra {
-  text-align: right;
-}
-
-.la {
-  text-align: left;
-}
-
 .rf {
   float: right;
 }
 
-.lf {
-  float: left;
-}
-
-.nf {
-	float: none;
-}
-
-.textcenter {
-  text-align: center;
-}
-
-.hidden {
-  display:none;
-}
-
-.no-padding {
-	padding: 0;
-}
-
-.no-margin {
-	margin: 0;
-}
-
-.auto-margin {
-	margin: auto;
-}
-
-.inline {
-	display: inline-block;
-}
-
-.auto-width {
-	width: auto;
+.ra {
+  text-align: right;
 }
 
 ul, li {
@@ -969,50 +817,48 @@ ul, li {
 	-webkit-padding-start: 0;
 }
 
+.no-padding {
+	padding: 0;
+}
+
+.nf {
+	float: none;
+}
+
+.hidden {
+  display:none;
+}
+
+.inline {
+	display: inline-block;
+}
+
+.underline {
+	border-bottom: 0.5px solid #515151;
+}
+
+.auto-width {
+	width: auto;
+}
+
+:focus {
+	outline-style: none;
+}
+
 /*--------------------------------------------------------------
-11.0 RESPONSIVE STRUCTURE
+10.0 RESPONSIVE STRUCTURE
 --------------------------------------------------------------*/
 
-/* 11.2 On Print
+/* 10.1 Print
 --------------------------------------------------------------*/
 @media print {
 
+	body, table, tr, th, td, div {
+		color: #000 !important;
+	}
+
 	html, body {
 		height: 99%;
-	}
-
-	.page-break	{
-		display: block;
-		page-break-before: always;
-	}
-
-	#report-template {
-		padding: 0;
-		border: none;
-	}
-
-	.portrait {
-		width: 25cm;
-		margin: 10mm 0 5mm 10mm;
-
-	}
-
-	.landscape {
-		height: 750px;
-		width: 1200px;
-		margin: 5mm 0 5mm 0;
-	}
-
-	#content {
-		padding-top: 0;
-	}
-
-	.remove-padding {
-		padding: 0;
-	}
-
-	#proposalPage {
-		margin: 0;
 	}
 
 	footer,
@@ -1024,100 +870,149 @@ ul, li {
     display: none;
   }
 
-	body, table, tr, th, td, div {
-		color: #000 !important;
+	.remove-padding {
+		padding: 0;
+	}
+
+	.portrait {
+		width: 25cm;
+		margin: 10mm 0 5mm 10mm;
+	}
+
+	.landscape {
+		transform: scale(.95);
+	}
+
+	#content {
+		padding-top: 0;
 	}
 
 }
 
 /* 11.3 Ipad
 --------------------------------------------------------------*/
-
 @media only screen
-/* and (min-width : 768px) */
-and (max-width : 992px)
+and (min-width : 768px)
+and (max-width : 1024px)
 and (-webkit-min-device-pixel-ratio: 1){
-	body {
-        font-size: 18px;
-    }
+
+	body,
+	.btn {
+		font-size: 17px;
+	}
+
+	header .wrapper {
+		padding-bottom: 0;
+	}
+
+	#content {
+		 padding-top: 110px;
+	}
+
+	.btn {
+		min-height: 44px;
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+
+	a.btn {
+		padding-top: 9px;
+	}
+
+	.home-btn,
+	.icon-btn {
+		font-size: 34px;
+	}
 
 	.form-control,
 	.custom-select {
-		height: 35px;
-		font-size: 18px;
+		height: 44px;
+		font-size: 17px;
 	}
 
-	.btn,
-	.settings-menu {
-		font-size: 18px;
+	#content-menu .btn {
+		min-height: 35px;
 	}
 
-	.btn, table {
-		font-size: 16px;
+	#login-form input {
+		margin-bottom: 40px;
+	}
+
+	#header-user i {
+		font-size: 17px;
+		margin-right: 3px;
 	}
 
 	#header-user .btn {
-		padding: 0 5px;
+		padding-top: 0;
+	}
+
+	#header-user .dropdown-item {
+		font-size: 17px;
+		font-weight: 400;
+		min-height: 44px;
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+
+	.heading-md .btn-outline {
+		min-height: 35px;
+		padding-top: 5px;
+	}
+
+	#deal-list-table tbody tr {
+		height: 80px;
+	}
+
+	#settings-menu li a {
+		letter-spacing: 3px;
+		margin-bottom: 20px;
+	}
+
+	.deal-summary-page .deal-summary-section .icon-btn {
+		font-size: 24px;
+		margin-right: 10px;
+	}
+
+	#report-template {
+		font-size: 14px;
+	}
+
+	#manufacturing-table,
+	#shutter-detail-table {
+		font-size: 13px;
+	}
+
+	#shutter-detail-table .nav-link {
+		padding: 25px 10px;
+		min-width: 70px;
+	}
+
+	input[type='checkbox'] {
+    -webkit-appearance:none;
+    width:30px;
+    height:30px;
+    background:white;
+    border-radius:5px;
+    border: 0.5px solid #9b9b9b;
+		box-shadow: inset 3px 10px 6px -9px rgba(0,0,0,0.4);
+		margin: 15px 10px;
+		transition: 0.2s;
+	}
+
+	input[type='checkbox']:checked {
+		background: url(../img/icon-check.svg) 0 1px no-repeat;
+		background-color: #888;
+		box-shadow: none;
+		transition: 0.2s;
 	}
 
 	.no-label {
-		margin-top: 35px;
+	  margin-top: 33px;
 	}
-}
 
-/*--------------------------------------------------------------
-12.0 ADMIN SITE
---------------------------------------------------------------*/
+	.heading-xs {
+		font-size: 17px;
+	}
 
-/* 12.1 Index
---------------------------------------------------------------*/
-.index {
-	width: 500px;
-}
-
-.index-module {
-	border: 0.5px solid #aeb2b7;
-}
-
-.index-module .title {
-	background-color: #a8bdda;
-	color: #ffffff;
-	font-size: 14px;
-	font-weight: 400;
-	letter-spacing: 0.5px;
-	padding: 5px;
-	text-transform: uppercase;
-}
-
-.index-module a {
-	color: #447e9b;
-}
-
-.index-module th,
-.index-module td {
-	padding: 8px;
-}
-
-.index-module th {
-	font-weight: 300;
-	font-size: 14px;
-	color: #515151;
-	width: 100%;
-}
-
-/* ACTION ICONS */
-
-.view-link {
-    padding-left: 16px;
-    background: url(../img/icon-viewlink.svg) 0 1px no-repeat;
-}
-
-.add-link {
-    padding-left: 16px;
-    background: url(../img/icon-addlink.svg) 0 1px no-repeat;
-}
-
-.update-link {
-    padding-left: 16px;
-    background: url(../img/icon-changelink.svg) 0 1px no-repeat;
 }

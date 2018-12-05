@@ -2,12 +2,12 @@
 {% load widget_tweaks %}
 {% load static %}
 
-{% block pageid %}dealStyleFormPage{% endblock %}
+{% block pageclass %}shutter-style-form-page{% endblock %}
 
 {% block contenttitle %}Shutter Specs{% endblock %}
 
 {% block menu %}
-<a class="nav-link btn rf" href="{% url 'deals:deal-summary' form.deal.value %}">Cancel</a><hr>
+<a  class="btn btn-outline" role="button" href="{% url 'deals:deal-summary-items' form.deal.value %}">Cancel</a><hr>
 {% endblock %}
 
 {% block content %}
@@ -18,21 +18,19 @@
         {% csrf_token %}
         {{ form.deal.as_hidden }}
 
-        <div class="section">
-          <div class="section-wrapper">
-            <div class="form-section style-section">
-              <div class="form-row">
-                <div class="col-4">
-                  {{ form.color.label_tag }}
-                  {% render_field  form.color class="form-control" %}
-                </div>
+        <div class="section wrapper">
+          <div class="form-section style-section">
+            <div class="form-row">
+              <div class="col">
+                {{ form.color.label_tag }}
+                {% render_field  form.color class="form-control" %}
               </div>
             </div>
-
-            <button type="submit" class="btn-submit btn-block">
-              <i class="fas fa-check"></i>
-            </button>
           </div>
+
+          <button type="submit" class="btn btn-block">
+            <i class="fas fa-check"></i>
+          </button>
         </div>
 
       </form>

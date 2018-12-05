@@ -12,12 +12,12 @@
         <img src="{% static 'img/shutterize_logo.png' %}" alt="Shutterize Software">
       </div> <!-- END logo -->
 
-      <div id="header-text">
+      <div id="header-text" class="heading-md">
         <a href="" title="Shutterize" rel="home">Shutterize</a>
       </div> <!-- END title -->
 
       <div class="rf">
-        <a class="btn btn-radius btn-main" href="{% url 'admin:login' %}" role="button">Admin Login</a>
+        <a class="btn" href="{% url 'admin:login' %}" role="button">Admin Login</a>
       </div> <!-- END admin login button -->
 
     </div>
@@ -42,20 +42,22 @@
 
 
 <div class="row">
-  <div class="col-7 col-md-5 col-lg-4 col-xl-3 auto-margin textcenter">
-    <form id="login-form" method="post">
-    {% csrf_token %}
-      <h3>User Login</h3>
-      <div>
-        {% render_field  form.username class="form-control input-username" placeholder=form.username.label %}
-      </div>
-      <div>
-        {% render_field  form.password class="form-control input-password" placeholder=form.password.label %}
-      </div>
-      <div>
-        <input class="btn btn-block" type="submit" value="Log in"/>
-      </div>
-    </form>
+  <div class="col">
+    <div class="wrapper">
+      <form id="login-form" class="textcenter" method="post">
+      {% csrf_token %}
+        <h3>User Login</h3><br>
+        <div>
+          {% render_field  form.username class="form-control input-username" placeholder=form.username.label %}
+        </div>
+        <div>
+          {% render_field  form.password class="form-control input-password" placeholder=form.password.label %}
+        </div>
+        <div>
+          <input class="btn btn-block" type="submit" value="Log in"/>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 

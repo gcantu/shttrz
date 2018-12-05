@@ -1,13 +1,5 @@
 {% load humanize %}
 
-<div>
-  <b>Payment Method -  </b> {{ price.payment_method.payment_method }}
-  {% if price.check_number %}
-  <div><b>Check No. </b>{{ price.check_number }}</div>
-  {% endif %}
-</div>
-<br>
-
 <table id="price-table">
   <tbody>
     <tr>

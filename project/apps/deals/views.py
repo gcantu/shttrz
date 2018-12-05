@@ -182,7 +182,7 @@ def set_style_default(request):
     if 'color' in request.POST:
         return redirect(reverse('deals:update-shutter-style', kwargs={'pk': id_list[0]}))
     else:
-        return redirect(reverse('deals:deal-summary', kwargs={'pk': deal_id}))
+        return redirect(reverse('deals:deal-summary-items', kwargs={'pk': deal_id}))
 
 
 class UpdateShutterStyle(UpdateView):
@@ -204,7 +204,7 @@ class UpdateShutterStyle(UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('deals:deal-summary', kwargs={'pk': self.get_object().deal_id})
+        return reverse('deals:deal-summary-items', kwargs={'pk': self.get_object().deal_id})
 
 
 # -----------------------------------------------
@@ -244,3 +244,10 @@ def deal_summary(request, pk):
     shutter = Shutter.objects.filter(deal_id=pk)
 
     return render(request, 'deals/deal_summary.html', {'customer': customer, 'deal': deal, 'items': shutter, 'price': price})
+
+
+def deal_summary_items(request, pk):
+    deal = Deal.objects.get(id=pk)
+    shutter = Shutter.objects.filter(deal_id=pk)
+
+    return render(request, 'deals/deal_summary_items.html', {'deal': deal, 'items': shutter})
