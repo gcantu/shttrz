@@ -173,9 +173,56 @@ header {
 	background-color: #fff;
 }
 
+.login-page #content {
+	padding-top: 60px;
+}
+
 .login-page .main-container {
+	box-shadow: none;
+	padding: 0;
+}
+
+.login-page header .wrapper {
+	padding-top: 15px;
+}
+
+.login-page #content > .wrapper {
+	padding: 0;
+}
+
+.login-page [class*="col-"] {
+	margin: auto;
+}
+
+.gear-bg-img {
+	float: right;
+	margin-right: -25px;
+	height: 700px;
+}
+
+#login-form-section {
 	max-width: 400px;
-	padding-bottom: 20px;
+	box-shadow: 20px 20px 30px -20px rgba(0,0,0,0.4);
+	padding: 60px 60px 90px 60px;
+	margin: auto;
+}
+
+#login-form .form-control {
+	text-align: center;
+	border: none;
+	border-bottom: 0.5px solid #888;
+}
+
+#login-form input {
+	margin-bottom: 60px;
+}
+
+#login-form #login-form-logo {
+	padding-bottom: 30px;
+}
+
+#login-form #login-form-logo img {
+  max-height: 60px;
 }
 
 /* 2.2 Home
@@ -542,6 +589,7 @@ ul.nav-tabs .nav-item a.active {
 	font-size: 14px;
 	letter-spacing: 0.5px;
 	padding: 3px 5px;
+	font-weight: 300;
 }
 
 .btn:hover {
@@ -935,10 +983,6 @@ and (-webkit-min-device-pixel-ratio: 1){
 		min-height: 35px;
 	}
 
-	#login-form input {
-		margin-bottom: 40px;
-	}
-
 	#header-user i {
 		font-size: 17px;
 		margin-right: 3px;
@@ -1014,6 +1058,51 @@ and (-webkit-min-device-pixel-ratio: 1){
 
 	.heading-xs {
 		font-size: 17px;
+	}
+
+}
+
+
+@media only screen
+and (max-width : 767px)
+and (-webkit-min-device-pixel-ratio: 1){
+
+	.sm-screen-hide {
+		display: none;
+	}
+
+	.login-page #content {
+		padding-top: 100px;
+	}
+
+	#login-form-section {
+		padding-top: 50px
+		padding-bottom: 150px;
+	}
+
+	#login-form #login-form-logo {
+		padding-bottom: 60px;
+	}
+
+	#login-form #login-form-logo img {
+	  max-height: 100px;
+	}
+
+	.form-control,
+	.btn {
+		height: 50px;
+		font-size: 17px;
+		letter-spacing: 1px;
+	}
+
+	a.btn {
+		padding-top: 9px;
+	}
+
+	.btn {
+		min-height: 44px;
+		padding-left: 15px;
+		padding-right: 15px;
 	}
 
 }

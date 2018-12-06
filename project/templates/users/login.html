@@ -7,19 +7,7 @@
 {% block header %}
   <header class="noprint">
     <div class="wrapper clearfix">
-
-      <div id="header-logo">
-        <img src="{% static 'img/shutterize_logo.png' %}" alt="Shutterize Software">
-      </div> <!-- END logo -->
-
-      <div id="header-text" class="heading-md">
-        <a href="" title="Shutterize" rel="home">Shutterize</a>
-      </div> <!-- END title -->
-
-      <div class="rf">
-        <a class="btn" href="{% url 'admin:login' %}" role="button">Admin Login</a>
-      </div> <!-- END admin login button -->
-
+        <a class="btn btn-outline" href="{% url 'admin:login' %}" role="button">Admin Login</a>
     </div>
   </header>
 {% endblock %}
@@ -42,11 +30,13 @@
 
 
 <div class="row">
-  <div class="col">
-    <div class="wrapper">
+  <div class="col-12 col-md-6">
+    <div id="login-form-section" class="wrapper">
       <form id="login-form" class="textcenter" method="post">
       {% csrf_token %}
-        <h3>User Login</h3><br>
+        <div id="login-form-logo">
+          <img src="{% static 'img/shutterize_logo.png' %}" alt="Shutterize Software">
+        </div><br>
         <div>
           {% render_field  form.username class="form-control input-username" placeholder=form.username.label %}
         </div>
@@ -59,6 +49,12 @@
       </form>
     </div>
   </div>
+  <div class="col-6 sm-screen-hide">
+    <img class="gear-bg-img" src="{% static 'img/gear.png' %}" alt="Shutterize Software">
+  </div>
 </div>
 
+{% endblock %}
+
+{% block footer %}
 {% endblock %}
