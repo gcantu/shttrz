@@ -96,6 +96,10 @@
         <th>Right</th>
         <th>Panel</th>
         <th>Divider</th>
+        <th>Door Knob</th>
+        <th>Trod Split</th>
+        <th>Cut Out</th>
+        <th>Resaque Lframe</th>
         <th>Price/Sq. Ft.</th>
         <th>Total</th>
       </tr>
@@ -143,6 +147,10 @@
         <td>{{ item.height_right|default_if_none:"" }} {{ item.get_height_right_fraction_display }}</td>
         <td>{{ item.panel_height|default_if_none:"" }}</td>
         <td>{{ item.height_divider|default_if_none:"" }} {{ item.get_height_divider_fraction_display }}</td>
+        <td>{{ item.height_door_knob|default_if_none:"" }} {{ item.get_height_door_knob_fraction_display }}</td>
+        <td>{{ item.height_tilt_rod_split|default_if_none:"" }} {{ item.get_height_tilt_rod_split_fraction_display }}</td>
+        <td>{{ item.door_handle_cutout|default_if_none:"" }}</td>
+        <td>{{ item.get_inset_lframe_display|default_if_none:"" }}</td>
         <td>$ {{ item.price_per_sq_ft }}</td>
         <td>$ {{ item.total_price }}</td>
       </tr>
