@@ -286,6 +286,15 @@ header {
 	max-width: 1200px;
 }
 
+.manufacturing-page #customer-detail-table,
+.manufacturing-page #deal-detail-table {
+	width: auto;
+}
+
+.manufacturing-page .section {
+	height: auto;
+}
+
 #report-template p {
 	margin-bottom: 5px;
 }
@@ -816,6 +825,30 @@ table thead {
 	border: 0.5px solid #aeb2b7;
 }
 
+#manufacturing-specs-table {
+	width: auto;
+}
+
+#manufacturing-specs-table th,
+#manufacturing-specs-table td {
+	text-align: left;
+	padding-bottom: 0;
+}
+
+#manufacturing-specs-table th:nth-child(3),
+#manufacturing-specs-table th:nth-child(5),
+#manufacturing-specs-table th:nth-child(7),
+#manufacturing-specs-table th:nth-child(9),
+#manufacturing-specs-table th:nth-child(11) {
+	padding-left: 30px;
+}
+
+#manufacturing-specs-table td {
+	padding-left: 0;
+	padding-right: 20px;
+	border-bottom: 0.5px solid #888;
+}
+
 .scroll-section {
 	overflow: scroll;
 }
@@ -1019,10 +1052,7 @@ and (-webkit-min-device-pixel-ratio: 1){
 		margin-right: 10px;
 	}
 
-	#report-template {
-		font-size: 14px;
-	}
-
+	#report-template,
 	#manufacturing-table,
 	#shutter-detail-table {
 		font-size: 13px;
