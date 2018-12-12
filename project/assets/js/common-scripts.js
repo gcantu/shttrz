@@ -144,14 +144,20 @@ $('input:checkbox').on('change', function() {
 function showMeasureField(val){ // function to render hidden fields in line item form
   var val = val;
 
-  if (val == 6 || val == 8 || val == 13 || val == 15) { // remove t-post from these models
+  if (val == 6 || val == 8 || val == 13 || val == 15 || val == 4) { // remove t-post from these models
     $(".panel-field").addClass("hidden");
-    $(".t-post-field").addClass("hidden");
+    $("#tpost-button").addClass("hidden");
     $("#id_t_post").val("");
-    $(".side-field").removeClass("hidden");
+    if (val == 4) {
+      $(".side-field").addClass("hidden");
+      $("#id_side").val("");
+    } else {
+      $(".side-field").removeClass("hidden");
+    }
+
   } else {
     $(".panel-field").removeClass("hidden");
-    $(".t-post-field").removeClass("hidden");
+    $("#tpost-button").removeClass("hidden");
     $(".side-field").addClass("hidden");
     $("#id_side").val("");
   }
@@ -172,6 +178,21 @@ function showMeasureField(val){ // function to render hidden fields in line item
     $(".center-height-field").removeClass("hidden");
   } else {
     $(".center-height-field").addClass("hidden");
+  }
+
+  if (val == 4) {
+    $(".door-field").removeClass("hidden");
+    $(".mount-field").addClass("hidden");
+    $(".frame-field").addClass("hidden");
+    $(".trim-field").addClass("hidden");
+    $("#id_mount").val("");
+    $("#id_frame").val(0);
+    $("#id_trim_style").val("");
+  } else {
+    $(".door-field").addClass("hidden");
+    $(".mount-field").removeClass("hidden");
+    $(".frame-field").removeClass("hidden");
+    $(".trim-field").removeClass("hidden");
   }
 
 };

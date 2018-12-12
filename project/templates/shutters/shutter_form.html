@@ -31,7 +31,7 @@
                   {{ form.location.label_tag }}
                   {% render_field  form.location class="form-control" %}
                   </div>
-                  <div class="col">
+                  <div class="col mount-field">
                   {{ form.mount.label_tag }}
                   {% render_field  form.mount class="custom-select mr-sm-2" %}
                   </div>
@@ -136,6 +136,40 @@
             </div>
           </div> <!-- END row -->
 
+          <div class="row door-field">
+            <div class="col-12">
+              <div class="form-section">
+                <div class="form-row">
+                  <div class="col-4 col-sm-3 col-lg-2">
+                    <label>Door Knob Height</label>
+                    {% render_field  form.height_door_knob class="form-control" %}
+                  </div>
+                  <div class="col-2 col-lg-1 no-label">
+                    {% render_field  form.height_door_knob_fraction class="custom-select mr-sm-2" %}
+                  </div>
+
+                  <div class="col-4 col-sm-3 col-lg-2 offset-sm-1 offset-lg-1">
+                    <label>Tilt Rod Split @</label>
+                    {% render_field  form.height_tilt_rod_split class="form-control" %}
+                  </div>
+                  <div class="col-2 col-lg-1 no-label">
+                    {% render_field  form.height_tilt_rod_split_fraction class="custom-select mr-sm-2" %}
+                  </div>
+
+                  <div class="col-6 col-md-3 col-lg-2 offset-lg-1">
+                    <label>Cut Out</label>
+                    {% render_field  form.door_handle_cutout class="custom-select mr-sm-2" %}
+                  </div>
+
+                  <div class="col-6 col-md-3 col-lg-2">
+                    <label>Resaque Lframe</label>
+                    {% render_field  form.inset_lframe class="custom-select mr-sm-2" %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="row">
             <div class="col-8">
               <div class="form-section">
@@ -197,7 +231,7 @@
                     {{ form.tilt_rod.label_tag }}
                     {% render_field  form.tilt_rod class="custom-select mr-sm-2" %}
                   </div>
-                  <div class="col-4 col-sm-3">
+                  <div class="col-4 col-sm-3 trim-field">
                   {{ form.trim_style.label_tag }}
                   {% render_field  form.trim_style class="custom-select mr-sm-2" %}
                   </div>
