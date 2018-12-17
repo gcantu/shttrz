@@ -1,0 +1,46 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block pageclass %}sidebar-page{% endblock %}
+
+{% block sidebar %}
+<div id="sidebar" class="noprint">
+  <nav class="side-nav">
+    <ul class="side-menu">
+      <li>
+        <a class="btn nf {% block summaryactiveclass %}btn-inactive{% endblock %}" href="{% url 'deals:deal-summary' deal.id %}" role="button">
+          <i class="fas fa-pencil-alt"></i><br>Summary
+        </a>
+      </li>
+
+      <li>
+        <a class="btn nf {% block orderactiveclass %}btn-inactive{% endblock %}" href="{% url 'deals:deal-summary-items' deal.id %}" role="button">
+          <i class="fas fa-list-ul"></i><br>Order
+        </a>
+      </li>
+
+      <li>
+        <a class="btn nf {% block proposalactiveclass %}btn-inactive{% endblock %}" href="{% url 'reports:proposal-report' deal.id %}" role="button">
+          <i class="fas fa-file-signature"></i><br>Proposal
+        </a>
+      </li>
+
+      <li>
+        <a class="btn nf {% block invoiceactiveclass %}btn-inactive{% endblock %}" href="{% url 'reports:invoice-report' deal.id %}" role="button">
+          <i class="fas fa-dollar-sign"></i><br>Invoice
+        </a>
+      </li>
+
+      <li>
+        <a class="btn nf {% block manufacturingactiveclass %}btn-inactive{% endblock %}" href="{% url 'reports:manufacturing-report' deal.id 'Simple' %}" role="button">
+          <i class="fas fa-pencil-ruler"></i><br>Manuf.<br>Report
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+{% endblock %}
+
+
+{% block contentclass %}sidebar-content{% endblock %}

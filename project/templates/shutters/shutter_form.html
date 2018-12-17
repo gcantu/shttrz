@@ -2,14 +2,16 @@
 {% load widget_tweaks %}
 {% load static %}
 
-{% block pageclass %}shutter-form-page{% endblock %}
+{% block title %}Deal Item Form{% endblock %}
 
-{% block contenttitle %}Create Item<hr>{% endblock %}
+{% block pageclass %}form-page shutter-form-page{% endblock %}
+
+{% block contenttitle %}Create Item{% endblock %}
 
 {% block content %}
 <div class="row">
   <div class="col">
-    <div class="section">
+    <div class="card-section">
       <form id="shutter-form" method="post">
       {% csrf_token %}
       {{ form.deal.as_hidden }}
@@ -207,7 +209,7 @@
 
           <div class="row">
             <div class="col-12">
-              <button id="style-button" class="btn btn-block" type="button">Style</button>
+              <button id="style-button" class="btn btn-block nf" type="button">Style</button>
 
               <div class="form-section style-section">
                 <div class="form-row">
@@ -255,10 +257,10 @@
 {% if items %}
 <div class="row">
   <div class="col">
-    <div class="section wrapper">
+    <div class="card-section wrapper">
       {% include 'shutters/shutter_detail.html' %}<br>
 
-      <a class="btn" href="{% url 'deals:deal-specs' form.deal.value %}" role="button">Continue</a><br>
+      <a class="btn" href="{% url 'deals:deal-specs' form.deal.value %}" role="button">Continue</a><br><br>
     </div>
   </div>
 </div>

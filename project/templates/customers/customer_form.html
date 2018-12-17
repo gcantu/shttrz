@@ -2,61 +2,65 @@
 {% load widget_tweaks %}
 {% load static %}
 
-{% block pageclass %}customer-form-page{% endblock %}
+{% block title %}Customer Form{% endblock %}
 
-{% block contenttitle %}Create Customer<hr>{% endblock %}
+{% block pageclass %}form-page customer-form-page{% endblock %}
+
+{% block contenttitle %}Customer Form{% endblock %}
 
 {% block content %}
 <div class="row">
   <div class="col">
-    <form id="customer-form" method="post">
-      {% csrf_token %}
-      {{ form.tenant.as_hidden }}
-      <div class="section wrapper">
-        <div class="form-row">
-          <div class="form-group col-sm-6">
-            {% render_field  form.first_name class="form-control" placeholder=form.first_name.label %}
+    <div class="card-section">
+      <form id="customer-form" method="post">
+        {% csrf_token %}
+        {{ form.tenant.as_hidden }}
+        <div class="section wrapper">
+          <div class="form-row">
+            <div class="form-group col-sm-6">
+              {% render_field  form.first_name class="form-control" placeholder=form.first_name.label %}
+            </div>
+            <div class="form-group col-sm-6">
+              {% render_field  form.last_name class="form-control" placeholder=form.last_name.label %}
+            </div>
           </div>
-          <div class="form-group col-sm-6">
-            {% render_field  form.last_name class="form-control" placeholder=form.last_name.label %}
-          </div>
-        </div>
 
-        <div class="form-row">
-          <div class="form-group col">
-            {% render_field  form.address class="form-control" placeholder=form.address.label %}
+          <div class="form-row">
+            <div class="form-group col">
+              {% render_field  form.address class="form-control" placeholder=form.address.label %}
+            </div>
           </div>
-        </div>
 
-        <div class="form-row">
-          <div class="form-group col-sm-6">
-            {% render_field  form.city class="form-control" placeholder=form.city.label %}
+          <div class="form-row">
+            <div class="form-group col-sm-6">
+              {% render_field  form.city class="form-control" placeholder=form.city.label %}
+            </div>
+            <div class="form-group col-sm-6">
+              {% render_field  form.zip_code class="form-control" placeholder=form.zip_code.label %}
+            </div>
           </div>
-          <div class="form-group col-sm-6">
-            {% render_field  form.zip_code class="form-control" placeholder=form.zip_code.label %}
-          </div>
-        </div>
 
-        <div class="form-row">
-          <div class="form-group col-sm-6">
-            {% render_field  form.home_phone class="form-control" placeholder=form.home_phone.label %}
+          <div class="form-row">
+            <div class="form-group col-sm-6">
+              {% render_field  form.home_phone class="form-control" placeholder=form.home_phone.label %}
+            </div>
+            <div class="form-group col-sm-6">
+              {% render_field  form.mobile_phone class="form-control" placeholder=form.mobile_phone.label %}
+            </div>
           </div>
-          <div class="form-group col-sm-6">
-            {% render_field  form.mobile_phone class="form-control" placeholder=form.mobile_phone.label %}
-          </div>
-        </div>
 
-        <div class="form-row">
-          <div class="form-group col">
-            {% render_field  form.email class="form-control" placeholder=form.email.label %}
+          <div class="form-row">
+            <div class="form-group col">
+              {% render_field  form.email class="form-control" placeholder=form.email.label %}
+            </div>
           </div>
-        </div>
 
-        <button type="submit" class="btn btn-block">
-          <i class="fas fa-user-plus"></i>
-        </button>
-      </div>
-    </form>
+          <button type="submit" class="btn btn-block">
+            <i class="fas fa-user-plus"></i>
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 {% endblock %}

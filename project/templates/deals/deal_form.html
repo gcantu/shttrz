@@ -2,52 +2,56 @@
 {% load widget_tweaks %}
 {% load static %}
 
-{% block pageclass %}deal-form-page{% endblock %}
+{% block title %}Update Deal{% endblock %}
 
-{% block contenttitle %}Update Deal<hr>{% endblock %}
+{% block pageclass %}form-page deal-form-page{% endblock %}
+
+{% block contenttitle %}Update Deal{% endblock %}
 
 {% block content %}
 <div class="row">
   <div class="col">
-    <form id="deal-form" method="post">
-      {% csrf_token %}
+    <div class="card-section">
+      <form id="deal-form" method="post">
+        {% csrf_token %}
 
-      <div class="section wrapper">
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            {{ form.created_date.label_tag }}
-            {% render_field  form.created_date class="form-control" %}
+        <div class="section wrapper">
+          <div class="form-row">
+            <div class="form-group col-sm-6">
+              {{ form.created_date.label_tag }}
+              {% render_field  form.created_date class="form-control" %}
+            </div>
+            <div class="form-group col-sm-6">
+              {{ form.install_date.label_tag }}
+              {% render_field  form.install_date class="form-control" %}
+            </div>
           </div>
-          <div class="form-group col-md-6">
-            {{ form.install_date.label_tag }}
-            {% render_field  form.install_date class="form-control" %}
+
+          <div class="form-row">
+            <div class="form-group col-sm-6">
+              {{ form.agent.label_tag }}
+              {% render_field  form.agent class="custom-select mr-sm-2" %}
+            </div>
+            <div class="form-group col-sm-6">
+              {{ form.measured_by.label_tag }}
+              {% render_field  form.measured_by class="custom-select mr-sm-2" %}
+            </div>
           </div>
+
+          <div class="form-row">
+            <div class="col">
+              {{ form.notes.label_tag }}
+              {% render_field  form.notes class="form-control notes-field" %}
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-block">
+            <i class="fas fa-check"></i>
+          </button>
         </div>
 
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            {{ form.agent.label_tag }}
-            {% render_field  form.agent class="custom-select mr-sm-2" %}
-          </div>
-          <div class="form-group col-md-6">
-            {{ form.measured_by.label_tag }}
-            {% render_field  form.measured_by class="custom-select mr-sm-2" %}
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="col">
-            {{ form.notes.label_tag }}
-            {% render_field  form.notes class="form-control notes-field" %}
-          </div>
-        </div>
-
-        <button type="submit" class="btn btn-block">
-          <i class="fas fa-check"></i>
-        </button>
-      </div>
-
-    </form>
+      </form>
+    </div>
   </div>
 </div>
 {% endblock %}

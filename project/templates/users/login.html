@@ -2,17 +2,18 @@
 {% load static %}
 {% load widget_tweaks %}
 
+{% block title %}Login{% endblock %}
+
 {% block pageclass %}login-page{% endblock %}
 
 {% block header %}
-  <header class="noprint">
-    <div class="wrapper clearfix">
-        <a class="btn btn-outline" href="{% url 'admin:login' %}" role="button">Admin Login</a>
-    </div>
-  </header>
+<header>
+  <div class="wrapper clearfix">
+    <a class="btn btn-outline" href="{% url 'admin:login' %}" role="button">Admin Login</a>
+  </div>
+</header>
 {% endblock %}
 
-{% block navbar %}{% endblock %}
 
 {% block content %}
 
@@ -27,7 +28,6 @@
     <p>Please login to see this page.</p>
   {% endif %}
 {% endif %}
-
 
 <div class="row">
   <div class="col-12 col-md-6">

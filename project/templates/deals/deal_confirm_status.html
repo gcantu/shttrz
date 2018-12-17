@@ -2,14 +2,16 @@
 {% load widget_tweaks %}
 {% load static %}
 
+{% block title %}Confirm{% endblock %}
+
 {% block pageclass %}confirmation-page{% endblock %}
 
-{% block contenttitle %}Update Status?<hr>{% endblock %}
+{% block contenttitle %}Update Status?{% endblock %}
 
 {% block content %}
 <div class="row">
   <div class="col">
-    <div class="section wrapper textcenter">
+    <div class="card-section wrapper textcenter">
       <form method="post">
         {% csrf_token %}
         {{ form.status.as_hidden }}
