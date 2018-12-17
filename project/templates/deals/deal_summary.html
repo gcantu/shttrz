@@ -1,83 +1,57 @@
-{% extends "core/base.html" %}
-{% load widget_tweaks %}
+{% extends "core/sidebar_template.html" %}
 {% load static %}
+{% load widget_tweaks %}
 
-{% block pageclass %}deal-summary-page{% endblock %}
+{% block title %}Deal Summary{% endblock %}
 
-{% block extracontent %}
-  <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a class="nav-link active" href="{% url 'deals:deal-summary' deal.id %}"><i class="fas fa-pencil-alt"></i> Summary</a>
-    </li>
+{% block pageclass %}sidebar-page deal-summary-page{% endblock %}
 
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'deals:deal-summary-items' deal.id %}"><i class="fas fa-list-ul"></i> Order</a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'reports:proposal-report' deal.id %}"><i class="fas fa-file-signature"></i> Proposal</a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'reports:invoice-report' deal.id %}"><i class="fas fa-dollar-sign"></i> Invoice</a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'reports:manufacturing-report' deal.id 'Simple' %}"><i class="fas fa-pencil-ruler"></i> Manufacturing Report</a>
-    </li>
-  </ul>
-{% endblock %}
+{% block summaryactiveclass %}btn-active{% endblock %}
 
 {% block contenttitle %}Deal Summary{% endblock %}
 
 {% block menu %}
 <div id="content-menu" class="rf">
-  <a class="btn btn-outline btn-green" href="{% url 'deals:update-deal-status' deal.id 'Completed' %}">Mark as Completed</a>
-</div><hr>
+  <a class="btn btn-pills" href="{% url 'deals:update-deal-status' deal.id 'Completed' %}">Mark as Completed</a>
+</div>
 {% endblock %}
 
 {% block content %}
 <!-- <div id="dealId" value="{{ deal.id }}">Order ID: {{ deal.id }}</div> -->
 <div class="row">
-  <div class="col remove-padding">
-    <div class="section wrapper">
-      <div class="row deal-summary-section">
-        <div class="col-12">
-          <div class="heading-xs">DEAL DETAILS
-            <a class="icon-btn rf" href="{% url 'deals:update-deal' deal.id %}" role="button"><i class="fas fa-pencil-alt"></i></a>
-          </div><hr>
-          {% include 'deals/deal_detail.html' %}
-        </div>
-      </div><br><br> <!-- END deal detail -->
+  <div class="col">
+    <div class="card-section">
+      <div class="heading-xs">CUSTOMER DETAILS
+        <a class="icon-btn rf" href="{% url 'deals:update-customer' customer.id deal.id %}" role="button"><i class="fas fa-pencil-alt"></i></a>
+      </div><hr>
+      {% include 'customers/customer_detail.html' %}
+    </div>
+  </div>
+</div>
 
+<div class="row">
+  <div class="col mt">
+    <div class="card-section">
+      <div class="heading-xs">DEAL DETAILS
+        <a class="icon-btn rf" href="{% url 'deals:update-deal' deal.id %}" role="button"><i class="fas fa-pencil-alt"></i></a>
+      </div><hr>
+      {% include 'deals/deal_detail.html' %}
+    </div>
+  </div>
 
-      <div class="row deal-summary-section">
-        <div class="col-12">
-          <div class="heading-xs">CUSTOMER DETAILS
-            <a class="icon-btn rf" href="{% url 'deals:update-customer' customer.id deal.id %}" role="button"><i class="fas fa-pencil-alt"></i></a>
-          </div><hr>
-          {% include 'customers/customer_detail.html' %}
-        </div><br> <!-- END customer detail -->
-      </div><br><br>
+  <div class="col mt">
+    <div class="card-section">
+      <div class="heading-xs">PRICE DETAILS
+        <a class="icon-btn rf" href="{% url 'deals:update-price' deal.id %}" role="button"><i class="fas fa-pencil-alt"></i></a>
+      </div><hr>
 
-
-      <div class="row deal-summary-section">
-        <div class="col-12">
-          <div class="heading-xs">PRICE DETAILS
-            <a class="icon-btn rf" href="{% url 'deals:update-price' deal.id %}" role="button"><i class="fas fa-pencil-alt"></i></a>
-          </div><hr>
-        </div>
-
-        <div class="col-6">
-          <div style="margin-bottom: 10px;">
-            <b><i class="far fa-credit-card"></i> Payment:</b> {{ price.payment_method.payment_method }}
-            {% if price.check_number %}
-            <div><b>Check No. </b>{{ price.check_number }}</div>
-            {% endif %}
-          </div>
-          {% include 'deals/price_detail.html' %}
-        </div>
-      </div><br>
+      <div style="margin-bottom: 10px;">
+        <b><i class="far fa-credit-card"></i> Payment:</b> {{ price.payment_method.payment_method }}
+        {% if price.check_number %}
+        <div><b>Check No. </b>{{ price.check_number }}</div>
+        {% endif %}
+      </div>
+      {% include 'deals/price_detail.html' %}
     </div>
   </div>
 </div>

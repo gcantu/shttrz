@@ -2,18 +2,20 @@
 {% load widget_tweaks %}
 {% load static %}
 
-{% block pageclass %}shutter-style-form-page{% endblock %}
+{% block title %}Item Style{% endblock %}
 
-{% block contenttitle %}Shutter Specs{% endblock %}
+{% block pageclass %}form-page shutter-style-form-page{% endblock %}
+
+{% block contenttitle %}Shutter Style{% endblock %}
 
 {% block menu %}
-<a  class="btn btn-outline" role="button" href="{% url 'deals:deal-summary-items' form.deal.value %}">Cancel</a><hr>
+<a  class="btn btn-pills" role="button" href="{% url 'deals:deal-summary-items' form.deal.value %}">Cancel</a>
 {% endblock %}
 
 {% block content %}
 <div class="row">
   <div class="col">
-    <div class="section">
+    <div class="card-section">
       <form id="deal-form" method="post">
         {% csrf_token %}
         {{ form.deal.as_hidden }}

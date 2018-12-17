@@ -1,70 +1,49 @@
-{% extends "core/base.html" %}
+{% extends "core/sidebar_template.html" %}
 {% load widget_tweaks %}
 {% load static %}
 
-{% block pageclass %}{{ page_class }}{% endblock %}
+{% block title %}{{ report }}{% endblock %}
 
-{% block extracontent %}
-  <ul class="nav nav-tabs noprint">
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'deals:deal-summary' deal.id %}"><i class="fas fa-pencil-alt"></i> Summary</a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'deals:deal-summary-items' deal.id %}"><i class="fas fa-list-ul"></i> Order</a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link {% block proposaltab %}{% endblock %}" href="{% url 'reports:proposal-report' deal.id %}"><i class="fas fa-file-signature"></i> Proposal</a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link {% block invoicetab %}{% endblock %}" href="{% url 'reports:invoice-report' deal.id %}"><i class="fas fa-dollar-sign"></i> Invoice</a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link {% block manufacturingtab %}{% endblock %}" href="{% url 'reports:manufacturing-report' deal.id 'Simple' %}"><i class="fas fa-pencil-ruler"></i> Manufacturing Report</a>
-    </li>
-  </ul>
-{% endblock %}
+{% block pageclass %}sidebar-page {{ page_class }}{% endblock %}
 
 {% block contenttitle %}{{ report }}{% endblock %}
 
 {% block menu %}
 <div id="content-menu" class="rf noprint">
-    <button class="btn btn-outline" onclick="javascript:print();">Print</button>
-</div><hr>
+    <button class="btn btn-pills" onclick="javascript:print();">Print</button>
+</div>
 {% endblock %}
 
 {% block content %}
 <div class="row">
   <div class="col remove-padding">
-    <div id="report-template" class="section wrapper {% block extraclass %}{% endblock %}">
+    <div class="card-section remove-padding">
+      <div id="report-template" class="section wrapper {% block extraclass %}{% endblock %}">
 
-      {% block reportheader %}
-      <div class="row">
-        {% include "core/letterhead.html" %}
-      </div><hr> <!-- END letterhead -->
+        {% block reportheader %}
+        <div class="row">
+          {% include "core/letterhead.html" %}
+        </div><hr> <!-- END letterhead -->
 
-      <div class="heading-lg rf">{{ report }}</div>
+        <div class="heading-lg rf">{{ report }}</div>
 
-      <div class="row">
-        <div class="col-4">
-          <div class="heading-sm">Prepared For</div><hr>
-          {% include "customers/customer_detail.html" %}
-        </div>
-        <div class="col-4 offset-4">
-          <div class="heading-sm">Details</div><hr>
-          {% include "deals/deal_detail.html" %}
-        </div>
-      </div><br><br> <!-- END customer and deal details -->
-      {% endblock %} <!-- END report header -->
+        <div class="row">
+          <div class="col-4">
+            <div class="heading-sm">Prepared For</div><hr>
+            {% include "customers/customer_detail.html" %}
+          </div>
+          <div class="col-4 offset-4">
+            <div class="heading-sm">Details</div><hr>
+            {% include "deals/deal_detail.html" %}
+          </div>
+        </div><br><br> <!-- END customer and deal details -->
+        {% endblock %} <!-- END report header -->
 
 
-      {% block report %}
-      {% endblock %} <!-- END proposal items -->
-    </div><br> <!-- END report section -->
+        {% block report %}
+        {% endblock %} <!-- END proposal items -->
+      </div><br> <!-- END report section -->
+    </div>
   </div>
 </div>
-
 {% endblock %}

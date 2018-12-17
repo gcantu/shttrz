@@ -1,71 +1,31 @@
-{% extends "core/base.html" %}
-{% load widget_tweaks %}
+{% extends "core/sidebar_template.html" %}
 {% load static %}
+{% load widget_tweaks %}
 
-{% block pageclass %}deal-summary-items-page{% endblock %}
+{% block title %}Item Summary{% endblock %}
 
-{% block extracontent %}
-  <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'deals:deal-summary' deal.id %}"><i class="fas fa-pencil-alt"></i> Summary</a>
-    </li>
+{% block pageclass %}sidebar-page deal-summary-items-page{% endblock %}
 
-    <li class="nav-item">
-      <a class="nav-link active" href="{% url 'deals:deal-summary-items' deal.id %}"><i class="fas fa-list-ul"></i> Order</a>
-    </li>
+{% block orderactiveclass %}btn-active{% endblock %}
 
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'reports:proposal-report' deal.id %}"><i class="fas fa-file-signature"></i> Proposal</a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'reports:invoice-report' deal.id %}"><i class="fas fa-dollar-sign"></i> Invoice</a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'reports:manufacturing-report' deal.id 'Simple' %}"><i class="fas fa-pencil-ruler"></i> Manufacturing Report</a>
-    </li>
-  </ul>
-{% endblock %}
-
-{% block contenttitle %}Order Items<hr>{% endblock %}
+{% block contenttitle %}Order Items{% endblock %}
 
 {% block content %}
 <div class="row">
   <div class="col">
-    <div class="wrapper">
-      <div class="row deal-summary-section">
-        <div class="col-12">
-          <div class="heading-md">Shutters
-            <a class="btn-icon-round" href="{% url 'deals:create-shutter-item' deal.id %}" role="button"><i class="fas fa-plus"></i></a>
+    <div class="card-section">
+      <div class="content-title heading-md">Shutters</div>
 
-            <button id="delete-item-button" class="btn btn-outline">Delete</button>
+      <a class="btn-icon-round" href="{% url 'deals:create-shutter-item' deal.id %}" role="button"><i class="fas fa-plus"></i></a>
 
-            <button id="edit-item-button" class="btn btn-outline">Edit</button>
+      <button id="delete-item-button" class="btn btn-outline">Delete</button>
 
-            <button id="style-item-button" class="btn btn-outline">Style</button>
+      <button id="edit-item-button" class="btn btn-outline">Edit</button>
 
+      <button id="style-item-button" class="btn btn-outline">Style</button>
+      <hr>
 
-            <!-- <button id="style-item-button" class="btn icon-btn">
-              <i class="fas fa-paint-roller"></i> Style
-            </button> -->
-
-            <!-- <button id="edit-item-button" class="btn icon-btn">
-              <i class="fas fa-pencil-alt"></i> Edit
-            </button> -->
-
-            <!-- <button id="delete-item-button" class="btn icon-btn">
-              <i class="fas fa-times"></i> Delete
-            </button> -->
-
-            <!-- <a class="btn" href="{% url 'deals:create-shutter-item' deal.id %}">
-              <i class="fas fa-plus"></i> Add
-            </a> -->
-          </div><hr>
-
-          {% include 'shutters/shutter_detail.html' %}
-        </div>
-      </div>
+      {% include 'shutters/shutter_detail.html' %}
     </div>
   </div>
 </div><br><br>
