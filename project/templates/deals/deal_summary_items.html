@@ -1,0 +1,32 @@
+{% extends "core/sidebar_template.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Item Summary{% endblock %}
+
+{% block pageclass %}sidebar-page deal-summary-items-page{% endblock %}
+
+{% block orderactiveclass %}btn-active{% endblock %}
+
+{% block contenttitle %}Order Items{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col">
+    <div class="card-section">
+      <div class="content-title heading-md">Shutters</div>
+
+      <a class="btn-icon-round" href="{% url 'deals:create-shutter-item' deal.id %}" role="button"><i class="fas fa-plus"></i></a>
+
+      <button id="delete-item-button" class="btn btn-outline">Delete</button>
+
+      <button id="edit-item-button" class="btn btn-outline">Edit</button>
+
+      <button id="style-item-button" class="btn btn-outline">Style</button>
+      <hr>
+
+      {% include 'shutters/shutter_detail.html' %}
+    </div>
+  </div>
+</div><br><br>
+{% endblock %}

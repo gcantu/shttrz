@@ -141,9 +141,12 @@ class AbstractShutter(AbstractTenant):
         elif measure_type == 'height_right':
             measure = self._height_right()
 
-        deduction = 0.375 if measure_type == 'width' else 0.25 # 3/8 for width, 1/4 for height
+        if self.shutter_type_id == 4:
+            l = measure
+        else:
+            deduction = 0.375 if measure_type == 'width' else 0.25 # 3/8 for width, 1/4 for height
+            l = (measure - 0.125) if self.mount == 'In' else (measure - deduction)
 
-        l = (measure - 0.125) if self.mount == 'In' else (measure - deduction)
         return l
 
     def _l_frame_width(self):
@@ -324,6 +327,8 @@ class Shutter(AbstractShutter):
     HINGE_CHOICES = [('LR', 'Left/Right'), ('L', 'Left'), ('R', 'Right')]
     FRACTION_CHOICES = [(0, ''), (.125, '1/8'), (.25, '1/4'), (.375, '3/8'), (.5, '1/2'), (.625, '5/8'), (.75, '3/4'), (.875, '7/8')]
     SIDE_CHOICES = [('L', 'Left'), ('R', 'Right')]
+    INSET_CHOICES = [(True, 'Yes'), (False, 'No')]
+    CUTOUT_CHOICES = [('Mosca', 'Mosca'), ('Luna', 'Luna'), ('Sol', 'Sol')]
 
     deal = models.ForeignKey(Deal, models.SET_NULL, blank=True, null=True)
     product = models.CharField(max_length=10, default='Shutters')
@@ -343,13 +348,17 @@ class Shutter(AbstractShutter):
     hinges = models.CharField(max_length=2, choices=HINGE_CHOICES, blank=True)
     hinge_color = models.ForeignKey(HingeColor, models.SET_NULL, blank=True, null=True)
     tilt_rod = models.ForeignKey(TiltRod, models.SET_NULL, blank=True, null=True)
-    width = models.IntegerField(blank=True, null=True)
-    height = models.IntegerField(blank=True, null=True)
+    door_handle_cutout = models.CharField(max_length=20, choices=CUTOUT_CHOICES, blank=True)
+    inset_lframe = models.BooleanField(choices=INSET_CHOICES, blank=True, null=True)
+    width = models.IntegerField()
+    height = models.IntegerField()
     height_divider = models.IntegerField(blank=True, null=True)
     height_panel = models.IntegerField(blank=True, null=True)
     height_center = models.IntegerField(blank=True, null=True)
     height_left = models.IntegerField(blank=True, null=True)
     height_right = models.IntegerField(blank=True, null=True)
+    height_door_knob = models.IntegerField(blank=True, null=True)
+    height_tilt_rod_split = models.IntegerField(blank=True, null=True)
     width_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     height_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     height_divider_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
@@ -357,6 +366,8 @@ class Shutter(AbstractShutter):
     height_center_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     height_left_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     height_right_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
+    height_door_knob_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
+    height_tilt_rod_split_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     price_per_sq_ft = models.FloatField(default=0)
     default_style = models.BooleanField(default=False)
 

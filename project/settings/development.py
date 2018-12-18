@@ -11,7 +11,7 @@ SECRET_KEY = config.get('keys','SECRET_KEY')
 # Only for development
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'users.local', '.users.local']
 
 # local database
 DATABASES = {

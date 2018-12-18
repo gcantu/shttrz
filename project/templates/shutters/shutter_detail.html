@@ -6,7 +6,8 @@
   <table id="shutter-detail-table">
     <thead>
       <tr>
-        <th class="hidden hidden-colname"></th>
+        <th class="hidden edit-hidden-btn"></th>
+        <th class="hidden delete-hidden-btn"></th>
         <th class="hidden style-hidden-btn no-padding"><input type="checkbox" id="checkAll" name="checkAll"/></th>
         <th>#</th>
         <th>Product</th>
@@ -95,6 +96,10 @@
         <th>Right</th>
         <th>Panel</th>
         <th>Divider</th>
+        <th>Door Knob</th>
+        <th>Trod Split</th>
+        <th>Cut Out</th>
+        <th>Resaque Lframe</th>
         <th>Price/Sq. Ft.</th>
         <th>Total</th>
       </tr>
@@ -107,13 +112,13 @@
           <input class="item-checkbox" type="checkbox" name="item_list" value="{{item.id}}" />
         </td>
 
-        <td class="hidden edit-hidden-btn no-padding">
+        <td class="hidden edit-hidden-btn">
           <a class="icon-btn" type="button" href="{% url 'deals:update-shutter-item' item.id item.deal_id %}">
             <i class="fas fa-pencil-alt"></i>
           </a>
         </td>
 
-        <td class="hidden delete-hidden-btn no-padding">
+        <td class="hidden delete-hidden-btn">
           <a class="icon-btn btn-delete" type="button" href="{% url 'deals:delete-shutter-item' item.id %}">
             <i class="fas fa-times"></i>
           </a>
@@ -142,6 +147,10 @@
         <td>{{ item.height_right|default_if_none:"" }} {{ item.get_height_right_fraction_display }}</td>
         <td>{{ item.panel_height|default_if_none:"" }}</td>
         <td>{{ item.height_divider|default_if_none:"" }} {{ item.get_height_divider_fraction_display }}</td>
+        <td>{{ item.height_door_knob|default_if_none:"" }} {{ item.get_height_door_knob_fraction_display }}</td>
+        <td>{{ item.height_tilt_rod_split|default_if_none:"" }} {{ item.get_height_tilt_rod_split_fraction_display }}</td>
+        <td>{{ item.door_handle_cutout|default_if_none:"" }}</td>
+        <td>{{ item.get_inset_lframe_display|default_if_none:"" }}</td>
         <td>$ {{ item.price_per_sq_ft }}</td>
         <td>$ {{ item.total_price }}</td>
       </tr>

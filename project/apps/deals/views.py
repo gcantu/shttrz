@@ -62,7 +62,7 @@ def deal_specs(request, deal_id):
     # calculate deal totals
     subtotal = round(sum(i.total_price() for i in shutter), 2)
     price.subtotal = subtotal
-    price.tax = (price.subtotal * price.tax_rate) if price.add_tax else 0
+    price.tax = (price.subtotal * price.tax_rate)
     price.credit_card_fee = (price.subtotal * price.credit_card_fee_rate) if price.payment_method_id == 3 else 0
     price.total = price.subtotal + price.tax + price.credit_card_fee
     price.balance = price.total - price.down_payment
@@ -182,7 +182,7 @@ def set_style_default(request):
     if 'color' in request.POST:
         return redirect(reverse('deals:update-shutter-style', kwargs={'pk': id_list[0]}))
     else:
-        return redirect(reverse('deals:deal-summary', kwargs={'pk': deal_id}))
+        return redirect(reverse('deals:deal-summary-items', kwargs={'pk': deal_id}))
 
 
 class UpdateShutterStyle(UpdateView):
@@ -204,7 +204,7 @@ class UpdateShutterStyle(UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('deals:deal-summary', kwargs={'pk': self.get_object().deal_id})
+        return reverse('deals:deal-summary-items', kwargs={'pk': self.get_object().deal_id})
 
 
 # -----------------------------------------------
@@ -222,12 +222,14 @@ class DeleteItem(DeleteView):
 # -----------------------------------------------
 @login_required
 def deal_list(request, status):
+    tenant = tenant_from_request(request)
+
     if status == 'Deleted':
-        q = Deal.objects.filter(status='Deleted')
+        q = Deal.objects.filter(tenant_id=tenant.id, status='Deleted')
     elif status == 'Completed':
-        q = Deal.objects.filter(status='Completed')
+        q = Deal.objects.filter(tenant_id=tenant.id, status='Completed')
     else:
-        q = Deal.objects.filter(status='Active')
+        q = Deal.objects.filter(tenant_id=tenant.id, status='Active')
 
     filter = DealFilter(request.GET, queryset=q)
 
@@ -244,3 +246,10 @@ def deal_summary(request, pk):
     shutter = Shutter.objects.filter(deal_id=pk)
 
     return render(request, 'deals/deal_summary.html', {'customer': customer, 'deal': deal, 'items': shutter, 'price': price})
+
+
+def deal_summary_items(request, pk):
+    deal = Deal.objects.get(id=pk)
+    shutter = Shutter.objects.filter(deal_id=pk)
+
+    return render(request, 'deals/deal_summary_items.html', {'deal': deal, 'items': shutter})

@@ -17,28 +17,27 @@
       {% include "core/header.html" %}
       {% endblock %}
 
-      {% block navbar %}
-      {% include "core/navbar.html" %}
+      {% block sidebar %}
       {% endblock %}
 
-      <div id="content">
-        <div class="wrapper remove-padding">
-          <div id="{% block pageid %}{% endblock %}" class="container wrapper remove-padding">
-            <div class="row">
-              <div class="col">
-                <div class="content-title noprint">
-                  {% block contenttitle %}
-                  {% endblock %}
+      <div id="content" class="{% block contentclass %}{% endblock %}">
+        <div class="container wrapper remove-padding {% block containerclass %}main-container{% endblock %}">
+          <div class="row content-header noprint">
+            <div class="col">
+              <div class="content-title heading-md">
+              {% block contenttitle %}
+              {% endblock %}
+              </div>
 
-                  {% block menu %}
-                  {% endblock %}
-                </div>
-              </div> <!-- END col -->
-            </div> <!-- END row -->
-            {% block content %}
-            {{ content }}
-            {% endblock %}
-          </div>
+              {% block menu %}
+              {% endblock %}
+
+            </div> <!-- END col -->
+          </div> <!-- END row -->
+
+          {% block content %}
+          {{ content }}
+          {% endblock %}
         </div>
       </div> <!-- END content -->
 

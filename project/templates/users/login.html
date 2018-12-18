@@ -2,29 +2,18 @@
 {% load static %}
 {% load widget_tweaks %}
 
+{% block title %}Login{% endblock %}
+
 {% block pageclass %}login-page{% endblock %}
 
 {% block header %}
-  <header class="noprint">
-    <div class="wrapper clearfix">
-
-      <div id="header-logo">
-        <img src="{% static 'img/shutterize_logo.png' %}" alt="Shutterize Software">
-      </div> <!-- END logo -->
-
-      <div id="header-text">
-        <a href="" title="Shutterize" rel="home">Shutterize</a>
-      </div> <!-- END title -->
-
-      <div class="rf">
-        <a class="btn btn-radius btn-main" href="{% url 'admin:login' %}" role="button">Admin Login</a>
-      </div> <!-- END admin login button -->
-
-    </div>
-  </header>
+<header>
+  <div class="wrapper clearfix">
+    <a class="btn btn-outline" href="{% url 'admin:login' %}" role="button">Admin Login</a>
+  </div>
+</header>
 {% endblock %}
 
-{% block navbar %}{% endblock %}
 
 {% block content %}
 
@@ -40,23 +29,32 @@
   {% endif %}
 {% endif %}
 
-
 <div class="row">
-  <div class="col-7 col-md-5 col-lg-4 col-xl-3 auto-margin textcenter">
-    <form id="login-form" method="post">
-    {% csrf_token %}
-      <h3>User Login</h3>
-      <div>
-        {% render_field  form.username class="form-control input-username" placeholder=form.username.label %}
-      </div>
-      <div>
-        {% render_field  form.password class="form-control input-password" placeholder=form.password.label %}
-      </div>
-      <div>
-        <input class="btn btn-block" type="submit" value="Log in"/>
-      </div>
-    </form>
+  <div class="col-12 col-md-6">
+    <div id="login-form-section" class="wrapper">
+      <form id="login-form" class="textcenter" method="post">
+      {% csrf_token %}
+        <div id="login-form-logo">
+          <img src="{% static 'img/shutterize_logo.png' %}" alt="Shutterize Software">
+        </div><br>
+        <div>
+          {% render_field  form.username class="form-control input-username" placeholder=form.username.label %}
+        </div>
+        <div>
+          {% render_field  form.password class="form-control input-password" placeholder=form.password.label %}
+        </div>
+        <div>
+          <input class="btn btn-block" type="submit" value="Log in"/>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-6 sm-screen-hide">
+    <img class="gear-bg-img" src="{% static 'img/gear.png' %}" alt="Shutterize Software">
   </div>
 </div>
 
+{% endblock %}
+
+{% block footer %}
 {% endblock %}

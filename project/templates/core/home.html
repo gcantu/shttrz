@@ -1,28 +1,53 @@
-{% extends "core/base.html" %}
+{% extends "core/sidebar_template.html" %}
 {% load static %}
 {% load widget_tweaks %}
+
+{% block title %}Home{% endblock %}
+
+{% block pageclass %}sidebar-page home-page{% endblock %}
+
+{% block sidebar %}
+<div id="sidebar">
+  <nav class="side-nav">
+    <ul class="menu">
+      <!-- <li>
+        <a class="btn btn-block btn-inactive nf" href="" role="button"><i class="fas fa-chart-line"></i><br>Dashboard</a>
+      </li> -->
+      <li>
+        <a class="btn btn-active nf" href="" role="button"><i class="fas fa-list-ul"></i><br>Deals</a>
+      </li>
+    </ul>
+  </nav>
+</div> <!-- //main-head -->
+{% endblock %}
 
 {% block contenttitle %}{{ status }} Deals{% endblock %}
 
 {% block menu %}
   {% if status == "Active" %}
+    <a class="btn-icon-round" href="{% url 'deals:create-customer' %}" role="button"><i class="fas fa-plus"></i></a>
+
     <div id="filter-menu" class="dropdown rf">
-      <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">☰ Filters</a>
+      <a class="btn btn-pills dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">☰ Filters</a>
 
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
         {% include "deals/deal_filters.html" %}
       </div>
     </div> <!-- END filter menu -->
+
+    <button id="delete-deal-toggle" class="btn btn-pills">Delete</button>
+
   {% else %}
-    <a  class="icon-btn rf mt" type="button" href="{% url 'core:home' %}">< Go Back</a>
+    <a  class="btn btn-pills" role="button" href="{% url 'core:home' %}">< Go Back</a>
   {% endif %}
-  <hr>
 {% endblock %}
 
 {% block content %}
-<div id="dealList" class="row">
+<div class="row">
   <div class="col">
-    {% include "deals/deal_list.html" %}
+    <div class="card-section">
+      {% include "deals/deal_list.html" %}
+    </div>
   </div>
 </div>
 {% endblock %}

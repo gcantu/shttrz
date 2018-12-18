@@ -11,7 +11,7 @@ def proposal_report(request, pk):
     shutter = Shutter.objects.filter(deal_id=pk)
     price = Price.objects.get(pk=pk)
 
-    return render(request, 'reports/proposal_report.html', {'deal': deal, 'customer': customer, 'price': price, 'items': shutter, 'report': 'Proposal', 'page_id': 'proposalPage'})
+    return render(request, 'reports/proposal_report.html', {'deal': deal, 'customer': customer, 'price': price, 'items': shutter, 'report': 'Proposal', 'page_class': 'proposal-page'})
 
 
 def manufacturing_report(request, pk, type):
@@ -37,7 +37,7 @@ def manufacturing_report(request, pk, type):
         else:
             specs[fieldname[i]] = ''
 
-    return render(request, template, {'deal': deal, 'customer': customer, 'items': shutter, 'material': material, 'report': 'Manufacturing Report', 'specs': specs, 'page_id': 'manufacturingPage', 'page_class': 'landscape'})
+    return render(request, template, {'deal': deal, 'customer': customer, 'items': shutter, 'material': material, 'report': 'Manufacturing Report', 'specs': specs, 'page_class': 'manufacturing-page'})
 
 
 def invoice_report(request, pk):
@@ -46,4 +46,4 @@ def invoice_report(request, pk):
     shutter = Shutter.objects.filter(deal_id=pk)
     price = Price.objects.get(pk=pk)
 
-    return render(request, 'reports/invoice_report.html', {'deal': deal, 'customer': customer, 'price': price, 'items': shutter, 'report': 'Invoice', 'page_id': 'invoicePage'})
+    return render(request, 'reports/invoice_report.html', {'deal': deal, 'customer': customer, 'price': price, 'items': shutter, 'report': 'Invoice', 'page_class': 'invoice-page'})

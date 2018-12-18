@@ -2,19 +2,20 @@
 {% load widget_tweaks %}
 {% load static %}
 
-{% block pageid %}customerFormPage{% endblock %}
+{% block title %}Customer Form{% endblock %}
 
-{% block contenttitle %}Create Customer<hr>{% endblock %}
+{% block pageclass %}form-page customer-form-page{% endblock %}
+
+{% block contenttitle %}Customer Form{% endblock %}
 
 {% block content %}
 <div class="row">
   <div class="col">
-    <form id="customer-form" method="post">
-      {% csrf_token %}
-      {{ form.tenant.as_hidden }}
-      <div class="section">
-        <div class="section-wrapper">
-
+    <div class="card-section">
+      <form id="customer-form" method="post">
+        {% csrf_token %}
+        {{ form.tenant.as_hidden }}
+        <div class="section wrapper">
           <div class="form-row">
             <div class="form-group col-sm-6">
               {% render_field  form.first_name class="form-control" placeholder=form.first_name.label %}
@@ -54,12 +55,12 @@
             </div>
           </div>
 
-          <button type="submit" class="btn-submit btn-block">
+          <button type="submit" class="btn btn-block">
             <i class="fas fa-user-plus"></i>
           </button>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </div>
 {% endblock %}

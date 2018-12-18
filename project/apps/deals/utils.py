@@ -1,4 +1,4 @@
-from shutters.models import Deal
+from .models import Deal
 import django_filters
 
 
