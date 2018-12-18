@@ -10,7 +10,7 @@ from blinds.models import Blind
 from shades.models import Shade
 from sunscreens.models import Sunscreen
 from customers.models import Customer
-from forms.forms import DealForm, CustomerForm, ShutterForm, PriceForm
+from forms.forms import DealForm, CustomerForm, ShutterForm, PriceForm, BlindForm, ShadeForm, SunscreenForm
 from .utils import DealFilter
 
 # -----------------------------------------------
@@ -49,12 +49,58 @@ class CreateShutterItem(CustomCreateView):
         return reverse('deals:create-shutter-item', kwargs={'deal_id': self.object.deal_id})
 
 
+class CreateBlindItem(CustomCreateView):
+    form_class = BlindForm
+    model = Blind
+    template_name = "products/product_form.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['items'] = Blind.objects.filter(deal_id=self.kwargs.get('deal_id'))
+        context['product'] = 'Blinds'
+        return context
+
+    def get_success_url(self):
+        return reverse('deals:create-blind-item', kwargs={'deal_id': self.object.deal_id})
+
+
+class CreateShadeItem(CustomCreateView):
+    form_class = ShadeForm
+    model = Shade
+    template_name = "products/product_form.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['items'] = Shade.objects.filter(deal_id=self.kwargs.get('deal_id'))
+        context['product'] = 'Shades'
+        return context
+
+    def get_success_url(self):
+        return reverse('deals:create-shade-item', kwargs={'deal_id': self.object.deal_id})
+
+
+class CreateSunscreenItem(CustomCreateView):
+    form_class = SunscreenForm
+    model = Sunscreen
+    template_name = "products/product_form.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['items'] = Sunscreen.objects.filter(deal_id=self.kwargs.get('deal_id'))
+        context['product'] = 'Sunscreens'
+        return context
+
+    def get_success_url(self):
+        return reverse('deals:create-sunscreen-item', kwargs={'deal_id': self.object.deal_id})
+
+
 def new_deal(request, customer_id):
     tenant = tenant_from_request(request)
     deal = Deal.objects.create(tenant_id=tenant.id, agent=request.user, measured_by=request.user, customer_id=customer_id)
     price = Price.objects.create(deal_id=deal.id, tenant_id=tenant.id)
     material = Material.objects.create(deal_id=deal.id, tenant_id=tenant.id)
-    return redirect(reverse('deals:create-shutter-item', kwargs={'deal_id': deal.id}))
+    # return redirect(reverse('deals:create-shutter-item', kwargs={'deal_id': deal.id}))
+    return redirect(reverse('deals:select-product', kwargs={'deal_id': deal.id}))
 
 
 def deal_specs(request, deal_id):
@@ -263,3 +309,10 @@ def deal_summary_items(request, pk):
     shutter = Shutter.objects.filter(deal_id=pk)
 
     return render(request, 'deals/deal_summary_items.html', {'deal': deal, 'items': shutter})
+
+
+# -----------------------------------------------
+# OTHER PRODUCTS
+# -----------------------------------------------
+def select_product(request, deal_id):
+    return render(request, 'products/select_product.html', {'deal_id': deal_id})

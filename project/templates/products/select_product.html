@@ -1,0 +1,22 @@
+{% extends "core/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block title %}Select Product{% endblock %}
+
+{% block pageclass %}select-product-page{% endblock %}
+
+{% block contenttitle %}Select Product{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col">
+    <div class="card-section textcenter">
+      <a class="btn nf btn-block" type="button" href="{% url 'deals:create-shutter-item' deal_id %}">Shutters</a>
+      <a class="btn nf btn-block" type="button" href="{% url 'deals:create-blind-item' deal_id %}">Blinds</a>
+      <a class="btn nf btn-block" type="button" href="{% url 'deals:create-shade-item' deal_id %}">Shades</a>
+      <a class="btn nf btn-block" type="button" href="{% url 'deals:create-sunscreen-item' deal_id %}">Sunscreens</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

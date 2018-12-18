@@ -2,6 +2,9 @@ from django.forms import ModelForm
 from deals.models import Deal, Price
 from customers.models import Customer
 from shutters.models import Shutter
+from blinds.models import Blind
+from shades.models import Shade
+from sunscreens.models import Sunscreen
 from tenants.utils import tenant_from_request
 from django.contrib.auth import get_user_model
 from django.forms.widgets import TextInput
@@ -57,3 +60,21 @@ class ShutterForm(ModelForm):
     class Meta:
         model = Shutter
         exclude = ['frame_style', 'product', 'default_style']
+
+
+class BlindForm(ModelForm):
+    class Meta:
+        model = Blind
+        exclude = ['product']
+
+
+class ShadeForm(ModelForm):
+    class Meta:
+        model = Shade
+        exclude = ['product']
+
+
+class SunscreenForm(ModelForm):
+    class Meta:
+        model = Sunscreen
+        exclude = ['product']

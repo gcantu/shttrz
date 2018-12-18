@@ -19,4 +19,9 @@ urlpatterns = [
     path('<status>', views.deal_list, name='deal-list'),
     path('summary/<int:pk>', views.deal_summary, name='deal-summary'),
     path('summary_items/<int:pk>', views.deal_summary_items, name='deal-summary-items'),
+
+    path('select_product/<int:deal_id>', views.select_product, name='select-product'),
+    path('create_blind_item/<int:deal_id>', views.CreateBlindItem.as_view(), name='create-blind-item'),
+    path('create_shade_item/<int:deal_id>', views.CreateShadeItem.as_view(), name='create-shade-item'),
+    path('create_sunscreen_item/<int:deal_id>', views.CreateSunscreenItem.as_view(), name='create-sunscreen-item'),
 ]
