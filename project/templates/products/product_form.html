@@ -119,7 +119,20 @@
 
         </div> <!-- END container -->
       </form><br> <!-- END form -->
-    </div><br> <!-- END section -->
+    </div> <!-- END section -->
   </div> <!-- END col -->
 </div><br> <!-- END row -->
+
+{% if items %}
+<div class="row">
+  <div class="col">
+    <div class="card-section wrapper">
+      {% include 'products/product_detail.html' %}<br>
+
+      <a class="btn" href="{% url 'deals:deal-specs' form.deal.value %}" role="button">Continue</a><br><br>
+    </div>
+  </div>
+</div>
+{% endif %}
+
 {% endblock %}

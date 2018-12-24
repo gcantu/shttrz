@@ -1,0 +1,45 @@
+{% load widget_tweaks %}
+
+<div class="scroll-section">
+  <table id="shutter-detail-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Product</th>
+        {% if items.0.product == "Blinds" %}
+          <th>Color</th>
+          <th>Faux Wood Style</th>
+        {% endif %}
+        <th>Location</th>
+        <th>Width</th>
+        <th>Height</th>
+        <th>Price/Sq. Ft.</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+
+        {% if item.product == "Sunscreens" %}
+          <td>{{ item.sunscreen_type }}</td>
+        {% elif item.product == "Blinds" %}
+          <td>{{ item.blind_type }}</td>
+          <td>{{ item.color|title }}</td>
+          <td>{{ item.faux_wood_style|default_if_none:"" }}</td>
+        {% elif item.product == "Shades" %}
+          <td>{{ item.shade_type }}</td>
+        {% endif %}
+
+        <td>{{ item.location|title }}</td>
+        <td>{{ item.width }} {{ item.get_width_fraction_display }}</td>
+        <td>{{ item.height|default_if_none:"" }} {{ item.get_height_fraction_display }}</td>
+        <td>$ {{ item.price_per_sq_ft }}</td>
+        <td>$ {{ item.total_price }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

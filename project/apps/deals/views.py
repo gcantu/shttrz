@@ -299,16 +299,20 @@ def deal_summary(request, pk):
     deal = Deal.objects.get(id=pk)
     price = Price.objects.get(deal_id=pk)
     customer = Customer.objects.get(id=deal.customer_id)
-    shutter = Shutter.objects.filter(deal_id=pk)
 
-    return render(request, 'deals/deal_summary.html', {'customer': customer, 'deal': deal, 'items': shutter, 'price': price})
+    return render(request, 'deals/deal_summary.html', {'customer': customer, 'deal': deal, 'price': price})
 
 
 def deal_summary_items(request, pk):
     deal = Deal.objects.get(id=pk)
     shutter = Shutter.objects.filter(deal_id=pk)
+    blind = Blind.objects.filter(deal_id=pk)
+    shade = Shade.objects.filter(deal_id=pk)
+    sunscreen = Sunscreen.objects.filter(deal_id=pk)
 
-    return render(request, 'deals/deal_summary_items.html', {'deal': deal, 'items': shutter})
+    product_list = [blind, shade, sunscreen]
+
+    return render(request, 'deals/deal_summary_items.html', {'deal': deal, 'items': shutter, 'product_list': product_list})
 
 
 # -----------------------------------------------
