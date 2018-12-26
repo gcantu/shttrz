@@ -65,16 +65,19 @@ class ShutterForm(ModelForm):
 class BlindForm(ModelForm):
     class Meta:
         model = Blind
-        exclude = ['product']
+        # exclude = ['product']
+        fields = '__all__'
 
 
 class ShadeForm(ModelForm):
     class Meta:
         model = Shade
-        exclude = ['product']
+        # exclude = ['product']
+        fields = '__all__'
 
 
 class SunscreenForm(ModelForm):
     class Meta:
         model = Sunscreen
-        exclude = ['product']
+        # exclude = ['product']
+        fields = '__all__'

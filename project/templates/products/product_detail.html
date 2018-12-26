@@ -4,6 +4,8 @@
   <table id="shutter-detail-table">
     <thead>
       <tr>
+        <th class="hidden edit-hidden-btn"></th>
+        <th class="hidden delete-hidden-btn"></th>
         <th>#</th>
         <th>Product</th>
         {% if items.0.product == "Blinds" %}
@@ -21,6 +23,31 @@
     <tbody>
       {% for item in items %}
       <tr>
+
+        <td class="hidden edit-hidden-btn">
+          {% with prod=item.product|stringformat:"s"|lower %}
+          {% with 'deals:update-'|add:prod|add:'-item' as prod_url %}
+            <a class="icon-btn" type="button" href="{% url prod_url item.id item.deal_id %}">
+              <i class="fas fa-pencil-alt"></i>
+            </a>
+          {% endwith %}
+          {% endwith %}
+        </td>
+
+        <td class="hidden delete-hidden-btn">
+          {% with prod=item.product|stringformat:"s"|lower %}
+          {% with 'deals:delete-'|add:prod|add:'-item' as prod_url %}
+            <a class="icon-btn" type="button" href="{% url prod_url item.id %}">
+              <i class="fas fa-times"></i>
+            </a>
+          {% endwith %}
+          {% endwith %}
+
+          <!-- <a class="icon-btn btn-delete" type="button" href="{% url 'deals:delete-shutter-item' item.id %}">
+            <i class="fas fa-times"></i> -->
+          </a>
+        </td>
+
         <td>{{ forloop.counter }}</td>
 
         {% if item.product == "Sunscreens" %}

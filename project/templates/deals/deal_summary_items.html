@@ -13,20 +13,19 @@
 {% block menu %}
 <div id="content-menu" class="rf">
   <a class="btn-icon-round" href="{% url 'deals:select-product' deal.id %}" role="button"><i class="fas fa-plus"></i></a>
+
+  <button id="edit-item-button" class="btn-icon-round"><i class="fas fa-pencil-alt"></i></button>
+
+  <button id="delete-item-button" class="btn-icon-round"><i class="fas fa-trash-alt"></i></button>
 </div>
 {% endblock %}
 
 {% block content %}
+<br>
 <div class="row">
   <div class="col">
     <div class="card-section">
       <div class="heading-md">Shutters
-
-      <!-- <a class="btn-icon-round" href="{% url 'deals:create-shutter-item' deal.id %}" role="button"><i class="fas fa-plus"></i></a> -->
-
-      <button id="delete-item-button" class="btn btn-outline">Delete</button>
-
-      <button id="edit-item-button" class="btn btn-outline">Edit</button>
 
       <button id="style-item-button" class="btn btn-outline">Style</button>
       </div>
@@ -38,6 +37,7 @@
 </div><br>
 
 {% for items in product_list %}
+{% if items.0.product %}
 <div class="row">
   <div class="col">
     <div class="card-section">
@@ -48,6 +48,7 @@
     </div>
   </div>
 </div><br>
+{% endif %}
 {% endfor %}
 
 {% endblock %}

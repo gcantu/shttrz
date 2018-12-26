@@ -65,7 +65,7 @@ html, body {
 #content {
    padding-bottom:60px; /* Height of the footer */
 	 height: 100%;
-	 padding-top: 70px;
+	 padding-top: 80px;
 }
 
 .sidebar-page {
@@ -326,7 +326,7 @@ header .col {
 }
 
 .deal-summary-items-page .btn-outline {
-	margin-left: 20px;
+	min-height: 33px;
 	min-width: 85px;
 }
 
@@ -714,8 +714,11 @@ ul.nav-tabs .nav-item a.active {
 	border-radius: 100%;
 	display: inline-block;
   font-size: 17px;
-	padding: 3px 7px 1px 7px;
-	margin-left: 10px;
+	padding-top: 5px;
+	padding-right: 9px;
+	padding-bottom: 3px;
+	padding-left: 9px;
+	margin-left: 30px;
   background-color: #25b4c1;
   text-align: center;
 }
@@ -1224,16 +1227,18 @@ and (-webkit-min-device-pixel-ratio: 1){
 	}
 
   .btn-icon-round {
-    width: 44px;
-    height: 44px;
     font-size: 20px;
-    padding-top: 8px;
+    padding-top: 5px;
+		padding-right: 11px;
+		padding-bottom: 6px;
+		padding-left: 12px;
 		margin-top: -10px;
+		vertical-align: middle;
   }
 
-	.deal-summary-items-page .btn-outline {
-		margin-top: -10px;
-	}
+	.btn-icon-round i {
+		vertical-align: middle;
+  }
 
   .btn-pills {
     min-width: 120px;

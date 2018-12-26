@@ -150,12 +150,32 @@ class UpdateCustomer(UpdateView):
         return reverse('deals:deal-summary', kwargs={'pk': self.kwargs.get('deal_id')})
 
 
-class UpdateShutterItem(UpdateView):
+class UpdateProductItemView(UpdateView):
+    def get_success_url(self):
+        return reverse('deals:deal-specs', kwargs={'deal_id': self.kwargs.get('deal_id')})
+
+
+class UpdateShutterItem(UpdateProductItemView):
     model = Shutter
     form_class = ShutterForm
 
-    def get_success_url(self):
-        return reverse('deals:deal-specs', kwargs={'deal_id': self.kwargs.get('deal_id')})
+
+class UpdateBlindItem(UpdateProductItemView):
+    model = Blind
+    form_class = BlindForm
+    template_name = "products/product_form.html"
+
+
+class UpdateShadeItem(UpdateProductItemView):
+    model = Shade
+    form_class = ShadeForm
+    template_name = "products/product_form.html"
+
+
+class UpdateSunscreenItem(UpdateProductItemView):
+    model = Sunscreen
+    form_class = SunscreenForm
+    template_name = "products/product_form.html"
 
 
 class UpdateDeal(UpdateView):
@@ -266,11 +286,24 @@ class UpdateShutterStyle(UpdateView):
 # -----------------------------------------------
 # DELETE VIEWS
 # -----------------------------------------------
-class DeleteItem(DeleteView):
-    model = Shutter
-
+class DeleteItemView(DeleteView):
     def get_success_url(self):
         return reverse('deals:deal-specs', kwargs={'deal_id': self.get_object().deal_id})
+
+class DeleteShutterItem(DeleteItemView):
+    model = Shutter
+
+class DeleteBlindItem(DeleteItemView):
+    model = Blind
+    template_name = 'products/product_confirm_delete.html'
+
+class DeleteShadeItem(DeleteItemView):
+    model = Shade
+    template_name = 'products/product_confirm_delete.html'
+
+class DeleteSunscreenItem(DeleteItemView):
+    model = Sunscreen
+    template_name = 'products/product_confirm_delete.html'
 
 
 # -----------------------------------------------

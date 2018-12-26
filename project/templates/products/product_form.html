@@ -16,10 +16,11 @@
       {% csrf_token %}
       {{ form.deal.as_hidden }}
       {{ form.tenant.as_hidden }}
+      {{ form.product.as_hidden }}
         <div class="container">
 
           <div class="row">
-            {% if product == "Sunscreens" %}
+            {% if product == "Sunscreens" or form.product.value == "Sunscreens" %}
               <div class="col-8">
                 <div class="form-section">
                   <div class="form-row">
@@ -51,7 +52,7 @@
               <div class="col-12">
                 <div class="form-section">
                   <div class="form-row">
-                    {% if product == "Blinds" %}
+                    {% if product == "Blinds" or form.product.value == "Blinds" %}
                       <div class="col-7">
                       {{ form.blind_type.label_tag }}
                       {% render_field  form.blind_type class="custom-select mr-sm-2" %}
@@ -64,7 +65,7 @@
                       {{ form.color.label_tag }}
                       {% render_field  form.color class="form-control" %}
                       </div>
-                    {% elif product == "Shades" %}
+                    {% elif product == "Shades" or form.product.value == "Shades" %}
                       <div class="col-6">
                         {{ form.shade_type.label_tag }}
                         {% render_field  form.shade_type class="custom-select mr-sm-2" %}
