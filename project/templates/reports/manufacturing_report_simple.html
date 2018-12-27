@@ -85,11 +85,8 @@
   </tbody>
 </table><br>
 
-{% regroup items by shutter_type as prod_list %}
-{% for shutter_type in prod_list %}
-  <div class="heading-sm">{{ shutter_type.grouper }}</div>
-  {% include "reports/manufacturing_report_table.html" %}
-{% endfor %}
+
+{% include "reports/manufacturing_report_table.html" %}
 
 
 <!-- ORDER MATERIALS -->

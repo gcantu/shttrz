@@ -139,6 +139,24 @@ $('input:checkbox').on('change', function() {
     }
 });
 
+// Other Products
+$('#id_sunscreen_type').on('change', function() { // render shutter model image
+  var model = "/static/img/grid" + $(this).val() + ".png";
+  $(".product-img-section").removeClass("hidden");
+  $('.product-img').prop('src', model);
+});
+
+$('#id_blind_type').on('change', function() { // show stain field when finish = 'stain'
+  var selectedItem = $(this).val();
+
+  if (selectedItem == 2) {
+    $(".faux-wood-field").removeClass("hidden");
+  } else {
+    $(".faux-wood-field").addClass("hidden");
+    $("#id_faux_wood_style").val("");
+  }
+});
+
 
 // FUNCTIONS
 function showMeasureField(val){ // function to render hidden fields in line item form
