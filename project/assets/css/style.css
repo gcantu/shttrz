@@ -204,6 +204,7 @@ header .col {
   background: #fff;
 	margin-top: 70px;
   box-shadow: 8px 12px 13px -4px rgba(0,0,0,0.2);
+	border-right: 0.5px solid #aeb2b7;
 }
 
 .side-nav li a {
@@ -346,6 +347,10 @@ header .col {
 .invoice-page .nav-tabs {
 	min-width: 815px;
 	max-width: 950px;
+}
+
+.manufacturing-page #content {
+	overflow: scroll;
 }
 
 .manufacturing-page .main-container,
@@ -948,8 +953,13 @@ table thead {
 	border-right: 0.5px solid #aeb2b7;
 }
 
+#manufacturing-table th{
+	border-bottom: 0.5px solid #aeb2b7;
+}
+
 #manufacturing-table {
 	border: 0.5px solid #aeb2b7;
+	font-size: 12px;
 }
 
 #manufacturing-specs-table {
@@ -1142,7 +1152,6 @@ and (-webkit-min-device-pixel-ratio: 1){
 	}
 
 	#report-template,
-	#manufacturing-table,
 	#shutter-detail-table {
 		font-size: 13px;
 	}

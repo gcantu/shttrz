@@ -1,99 +1,57 @@
 <table id="manufacturing-table">
   <thead>
     <tr>
-      <th>No.</th>
+      <th colspan=3></th>
+      <th colspan=2>L Frame</th>
+      <th colspan=4>Height</th>
+      <th colspan=12></th>
+    </tr>
+
+    <tr>
+      <th>#</th>
+      <th>Mod.</th>
       <th>Location</th>
       <th>Width</th>
       <th>Height</th>
-
-      {% if shutter_type.grouper.id > 11 %}
       <th>Left</th>
       <th>Right</th>
-      {% endif %}
-
-      {% if shutter_type.grouper.id > 12 %}
       <th>Center</th>
-      {% endif %}
-
+      <th>Panel</th>
       <th colspan=2>Louver</th>
       <th colspan=2>Rail</th>
       <th colspan=2>Stile</th>
-
-      {% if shutter_type.grouper.id != 4 %}
       <th>Trim</th>
-      {% endif %}
-
-      <th>Tilt Rod</th>
-
-      {% if shutter_type.grouper.id == 4 %}
-      <th>Trod Split</th>
-      <th>Door Knob</th>
-      <th>Cut Out</th>
-      <th>Resaque</th>
-      {% endif %}
-
+      <th>T-rod</th>
       <th>Divider</th>
-
-      {% if shutter_type.grouper.id == 1 or shutter_type.grouper.id == 5 or shutter_type.grouper.id == 7 or shutter_type.grouper.id == 12 or shutter_type.grouper.id == 14 %}
       <th>Pnls</th>
       <th>T-post</th>
-      {% endif %}
-
-
-
       <th>Hinges</th>
-
     </tr>
   </thead>
 
   <tbody>
-    {% for item in shutter_type.list %}
+    {% for item in items %}
     <tr>
       <td>{{ forloop.counter }}</td>
+      <td># {{ item.shutter_type_id }}</td>
       <td>{{ item.location|title }}</td>
       <td>{{ item.l_frame_width }}</td>
       <td>{{ item.l_frame_height }}</td>
-
-
-      {% if shutter_type.grouper.id > 11 %}
       <td>{{ item.l_frame_height_left|default_if_none:"" }}</td>
       <td>{{ item.l_frame_height_right|default_if_none:"" }}</td>
-      {% endif %}
-
-
-      {% if shutter_type.grouper.id > 12 %}
       <td>{{ item.l_frame_height_center|default_if_none:"" }}</td>
-      {% endif %}
-
+      <td>{{ item.l_frame_height_panel|default_if_none:"" }}</td>
       <td>{{ item.louver_qty }}</td>
       <td>{{ item.louver_measure }}</td>
       <td>{{ item.rail_qty }}</td>
       <td>{{ item.rail_measure }}</td>
       <td>{{ item.stile_qty }}</td>
       <td>{{ item.stile_measure }}</td>
-
-      {% if shutter_type.grouper.id != 4 %}
       <td>{{ item.frame|default_if_none:"" }}</td>
-      {% endif %}
-
       <td>{{ item.tilt_rod_measure }}</td>
-
-      {% if shutter_type.grouper.id == 4 %}
-      <td>{{ item.height_tilt_rod_split|default_if_none:"" }} {{ item.get_height_tilt_rod_split_fraction_display }}</td>
-      <td>{{ item.height_door_knob|default_if_none:"" }} {{ item.get_height_door_knob_fraction_display }}</td>
-      <td>{{ item.door_handle_cutout|default_if_none:"" }}</td>
-      <td>{{ item.get_inset_lframe_display|default_if_none:"" }}</td>
-      {% endif %}
-
-
       <td>{{ item.height_divider|default_if_none:"" }} {{ item.get_height_divider_fraction_display }}</td>
-
-      {% if shutter_type.grouper.id == 1 or shutter_type.grouper.id == 5 or shutter_type.grouper.id == 7 or shutter_type.grouper.id == 12 or shutter_type.grouper.id == 14 %}
       <td>{{ item.panels }}</td>
       <td>{{ item.t_post|default_if_none:"" }}</td>
-      {% endif %}
-
-
       <td>{{ item.hinges }}</td>
 
     </tr>
