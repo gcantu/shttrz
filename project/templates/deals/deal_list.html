@@ -20,7 +20,7 @@
       <td>{{ obj.customer }}</td>
       <td>{{ obj.created_date.date }}</td>
       <td>{{ obj.install_date }}</td>
-      <td>$ {{ obj.price.total|intcomma }}</td>
+      <td>$ {{ obj.price.total|floatformat|intcomma }}</td>
       <td>{{ obj.status }}</td>
       <td class="no-padding goto-deal-btn">
       {% if status == 'Deleted' %}
