@@ -15,8 +15,64 @@
   </tbody>
 </table><br>
 
-
+<div class="heading-sm">Window Shutters</div>
 {% include "reports/manufacturing_report_table.html" %}
+
+{% if door_shutter %}
+<div class="scroll-section">
+  <div class="heading-sm">Door Shutters</div>
+
+  <table id="manufacturing-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Mod.</th>
+        <th>Location</th>
+        <th>Width</th>
+        <th>Height</th>
+        <th>Door Knob</th>
+        <th>Cut Out</th>
+        <th>Resaque</th>
+        <th colspan=2>Louver</th>
+        <th colspan=2>Rail</th>
+        <th colspan=2>Stile</th>
+        <th>T-rod</th>
+        <th>Trod Split</th>
+        <th>Divider</th>
+        <th>Hinges</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for item in door_shutter %}
+      <tr>
+        {% with item_count=items|length %}
+        <td>{{ forloop.counter|add:item_count }}</td>
+        {% endwith %}
+
+        <td># {{ item.shutter_type_id }}</td>
+        <td>{{ item.location|title }}</td>
+        <td>{{ item.l_frame_width }}</td>
+        <td>{{ item.l_frame_height }}</td>
+        <td>{{ item.height_door_knob|default_if_none:"" }} {{ item.get_height_door_knob_fraction_display }}</td>
+        <td>{{ item.door_handle_cutout|default_if_none:"" }}</td>
+        <td>{{ item.get_inset_lframe_display|default_if_none:"" }}</td>
+        <td>{{ item.louver_qty }}</td>
+        <td>{{ item.louver_measure }}</td>
+        <td>{{ item.rail_qty }}</td>
+        <td>{{ item.rail_measure }}</td>
+        <td>{{ item.stile_qty }}</td>
+        <td>{{ item.stile_measure }}</td>
+        <td>{{ item.tilt_rod_measure }}</td>
+        <td>{{ item.height_tilt_rod_split|default_if_none:"" }} {{ item.get_height_tilt_rod_split_fraction_display }}</td>
+        <td>{{ item.height_divider|default_if_none:"" }} {{ item.get_height_divider_fraction_display }}</td>
+        <td>{{ item.hinges }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div><br>
+{% endif %}
 
 
 <!-- ORDER MATERIALS -->

@@ -25,7 +25,8 @@ def proposal_report(request, pk):
 def manufacturing_report(request, pk, product):
     deal = Deal.objects.get(pk=pk)
     customer = Customer.objects.get(deal__id=pk)
-    shutter = Shutter.objects.filter(deal_id=pk).order_by('shutter_type_id')
+    shutter = Shutter.objects.filter(deal_id=pk).exclude(shutter_type_id=4).order_by('shutter_type_id')
+    door_shutter = Shutter.objects.filter(deal_id=pk).filter(shutter_type_id=4)
     blind = Blind.objects.filter(deal_id=pk)
     shade = Shade.objects.filter(deal_id=pk)
     sunscreen = Sunscreen.objects.filter(deal_id=pk)
@@ -52,7 +53,7 @@ def manufacturing_report(request, pk, product):
         else:
             specs[fieldname[i]] = ''
 
-    return render(request, 'reports/manufacturing_report.html', {'deal': deal, 'customer': customer, 'items': shutter, 'material': material, 'report': 'Manufacturing Report', 'specs': specs, 'page_class': 'manufacturing-page', 'product_list': product_list, 'product': product})
+    return render(request, 'reports/manufacturing_report.html', {'deal': deal, 'customer': customer, 'items': shutter, 'material': material, 'report': 'Manufacturing Report', 'specs': specs, 'page_class': 'manufacturing-page', 'product_list': product_list, 'product': product, 'door_shutter': door_shutter})
 
 
 def invoice_report(request, pk):
