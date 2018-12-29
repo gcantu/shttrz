@@ -2,6 +2,9 @@ from django.shortcuts import render
 from customers.models import Customer
 from deals.models import Deal, Price
 from shutters.models import Shutter, Material
+from blinds.models import Blind
+from shades.models import Shade
+from sunscreens.models import Sunscreen
 from django.db.models import Count
 from shutters.utils import as_fraction
 
@@ -9,18 +12,30 @@ def proposal_report(request, pk):
     deal = Deal.objects.get(pk=pk)
     customer = Customer.objects.get(deal__id=pk)
     shutter = Shutter.objects.filter(deal_id=pk)
+    blind = Blind.objects.filter(deal_id=pk)
+    shade = Shade.objects.filter(deal_id=pk)
+    sunscreen = Sunscreen.objects.filter(deal_id=pk)
     price = Price.objects.get(pk=pk)
 
-    return render(request, 'reports/proposal_report.html', {'deal': deal, 'customer': customer, 'price': price, 'items': shutter, 'report': 'Proposal', 'page_class': 'proposal-page'})
+    product_list = [shutter, blind, shade, sunscreen]
+
+    return render(request, 'reports/proposal_report.html', {'deal': deal, 'customer': customer, 'price': price, 'items': shutter, 'report': 'Proposal', 'page_class': 'proposal-page', 'product_list': product_list})
 
 
-def manufacturing_report(request, pk, type):
+def manufacturing_report(request, pk, product):
     deal = Deal.objects.get(pk=pk)
     customer = Customer.objects.get(deal__id=pk)
     shutter = Shutter.objects.filter(deal_id=pk).order_by('shutter_type_id')
+    blind = Blind.objects.filter(deal_id=pk)
+    shade = Shade.objects.filter(deal_id=pk)
+    sunscreen = Sunscreen.objects.filter(deal_id=pk)
     material = Material.objects.get(pk=pk)
 
-    template = 'reports/manufacturing_report.html' if type == 'Detailed' else 'reports/manufacturing_report_simple.html'
+    product_list = []
+    product_list.append(shutter) if shutter else None
+    product_list.append(blind) if blind else None
+    product_list.append(shade) if shade else None
+    product_list.append(sunscreen) if sunscreen else None
 
     fieldname = ['louver', 'finish', 'color', 'stain', 'frame_style', 'trim_style', 'tilt_rod', 'hinge_color']
 
@@ -37,13 +52,18 @@ def manufacturing_report(request, pk, type):
         else:
             specs[fieldname[i]] = ''
 
-    return render(request, template, {'deal': deal, 'customer': customer, 'items': shutter, 'material': material, 'report': 'Manufacturing Report', 'specs': specs, 'page_class': 'manufacturing-page'})
+    return render(request, 'reports/manufacturing_report.html', {'deal': deal, 'customer': customer, 'items': shutter, 'material': material, 'report': 'Manufacturing Report', 'specs': specs, 'page_class': 'manufacturing-page', 'product_list': product_list, 'product': product})
 
 
 def invoice_report(request, pk):
     deal = Deal.objects.get(pk=pk)
     customer = Customer.objects.get(deal__id=pk)
     shutter = Shutter.objects.filter(deal_id=pk)
+    blind = Blind.objects.filter(deal_id=pk)
+    shade = Shade.objects.filter(deal_id=pk)
+    sunscreen = Sunscreen.objects.filter(deal_id=pk)
     price = Price.objects.get(pk=pk)
 
-    return render(request, 'reports/invoice_report.html', {'deal': deal, 'customer': customer, 'price': price, 'items': shutter, 'report': 'Invoice', 'page_class': 'invoice-page'})
+    product_list = [shutter, blind, shade, sunscreen]
+
+    return render(request, 'reports/invoice_report.html', {'deal': deal, 'customer': customer, 'price': price, 'items': shutter, 'report': 'Invoice', 'page_class': 'invoice-page', 'product_list': product_list})

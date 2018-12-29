@@ -349,13 +349,9 @@ header .col {
 	max-width: 950px;
 }
 
-.manufacturing-page #content {
-	overflow: scroll;
-}
-
 .manufacturing-page .main-container,
 .manufacturing-page .nav-tabs {
-	min-width: 930px;
+	min-width: 920px;
 	max-width: 1200px;
 }
 
@@ -374,7 +370,7 @@ header .col {
 
 .manufacturing-page .card-section,
 .manufacturing-page #report-template {
-	padding: 10px;
+	padding: 10px 5px;
 }
 
 #report-template p {
@@ -953,6 +949,15 @@ table thead {
 	text-align:left;
 }
 
+#proposal-table tr {
+	height: 25px;
+}
+
+#proposal-table td:last-child,
+#proposal-table th:last-child {
+	text-align:right;
+}
+
 #manufacturing-table th,
 #manufacturing-table td {
 	border-right: 0.5px solid #aeb2b7;
@@ -1109,6 +1114,14 @@ ul, li {
 	.sidebar-content {
 		margin-left: 0;
 		margin-right: 0;
+	}
+
+	hr {
+		border-bottom: 0.5px solid #000;
+	}
+
+	.section {
+		border: 0.5px solid #000;
 	}
 
 }

@@ -22,6 +22,7 @@
 
 {% block content %}
 <br>
+{% if items %}
 <div class="row">
   <div class="col">
     <div class="card-section">
@@ -35,6 +36,7 @@
     </div>
   </div>
 </div><br>
+{% endif %}
 
 {% for items in product_list %}
 {% if items.0.product %}

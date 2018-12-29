@@ -1,0 +1,39 @@
+<table id="manufacturing-specs-table">
+  <tbody>
+    {% for item in items %}
+    {% if forloop.first %}
+    <tr>
+      <th>Louver:</th><td>{{ item.get_louver_display }}</td>
+      <th>Mount:</th><td>{{ item.frame_style }}</td>
+      <th>Trim:</th><td>{{ item.trim_style|default_if_none:"" }}</td>
+      <th>Tilt Rod:</th><td>{{ item.tilt_rod }}</td>
+      <th>Finish:</th><td>{{ item.finish }} - {{ item.stain|default_if_none:"" }}, {{ item.color|default_if_none:"" }}</td>
+      <th>Hinges:</th><td>{{ item.hinge_color }}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+  </tbody>
+</table><br>
+
+
+{% include "reports/manufacturing_report_table.html" %}
+
+
+<!-- ORDER MATERIALS -->
+<div>
+  <div class="heading-sm">Materials:</div>
+  <table>
+    <thead>
+      <tr>{% for field, val in material %}<th>{{ field }}</th>{% endfor %}</tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        {% for field, val in material %}
+        <td>{{ val }} {% if forloop.counter < 7 %}ft.{% endif %}</td>
+        {% endfor %}
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- END ORDER MATERIALS -->
