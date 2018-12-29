@@ -164,7 +164,7 @@ function showMeasureField(val){ // function to render hidden fields in line item
 
   if (val == 6 || val == 8 || val == 13 || val == 15 || val == 4) { // remove t-post from these models
     $(".panel-field").addClass("hidden");
-    $("#tpost-button").addClass("hidden");
+    $(".t-post-field").addClass("hidden");
     $("#id_t_post").val("");
     if (val == 4) {
       $(".side-field").addClass("hidden");
@@ -175,7 +175,7 @@ function showMeasureField(val){ // function to render hidden fields in line item
 
   } else {
     $(".panel-field").removeClass("hidden");
-    $("#tpost-button").removeClass("hidden");
+    $(".t-post-field").removeClass("hidden");
     $(".side-field").addClass("hidden");
     $("#id_side").val("");
   }
