@@ -9,6 +9,7 @@ from tenants.utils import tenant_from_request
 from django.contrib.auth import get_user_model
 from django.forms.widgets import TextInput
 from django.forms import fields
+from django import forms
 
 User = get_user_model()
 
@@ -81,3 +82,21 @@ class SunscreenForm(ModelForm):
         model = Sunscreen
         # exclude = ['product']
         fields = '__all__'
+
+
+def getKey(item):
+    return item[0]
+
+class DealFilterForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        years = sorted(kwargs.pop('years', None), key=getKey)
+        months = sorted(kwargs.pop('months', None), key=getKey)
+        all = ('All', 'All')
+        months.insert(0, all)
+        years.insert(0, all)
+        super(DealFilterForm, self).__init__(*args, **kwargs)
+        if years:
+            self.fields['year'] = forms.ChoiceField(choices=years)
+
+        if months:
+            self.fields['month'] = forms.ChoiceField(choices=months)

@@ -32,4 +32,6 @@ urlpatterns = [
     path('delete_blind_item/<int:pk>', views.DeleteBlindItem.as_view(), name='delete-blinds-item'),
     path('delete_shade_item/<int:pk>', views.DeleteShadeItem.as_view(), name='delete-shades-item'),
     path('delete_sunscreen_item/<int:pk>', views.DeleteSunscreenItem.as_view(), name='delete-sunscreens-item'),
+
+    path('history/all', views.deal_history_list, name='deal-history-list'),
 ]

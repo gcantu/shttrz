@@ -16,6 +16,7 @@
 	2.5 Reports
 	2.6 Forms
 	2.7 Confirmation, Success, Select Pages
+	2.8 Deal History Page
 3.0 Headings
 4.0 Links
 5.0 Navigation
@@ -537,6 +538,19 @@ input[type=number]::-webkit-outer-spin-button { /* hide up and down arrows */
 .select-product-page .btn-block {
 	margin-bottom: 20px;
 	text-align: center;
+}
+
+/* 2.8 Deal History Page
+--------------------------------------------------------------*/
+.deal-history-page .content-title {
+	float: none;
+}
+
+#deal-history-filter-form .btn {
+	float: none;
+	position: absolute;
+	bottom: 13px;
+	margin-left: 10px;
 }
 
 /* 3.0 Headings
@@ -1206,8 +1220,12 @@ and (-webkit-min-device-pixel-ratio: 1){
 		font-size: 17px;
 	}
 
-}
+	#deal-history-filter-form .btn {
+		bottom: 10px;
+		width: 80px;
+	}
 
+}
 
 @media only screen
 and (max-width : 767px)
@@ -1233,6 +1251,12 @@ and (-webkit-min-device-pixel-ratio: 1){
 	#header-text,
 	#header-logo {
 		display: none;
+	}
+
+	#deal-history-filter-form .btn {
+		bottom: 10px;
+		width: auto;
+		min-height: auto;
 	}
 
 }

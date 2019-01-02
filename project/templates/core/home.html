@@ -14,7 +14,11 @@
         <a class="btn btn-block btn-inactive nf" href="" role="button"><i class="fas fa-chart-line"></i><br>Dashboard</a>
       </li> -->
       <li>
-        <a class="btn btn-active nf" href="" role="button"><i class="fas fa-list-ul"></i><br>Deals</a>
+        <a class="btn btn-active nf" href="{% url 'core:home' %}" role="button"><i class="fas fa-list-ul"></i><br>Deals</a>
+      </li>
+
+      <li>
+        <a class="btn btn-inactive nf" href="{% url 'deals:deal-history-list' %}" role="button"><i class="far fa-folder-open"></i><br>History</a>
       </li>
     </ul>
   </nav>
