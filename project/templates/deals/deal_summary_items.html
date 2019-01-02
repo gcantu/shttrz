@@ -8,15 +8,21 @@
 
 {% block orderactiveclass %}btn-active{% endblock %}
 
-{% block contenttitle %}Order Items{% endblock %}
+{% block contenttitle %}
+<div class="col-5 content-title">
+  <div class="heading-md">Order Items</div>
+</div> <!-- END col -->
+{% endblock %}
 
 {% block menu %}
-<div id="content-menu" class="rf">
-  <a class="btn-icon-round" href="{% url 'deals:select-product' deal.id %}" role="button"><i class="fas fa-plus"></i></a>
+<div class="col-7">
+  <div id="content-menu" class="rf">
+    <a class="btn-icon-round" href="{% url 'deals:select-product' deal.id %}" role="button"><i class="fas fa-plus"></i></a>
 
-  <button id="edit-item-button" class="btn-icon-round"><i class="fas fa-pencil-alt"></i></button>
+    <button id="edit-item-button" class="btn-icon-round"><i class="fas fa-pencil-alt"></i></button>
 
-  <button id="delete-item-button" class="btn-icon-round"><i class="fas fa-trash-alt"></i></button>
+    <button id="delete-item-button" class="btn-icon-round"><i class="fas fa-trash-alt"></i></button>
+  </div>
 </div>
 {% endblock %}
 

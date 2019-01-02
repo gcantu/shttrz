@@ -88,7 +88,7 @@ html, body {
 }
 
 .content-title {
-  float: left;
+  margin: auto;
 }
 
 /* 1.2 Header
@@ -294,39 +294,16 @@ header .col {
 
 /* 2.2 Home
 --------------------------------------------------------------*/
-.home-page .main-container {
-	min-width: 675px;
-}
 
-#delete-deal-toggle {
-	margin-right: 20px;
-}
 
 /* 2.3 Settings
 --------------------------------------------------------------*/
 .settings-page .main-container {
 	max-width: 800px;
-	padding-bottom: 25px;
 }
 
 /* 2.4 Deal Summary
 --------------------------------------------------------------*/
-.deal-summary-page .main-container {
-	min-width: 400px;
-}
-
-.deal-summary-page .nav-tabs {
-	max-width: 800px;
-}
-
-.deal-summary-items-page .main-container {
-	min-width: 700px;
-}
-
-.deal-summary-items-page .nav-tabs {
-	min-width: 700px;
-}
-
 .deal-summary-items-page .btn-outline {
 	min-height: 33px;
 	min-width: 85px;
@@ -343,16 +320,13 @@ header .col {
 /* 2.5 Reports
 --------------------------------------------------------------*/
 .proposal-page .main-container,
-.invoice-page .main-container,
-.proposal-page .nav-tabs,
-.invoice-page .nav-tabs {
-	min-width: 815px;
+.invoice-page .main-container {
+	min-width: 830px;
 	max-width: 950px;
 }
 
-.manufacturing-page .main-container,
-.manufacturing-page .nav-tabs {
-	min-width: 920px;
+.manufacturing-page .main-container {
+	min-width: 980px;
 	max-width: 1200px;
 }
 
@@ -372,6 +346,12 @@ header .col {
 .manufacturing-page .card-section,
 .manufacturing-page #report-template {
 	padding: 10px 5px;
+}
+
+.proposal-page .sidebar-content,
+.invoice-page .sidebar-content,
+.manufacturing-page .sidebar-content {
+	overflow: scroll;
 }
 
 #report-template p {
@@ -618,6 +598,10 @@ a:focus, a:active, a:hover {
 
 /* 5.3 Filter Menu
 --------------------------------------------------------------*/
+#filter-menu {
+	display: inline-block;
+}
+
 #filter-menu .dropdown-menu {
 	min-width: 15rem;
 	padding: 10px 20px;
@@ -631,6 +615,7 @@ a:focus, a:active, a:hover {
 	border-bottom: none;
 	margin-left: auto;
 	margin-right: auto;
+	font-size: 17px;
 }
 
 .nav-tabs * {
@@ -738,7 +723,7 @@ ul.nav-tabs .nav-item a.active {
 	padding-right: 9px;
 	padding-bottom: 3px;
 	padding-left: 9px;
-	margin-left: 30px;
+	margin-left: 20px;
   background-color: #25b4c1;
   text-align: center;
 }
@@ -803,6 +788,7 @@ a.icon-btn:hover {
 	padding: 3px 5px;
   border-radius: 50px;
   min-width: 100px;
+	margin-left: 10px;
 }
 
 .btn-pills:hover {
@@ -1292,7 +1278,7 @@ and (-webkit-min-device-pixel-ratio: 1){
   }
 
   .btn-pills {
-    min-width: 120px;
+    min-width: 110px;
   }
 
   #sidebar .btn {

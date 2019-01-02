@@ -8,11 +8,17 @@
 
 {% block summaryactiveclass %}btn-active{% endblock %}
 
-{% block contenttitle %}Deal Summary{% endblock %}
+{% block contenttitle %}
+<div class="col-6 content-title">
+  <div class="heading-md">Deal Summary</div>
+</div> <!-- END col -->
+{% endblock %}
 
 {% block menu %}
-<div id="content-menu" class="rf">
-  <a class="btn btn-pills" href="{% url 'deals:update-deal-status' deal.id 'Completed' %}">Mark as Completed</a>
+<div class="col-6">
+  <div id="content-menu" class="rf">
+    <a class="btn btn-pills" href="{% url 'deals:update-deal-status' deal.id 'Completed' %}">Mark as Completed</a>
+  </div>
 </div>
 {% endblock %}
 

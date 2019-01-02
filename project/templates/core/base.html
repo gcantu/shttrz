@@ -23,16 +23,11 @@
       <div id="content" class="{% block contentclass %}{% endblock %}">
         <div class="container wrapper remove-padding {% block containerclass %}main-container{% endblock %}">
           <div class="row content-header noprint">
-            <div class="col">
-              <div class="content-title heading-md">
-              {% block contenttitle %}
-              {% endblock %}
-              </div>
+            {% block contenttitle %}
+            {% endblock %}
 
-              {% block menu %}
-              {% endblock %}
-
-            </div> <!-- END col -->
+            {% block menu %}
+            {% endblock %}
           </div> <!-- END row -->
 
           {% block navbar %}
