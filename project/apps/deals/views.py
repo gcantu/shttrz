@@ -338,10 +338,10 @@ def deal_summary(request, pk):
 
 def deal_summary_items(request, pk):
     deal = Deal.objects.get(id=pk)
-    shutter = Shutter.objects.filter(deal_id=pk)
-    blind = Blind.objects.filter(deal_id=pk)
-    shade = Shade.objects.filter(deal_id=pk)
-    sunscreen = Sunscreen.objects.filter(deal_id=pk)
+    shutter = Shutter.objects.filter(deal_id=pk).order_by('shutter_type_id')
+    blind = Blind.objects.filter(deal_id=pk).order_by('blind_type_id')
+    shade = Shade.objects.filter(deal_id=pk).order_by('shade_type_id')
+    sunscreen = Sunscreen.objects.filter(deal_id=pk).order_by('sunscreen_type_id')
 
     product_list = [blind, shade, sunscreen]
 
