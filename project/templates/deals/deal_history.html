@@ -1,0 +1,94 @@
+{% extends "core/sidebar_template.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% load humanize %}
+
+{% block title %}Deal History{% endblock %}
+
+{% block pageclass %}sidebar-page deal-history-page{% endblock %}
+
+{% block sidebar %}
+<div id="sidebar">
+  <nav class="side-nav">
+    <ul class="menu">
+      <li>
+        <a class="btn btn-inactive nf" href="{% url 'core:home' %}" role="button"><i class="fas fa-list-ul"></i><br>Deals</a>
+      </li>
+
+      <li>
+        <a class="btn btn-active nf" href="{% url 'deals:deal-history-list' %}" role="button"><i class="far fa-folder-open"></i><br>History</a>
+      </li>
+    </ul>
+  </nav>
+</div> <!-- //main-head -->
+{% endblock %}
+
+{% block contenttitle %}Finished Jobs{% endblock %}
+
+{% block menu %}
+<br>
+<form action="" method="post" id="deal-history-filter-form">
+  {% csrf_token %}
+  <div class="form-row">
+    <div class="col-3 col-sm-2">
+      {{ form.year.label_tag }}
+      {% render_field  form.year class="custom-select mr-sm-2" %}
+    </div>
+
+    <div class="col-3 col-sm-2">
+      {{ form.month.label_tag }}
+      {% render_field  form.month class="custom-select mr-sm-2" %}
+    </div>
+    <div class="col-3 col-sm-2">
+      <input class="btn" type="submit" value="OK"/><br>
+    </div>
+  </div>
+</form>
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col remove-padding">
+    <div class="card-section remove-padding">
+      <table id="deal-list-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Customer</th>
+            <th>Created</th>
+            <th>Due</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for obj in deals %}
+          <tr>
+            <td>{{ obj.id }}</td>
+            <td>{{ obj.customer }}</td>
+            <td>{{ obj.created_date.date }}</td>
+            <td>{{ obj.install_date }}</td>
+            <td>$ {{ obj.price.total|floatformat|intcomma }}</td>
+            <td>{{ obj.status }}</td>
+            <td class="no-padding goto-deal-btn">
+            {% if status == 'Deleted' %}
+              <a class="btn-outline" href="{% url 'deals:update-deal-status' obj.id 'Active' %}">Restore</a>
+            {% else %}
+              <a class="icon-btn" href="{% url 'deals:deal-summary' obj.id %}" role="button"><i class="fas fa-angle-right"></i></a>
+            {% endif %}
+            </td>
+
+            <td class="no-padding hidden-deal-btn hidden">
+              <a class="icon-btn" href="{% url 'deals:update-deal-status' obj.id 'Deleted' %}"><i class="fas fa-times"></i></a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

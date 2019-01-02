@@ -10,8 +10,9 @@ from blinds.models import Blind
 from shades.models import Shade
 from sunscreens.models import Sunscreen
 from customers.models import Customer
-from forms.forms import DealForm, CustomerForm, ShutterForm, PriceForm, BlindForm, ShadeForm, SunscreenForm
+from forms.forms import DealForm, CustomerForm, ShutterForm, PriceForm, BlindForm, ShadeForm, SunscreenForm, DealFilterForm
 from .utils import DealFilter
+from django.template.defaultfilters import date
 
 # -----------------------------------------------
 # CREATE VIEWS
@@ -325,6 +326,34 @@ def deal_list(request, status):
     return render(request, 'core/home.html', {'filter': filter, 'status': status})
 
 
+@login_required
+def deal_history_list(request):
+    tenant = tenant_from_request(request)
+    all_deals = Deal.objects.filter(tenant_id=tenant.id, status='Completed')
+    years = list(set([(i.created_date.year, str(i.created_date.year)) for i in all_deals]))
+    # months = list(set([date(i.created_date, 'F') for i in all_deals]))
+    months = list(set([(i.created_date.month, date(i.created_date, 'F')) for i in all_deals]))
+    form = DealFilterForm(years=years, months=months)
+    deals = None
+    dict = request.POST.dict()
+
+    if 'year' in request.POST and 'month' in request.POST:
+        y = dict.pop('year')
+        m = dict.pop('month')
+        form = DealFilterForm(years=years, months=months, initial={'year': y, 'month': m})
+
+        if y == 'All' and m == 'All':
+            deals = Deal.objects.filter(tenant_id=tenant.id, status='Completed').order_by('created_date')
+        elif y == 'All':
+            deals = Deal.objects.filter(tenant_id=tenant.id, status='Completed', created_date__month=m).order_by('created_date')
+        elif m == 'All':
+            deals = Deal.objects.filter(tenant_id=tenant.id, status='Completed', created_date__year=y).order_by('created_date')
+        else:
+            deals = Deal.objects.filter(tenant_id=tenant.id, status='Completed', created_date__year=y, created_date__month=m).order_by('created_date')
+
+    return render(request, 'deals/deal_history.html', {'form': form, 'deals': deals})
+
+
 # -----------------------------------------------
 # SUMMARY VIEW
 # -----------------------------------------------
@@ -338,10 +367,10 @@ def deal_summary(request, pk):
 
 def deal_summary_items(request, pk):
     deal = Deal.objects.get(id=pk)
-    shutter = Shutter.objects.filter(deal_id=pk)
-    blind = Blind.objects.filter(deal_id=pk)
-    shade = Shade.objects.filter(deal_id=pk)
-    sunscreen = Sunscreen.objects.filter(deal_id=pk)
+    shutter = Shutter.objects.filter(deal_id=pk).order_by('shutter_type_id')
+    blind = Blind.objects.filter(deal_id=pk).order_by('blind_type_id')
+    shade = Shade.objects.filter(deal_id=pk).order_by('shade_type_id')
+    sunscreen = Sunscreen.objects.filter(deal_id=pk).order_by('sunscreen_type_id')
 
     product_list = [blind, shade, sunscreen]
 
