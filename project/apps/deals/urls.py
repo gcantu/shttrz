@@ -34,4 +34,6 @@ urlpatterns = [
     path('delete_sunscreen_item/<int:pk>', views.DeleteSunscreenItem.as_view(), name='delete-sunscreens-item'),
 
     path('history/all', views.deal_history_list, name='deal-history-list'),
+
+    path('location-name-search/', views.location_name_search, name='location-name-search'),
 ]
