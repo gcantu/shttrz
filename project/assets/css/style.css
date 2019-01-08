@@ -23,6 +23,7 @@
 	5.2 Settings Menu
 	5.3 Filter Menu
 	5.4 Deal Summary Tabs
+	5.5 Autocomplete Menu
 6.0 Buttons
 7.0 Tables
 8.0 Clearings
@@ -680,6 +681,28 @@ ul.nav-tabs .nav-item a.active {
 	padding: 10px 20px;
 	color: #25b4c1;
 	z-index: 6;
+}
+
+/* 5.5 Autocomplete Menu
+--------------------------------------------------------------*/
+ul.ui-menu {
+	background-color: #888;
+	border: 0.5px solid #c3c3c3;
+	width: 100px;
+	border-radius: 5px;
+}
+
+.ui-menu li {
+	color: #fff;
+	border: 0.5px solid #c3c3c3;
+	cursor: pointer;
+	padding: 10px;
+	letter-spacing: 0.5px;
+	font-weight: 400;
+}
+
+.ui-menu li:hover {
+	background-color: #afafaf;
 }
 
 /* 6.0 Buttons

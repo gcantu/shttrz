@@ -35,7 +35,7 @@
                 <div class="form-row">
                   <div class="col-sm-5">
                   {{ form.location.label_tag }}
-                  {% render_field  form.location class="form-control" %}
+                  {% render_field  form.location class="form-control location_name_search_input" %}
                   </div>
                   <div class="col mount-field">
                   {{ form.mount.label_tag }}
@@ -270,4 +270,14 @@
 </div>
 {% endif %}
 
+{% endblock %}
+
+{% block extrajs %}
+<script>
+  $('.location_name_search_input').autocomplete({
+        source: "{% url 'deals:location-name-search' %}",
+        minLength: 1,
+        delay: 200,
+  });
+</script>
 {% endblock %}

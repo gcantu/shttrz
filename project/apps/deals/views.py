@@ -13,6 +13,22 @@ from customers.models import Customer
 from forms.forms import DealForm, CustomerForm, ShutterForm, PriceForm, BlindForm, ShadeForm, SunscreenForm, DealFilterForm
 from .utils import DealFilter
 from django.template.defaultfilters import date
+import json
+from django.http import HttpResponse
+
+
+def location_name_search(request):
+    if request.is_ajax():
+        q = request.GET.get('term','').capitalize()
+        locations = Shutter.objects.filter(location__startswith=q)
+        result = []
+        for n in locations:
+            result.append(n.location)
+
+        result = list(set(result))
+        data = json.dumps(result)
+
+    return HttpResponse(data, 'application/json')
 
 # -----------------------------------------------
 # CREATE VIEWS
