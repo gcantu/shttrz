@@ -50,6 +50,12 @@ $('#style-item-button').on('click', function() { // show/hide line item edit but
 
 });
 
+$('#blinds-style-item-button').on('click', function() { // show/hide line item edit buttons
+  $(".blinds-style-hidden-btn").toggleClass("hidden");
+  $(".blinds-style-colname").toggleClass("hidden");
+  $(".blinds-style-dropdown").toggleClass("hidden");
+});
+
 $('#divider-button').on('click', function() { // add/remove divider field in line item form
    $(".divider-field").toggle();
    $(".hidden-btn").toggle();
@@ -154,6 +160,27 @@ $('#id_blind_type').on('change', function() { // show stain field when finish = 
   } else {
     $(".faux-wood-field").addClass("hidden");
     $("#id_faux_wood_style").val("");
+  }
+});
+
+
+$("#checkAllBlinds").on('click', function () {
+    $(".blinds-item-checkbox").prop('checked', $(this).prop('checked'));
+
+    if ($('#checkAllBlinds:checked').length) {
+        $('.nav-link').removeClass('disabled');
+        $('input:submit').prop('disabled', false)
+        $('.blinds-item-checkbox').parent().parent().addClass("checked-row");
+    } else {
+        $('.nav-link').addClass('disabled');
+        $('input:submit').prop('disabled', true)
+        $('.blinds-item-checkbox').parent().parent().removeClass("checked-row");
+    }
+});
+
+$(".blinds-item-checkbox").on('change', function() {
+  if (!$(this).prop("checked")) {
+    $("#checkAllBlinds").prop("checked", false);
   }
 });
 

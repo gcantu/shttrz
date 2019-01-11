@@ -1,0 +1,48 @@
+{% extends "core/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block title %}Item Style{% endblock %}
+
+{% block pageclass %}form-page shutter-style-form-page{% endblock %}
+
+{% block contenttitle %}
+<div class="col-8 content-title">
+  <div class="heading-md">Blind Style</div>
+</div> <!-- END col -->
+{% endblock %}
+
+{% block menu %}
+<div class="col-4">
+  <a  class="btn btn-pills" role="button" href="{% url 'deals:deal-summary-items' form.deal.value %}">Cancel</a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col">
+    <div class="card-section">
+      <form id="deal-form" method="post">
+        {% csrf_token %}
+        {{ form.deal.as_hidden }}
+
+        <div class="section wrapper">
+          <div class="form-section style-section">
+            <div class="form-row">
+              <div class="col">
+                {{ form.color.label_tag }}
+                {% render_field  form.color class="form-control" %}
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-block">
+            <i class="fas fa-check"></i>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

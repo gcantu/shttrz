@@ -943,7 +943,8 @@ table thead {
 	color: #515151;
 }
 
-#shutter-detail-table th.style-dropdown {
+#shutter-detail-table th.style-dropdown,
+#shutter-detail-table th.blinds-style-dropdown {
 	padding: 0;
 }
 

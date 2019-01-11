@@ -6,7 +6,7 @@ from django.views.generic import ListView
 from tenants.utils import tenant_from_request
 from .models import Deal, Price
 from shutters.models import Shutter, Material, TrimStyle, TiltRod, HingeColor, Stain
-from blinds.models import Blind
+from blinds.models import Blind, FauxWoodStyle
 from shades.models import Shade
 from sunscreens.models import Sunscreen
 from customers.models import Customer
@@ -278,6 +278,25 @@ def set_style_default(request):
         return redirect(reverse('deals:deal-summary-items', kwargs={'pk': deal_id}))
 
 
+def set_blinds_style_default(request):
+    id_list = request.POST.getlist('item_list')
+    d = Blind.objects.get(id=id_list[0])
+    deal_id = d.deal_id
+    dict = request.POST.dict()
+
+    if 'faux_wood_style' in request.POST:
+        fw = dict.pop('faux_wood_style')
+        fw = FauxWoodStyle.objects.get(faux_wood_style=fw)
+        Blind.objects.filter(id__in=id_list).update(faux_wood_style=fw)
+    else:
+        Blind.objects.filter(id__in=id_list).update(default_style=True)
+
+    if 'color_blinds' in request.POST:
+        return redirect(reverse('deals:update-blind-style', kwargs={'pk': id_list[0]}))
+    else:
+        return redirect(reverse('deals:deal-summary-items', kwargs={'pk': deal_id}))
+
+
 class UpdateShutterStyle(UpdateView):
     model = Shutter
     fields = ['deal', 'color']
@@ -289,6 +308,28 @@ class UpdateShutterStyle(UpdateView):
 
         # update remaining deal items
         items = Shutter.objects.filter(default_style=True)
+
+        for item in items:
+            item.color = self.object.color
+            item.default_style = False
+            item.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('deals:deal-summary-items', kwargs={'pk': self.get_object().deal_id})
+
+
+class UpdateBlindStyle(UpdateView):
+    model = Blind
+    fields = ['deal', 'color']
+    template_name = 'products/product_style_form.html'
+
+    def form_valid(self, form):
+        self.object.default_style = False
+        self.object = form.save()
+
+        # update remaining deal items
+        items = Blind.objects.filter(default_style=True)
 
         for item in items:
             item.color = self.object.color
