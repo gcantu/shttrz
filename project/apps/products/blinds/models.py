@@ -55,7 +55,79 @@ class AbstractBlind(AbstractTenant):
         w_ft_custom = custom_round(w_ft)
         h_ft_custom = custom_round(h_ft)
 
-        tp = (w_ft_custom * h_ft_custom) * self.price_per_sq_ft
+        if self.blind_type_id == 1:
+            p = 7
+
+            if w_ft_custom < 2:
+                p += 10
+
+            if w_ft_custom > 5:
+                p -= 1
+
+            if 4 < h_ft_custom <= 6:
+                p -= 1
+            elif h_ft_custom > 7:
+                p -= 2
+
+        elif self.blind_type_id == 2:
+            p = 4
+
+            if w_ft_custom <= 4 or h_ft_custom <= 5:
+                p += 1
+
+            if h_ft_custom <= 4:
+                p += 1
+
+            if h_ft_custom <=4 and w_ft_custom <=3:
+                p += 1
+
+            if h_ft_custom <=3 and w_ft_custom <=3:
+                p += 1
+
+            if h_ft_custom <= 2:
+                p += 1
+
+            if h_ft_custom <=2 and w_ft_custom <=4:
+                p += 1
+
+        elif self.blind_type_id == 3:
+            p = 6
+
+            if w_ft_custom <= 3:
+                p += 1
+
+            if h_ft_custom <= 5:
+                p += 1
+
+            if h_ft_custom <= 2:
+                p += 4
+
+        elif self.blind_type_id >= 4:
+            p = 3
+
+            if w_ft_custom <= 3 or h_ft_custom <= 7:
+                p += 1
+
+            if h_ft_custom <= 5 and w_ft_custom <= 3:
+                p += 1
+
+            if h_ft_custom <= 3:
+                p += 1
+
+            if h_ft_custom <= 2 and w_ft_custom <= 5:
+                p += 1
+
+            if h_ft_custom <= 7 and w_ft_custom <= 2:
+                p += 1
+
+            if h_ft_custom <= 2 and w_ft_custom <= 4:
+                p += 1
+
+        tp = (w_ft_custom * h_ft_custom) * p
+
+        if self.blind_type_id == 5:
+            tp += 3
+
         return tp
 
     class Meta:

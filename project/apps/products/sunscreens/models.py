@@ -41,7 +41,14 @@ class AbstractSunscreen(AbstractTenant):
         w_ft_custom = custom_round(w_ft)
         h_ft_custom = custom_round(h_ft)
 
-        tp = (w_ft_custom * h_ft_custom) * self.price_per_sq_ft
+        if self.sunscreen_type_id == 1:
+            p = (w_ft_custom + h_ft_custom) * 8
+        elif self.sunscreen_type_id == 2:
+            p = (w_ft_custom + h_ft_custom) * 10
+        elif self.sunscreen_type_id == 3:
+            p = (w_ft_custom + h_ft_custom) * 12
+
+        tp = p
         return tp
 
     class Meta:

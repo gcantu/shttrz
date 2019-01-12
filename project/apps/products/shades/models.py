@@ -41,7 +41,39 @@ class AbstractShade(AbstractTenant):
         w_ft_custom = custom_round(w_ft)
         h_ft_custom = custom_round(h_ft)
 
-        tp = (w_ft_custom * h_ft_custom) * self.price_per_sq_ft
+        if 1 < self.shade_type_id < 6:
+            p = 14
+        elif self.shade_type_id == 6:
+            p = 16
+        else:
+            p = 22
+
+        if w_ft_custom > 7:
+            p += 1
+
+        if 3 < h_ft_custom <= 4:
+            p = p - 4 if self.shade_type_id == 1 else p - 1
+
+        elif 4 < h_ft_custom <= 5:
+            p = p - 6 if self.shade_type_id == 1 else p - 2
+
+        elif 5 < h_ft_custom <= 7:
+            p = p - 8 if self.shade_type_id == 1 else p - 3
+
+        elif 7 < h_ft_custom <= 9:
+            p = p - 9 if self.shade_type_id == 1 else p - 4
+
+        elif 9 < h_ft_custom <= 11:
+            p = p - 10 if self.shade_type_id == 1 else p - 5
+
+        elif 11 < h_ft_custom <= 13:
+            p = p - 11 if self.shade_type_id == 1 else p - 6
+
+        elif h_ft_custom > 13:
+            p = p - 12 if self.shade_type_id == 1 else p - 7
+
+
+        tp = (w_ft_custom * h_ft_custom) * p
         return tp
 
     class Meta:

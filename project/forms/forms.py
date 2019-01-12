@@ -66,22 +66,22 @@ class ShutterForm(ModelForm):
 class BlindForm(ModelForm):
     class Meta:
         model = Blind
-        # exclude = ['product']
-        fields = '__all__'
+        exclude = ['price_per_sq_ft']
+        # fields = '__all__'
 
 
 class ShadeForm(ModelForm):
     class Meta:
         model = Shade
-        # exclude = ['product']
-        fields = '__all__'
+        exclude = ['price_per_sq_ft']
+        # fields = '__all__'
 
 
 class SunscreenForm(ModelForm):
     class Meta:
         model = Sunscreen
-        # exclude = ['product']
-        fields = '__all__'
+        exclude = ['price_per_sq_ft']
+        # fields = '__all__'
 
 
 def getKey(item):
