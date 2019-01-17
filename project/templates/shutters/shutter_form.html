@@ -57,12 +57,22 @@
                   <div class="col col-md-2 no-label">
                     {% render_field  form.width_fraction class="custom-select mr-sm-2" %}
                   </div>
-                  <div class="col col-md-2 offset-sm-1">
+                  <div class="col col-md-2 offset-sm-1 height-field">
                     {{ form.height.label_tag }}
                     {% render_field  form.height class="form-control" %}
                   </div>
-                  <div class="col col-md-2 no-label">
+                  <div class="col col-md-2 no-label height-field">
                     {% render_field  form.height_fraction class="custom-select mr-sm-2" %}
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="col col-md-2 center-height-field">
+                    <label>Center Height:</label>
+                    {% render_field  form.height_center class="form-control" %}
+                  </div>
+                  <div class="col col-md-2 no-label center-height-field">
+                    {% render_field  form.height_center_fraction class="custom-select mr-sm-2" %}
                   </div>
                 </div>
               </div>
@@ -119,13 +129,6 @@
                   </div>
                   <div class="col no-label right-field">
                     {% render_field  form.height_right_fraction class="custom-select mr-sm-2" %}
-                  </div>
-                  <div class="col offset-sm-1 center-height-field">
-                    <label>Center</label>
-                    {% render_field  form.height_center class="form-control" %}
-                  </div>
-                  <div class="col no-label center-height-field">
-                    {% render_field  form.height_center_fraction class="custom-select mr-sm-2" %}
                   </div>
                 </div>
 

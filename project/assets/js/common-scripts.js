@@ -189,6 +189,12 @@ $(".blinds-item-checkbox").on('change', function() {
 function showMeasureField(val){ // function to render hidden fields in line item form
   var val = val;
 
+  if (val == 7) { // add center height to models #13 and #15
+    $(".height-field").addClass("hidden");
+  } else {
+    $(".height-field").removeClass("hidden");
+  }
+
   if (val == 6 || val == 8 || val == 13 || val == 15 || val == 4) { // remove t-post from these models
     $(".panel-field").addClass("hidden");
     $(".t-post-field").addClass("hidden");
@@ -219,7 +225,7 @@ function showMeasureField(val){ // function to render hidden fields in line item
     $(".lr-height-field").addClass("hidden");
   }
 
-  if (val == 13 || val == 15) { // add center height to models #13 and #15
+  if (val == 13 || val == 15 || val == 7) { // add center height to models #13 and #15
     $(".center-height-field").removeClass("hidden");
   } else {
     $(".center-height-field").addClass("hidden");

@@ -174,6 +174,13 @@ class AbstractShutter(AbstractTenant):
         l = self._get_lframe(mt) if (self.shutter_type_id > 11 and self.side != 'L') else 0
         return l
 
+    def _l_frame_height_panel(self):
+        if self.shutter_type_id == 8:
+            l = self._l_frame_height() - self._l_frame_width()
+        else:
+            l = None
+        return l
+
     # rail, louver, stile, tilt rod
     # ------------------------------------------------------
     def _rail(self):
@@ -300,6 +307,9 @@ class AbstractShutter(AbstractTenant):
         x = as_fraction(self._l_frame_height_right())
         return x if x != 0 else None
 
+    def l_frame_height_panel(self):
+        return as_fraction(self._l_frame_height_panel()) if self._l_frame_height_panel() else None
+
     def panel_height(self):
         return as_fraction(self._height_panel()) if self._height_panel() else None
 
@@ -351,7 +361,7 @@ class Shutter(AbstractShutter):
     door_handle_cutout = models.CharField(max_length=20, choices=CUTOUT_CHOICES, blank=True)
     inset_lframe = models.BooleanField(choices=INSET_CHOICES, blank=True, null=True)
     width = models.IntegerField()
-    height = models.IntegerField()
+    height = models.IntegerField(default=0)
     height_divider = models.IntegerField(blank=True, null=True)
     height_panel = models.IntegerField(blank=True, null=True)
     height_center = models.IntegerField(blank=True, null=True)
@@ -383,9 +393,9 @@ class Shutter(AbstractShutter):
             self.height_panel = self.height
             self.height_panel_fraction = self.height_fraction
         elif self.shutter_type_id == 7:
-            h = (self.height + self.height_fraction) - ((self.width + self.width_fraction)/2)
-            self.height_panel = int(h)
-            self.height_panel_fraction = round(h % 1, 4)
+            h = (self.height_center + self.height_center_fraction) - ((self.width + self.width_fraction)/2)
+            self.height = int(h)
+            self.height_fraction = round(h % 1, 4)
         elif self.shutter_type_id == 8: #8
             h = (self.height + self.height_fraction) - (self.width + self.width_fraction)
             self.height_panel = int(h)
