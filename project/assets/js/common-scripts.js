@@ -81,7 +81,12 @@ $('#id_shutter_type').on('change', function() { // render shutter model image
 $('#id_side').on('change', function() { // render shutter model image
   var prod_type = $('#id_shutter_type').val()
   var side = $(this).val()
-  var model = "/static/img/model" + prod_type + "_" + side + ".png";
+  if (side) {
+    var model = "/static/img/model" + prod_type + "_" + side + ".png";
+  } else {
+    var model = "/static/img/model" + prod_type + ".png";
+  }
+
   $(".product-img-section").removeClass("hidden");
   $('.product-img').prop('src', model);
 
