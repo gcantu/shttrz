@@ -226,6 +226,8 @@ function showMeasureField(val){ // function to render hidden fields in line item
 
   if (val > 11) { // add left and right height to models #12 - #15
     $(".lr-height-field").removeClass("hidden");
+    $(".left-field").removeClass("hidden");
+    $(".right-field").removeClass("hidden");
   } else {
     $(".lr-height-field").addClass("hidden");
   }
