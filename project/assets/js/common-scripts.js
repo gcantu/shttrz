@@ -11,8 +11,10 @@ $('#id_mount').on('change', function() { // show frame field when mount = 'outsi
 
   if (selectedItem == "Out") {
     $(".frame-field").removeClass("hidden");
+    $(".trim-field").removeClass("hidden");
   } else {
     $(".frame-field").addClass("hidden");
+    $(".trim-field").addClass("hidden");
     $("#id_frame").val(0);
     $("#id_trim_style").val("");
   }
@@ -194,34 +196,25 @@ $(".blinds-item-checkbox").on('change', function() {
 function showMeasureField(val){ // function to render hidden fields in line item form
   var val = val;
 
-  if (val == 7) { // add center height to models #13 and #15
+  if (val == 7 || val == 8) { // add center height to models #13 and #15
     $(".height-field").addClass("hidden");
   } else {
     $(".height-field").removeClass("hidden");
   }
 
-  if (val == 6 || val == 8 || val == 13 || val == 15 || val == 4) { // remove t-post from these models
-    $(".panel-field").addClass("hidden");
-    $(".t-post-field").addClass("hidden");
-    $("#id_t_post").val("");
-    if (val == 4) {
-      $(".side-field").addClass("hidden");
-      $("#id_side").val("");
-    } else {
-      $(".side-field").removeClass("hidden");
-    }
-
+  if (val == 6 || val == 8 || val == 13 || val == 15) { // models with 2 pieces
+    $(".two-piece-exclude-fields").addClass("hidden");
+    $(".side-field").removeClass("hidden");
   } else {
-    $(".panel-field").removeClass("hidden");
-    $(".t-post-field").removeClass("hidden");
+    $(".two-piece-exclude-fields").removeClass("hidden");
     $(".side-field").addClass("hidden");
     $("#id_side").val("");
   }
 
-  if (val > 13) { // add panel height to model #14 and #15
-    $(".panel-height-field").removeClass("hidden");
+  if (val == 7 || val == 8 || val == 14 || val == 15) { // add center height to model #14 and #15
+    $(".center-height-field").removeClass("hidden");
   } else {
-    $(".panel-height-field").addClass("hidden");
+    $(".center-height-field").addClass("hidden");
   }
 
   if (val > 11) { // add left and right height to models #12 - #15
@@ -232,10 +225,10 @@ function showMeasureField(val){ // function to render hidden fields in line item
     $(".lr-height-field").addClass("hidden");
   }
 
-  if (val == 13 || val == 15 || val == 7) { // add center height to models #13 and #15
-    $(".center-height-field").removeClass("hidden");
+  if (val == 13 || val == 15) { // add middle height to models #13 and #15
+    $(".middle-height-field").removeClass("hidden");
   } else {
-    $(".center-height-field").addClass("hidden");
+    $(".middle-height-field").addClass("hidden");
   }
 
   if (val == 4) {
@@ -246,11 +239,15 @@ function showMeasureField(val){ // function to render hidden fields in line item
     $("#id_mount").val("");
     $("#id_frame").val(0);
     $("#id_trim_style").val("");
+    $(".panel-field").addClass("hidden");
+    $(".t-post-field").addClass("hidden");
   } else {
     $(".door-field").addClass("hidden");
     $(".mount-field").removeClass("hidden");
     $(".frame-field").removeClass("hidden");
     $(".trim-field").removeClass("hidden");
+    $(".panel-field").removeClass("hidden");
+    $(".t-post-field").removeClass("hidden");
   }
 
 };

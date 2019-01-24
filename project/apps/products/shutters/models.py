@@ -113,12 +113,12 @@ class AbstractShutter(AbstractTenant):
         h = self.height + self.height_fraction
         return h
 
-    def _height_panel(self):
-        h = (self.height_panel + self.height_panel_fraction) if self.height_panel else None
+    def _height_middle(self):
+        h = (self.height_middle + self.height_middle_fraction) if self.height_middle else 0
         return h
 
     def _height_center(self):
-        h = self.height_center + self.height_center_fraction
+        h = self.height_center + self.height_center_fraction if self.height_center else 0
         return h
 
     def _height_left(self):
@@ -140,6 +140,8 @@ class AbstractShutter(AbstractTenant):
             measure = self._height_left()
         elif measure_type == 'height_right':
             measure = self._height_right()
+        elif measure_type == 'height_middle':
+            measure = self._height_middle()
 
         if self.shutter_type_id == 4:
             l = measure
@@ -174,11 +176,9 @@ class AbstractShutter(AbstractTenant):
         l = self._get_lframe(mt) if (self.shutter_type_id > 11 and self.side != 'L') else 0
         return l
 
-    def _l_frame_height_panel(self):
-        if self.shutter_type_id == 8:
-            l = self._l_frame_height() - self._l_frame_width()
-        else:
-            l = None
+    def _l_frame_height_middle(self):
+        mt = 'height_middle'
+        l = self._get_lframe(mt) if (self.shutter_type_id == 13 or self.shutter_type_id == 15) else 0
         return l
 
     # rail, louver, stile, tilt rod
@@ -197,7 +197,7 @@ class AbstractShutter(AbstractTenant):
             reduction = (framestyle_measurement*2) + (self._stile_width()*4) + (hinge_offset*2)
             reduction = (reduction + self._t_post_width()) if self.t_post else (reduction + (opening_offset*2))
             rail = (l_width - reduction) / 2
-        else: # 4 panels
+        elif self.panels == 4: # 4 panels
             reduction = (framestyle_measurement*2) + (self._stile_width()*8) + (hinge_offset*4) + (opening_offset*4) + self._t_post_width()
             rail =(l_width - reduction) / 4
         return rail
@@ -307,11 +307,15 @@ class AbstractShutter(AbstractTenant):
         x = as_fraction(self._l_frame_height_right())
         return x if x != 0 else None
 
-    def l_frame_height_panel(self):
-        return as_fraction(self._l_frame_height_panel()) if self._l_frame_height_panel() else None
+    def l_frame_height_middle(self):
+        x = as_fraction(self._l_frame_height_middle())
+        return x if x != 0 else None
 
-    def panel_height(self):
-        return as_fraction(self._height_panel()) if self._height_panel() else None
+    # def l_frame_height_panel(self):
+    #     return as_fraction(self._l_frame_height_panel()) if self._l_frame_height_panel() else None
+
+    def middle_height(self):
+        return as_fraction(self._height_middle()) if self._height_middle() else None
 
     def rail_measure(self):
         return as_fraction(self._rail())
@@ -325,6 +329,9 @@ class AbstractShutter(AbstractTenant):
     def tilt_rod_measure(self):
         return as_fraction(self._tilt_rod())
 
+    def height_display(self):
+        return as_fraction(self._height())
+
     class Meta:
         abstract = True
 
@@ -333,7 +340,7 @@ class Shutter(AbstractShutter):
     FINISH_CHOICES = [('Paint', 'Paint'), ('Stain', 'Stain')]
     LOUVER_CHOICES = [(2.5, '2 1/2'), (3.5, '3 1/2'), (4.5, '4 1/2')]
     MOUNT_CHOICES = [('In', 'Inside'), ('Out', 'Outside')]
-    FRAME_CHOICES = [(0, ''), (2, '2 sides'), (3, '3 sides'), (4, '4 sides')]
+    FRAME_CHOICES = [(0, '0 sides'), (2, '2 sides'), (3, '3 sides'), (4, '4 sides')]
     HINGE_CHOICES = [('LR', 'Left/Right'), ('L', 'Left'), ('R', 'Right')]
     FRACTION_CHOICES = [(0, ''), (.125, '1/8'), (.25, '1/4'), (.375, '3/8'), (.5, '1/2'), (.625, '5/8'), (.75, '3/4'), (.875, '7/8')]
     SIDE_CHOICES = [('L', 'Left'), ('R', 'Right')]
@@ -353,7 +360,7 @@ class Shutter(AbstractShutter):
     frame = models.IntegerField(choices=FRAME_CHOICES, default=0)
     frame_style = models.ForeignKey(FrameStyle, models.SET_NULL, blank=True, null=True)
     trim_style = models.ForeignKey(TrimStyle, models.SET_NULL, blank=True, null=True)
-    panels = models.IntegerField(default=1)
+    panels = models.IntegerField(blank=True, null=True)
     t_post = models.IntegerField(blank=True, null=True)
     hinges = models.CharField(max_length=2, choices=HINGE_CHOICES, blank=True)
     hinge_color = models.ForeignKey(HingeColor, models.SET_NULL, blank=True, null=True)
@@ -363,7 +370,7 @@ class Shutter(AbstractShutter):
     width = models.IntegerField()
     height = models.IntegerField(default=0)
     height_divider = models.IntegerField(blank=True, null=True)
-    height_panel = models.IntegerField(blank=True, null=True)
+    height_middle = models.IntegerField(blank=True, null=True)
     height_center = models.IntegerField(blank=True, null=True)
     height_left = models.IntegerField(blank=True, null=True)
     height_right = models.IntegerField(blank=True, null=True)
@@ -372,7 +379,7 @@ class Shutter(AbstractShutter):
     width_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     height_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     height_divider_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
-    height_panel_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
+    height_middle_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     height_center_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     height_left_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     height_right_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
@@ -385,21 +392,41 @@ class Shutter(AbstractShutter):
         self.location = self.location.capitalize()
         self.color = self.color.capitalize()
 
-        # use L frame for stain and Z frame for paint
-        self.frame_style_id = 1 if self.finish == 'Stain' else 2
+        # clear stain field if finish == "Paint"
+        if self.finish == 'Paint':
+            self.stain = None
 
-        # set panel height for models #1, #7 and #8
-        if self.shutter_type_id == 1:
-            self.height_panel = self.height
-            self.height_panel_fraction = self.height_fraction
-        elif self.shutter_type_id == 7:
+        # use L frame for stain and Z frame for paint
+        if not self.frame_style_id:
+            self.frame_style_id = 1 if self.finish == 'Stain' else 2
+
+        # panels = 1 and NO tpost for products #4, #6, #8, #13, #15
+        if (self.shutter_type_id == 4 or self.shutter_type_id == 6 or self.shutter_type_id == 8 or self.shutter_type_id == 13 or self.shutter_type_id == 15):
+            self.panels = 1
+            self.t_post = None
+
+        # set hinges side for 1 piece products
+        if self.side == 'L':
+            self.hinges = 'L'
+        elif self.side == 'R':
+            self.hinges = 'R'
+
+
+        # clear mount and frame if shutter type is door
+        if self.shutter_type_id == 4:
+            self.mount = 'In'
+            self.frame = 0
+            self.trim_style = None
+
+        # set height for models #7 and #8
+        if self.shutter_type_id == 7:
             h = (self.height_center + self.height_center_fraction) - ((self.width + self.width_fraction)/2)
             self.height = int(h)
             self.height_fraction = round(h % 1, 4)
         elif self.shutter_type_id == 8: #8
-            h = (self.height + self.height_fraction) - (self.width + self.width_fraction)
-            self.height_panel = int(h)
-            self.height_panel_fraction = round(h % 1, 4)
+            h = (self.height_center + self.height_center_fraction) - (self.width + self.width_fraction)
+            self.height = int(h)
+            self.height_fraction = round(h % 1, 4)
 
         return super(Shutter, self).save(*args, **kwargs)
 

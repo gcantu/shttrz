@@ -5,7 +5,7 @@ from django.views.generic.edit import DeleteView, CreateView, UpdateView
 from django.views.generic import ListView
 from tenants.utils import tenant_from_request
 from .models import Deal, Price
-from shutters.models import Shutter, Material, TrimStyle, TiltRod, HingeColor, Stain
+from shutters.models import Shutter, Material, FrameStyle, TrimStyle, TiltRod, HingeColor, Stain
 from blinds.models import Blind, FauxWoodStyle
 from shades.models import Shade
 from sunscreens.models import Sunscreen
@@ -175,6 +175,7 @@ class UpdateProductItemView(UpdateView):
 class UpdateShutterItem(UpdateProductItemView):
     model = Shutter
     form_class = ShutterForm
+    template_name = "shutters/shutter_form_update.html"
 
 
 class UpdateBlindItem(UpdateProductItemView):
@@ -244,6 +245,10 @@ def set_style_default(request):
         if f == 'Paint':
             Shutter.objects.filter(id__in=id_list).update(stain='')
 
+    elif 'frame_style' in request.POST:
+        ts = dict.pop('frame_style')
+        ts = FrameStyle.objects.get(frame_style=ts)
+        Shutter.objects.filter(id__in=id_list).update(frame_style=ts)
     elif 'trim_style' in request.POST:
         ts = dict.pop('trim_style')
         ts = TrimStyle.objects.get(trim_style=ts)
