@@ -86,12 +86,14 @@ class Shade(AbstractShade):
     deal = models.ForeignKey(Deal, models.SET_NULL, blank=True, null=True)
     product = models.CharField(max_length=10, default='Shades')
     shade_type = models.ForeignKey(ShadeType, models.SET_NULL, blank=True, null=True)
+    color = models.CharField(max_length=100, blank=True)
     location = models.CharField(max_length=100, blank=True)
     width = models.IntegerField(blank=True, null=True)
     height = models.IntegerField(blank=True, null=True)
     width_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     height_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     price_per_sq_ft = models.FloatField(default=0)
+    default_style = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         self.location = self.location.capitalize()

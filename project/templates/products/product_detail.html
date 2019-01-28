@@ -1,7 +1,12 @@
 {% load widget_tweaks %}
 
 <div class="scroll-section">
-  <form action="{% url 'deals:blind-style-default' %}" method="post">
+  <!-- <form action="{% url 'deals:blind-style-default' %}" method="post"> -->
+  {% with prod_name=items.0.product|stringformat:"s"|lower|slice:":-1" %}
+  {% with 'deals:'|add:prod_name|add:'-style-default' as prod_url %}
+    <form action="{% url prod_url %}" method="post">
+  {% endwith %}
+  {% endwith %}
   {% csrf_token %}
   <table id="shutter-detail-table">
     <thead>
@@ -25,6 +30,12 @@
               <input class="dropdown-item" type="submit" name="faux_wood_style" value="Ecowood (Smooth)" />
               <input class="dropdown-item" type="submit" name="faux_wood_style" value="Facade (Textured)" />
             </div>
+          </th>
+        {% elif items.0.product == "Shades" %}
+          <th class="shades-style-colname">Color</th>
+
+          <th class="nav-item dropdown shades-style-dropdown hidden">
+            <input class="nav-link disabled" disabled type="submit" name="color_{{ items.0.product|lower }}" value="Color" />
           </th>
         {% endif %}
         <th>Location</th>
@@ -75,6 +86,7 @@
           <td>{{ item.faux_wood_style|default_if_none:"" }}</td>
         {% elif item.product == "Shades" %}
           <td>{{ item.shade_type }}</td>
+          <td>{{ item.color|title }}</td>
         {% endif %}
 
         <td>{{ item.location|title }}</td>

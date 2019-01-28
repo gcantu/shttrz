@@ -20,6 +20,8 @@ urlpatterns = [
     path('set_blinds_style_default', views.set_blinds_style_default, name='blind-style-default'),
     path('update_blind_style/<int:pk>', views.UpdateBlindStyle.as_view(), name='update-blind-style'),
 
+    path('set_shades_style_default', views.set_shades_style_default, name='shade-style-default'),
+    path('update_shade_style/<int:pk>', views.UpdateShadeStyle.as_view(), name='update-shade-style'),
 
     path('<status>', views.deal_list, name='deal-list'),
     path('summary/<int:pk>', views.deal_summary, name='deal-summary'),

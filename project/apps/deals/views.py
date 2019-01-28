@@ -302,6 +302,20 @@ def set_blinds_style_default(request):
         return redirect(reverse('deals:deal-summary-items', kwargs={'pk': deal_id}))
 
 
+def set_shades_style_default(request):
+    id_list = request.POST.getlist('item_list')
+    d = Shade.objects.get(id=id_list[0])
+    deal_id = d.deal_id
+    dict = request.POST.dict()
+
+    Shade.objects.filter(id__in=id_list).update(default_style=True)
+
+    if 'color_shades' in request.POST:
+        return redirect(reverse('deals:update-shade-style', kwargs={'pk': id_list[0]}))
+    else:
+        return redirect(reverse('deals:deal-summary-items', kwargs={'pk': deal_id}))
+
+
 class UpdateShutterStyle(UpdateView):
     model = Shutter
     fields = ['deal', 'color']
@@ -335,6 +349,28 @@ class UpdateBlindStyle(UpdateView):
 
         # update remaining deal items
         items = Blind.objects.filter(default_style=True)
+
+        for item in items:
+            item.color = self.object.color
+            item.default_style = False
+            item.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('deals:deal-summary-items', kwargs={'pk': self.get_object().deal_id})
+
+
+class UpdateShadeStyle(UpdateView):
+    model = Shade
+    fields = ['deal', 'color']
+    template_name = 'products/product_style_form.html'
+
+    def form_valid(self, form):
+        self.object.default_style = False
+        self.object = form.save()
+
+        # update remaining deal items
+        items = Shade.objects.filter(default_style=True)
 
         for item in items:
             item.color = self.object.color
