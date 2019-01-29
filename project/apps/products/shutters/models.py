@@ -208,7 +208,9 @@ class AbstractShutter(AbstractTenant):
 
     def _stile(self):
         Lheight = self._l_frame_height()
-        stile = Lheight - 1.75 # 1 3/4
+        framestyle_measurement = FrameStyle.objects.get(pk=self.frame_style_id)
+        framestyle_measurement = framestyle_measurement.measurement
+        stile = Lheight - framestyle_measurement - 1 # 1 3/4 or 2
         return round(stile, 4)
 
     def _tilt_rod(self):
