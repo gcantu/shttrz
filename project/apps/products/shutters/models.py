@@ -103,6 +103,23 @@ class AbstractShutter(AbstractTenant):
     def _t_post_width(self):
         return 1.25
 
+    def _l_frame_deduction(self, measure_type):
+        if self.mount == 'In':
+            d = 0.125 # 1/8 for inside mount
+        else:
+            d = 0.375 if measure_type == 'width' else 0.25 # 3/8 for width, 1/4 for height
+        return d
+
+    def _rail_hinge_offset(self):
+        return 0.125 # 1/8
+
+    def _rail_opening_offset(self):
+        return 0.0625 # 1/16
+
+    def _frame_measurement(self):
+        fm = FrameStyle.objects.get(pk=self.frame_style_id)
+        return fm.measurement
+
     # L frame reductions
     # ------------------------------------------------------
     def _width(self):
@@ -129,77 +146,41 @@ class AbstractShutter(AbstractTenant):
         h = (self.height_right + self.height_right_fraction) if self.height_right else 0
         return h
 
-    def _get_lframe(self, measure_type):
-        if measure_type == 'width':
-            measure = self._width()
-        elif measure_type == 'height':
-            measure = self._height()
-        elif measure_type == 'height_center':
-            measure = self._height_center()
-        elif measure_type == 'height_left':
-            measure = self._height_left()
-        elif measure_type == 'height_right':
-            measure = self._height_right()
-        elif measure_type == 'height_middle':
-            measure = self._height_middle()
-
-        if self.shutter_type_id == 4:
-            l = measure
-        else:
-            deduction = 0.375 if measure_type == 'width' else 0.25 # 3/8 for width, 1/4 for height
-            l = (measure - 0.125) if self.mount == 'In' else (measure - deduction)
-
-        return l
-
     def _l_frame_width(self):
-        mt = 'width'
-        l = self._get_lframe(mt)
+        l = self._width() - self._l_frame_deduction('width')
         return l
 
     def _l_frame_height(self):
-        mt = 'height'
-        l = self._get_lframe(mt)
+        l = self._height() - self._l_frame_deduction('height')
         return l
 
     def _l_frame_height_center(self):
-        mt = 'height_center'
-        l = self._get_lframe(mt) if (self.shutter_type_id == 13 or self.shutter_type_id == 15) else 0
-        return l
+        l = self._height_center() - self._l_frame_deduction('height')
+        return l if l > 1 else 0
 
     def _l_frame_height_left(self):
-        mt = 'height_left'
-        l = self._get_lframe(mt) if (self.shutter_type_id > 11 and self.side != 'R') else 0
-        return l
+        l = self._height_left() - self._l_frame_deduction('height')
+        return l if l > 1 else 0
 
     def _l_frame_height_right(self):
-        mt = 'height_right'
-        l = self._get_lframe(mt) if (self.shutter_type_id > 11 and self.side != 'L') else 0
-        return l
+        l = self._height_right() - self._l_frame_deduction('height')
+        return l if l > 1 else 0
 
     def _l_frame_height_middle(self):
-        mt = 'height_middle'
-        l = self._get_lframe(mt) if (self.shutter_type_id == 13 or self.shutter_type_id == 15) else 0
-        return l
+        l = self._height_middle() - self._l_frame_deduction('height')
+        return l if l > 1 else 0
 
     # rail, louver, stile, tilt rod
     # ------------------------------------------------------
     def _rail(self):
-        l_width = self._l_frame_width()
-        hinge_offset = 0.125 # 1/8
-        opening_offset = 0.0625 # 1/16
-        framestyle_measurement = FrameStyle.objects.get(pk=self.frame_style_id)
-        framestyle_measurement = framestyle_measurement.measurement
-
-        if self.panels == 1:
-            reduction = (framestyle_measurement*2) + (self._stile_width()*2) + hinge_offset + opening_offset
-            rail = l_width - reduction
-        elif self.panels == 2:
-            reduction = (framestyle_measurement*2) + (self._stile_width()*4) + (hinge_offset*2)
-            reduction = (reduction + self._t_post_width()) if self.t_post else (reduction + (opening_offset*2))
-            rail = (l_width - reduction) / 2
-        elif self.panels == 4: # 4 panels
-            reduction = (framestyle_measurement*2) + (self._stile_width()*8) + (hinge_offset*4) + (opening_offset*4) + self._t_post_width()
-            rail =(l_width - reduction) / 4
+        frame_reduction = self._frame_measurement() * 2
+        stile_reduction = self._stile_width() * (self.panels * 2)
+        hinges_reduction = self._rail_hinge_offset() * self.panels
+        opening_reduction = self._rail_opening_offset() * self.panels
+        reductions = frame_reduction + stile_reduction + hinges_reduction + opening_reduction
+        if self.t_post:
+            reductions = reductions + (self._t_post_width() * self.t_post)
+        rail = ((self._l_frame_width() - reductions) / self.panels) if self.panels > 0 else 0
         return rail
 
     def _louver(self):
@@ -207,18 +188,9 @@ class AbstractShutter(AbstractTenant):
         return louver
 
     def _stile(self):
-        Lheight = self._l_frame_height()
-        framestyle_measurement = FrameStyle.objects.get(pk=self.frame_style_id)
-        framestyle_measurement = framestyle_measurement.measurement
-
-        if self.frame_style_id == 2:
-            if self.frame == 4:
-                stile = Lheight - framestyle_measurement - 1.25
-            else:
-                stile = Lheight - framestyle_measurement - 1
-        else:
-            stile = Lheight - framestyle_measurement - 1 # 1 3/4 or 2
-
+        frame_reduction = self._frame_measurement()
+        stile_reduction = 1.25 if self.frame == 4 else 1
+        stile = (self._l_frame_height() - frame_reduction - stile_reduction)
         return round(stile, 4)
 
     def _tilt_rod(self):
