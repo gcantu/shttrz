@@ -32,11 +32,11 @@
             {% trans "hidden" as no_height %}
           {% endif %}
 
-          {% if form.shutter_type.value == 12 or form.shutter_type.value == 14 %}
+          {% if form.shutter_type.value == 12 or form.shutter_type.value == 14 or form.shutter_type.value == 17 or form.shutter_type.value == 18 %}
             {% trans "hidden" as no_middle %}
           {% endif %}
 
-          {% if form.shutter_type.value == 6 or form.shutter_type.value == 8 or form.shutter_type.value == 13 or form.shutter_type.value == 15 %}
+          {% if form.shutter_type.value == 6 or form.shutter_type.value == 8 or form.shutter_type.value == 13 or form.shutter_type.value == 15 or form.shutter_type.value == 11 or form.shutter_type.value == 18 %}
             {% trans "hidden" as two_piece %}
           {% else %}
             {% trans "hidden" as one_piece %}
@@ -48,11 +48,15 @@
             {% trans "hidden" as no_left %}
           {% endif %}
 
-          {% if form.shutter_type.value < 9 %}
+          {% if form.shutter_type.value == 10 or form.shutter_type.value == 17 %}
+            {% trans "hidden" as arch %}
+          {% endif %}
+
+          {% if form.shutter_type.value < 12 %}
             {% trans "hidden" as no_extra %}
           {% endif %}
 
-          {% if form.shutter_type.value < 7 or form.shutter_type.value == 12 or form.shutter_type.value == 13 %}
+          {% if form.shutter_type.value < 7 or form.shutter_type.value == 10 or form.shutter_type.value == 11 or form.shutter_type.value == 12 or form.shutter_type.value == 13 or form.shutter_type.value == 17 or form.shutter_type.value == 18 %}
             {% trans "hidden" as no_center %}
           {% endif %}
 
@@ -216,7 +220,7 @@
 
           <div class="row">
             <div class="col-8">
-              <div class="form-section two-piece-exclude-fields {{ two_piece }}">
+              <div class="form-section two-piece-exclude-fields {{ two_piece }} {{ arch }}">
                 <div class="form-row">
                   <div class="col-3 col-md-2 panel-field {{ no_4 }}">
                     <label>Panels</label>

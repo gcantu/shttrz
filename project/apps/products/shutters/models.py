@@ -387,6 +387,11 @@ class Shutter(AbstractShutter):
             self.panels = 1
             self.t_post = None
 
+        # panels = 0 for archs
+        if (self.shutter_type_id == 10 or self.shutter_type_id == 11 or self.shutter_type_id == 17 or self.shutter_type_id == 18):
+            self.panels = 0
+            self.t_post = None
+
         # set hinges side for 1 piece products
         if self.side == 'L':
             self.hinges = 'L'

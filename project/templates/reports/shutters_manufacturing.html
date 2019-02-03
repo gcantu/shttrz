@@ -74,6 +74,41 @@
 </div><br>
 {% endif %}
 
+{% if arch_shutter %}
+<div class="scroll-section">
+  <div class="heading-sm">Archs</div>
+
+  <table id="manufacturing-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Mod.</th>
+        <th>Location</th>
+        <th>Width</th>
+        <th>Height</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for item in arch_shutter %}
+      <tr>
+        {% with item_count=items|length %}
+        {% with door_count=door_shutter|length %}
+        <td>{{ forloop.counter|add:item_count|add:door_count }}</td>
+        {% endwith %}
+        {% endwith %}
+
+        <td># {{ item.shutter_type_id }}</td>
+        <td>{{ item.location|title }}</td>
+        <td>{{ item.l_frame_width }}</td>
+        <td>{{ item.l_frame_height }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div><br>
+{% endif %}
+
 
 <!-- ORDER MATERIALS -->
 <div>

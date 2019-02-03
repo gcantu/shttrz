@@ -229,13 +229,17 @@ function showMeasureField(val){ // function to render hidden fields in line item
     $(".height-field").removeClass("hidden");
   }
 
-  if (val == 6 || val == 8 || val == 13 || val == 15) { // models with 2 pieces
-    $(".two-piece-exclude-fields").addClass("hidden");
+  if (val == 6 || val == 8 || val == 13 || val == 15 || val == 11 || val == 18) { // models with 2 pieces
     $(".side-field").removeClass("hidden");
   } else {
-    $(".two-piece-exclude-fields").removeClass("hidden");
     $(".side-field").addClass("hidden");
     $("#id_side").val("");
+  }
+
+  if (val == 6 || val == 8 || val == 13 || val == 15 || val == 11 || val == 18 || val == 10 || val == 17) { // models with 2 pieces
+    $(".two-piece-exclude-fields").addClass("hidden");
+  } else {
+    $(".two-piece-exclude-fields").removeClass("hidden");
   }
 
   if (val == 7 || val == 8 || val == 14 || val == 15) { // add center height to model #14 and #15
