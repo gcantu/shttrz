@@ -43,6 +43,12 @@ $('#delete-item-button').on('click', function() { // show/hide line item edit bu
   $(".style-hidden-btn").addClass("hidden");
 });
 
+$('#status-item-button').on('click', function() { // show/hide line item edit buttons
+  $(".status-hidden-btn").toggleClass("hidden");
+  $(".status-colname").toggleClass("hidden");
+  $(".status-dropdown").toggleClass("hidden");
+});
+
 $('#style-item-button').on('click', function() { // show/hide line item edit buttons
   $(".style-hidden-btn").toggleClass("hidden");
   $(".style-colname").toggleClass("hidden");

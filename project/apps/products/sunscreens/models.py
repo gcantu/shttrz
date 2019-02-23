@@ -57,6 +57,7 @@ class AbstractSunscreen(AbstractTenant):
 
 class Sunscreen(AbstractSunscreen):
     FRACTION_CHOICES = [(0, ''), (.125, '1/8'), (.25, '1/4'), (.375, '3/8'), (.5, '1/2'), (.625, '5/8'), (.75, '3/4'), (.875, '7/8')]
+    STATUS_CHOICES = (('Approved', 'Approved'), ('Canceled', 'Canceled'))
 
     deal = models.ForeignKey(Deal, models.SET_NULL, blank=True, null=True)
     product = models.CharField(max_length=10, default='Sunscreens')
@@ -67,6 +68,7 @@ class Sunscreen(AbstractSunscreen):
     width_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     height_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     price_per_sq_ft = models.FloatField(default=0)
+    status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='Approved')
 
     def save(self, *args, **kwargs):
         self.location = self.location.capitalize()

@@ -328,6 +328,7 @@ class Shutter(AbstractShutter):
     SIDE_CHOICES = [('L', 'Left'), ('R', 'Right')]
     INSET_CHOICES = [(True, 'Yes'), (False, 'No')]
     CUTOUT_CHOICES = [('Mosca', 'Mosca'), ('Luna', 'Luna'), ('Sol', 'Sol')]
+    STATUS_CHOICES = (('Approved', 'Approved'), ('Canceled', 'Canceled'))
 
     deal = models.ForeignKey(Deal, models.SET_NULL, blank=True, null=True)
     product = models.CharField(max_length=10, default='Shutters')
@@ -369,6 +370,7 @@ class Shutter(AbstractShutter):
     height_tilt_rod_split_fraction = models.FloatField(choices=FRACTION_CHOICES, default=0)
     price_per_sq_ft = models.FloatField(default=0)
     default_style = models.BooleanField(default=False)
+    status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='Approved')
 
     def save(self, *args, **kwargs):
         self.location = self.location.capitalize()

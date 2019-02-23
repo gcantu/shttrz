@@ -1,0 +1,55 @@
+{% load widget_tweaks %}
+
+<div class="scroll-section">
+  <form action="{% url 'deals:update-deal-item-status' items.0.deal_id items.0.product %}" method="post">
+  {% csrf_token %}
+  <table id="shutter-detail-table">
+    <thead>
+      <tr>
+        <th class="hidden status-hidden-btn no-padding"><input type="checkbox" id="checkAll" name="checkAll"/></th>
+        <th>#</th>
+        <th>Model</th>
+        <th>Location</th>
+        <th>Width</th>
+        <th>Height</th>
+        <th>Center</th>
+        <th>Left</th>
+        <th>Right</th>
+        <th>Price/Sq. Ft.</th>
+        <th>Total</th>
+        <th class="status-colname">Status</th>
+
+        <th class="nav-item dropdown status-dropdown hidden">
+          <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Status</a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <input class="dropdown-item" type="submit" name="status" value='Approved' />
+            <input class="dropdown-item" type="submit" name="status" value='Canceled' />
+          </div>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td class="hidden status-hidden-btn">
+          <input class="item-checkbox" type="checkbox" name="item_list" value="{{item.id}}" />
+        </td>
+
+        <td>{{ forloop.counter }}</td>
+        <td># {{ item.shutter_type_id }}</td>
+        <td>{{ item.location|title }}</td>
+        <td>{{ item.width }} {{ item.get_width_fraction_display }}</td>
+        <td>{{ item.height_display|default_if_none:"" }}</td>
+        <td>{{ item.height_center|default_if_none:"" }} {{ item.get_height_center_fraction_display }}</td>
+        <td>{{ item.height_left|default_if_none:"" }} {{ item.get_height_left_fraction_display }}</td>
+        <td>{{ item.height_right|default_if_none:"" }} {{ item.get_height_right_fraction_display }}</td>
+        <td>$ {{ item.price_per_sq_ft }}</td>
+        <td>$ {{ item.total_price }}</td>
+        <td>{{ item.status }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </form>
+</div>

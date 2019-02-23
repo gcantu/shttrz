@@ -11,10 +11,10 @@ from shutters.utils import as_fraction
 def proposal_report(request, pk):
     deal = Deal.objects.get(pk=pk)
     customer = Customer.objects.get(deal__id=pk)
-    shutter = Shutter.objects.filter(deal_id=pk)
-    blind = Blind.objects.filter(deal_id=pk)
-    shade = Shade.objects.filter(deal_id=pk)
-    sunscreen = Sunscreen.objects.filter(deal_id=pk)
+    shutter = Shutter.objects.filter(deal_id=pk, status='Approved')
+    blind = Blind.objects.filter(deal_id=pk, status='Approved')
+    shade = Shade.objects.filter(deal_id=pk, status='Approved')
+    sunscreen = Sunscreen.objects.filter(deal_id=pk, status='Approved')
     price = Price.objects.get(pk=pk)
 
     product_list = [shutter, blind, shade, sunscreen]
@@ -25,12 +25,12 @@ def proposal_report(request, pk):
 def manufacturing_report(request, pk, product):
     deal = Deal.objects.get(pk=pk)
     customer = Customer.objects.get(deal__id=pk)
-    shutter = Shutter.objects.filter(deal_id=pk).exclude(shutter_type_id__in=[4, 10, 11, 17, 18]).order_by('shutter_type_id')
-    door_shutter = Shutter.objects.filter(deal_id=pk).filter(shutter_type_id=4)
-    arch_shutter = Shutter.objects.filter(shutter_type_id__in=[10, 11, 17, 18])
-    blind = Blind.objects.filter(deal_id=pk)
-    shade = Shade.objects.filter(deal_id=pk)
-    sunscreen = Sunscreen.objects.filter(deal_id=pk)
+    shutter = Shutter.objects.filter(deal_id=pk, status='Approved').exclude(shutter_type_id__in=[4, 10, 11, 17, 18]).order_by('shutter_type_id')
+    door_shutter = Shutter.objects.filter(deal_id=pk, status='Approved').filter(shutter_type_id=4)
+    arch_shutter = Shutter.objects.filter(deal_id=pk, status='Approved', shutter_type_id__in=[10, 11, 17, 18])
+    blind = Blind.objects.filter(deal_id=pk, status='Approved')
+    shade = Shade.objects.filter(deal_id=pk, status='Approved')
+    sunscreen = Sunscreen.objects.filter(deal_id=pk, status='Approved')
     material = Material.objects.get(pk=pk)
 
     product_list = []
@@ -60,10 +60,10 @@ def manufacturing_report(request, pk, product):
 def invoice_report(request, pk):
     deal = Deal.objects.get(pk=pk)
     customer = Customer.objects.get(deal__id=pk)
-    shutter = Shutter.objects.filter(deal_id=pk)
-    blind = Blind.objects.filter(deal_id=pk)
-    shade = Shade.objects.filter(deal_id=pk)
-    sunscreen = Sunscreen.objects.filter(deal_id=pk)
+    shutter = Shutter.objects.filter(deal_id=pk, status='Approved')
+    blind = Blind.objects.filter(deal_id=pk, status='Approved')
+    shade = Shade.objects.filter(deal_id=pk, status='Approved')
+    sunscreen = Sunscreen.objects.filter(deal_id=pk, status='Approved')
     price = Price.objects.get(pk=pk)
 
     product_list = [shutter, blind, shade, sunscreen]

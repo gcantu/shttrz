@@ -60,27 +60,27 @@ class PriceForm(ModelForm):
 class ShutterForm(ModelForm):
     class Meta:
         model = Shutter
-        exclude = ['product', 'default_style']
+        exclude = ['product', 'default_style', 'status']
 
 
 class BlindForm(ModelForm):
     class Meta:
         model = Blind
-        exclude = ['price_per_sq_ft']
+        exclude = ['price_per_sq_ft', 'status']
         # fields = '__all__'
 
 
 class ShadeForm(ModelForm):
     class Meta:
         model = Shade
-        exclude = ['price_per_sq_ft']
+        exclude = ['price_per_sq_ft', 'status']
         # fields = '__all__'
 
 
 class SunscreenForm(ModelForm):
     class Meta:
         model = Sunscreen
-        exclude = ['price_per_sq_ft']
+        exclude = ['price_per_sq_ft', 'status']
         # fields = '__all__'
 
 

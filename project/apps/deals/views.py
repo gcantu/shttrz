@@ -116,10 +116,10 @@ def new_deal(request, customer_id):
 
 
 def deal_specs(request, deal_id):
-    shutter = Shutter.objects.filter(deal_id=deal_id)
-    blind = Blind.objects.filter(deal_id=deal_id)
-    shade = Shade.objects.filter(deal_id=deal_id)
-    sunscreen = Sunscreen.objects.filter(deal_id=deal_id)
+    shutter = Shutter.objects.filter(deal_id=deal_id, status='Approved')
+    blind = Blind.objects.filter(deal_id=deal_id, status='Approved')
+    shade = Shade.objects.filter(deal_id=deal_id, status='Approved')
+    sunscreen = Sunscreen.objects.filter(deal_id=deal_id, status='Approved')
     price = Price.objects.get(deal_id=deal_id)
     material = Material.objects.get(deal_id=deal_id)
 
@@ -225,6 +225,21 @@ class UpdateDealStatus(UpdateView):
 
     def get_success_url(self):
         return reverse('core:home')
+
+
+def update_deal_item_status(request, deal_id, product):
+    id_list = request.POST.getlist('item_list')
+    dict = request.POST.dict()
+    new_status = dict.pop('status')
+
+    prod_name = product.lower()
+    model_name = product[:-1]
+
+    var_model = apps.get_model(prod_name, model_name)
+    var_model.objects.filter(id__in=id_list).update(status=new_status)
+
+    return redirect(reverse('deals:deal-specs', kwargs={'deal_id': deal_id}))
+
 
 def set_style_default(request, deal_id):
     id_list = request.POST.getlist('item_list')
@@ -434,16 +449,22 @@ def deal_summary(request, pk):
     deal = Deal.objects.get(id=pk)
     price = Price.objects.get(deal_id=pk)
     customer = Customer.objects.get(id=deal.customer_id)
-
-    return render(request, 'deals/deal_summary.html', {'customer': customer, 'deal': deal, 'price': price})
-
-
-def deal_summary_items(request, pk):
-    deal = Deal.objects.get(id=pk)
     shutter = Shutter.objects.filter(deal_id=pk).order_by('shutter_type_id')
     blind = Blind.objects.filter(deal_id=pk).order_by('blind_type_id')
     shade = Shade.objects.filter(deal_id=pk).order_by('shade_type_id')
     sunscreen = Sunscreen.objects.filter(deal_id=pk).order_by('sunscreen_type_id')
+
+    product_list = [blind, shade, sunscreen]
+
+    return render(request, 'deals/deal_summary.html', {'customer': customer, 'deal': deal, 'price': price, 'items': shutter, 'product_list': product_list})
+
+
+def deal_summary_items(request, pk):
+    deal = Deal.objects.get(id=pk)
+    shutter = Shutter.objects.filter(deal_id=pk, status='Approved').order_by('shutter_type_id')
+    blind = Blind.objects.filter(deal_id=pk, status='Approved').order_by('blind_type_id')
+    shade = Shade.objects.filter(deal_id=pk, status='Approved').order_by('shade_type_id')
+    sunscreen = Sunscreen.objects.filter(deal_id=pk, status='Approved').order_by('sunscreen_type_id')
 
     product_list = [blind, shade, sunscreen]
 

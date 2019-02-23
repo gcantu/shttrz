@@ -16,6 +16,7 @@ urlpatterns = [
     path('update_shutter_style/<int:pk>', views.UpdateShutterStyle.as_view(), name='update-shutter-style'),
     path('delete_shutter_item/<int:pk>', views.DeleteShutterItem.as_view(), name='delete-shutter-item'),
     path('update_status/<int:pk>/<status>', views.UpdateDealStatus.as_view(), name='update-deal-status'),
+    path('update_deal_item_status/<int:deal_id>/<product>', views.update_deal_item_status, name='update-deal-item-status'),
 
     path('set_blinds_style_default', views.set_blinds_style_default, name='blind-style-default'),
     path('update_blind_style/<int:pk>', views.UpdateBlindStyle.as_view(), name='update-blind-style'),
