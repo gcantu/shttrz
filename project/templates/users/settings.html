@@ -1,0 +1,44 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Settings{% endblock %}
+
+{% block pageclass %}settings-page sidebar-page{% endblock %}
+
+{% block sidebar %}
+<div id="sidebar" class="noprint">
+  <nav class="side-nav">
+    <ul class="side-menu">
+      <li class="active">
+        <a class="btn {% block accountactiveclass %}btn-inactive{% endblock %} nf" href="{% url 'users:update-user' %}" role="button">
+          <i class="fas fa-user"></i><br>Account
+        </a>
+      </li>
+      <li>
+        <a class="btn {% block passwordactiveclass %}btn-inactive{% endblock %} nf" href="{% url 'users:update-password' %}" role="button">
+          <i class="fas fa-unlock-alt"></i><br>Password
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+{% endblock %}
+
+{% block contentclass %}sidebar-content{% endblock %}
+
+{% block contenttitle %}
+<div class="col-12 content-title">
+  <div class="heading-md">{{ title }}</div>
+</div> <!-- END col -->
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col">
+    <div class="card-section">
+      {% block settingscontent %}{% endblock %}
+    </div>
+  </div>
+</div>
+{% endblock %}

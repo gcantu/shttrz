@@ -15,6 +15,7 @@ from .utils import DealFilter
 from django.template.defaultfilters import date
 import json
 from django.http import HttpResponse
+from django.apps import apps
 
 
 def location_name_search(request):
@@ -41,6 +42,8 @@ class CustomCreateView(CreateView):
         i = {'tenant': tenant.id, 'deal': self.kwargs.get('deal_id')}
         return i.copy()
 
+    def get_success_url(self):
+        return reverse('deals:create-' + self.prod + '-item', kwargs={'deal_id': self.object.deal_id})
 
 class CreateCustomer(CustomCreateView):
     model = Customer
@@ -53,6 +56,7 @@ class CreateCustomer(CustomCreateView):
 class CreateShutterItem(CustomCreateView):
     form_class = ShutterForm
     model = Shutter
+    prod = 'shutter'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -62,14 +66,12 @@ class CreateShutterItem(CustomCreateView):
         context['items'] = Shutter.objects.filter(deal_id=self.kwargs.get('deal_id'))
         return context
 
-    def get_success_url(self):
-        return reverse('deals:create-shutter-item', kwargs={'deal_id': self.object.deal_id})
-
 
 class CreateBlindItem(CustomCreateView):
     form_class = BlindForm
     model = Blind
     template_name = "products/product_form.html"
+    prod = 'blind'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -77,14 +79,12 @@ class CreateBlindItem(CustomCreateView):
         context['product'] = 'Blinds'
         return context
 
-    def get_success_url(self):
-        return reverse('deals:create-blind-item', kwargs={'deal_id': self.object.deal_id})
-
 
 class CreateShadeItem(CustomCreateView):
     form_class = ShadeForm
     model = Shade
     template_name = "products/product_form.html"
+    prod = 'shade'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -92,23 +92,18 @@ class CreateShadeItem(CustomCreateView):
         context['product'] = 'Shades'
         return context
 
-    def get_success_url(self):
-        return reverse('deals:create-shade-item', kwargs={'deal_id': self.object.deal_id})
-
 
 class CreateSunscreenItem(CustomCreateView):
     form_class = SunscreenForm
     model = Sunscreen
     template_name = "products/product_form.html"
+    prod = 'sunscreen'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['items'] = Sunscreen.objects.filter(deal_id=self.kwargs.get('deal_id'))
         context['product'] = 'Sunscreens'
         return context
-
-    def get_success_url(self):
-        return reverse('deals:create-sunscreen-item', kwargs={'deal_id': self.object.deal_id})
 
 
 def new_deal(request, customer_id):
@@ -231,55 +226,35 @@ class UpdateDealStatus(UpdateView):
     def get_success_url(self):
         return reverse('core:home')
 
-
-def set_style_default(request):
+def set_style_default(request, deal_id):
     id_list = request.POST.getlist('item_list')
-    d = Shutter.objects.get(id=id_list[0])
-    deal_id = d.deal_id
     dict = request.POST.dict()
 
-    if 'finish' in request.POST:
-        f = dict.pop('finish')
-        Shutter.objects.filter(id__in=id_list).update(finish=f)
+    # [dict.pop(key) for key in list(['csrfmiddlewaretoken', 'checkAll', 'item_list'])]
+    for key in list(['csrfmiddlewaretoken', 'checkAll', 'item_list']):
+        if key in dict:
+            dict.pop(key)
 
-        if f == 'Paint':
-            Shutter.objects.filter(id__in=id_list).update(stain='')
+    field_name = list(dict)[0] # frame_style
+    model_name = field_name.replace('_', ' ').title().replace(' ', '') # FrameStyle
 
-    elif 'frame_style' in request.POST:
-        ts = dict.pop('frame_style')
-        ts = FrameStyle.objects.get(frame_style=ts)
-        Shutter.objects.filter(id__in=id_list).update(frame_style=ts)
-    elif 'trim_style' in request.POST:
-        ts = dict.pop('trim_style')
-        ts = TrimStyle.objects.get(trim_style=ts)
-        Shutter.objects.filter(id__in=id_list).update(trim_style=ts)
-    elif 'tilt_rod' in request.POST:
-        tr = dict.pop('tilt_rod')
-        tr = TiltRod.objects.get(tilt_rod=tr)
-        Shutter.objects.filter(id__in=id_list).update(tilt_rod=tr)
-    elif 'hinge_color' in request.POST:
-        hc = dict.pop('hinge_color')
-        hc = HingeColor.objects.get(hinge_color=hc)
-        Shutter.objects.filter(id__in=id_list).update(hinge_color=hc)
-    elif 'stain' in request.POST:
-        s = dict.pop('stain')
-        s = Stain.objects.get(stain=s)
-        Shutter.objects.filter(id__in=id_list).update(stain=s)
-    elif 'louver' in request.POST:
-        l = dict.pop('louver')
-        if l == '2 1/2':
-            Shutter.objects.filter(id__in=id_list).update(louver=2.5)
-        elif l == '3 1/2':
-            Shutter.objects.filter(id__in=id_list).update(louver=3.5)
-        else:
-            Shutter.objects.filter(id__in=id_list).update(louver=4.5)
+    if dict[field_name] == 'NO STAIN' or  field_name == 'color':
+        new_val = ''
+    elif field_name == 'louver':
+        new_val = int(dict[field_name][0]) + .5
+    elif field_name == 'finish':
+        new_val = dict[field_name]
     else:
+        var_model = apps.get_model('shutters', model_name)
+        new_val = var_model.objects.get(**dict)
+
+    dict[field_name] = new_val
+
+    if field_name == 'color':
         Shutter.objects.filter(id__in=id_list).update(default_style=True)
-
-
-    if 'color' in request.POST:
         return redirect(reverse('deals:update-shutter-style', kwargs={'pk': id_list[0]}))
     else:
+        Shutter.objects.filter(id__in=id_list).update(**dict)
         return redirect(reverse('deals:deal-summary-items', kwargs={'pk': deal_id}))
 
 

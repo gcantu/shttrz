@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 from . import views
 
 app_name = 'deals'
@@ -12,7 +12,7 @@ urlpatterns = [
     path('update_shutter_item/<int:pk>/<int:deal_id>', views.UpdateShutterItem.as_view(), name='update-shutter-item'),
     path('update_deal/<int:pk>', views.UpdateDeal.as_view(), name='update-deal'),
     path('update_pricing/<int:pk>', views.UpdatePrice.as_view(), name='update-price'),
-    path('set_style_default', views.set_style_default, name='style-default'),
+    path('set_style_default/<int:deal_id>', views.set_style_default, name='style-default'),
     path('update_shutter_style/<int:pk>', views.UpdateShutterStyle.as_view(), name='update-shutter-style'),
     path('delete_shutter_item/<int:pk>', views.DeleteShutterItem.as_view(), name='delete-shutter-item'),
     path('update_status/<int:pk>/<status>', views.UpdateDealStatus.as_view(), name='update-deal-status'),

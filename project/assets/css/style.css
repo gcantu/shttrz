@@ -20,7 +20,6 @@
 3.0 Headings
 4.0 Links
 5.0 Navigation
-	5.2 Settings Menu
 	5.3 Filter Menu
 	5.4 Deal Summary Tabs
 	5.5 Autocomplete Menu
@@ -575,28 +574,6 @@ a:focus, a:active, a:hover {
 /*--------------------------------------------------------------
 5.0 Navigation
 --------------------------------------------------------------*/
-
-/* 5.2 Settings Menu
---------------------------------------------------------------*/
-#settings-menu {
-  border: 0.5px solid #888888;
-	margin-top: 10px;
-}
-
-#settings-menu li {
-  margin-bottom: 10px;
-	padding-top: 2px;
-}
-
-#settings-menu li.active a {
-  background-color: #424a5d;
-	color: #fff;
-}
-
-#settings-menu li a:hover {
-  background-color: #7a808d;
-	color: #fff;
-}
 
 /* 5.3 Filter Menu
 --------------------------------------------------------------*/
@@ -1187,11 +1164,6 @@ and (-webkit-min-device-pixel-ratio: 1){
 
 	#deal-list-table tbody tr {
 		height: 80px;
-	}
-
-	#settings-menu li a {
-		letter-spacing: 3px;
-		margin-bottom: 20px;
 	}
 
 	#report-template,

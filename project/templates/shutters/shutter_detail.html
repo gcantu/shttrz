@@ -1,7 +1,7 @@
 {% load widget_tweaks %}
 
 <div class="scroll-section">
-  <form action="{% url 'deals:style-default' %}" method="post">
+  <form action="{% url 'deals:style-default' items.0.deal_id %}" method="post">
   {% csrf_token %}
   <table id="shutter-detail-table">
     <thead>
@@ -73,10 +73,11 @@
           <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Stain</a>
           <div class="dropdown-menu dropdown-menu-right">
             <input class="dropdown-item" type="submit" name="stain" value="Ash" />
-            <input class="dropdown-item" type="submit" name="stain" value="Baswood" />
+            <input class="dropdown-item" type="submit" name="stain" value="Basswood" />
             <input class="dropdown-item" type="submit" name="stain" value="Knotty Alder" />
             <input class="dropdown-item" type="submit" name="stain" value="Maple" />
             <input class="dropdown-item" type="submit" name="stain" value="Pine" />
+            <input class="dropdown-item" type="submit" name="stain" value="NO STAIN" />
           </div>
         </th>
 
