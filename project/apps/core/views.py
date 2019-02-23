@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 
 @login_required
-def Home():
+def Home(request):
     return redirect(reverse('deals:deal-list', kwargs={'status': 'Active'}))
 
 
