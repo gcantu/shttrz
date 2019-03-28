@@ -394,6 +394,21 @@ class Shutter(AbstractShutter):
             self.panels = 0
             self.t_post = None
 
+        # set default panels if missing
+        if not self.panels:
+            if self.width < 30:
+                self.panels = 1
+            elif self.width < 60:
+                self.panels = 2
+            elif self.width < 96:
+                self.panels = 4
+            else:
+                self.panels = 0
+
+        # set default louver if missing
+        if not self.louver:
+            self.louver = 3.5
+
         # set hinges side for 1 piece products
         if self.side == 'L':
             self.hinges = 'L'
