@@ -4,7 +4,11 @@
   <!-- <form action="{% url 'deals:blind-style-default' %}" method="post"> -->
   {% with prod_name=items.0.product|stringformat:"s"|lower|slice:":-1" %}
   {% with 'deals:'|add:prod_name|add:'-style-default' as prod_url %}
-    <form action="{% url prod_url %}" method="post">
+    {% if items.0.product == "Sunscreens" %}
+      <form action="" method="post">
+    {% else %}
+      <form action="{% url prod_url %}" method="post">
+    {% endif %}
   {% endwith %}
   {% endwith %}
   {% csrf_token %}
