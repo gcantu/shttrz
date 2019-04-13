@@ -50,8 +50,15 @@ class AbstractBlind(AbstractTenant):
     # price based on total sq. ft
     # ------------------------------------------------------
     def total_price(self):
-        w_ft = self._width()/12
-        h_ft = self._height()/12
+        if self.blind_type_id == 1:
+            w = self._width() if self._width() >= 12 else 12
+            h = self._height() if self._height() >= 36 else 36
+        else:
+            w = self._width() if self._width() >= 22 else 22
+            h = self._height() if self._height() >= 24 else 24
+
+        w_ft = w/12
+        h_ft = h/12
         w_ft_custom = custom_round(w_ft)
         h_ft_custom = custom_round(h_ft)
 
