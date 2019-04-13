@@ -66,7 +66,7 @@
 <div class="row">
   <div class="col mt">
     <div class="card-section">
-      <div class="heading-md">SHUTTER DETAILS
+      <div class="heading-md">SHUTTERS
         <button id="status-item-button" class="btn btn-outline">Update Status</button>
       </div><hr>
       {% include 'shutters/shutter_detail_short.html' %}
@@ -74,4 +74,21 @@
   </div>
 </div>
 {% endif %}
+
+{% for items in product_list %}
+{% if items.0.product %}
+<div class="row">
+  <div class="col mt">
+    <div class="card-section">
+      <div class="heading-md">{{ items.0.product|stringformat:"s"|upper }}
+        <button id="{{ items.0.product|stringformat:'s'|lower }}-status-item-button" class="btn btn-outline">Update Status</button>
+      </div><hr>
+      {% include 'products/product_detail_short.html' %}
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+
+
 {% endblock %}

@@ -49,6 +49,24 @@ $('#status-item-button').on('click', function() { // show/hide line item edit bu
   $(".status-dropdown").toggleClass("hidden");
 });
 
+$('#blinds-status-item-button').on('click', function() { // show/hide line item edit buttons
+  $(".blinds-status-hidden-btn").toggleClass("hidden");
+  $(".blinds-status-colname").toggleClass("hidden");
+  $(".blinds-status-dropdown").toggleClass("hidden");
+});
+
+$('#shades-status-item-button').on('click', function() { // show/hide line item edit buttons
+  $(".shades-status-hidden-btn").toggleClass("hidden");
+  $(".shades-status-colname").toggleClass("hidden");
+  $(".shades-status-dropdown").toggleClass("hidden");
+});
+
+$('#sunscreens-status-item-button').on('click', function() { // show/hide line item edit buttons
+  $(".sunscreens-status-hidden-btn").toggleClass("hidden");
+  $(".sunscreens-status-colname").toggleClass("hidden");
+  $(".sunscreens-status-dropdown").toggleClass("hidden");
+});
+
 $('#style-item-button').on('click', function() { // show/hide line item edit buttons
   $(".style-hidden-btn").toggleClass("hidden");
   $(".style-colname").toggleClass("hidden");
@@ -221,6 +239,27 @@ $("#checkAllShades").on('click', function () {
 $(".shades-item-checkbox").on('change', function() {
   if (!$(this).prop("checked")) {
     $("#checkAllShades").prop("checked", false);
+  }
+});
+
+
+$("#checkAllSunscreens").on('click', function () {
+    $(".sunscreens-item-checkbox").prop('checked', $(this).prop('checked'));
+
+    if ($('#checkAllSunscreens:checked').length) {
+        $('.nav-link').removeClass('disabled');
+        $('input:submit').prop('disabled', false)
+        $('.sunscreens-item-checkbox').parent().parent().addClass("checked-row");
+    } else {
+        $('.nav-link').addClass('disabled');
+        $('input:submit').prop('disabled', true)
+        $('.sunscreens-item-checkbox').parent().parent().removeClass("checked-row");
+    }
+});
+
+$(".sunscreens-item-checkbox").on('change', function() {
+  if (!$(this).prop("checked")) {
+    $("#checkAllSunscreens").prop("checked", false);
   }
 });
 
