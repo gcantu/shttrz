@@ -128,7 +128,19 @@ def deal_specs(request, deal_id):
     price.blinds_subtotal = round(sum(i.total_price() for i in blind), 2) if blind else 0
     price.shades_subtotal = round(sum(i.total_price() for i in shade), 2) if shade else 0
     price.sunscreens_subtotal = round(sum(i.total_price() for i in sunscreen), 2) if sunscreen else 0
-    price.subtotal = price.shutters_subtotal + price.blinds_subtotal + price.shades_subtotal + price.sunscreens_subtotal
+
+    price.shutters_premium = (price.shutters_subtotal * price.shutters_premium_rate)
+    price.blinds_premium = (price.blinds_subtotal * price.blinds_premium_rate)
+    price.shades_premium = (price.shades_subtotal * price.shades_premium_rate)
+    price.sunscreens_premium = (price.sunscreens_subtotal * price.sunscreens_premium_rate)
+
+    price.shutters_total = price.shutters_subtotal + price.shutters_premium
+    price.blinds_total = price.blinds_subtotal + price.blinds_premium
+    price.shades_total = price.shades_subtotal + price.shades_premium
+    price.sunscreens_total = price.sunscreens_subtotal + price.sunscreens_premium
+
+    # price.subtotal = price.shutters_subtotal + price.blinds_subtotal + price.shades_subtotal + price.sunscreens_subtotal
+    price.subtotal = price.shutters_total + price.blinds_total + price.shades_total + price.sunscreens_total
     price.tax = (price.subtotal * price.tax_rate)
     price.credit_card_fee = (price.subtotal * price.credit_card_fee_rate) if price.payment_method_id == 3 else 0
     price.total = price.subtotal + price.tax + price.credit_card_fee

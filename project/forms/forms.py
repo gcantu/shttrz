@@ -51,10 +51,14 @@ class FormPercentageField(fields.FloatField):
 class PriceForm(ModelForm):
     tax_rate = FormPercentageField()
     credit_card_fee_rate = FormPercentageField()
+    shutters_premium_rate = FormPercentageField()
+    blinds_premium_rate = FormPercentageField()
+    shades_premium_rate = FormPercentageField()
+    sunscreens_premium_rate = FormPercentageField()
 
     class Meta:
         model = Price
-        exclude = ['deal', 'tenant', 'subtotal', 'tax', 'credit_card_fee', 'total', 'balance', 'add_tax', 'shutters_subtotal', 'blinds_subtotal', 'shades_subtotal', 'sunscreens_subtotal']
+        exclude = ['deal', 'tenant', 'subtotal', 'tax', 'credit_card_fee', 'total', 'balance', 'add_tax', 'shutters_subtotal', 'blinds_subtotal', 'shades_subtotal', 'sunscreens_subtotal', 'shutters_total', 'blinds_total', 'shades_total', 'sunscreens_total', 'shutters_premium', 'blinds_premium', 'shades_premium', 'sunscreens_premium']
 
 
 class ShutterForm(ModelForm):
