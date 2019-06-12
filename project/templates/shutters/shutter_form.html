@@ -6,7 +6,11 @@
 
 {% block pageclass %}form-page shutter-form-page{% endblock %}
 
-{% block contenttitle %}Create Item{% endblock %}
+{% block contenttitle %}
+<div class="col content-title">
+  <div class="heading-md">Create Item</div>
+</div> <!-- END col -->
+{% endblock %}
 
 {% block content %}
 <div class="row">
@@ -31,7 +35,7 @@
                 <div class="form-row">
                   <div class="col-sm-5">
                   {{ form.location.label_tag }}
-                  {% render_field  form.location class="form-control" %}
+                  {% render_field  form.location class="form-control location_name_search_input" %}
                   </div>
                   <div class="col mount-field">
                   {{ form.mount.label_tag }}
@@ -53,12 +57,22 @@
                   <div class="col col-md-2 no-label">
                     {% render_field  form.width_fraction class="custom-select mr-sm-2" %}
                   </div>
-                  <div class="col col-md-2 offset-sm-1">
+                  <div class="col col-md-2 offset-sm-1 height-field">
                     {{ form.height.label_tag }}
                     {% render_field  form.height class="form-control" %}
                   </div>
-                  <div class="col col-md-2 no-label">
+                  <div class="col col-md-2 no-label height-field">
                     {% render_field  form.height_fraction class="custom-select mr-sm-2" %}
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="col col-md-2 center-height-field hidden">
+                    <label>Center Height:</label>
+                    {% render_field  form.height_center class="form-control" %}
+                  </div>
+                  <div class="col col-md-2 no-label center-height-field hidden">
+                    {% render_field  form.height_center_fraction class="custom-select mr-sm-2" %}
                   </div>
                 </div>
               </div>
@@ -66,7 +80,7 @@
 
             <div class="col-4">
               <div class="form-section textcenter">
-                <div class="form-group row wrapper side-field">
+                <div class="form-group row wrapper side-field hidden">
                   <label class="col-4 col-md-3 col-lg-2 col-form-label">Side: </label>
                   <div class="col-8 col-sm-7 col-md-5 col-lg-4">
                     {% render_field  form.side class="custom-select mr-sm-2" %}
@@ -99,7 +113,7 @@
 
           <div class="row">
             <div class="col-12">
-              <div class="form-section lr-height-field">
+              <div class="form-section lr-height-field hidden">
                 <div class="field-message">Additional Height Measurements</div>
                 <div class="form-row">
                   <div class="col left-field">
@@ -116,29 +130,22 @@
                   <div class="col no-label right-field">
                     {% render_field  form.height_right_fraction class="custom-select mr-sm-2" %}
                   </div>
-                  <div class="col offset-sm-1 center-height-field">
-                    <label>Center</label>
-                    {% render_field  form.height_center class="form-control" %}
-                  </div>
-                  <div class="col no-label center-height-field">
-                    {% render_field  form.height_center_fraction class="custom-select mr-sm-2" %}
-                  </div>
                 </div>
 
                 <div class="form-row">
-                  <div class="col-4 col-sm-3 panel-height-field">
-                    <label>Panel Height:</label>
-                    {% render_field  form.height_panel class="form-control" %}
+                  <div class="col-4 col-sm-3 middle-height-field hidden">
+                    <label>Middle Height:</label>
+                    {% render_field  form.height_middle class="form-control" %}
                   </div>
-                  <div class="col-2 no-label panel-height-field">
-                    {% render_field  form.height_panel_fraction class="custom-select mr-sm-2" %}
+                  <div class="col-2 no-label middle-height-field hidden">
+                    {% render_field  form.height_middle_fraction class="custom-select mr-sm-2" %}
                   </div>
                 </div>
               </div>
             </div>
           </div> <!-- END row -->
 
-          <div class="row door-field">
+          <div class="row door-field hidden">
             <div class="col-12">
               <div class="form-section">
                 <div class="form-row">
@@ -174,20 +181,20 @@
 
           <div class="row">
             <div class="col-8">
-              <div class="form-section">
+              <div class="form-section two-piece-exclude-fields">
                 <div class="form-row">
-                  <div class="col-3 col-md-2 panel-field">
+                  <div class="col-3 col-md-2 panel-field hidden">
                     <label>Panels</label>
                     {{ field.errors }}
                     {% render_field  form.panels class="form-control" %}
                   </div>
 
-                  <div class="col-5 col-md-4">
+                  <div class="col-5 col-md-4 hinges-field">
                     {{ form.hinges.label_tag }}
                     {% render_field  form.hinges class="custom-select mr-sm-2" %}
                   </div>
 
-                  <div class="col-4 col-sm-3 t-post-field">
+                  <div class="col-4 col-sm-3 t-post-field hidden">
                     <label># T-post</label>
                     {% render_field  form.t_post class="form-control" %}
                   </div>
@@ -213,31 +220,35 @@
 
               <div class="form-section style-section">
                 <div class="form-row">
-                  <div class="col-4">
+                  <div class="col-4 col-md-3">
                     {{ form.finish.label_tag }}
                     {% render_field  form.finish class="custom-select mr-sm-2" %}
                   </div>
-                  <div class="col-4 stain-field">
+                  <div class="col-4 col-md-3 stain-field">
                     {{ form.stain.label_tag }}
                     {% render_field  form.stain class="custom-select mr-sm-2" %}
                   </div>
-                  <div class="col-4">
+                  <div class="col-4 col-md-3">
                     {{ form.color.label_tag }}
                     {% render_field  form.color class="form-control" %}
                   </div>
-                  <div class="col-4 col-sm-2">
+                  <div class="col-4 col-md-3">
+                  {{ form.frame_style.label_tag }}
+                  {% render_field  form.frame_style class="custom-select mr-sm-2" %}
+                  </div>
+                  <div class="col-4 col-md-3">
                     {{ form.louver.label_tag }}
                     {% render_field  form.louver class="custom-select mr-sm-2" %}
                   </div>
-                  <div class="col-4 col-sm-3">
+                  <div class="col-4 col-md-3">
                     {{ form.tilt_rod.label_tag }}
                     {% render_field  form.tilt_rod class="custom-select mr-sm-2" %}
                   </div>
-                  <div class="col-4 col-sm-3 trim-field">
+                  <div class="col-4 col-md-3 trim-field">
                   {{ form.trim_style.label_tag }}
                   {% render_field  form.trim_style class="custom-select mr-sm-2" %}
                   </div>
-                  <div class="col-4 col-sm-4">
+                  <div class="col-4 col-md-3">
                     {{ form.hinge_color.label_tag }}
                     {% render_field  form.hinge_color class="custom-select mr-sm-2" %}
                   </div>
@@ -266,4 +277,14 @@
 </div>
 {% endif %}
 
+{% endblock %}
+
+{% block extrajs %}
+<script>
+  $('.location_name_search_input').autocomplete({
+        source: "{% url 'deals:location-name-search' %}",
+        minLength: 1,
+        delay: 200,
+  });
+</script>
 {% endblock %}

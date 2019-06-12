@@ -6,13 +6,21 @@
 
 {% block pageclass %}sidebar-page {{ page_class }}{% endblock %}
 
-{% block contenttitle %}{{ report }}{% endblock %}
+{% block contenttitle %}
+<div class="col-6 content-title">
+  <div class="heading-md">{{ report }}</div>
+</div> <!-- END col -->
+{% endblock %}
 
 {% block menu %}
-<div id="content-menu" class="rf noprint">
+<div class="col-6">
+  <div id="content-menu" class="rf noprint">
     <button class="btn btn-pills" onclick="javascript:print();">Print</button>
+  </div>
 </div>
 {% endblock %}
+
+{% block navbar %}{% endblock %}
 
 {% block content %}
 <div class="row">

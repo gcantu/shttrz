@@ -14,18 +14,26 @@
         <a class="btn btn-block btn-inactive nf" href="" role="button"><i class="fas fa-chart-line"></i><br>Dashboard</a>
       </li> -->
       <li>
-        <a class="btn btn-active nf" href="" role="button"><i class="fas fa-list-ul"></i><br>Deals</a>
+        <a class="btn btn-active nf" href="{% url 'core:home' %}" role="button"><i class="fas fa-list-ul"></i><br>Deals</a>
+      </li>
+
+      <li>
+        <a class="btn btn-inactive nf" href="{% url 'deals:deal-history-list' %}" role="button"><i class="far fa-folder-open"></i><br>History</a>
       </li>
     </ul>
   </nav>
 </div> <!-- //main-head -->
 {% endblock %}
 
-{% block contenttitle %}{{ status }} Deals{% endblock %}
+{% block contenttitle %}
+<div class="col-12 col-md-4 content-title">
+  <div class="heading-md">{{ status }} Deals</div>
+</div> <!-- END col -->
+{% endblock %}
 
 {% block menu %}
+<div class="col-12 col-md-8">
   {% if status == "Active" %}
-    <a class="btn-icon-round" href="{% url 'deals:create-customer' %}" role="button"><i class="fas fa-plus"></i></a>
 
     <div id="filter-menu" class="dropdown rf">
       <a class="btn btn-pills dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">☰ Filters</a>
@@ -37,16 +45,21 @@
 
     <button id="delete-deal-toggle" class="btn btn-pills">Delete</button>
 
+    <a class="btn btn-pills" href="{% url 'deals:create-customer' %}" role="button">Add</a>
+
   {% else %}
     <a  class="btn btn-pills" role="button" href="{% url 'core:home' %}">< Go Back</a>
   {% endif %}
+</div> <!-- END col -->
 {% endblock %}
 
 {% block content %}
 <div class="row">
   <div class="col">
     <div class="card-section">
-      {% include "deals/deal_list.html" %}
+      <div class="scroll-section">
+        {% include "deals/deal_list.html" %}
+      </div>
     </div>
   </div>
 </div>

@@ -8,11 +8,17 @@
 
 {% block summaryactiveclass %}btn-active{% endblock %}
 
-{% block contenttitle %}Deal Summary{% endblock %}
+{% block contenttitle %}
+<div class="col-6 content-title">
+  <div class="heading-md">Deal Summary</div>
+</div> <!-- END col -->
+{% endblock %}
 
 {% block menu %}
-<div id="content-menu" class="rf">
-  <a class="btn btn-pills" href="{% url 'deals:update-deal-status' deal.id 'Completed' %}">Mark as Completed</a>
+<div class="col-6">
+  <div id="content-menu" class="rf">
+    <a class="btn btn-pills" href="{% url 'deals:update-deal-status' deal.id 'Completed' %}">Mark as Completed</a>
+  </div>
 </div>
 {% endblock %}
 
@@ -55,4 +61,34 @@
     </div>
   </div>
 </div>
+
+{% if items.0.deal_id %}
+<div class="row">
+  <div class="col mt">
+    <div class="card-section">
+      <div class="heading-md">SHUTTERS
+        <button id="status-item-button" class="btn btn-outline">Update Status</button>
+      </div><hr>
+      {% include 'shutters/shutter_detail_short.html' %}
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% for items in product_list %}
+{% if items.0.product %}
+<div class="row">
+  <div class="col mt">
+    <div class="card-section">
+      <div class="heading-md">{{ items.0.product|stringformat:"s"|upper }}
+        <button id="{{ items.0.product|stringformat:'s'|lower }}-status-item-button" class="btn btn-outline">Update Status</button>
+      </div><hr>
+      {% include 'products/product_detail_short.html' %}
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+
+
 {% endblock %}

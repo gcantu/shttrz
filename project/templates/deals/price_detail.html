@@ -2,7 +2,35 @@
 
 <table id="price-table">
   <tbody>
+    {% if price.shutters_subtotal > 0 %}
     <tr>
+      <th>Shutters:</th>
+      <td>$ {{ price.shutters_total|floatformat|intcomma }} </td>
+    </tr>
+    {% endif %}
+
+    {% if price.blinds_subtotal > 0 %}
+    <tr>
+      <th>Blinds:</th>
+      <td>$ {{ price.blinds_total|floatformat|intcomma }} </td>
+    </tr>
+    {% endif %}
+
+    {% if price.shades_subtotal > 0 %}
+    <tr>
+      <th>Shades:</th>
+      <td>$ {{ price.shades_total|floatformat|intcomma }} </td>
+    </tr>
+    {% endif %}
+
+    {% if price.sunscreens_subtotal > 0 %}
+    <tr>
+      <th>Sunscreens:</th>
+      <td>$ {{ price.sunscreens_total|floatformat|intcomma }} </td>
+    </tr>
+    {% endif %}
+
+    <tr class="topline">
       <th>Subtotal: </th>
       <td>
         <div>$ {{ price.subtotal|floatformat|intcomma }}</div>

@@ -13,6 +13,7 @@ User = get_user_model()
 # Update user profile
 class UserUpdateView(LoginRequiredMixin, UpdateView):
     form_class = UserForm
+    extra_context = {'title': 'Account'}
 
     def get_success_url(self):
         return reverse('core:success')
@@ -31,6 +32,7 @@ def change_password(request):
             return redirect('core:success')
     else:
         form = PasswordChangeForm(request.user)
-    return render(request, 'users/change_password.html', {
-        'form': form
+    return render(request, 'users/password_form.html', {
+        'form': form,
+        'title': 'Password'
     })
