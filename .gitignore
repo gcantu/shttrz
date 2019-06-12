@@ -12,3 +12,5 @@ project/project/settings/__pycache__/
 project/static
 
 *.json
+
+\.idea/
