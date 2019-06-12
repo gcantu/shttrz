@@ -1,7 +1,7 @@
 {% load widget_tweaks %}
 
 <div class="scroll-section">
-  <form action="{% url 'deals:style-default' %}" method="post">
+  <form action="{% url 'deals:style-default' items.0.deal_id %}" method="post">
   {% csrf_token %}
   <table id="shutter-detail-table">
     <thead>
@@ -16,7 +16,7 @@
         <th>T-posts</th>
         <th>Mount</th>
         <th>Frame</th>
-        <th>Frame Style</th>
+        <th class="style-colname">Frame Style</th>
         <th class="style-colname">Trim Style</th>
         <th class="style-colname">Louver</th>
         <th class="style-colname">Tilt Rod</th>
@@ -24,6 +24,14 @@
         <th class="style-colname">Stain</th>
         <th class="style-colname">Color</th>
         <th class="style-colname" colspan=2>Hinges</th>
+
+        <th class="nav-item dropdown style-dropdown hidden">
+          <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Frame Style</a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <input class="dropdown-item" type="submit" name="frame_style" value='L Frame 3/4"' />
+            <input class="dropdown-item" type="submit" name="frame_style" value='Z Frame 1"' />
+          </div>
+        </th>
 
         <th class="nav-item dropdown style-dropdown hidden">
           <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Trim Style</a>
@@ -65,10 +73,11 @@
           <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Stain</a>
           <div class="dropdown-menu dropdown-menu-right">
             <input class="dropdown-item" type="submit" name="stain" value="Ash" />
-            <input class="dropdown-item" type="submit" name="stain" value="Baswood" />
+            <input class="dropdown-item" type="submit" name="stain" value="Basswood" />
             <input class="dropdown-item" type="submit" name="stain" value="Knotty Alder" />
             <input class="dropdown-item" type="submit" name="stain" value="Maple" />
             <input class="dropdown-item" type="submit" name="stain" value="Pine" />
+            <input class="dropdown-item" type="submit" name="stain" value="NO STAIN" />
           </div>
         </th>
 
@@ -94,7 +103,7 @@
         <th>Center</th>
         <th>Left</th>
         <th>Right</th>
-        <th>Panel</th>
+        <th>Middle</th>
         <th>Divider</th>
         <th>Door Knob</th>
         <th>Trod Split</th>
@@ -141,11 +150,11 @@
         <td>{{ item.hinges }}</td>
         <td>{{ item.hinge_color|default_if_none:"" }}</td>
         <td>{{ item.width }} {{ item.get_width_fraction_display }}</td>
-        <td>{{ item.height|default_if_none:"" }} {{ item.get_height_fraction_display }}</td>
+        <td>{{ item.height_display|default_if_none:"" }}</td>
         <td>{{ item.height_center|default_if_none:"" }} {{ item.get_height_center_fraction_display }}</td>
         <td>{{ item.height_left|default_if_none:"" }} {{ item.get_height_left_fraction_display }}</td>
         <td>{{ item.height_right|default_if_none:"" }} {{ item.get_height_right_fraction_display }}</td>
-        <td>{{ item.panel_height|default_if_none:"" }}</td>
+        <td>{{ item.height_middle|default_if_none:"" }} {{ item.get_height_middle_fraction_display }}</td>
         <td>{{ item.height_divider|default_if_none:"" }} {{ item.get_height_divider_fraction_display }}</td>
         <td>{{ item.height_door_knob|default_if_none:"" }} {{ item.get_height_door_knob_fraction_display }}</td>
         <td>{{ item.height_tilt_rod_split|default_if_none:"" }} {{ item.get_height_tilt_rod_split_fraction_display }}</td>

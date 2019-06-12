@@ -15,13 +15,14 @@
 	2.4 Deal Summary
 	2.5 Reports
 	2.6 Forms
-	2.7 Confirmation & Success Pages
+	2.7 Confirmation, Success, Select Pages
+	2.8 Deal History Page
 3.0 Headings
 4.0 Links
 5.0 Navigation
-	5.2 Settings Menu
 	5.3 Filter Menu
 	5.4 Deal Summary Tabs
+	5.5 Autocomplete Menu
 6.0 Buttons
 7.0 Tables
 8.0 Clearings
@@ -65,7 +66,7 @@ html, body {
 #content {
    padding-bottom:60px; /* Height of the footer */
 	 height: 100%;
-	 padding-top: 70px;
+	 padding-top: 80px;
 }
 
 .sidebar-page {
@@ -73,7 +74,7 @@ html, body {
 }
 
 .sidebar-content {
-	margin-left: 120px;
+	margin-left: 90px;
 	margin-right: 10px;
 	overflow: hidden;
 }
@@ -87,7 +88,7 @@ html, body {
 }
 
 .content-title {
-  float: left;
+  margin: auto;
 }
 
 /* 1.2 Header
@@ -199,11 +200,12 @@ header .col {
 --------------------------------------------------------------*/
 #sidebar {
   position: fixed;
-  width: 100px;
+  width: 90px;
   height: 83%;
   background: #fff;
 	margin-top: 70px;
   box-shadow: 8px 12px 13px -4px rgba(0,0,0,0.2);
+	border-right: 0.5px solid #aeb2b7;
 }
 
 .side-nav li a {
@@ -292,41 +294,19 @@ header .col {
 
 /* 2.2 Home
 --------------------------------------------------------------*/
-.home-page .main-container {
-	min-width: 675px;
-}
 
-#delete-deal-toggle {
-	margin-right: 20px;
-}
 
 /* 2.3 Settings
 --------------------------------------------------------------*/
 .settings-page .main-container {
 	max-width: 800px;
-	padding-bottom: 25px;
 }
 
 /* 2.4 Deal Summary
 --------------------------------------------------------------*/
-.deal-summary-page .main-container {
-	min-width: 400px;
-}
-
-.deal-summary-page .nav-tabs {
-	max-width: 800px;
-}
-
-.deal-summary-items-page .main-container {
-	min-width: 700px;
-}
-
-.deal-summary-items-page .nav-tabs {
-	min-width: 700px;
-}
-
-.deal-summary-items-page .btn-outline {
-	margin-left: 20px;
+.deal-summary-items-page .btn-outline,
+.deal-summary-page .btn-outline {
+	min-height: 33px;
 	min-width: 85px;
 }
 
@@ -341,16 +321,13 @@ header .col {
 /* 2.5 Reports
 --------------------------------------------------------------*/
 .proposal-page .main-container,
-.invoice-page .main-container,
-.proposal-page .nav-tabs,
-.invoice-page .nav-tabs {
-	min-width: 815px;
+.invoice-page .main-container {
+	min-width: 830px;
 	max-width: 950px;
 }
 
-.manufacturing-page .main-container,
-.manufacturing-page .nav-tabs {
-	min-width: 990px;
+.manufacturing-page .main-container {
+	min-width: 980px;
 	max-width: 1200px;
 }
 
@@ -365,6 +342,17 @@ header .col {
 
 .manufacturing-page .section {
 	height: auto;
+}
+
+.manufacturing-page .card-section,
+.manufacturing-page #report-template {
+	padding: 10px 5px;
+}
+
+.proposal-page .sidebar-content,
+.invoice-page .sidebar-content,
+.manufacturing-page .sidebar-content {
+	overflow: scroll;
 }
 
 #report-template p {
@@ -425,6 +413,10 @@ header .col {
 	max-width: 350px;
 }
 
+.product-form-page .main-container {
+	max-width: 840px;
+}
+
 #price-form .form-control.inline {
 	text-align: right;
 	width: 80px;
@@ -443,7 +435,8 @@ header .col {
 	font-weight: 400;
 }
 
-#shutter-form [class*="col-"] {
+#shutter-form [class*="col-"],
+#product-form [class*="col-"] {
 	padding-right: 5px;
 	padding-left: 5px;
 }
@@ -451,6 +444,11 @@ header .col {
 #shutter-form .product-img {
 	max-width: 120px;
 	max-height: 160px;
+}
+
+#product-form .product-img {
+	max-width: 100%;
+	max-height: 150px;
 }
 
 #shutter-form .divider-field {
@@ -468,6 +466,7 @@ header .col {
 
 #shutter-form .btn {
 	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .form-control,
@@ -508,6 +507,32 @@ input[type=number]::-webkit-outer-spin-button { /* hide up and down arrows */
 .success-page .main-container {
 	min-width: 515px;
 	max-width: 550px;
+}
+
+.select-product-page .main-container {
+	max-width: 300px;
+}
+
+.select-product-page .content-title {
+	float: none;
+}
+
+.select-product-page .btn-block {
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+/* 2.8 Deal History Page
+--------------------------------------------------------------*/
+.deal-history-page .content-title {
+	float: none;
+}
+
+#deal-history-filter-form .btn {
+	float: none;
+	position: absolute;
+	bottom: 13px;
+	margin-left: 10px;
 }
 
 /* 3.0 Headings
@@ -551,30 +576,12 @@ a:focus, a:active, a:hover {
 5.0 Navigation
 --------------------------------------------------------------*/
 
-/* 5.2 Settings Menu
---------------------------------------------------------------*/
-#settings-menu {
-  border: 0.5px solid #888888;
-	margin-top: 10px;
-}
-
-#settings-menu li {
-  margin-bottom: 10px;
-	padding-top: 2px;
-}
-
-#settings-menu li.active a {
-  background-color: #424a5d;
-	color: #fff;
-}
-
-#settings-menu li a:hover {
-  background-color: #7a808d;
-	color: #fff;
-}
-
 /* 5.3 Filter Menu
 --------------------------------------------------------------*/
+#filter-menu {
+	display: inline-block;
+}
+
 #filter-menu .dropdown-menu {
 	min-width: 15rem;
 	padding: 10px 20px;
@@ -588,6 +595,7 @@ a:focus, a:active, a:hover {
 	border-bottom: none;
 	margin-left: auto;
 	margin-right: auto;
+	font-size: 17px;
 }
 
 .nav-tabs * {
@@ -654,6 +662,28 @@ ul.nav-tabs .nav-item a.active {
 	z-index: 6;
 }
 
+/* 5.5 Autocomplete Menu
+--------------------------------------------------------------*/
+ul.ui-menu {
+	background-color: #888;
+	border: 0.5px solid #c3c3c3;
+	width: 100px;
+	border-radius: 5px;
+}
+
+.ui-menu li {
+	color: #fff;
+	border: 0.5px solid #c3c3c3;
+	cursor: pointer;
+	padding: 10px;
+	letter-spacing: 0.5px;
+	font-weight: 400;
+}
+
+.ui-menu li:hover {
+	background-color: #afafaf;
+}
+
 /* 6.0 Buttons
 --------------------------------------------------------------*/
 .btn {
@@ -691,8 +721,11 @@ ul.nav-tabs .nav-item a.active {
 	border-radius: 100%;
 	display: inline-block;
   font-size: 17px;
-	padding: 3px 7px 1px 7px;
-	margin-left: 10px;
+	padding-top: 5px;
+	padding-right: 9px;
+	padding-bottom: 3px;
+	padding-left: 9px;
+	margin-left: 20px;
   background-color: #25b4c1;
   text-align: center;
 }
@@ -757,6 +790,7 @@ a.icon-btn:hover {
 	padding: 3px 5px;
   border-radius: 50px;
   min-width: 100px;
+	margin-left: 10px;
 }
 
 .btn-pills:hover {
@@ -888,7 +922,8 @@ table thead {
 	color: #515151;
 }
 
-#shutter-detail-table th.style-dropdown {
+#shutter-detail-table th.style-dropdown,
+#shutter-detail-table th.blinds-style-dropdown {
 	padding: 0;
 }
 
@@ -917,13 +952,27 @@ table thead {
 	text-align:left;
 }
 
+#proposal-table tr {
+	height: 25px;
+}
+
+#proposal-table td:last-child,
+#proposal-table th:last-child {
+	text-align:right;
+}
+
 #manufacturing-table th,
 #manufacturing-table td {
 	border-right: 0.5px solid #aeb2b7;
 }
 
+#manufacturing-table th{
+	border-bottom: 0.5px solid #aeb2b7;
+}
+
 #manufacturing-table {
 	border: 0.5px solid #aeb2b7;
+	font-size: 12px;
 }
 
 #manufacturing-specs-table {
@@ -941,12 +990,12 @@ table thead {
 #manufacturing-specs-table th:nth-child(7),
 #manufacturing-specs-table th:nth-child(9),
 #manufacturing-specs-table th:nth-child(11) {
-	padding-left: 30px;
+	padding-left: 15px;
 }
 
 #manufacturing-specs-table td {
 	padding-left: 0;
-	padding-right: 15px;
+	padding-right: 8px;
 	border-bottom: 0.5px solid #888;
 }
 
@@ -1015,6 +1064,10 @@ ul, li {
 	border-bottom: 0.5px solid #515151;
 }
 
+.topline {
+	border-top: 0.5px solid #515151;
+}
+
 .auto-width {
 	width: auto;
 }
@@ -1070,6 +1123,14 @@ ul, li {
 		margin-right: 0;
 	}
 
+	hr {
+		border-bottom: 0.5px solid #000;
+	}
+
+	.section {
+		border: 0.5px solid #000;
+	}
+
 }
 
 /* 11.3 Ipad
@@ -1110,13 +1171,7 @@ and (-webkit-min-device-pixel-ratio: 1){
 		height: 80px;
 	}
 
-	#settings-menu li a {
-		letter-spacing: 3px;
-		margin-bottom: 20px;
-	}
-
 	#report-template,
-	#manufacturing-table,
 	#shutter-detail-table {
 		font-size: 13px;
 	}
@@ -1153,8 +1208,12 @@ and (-webkit-min-device-pixel-ratio: 1){
 		font-size: 17px;
 	}
 
-}
+	#deal-history-filter-form .btn {
+		bottom: 10px;
+		width: 80px;
+	}
 
+}
 
 @media only screen
 and (max-width : 767px)
@@ -1182,6 +1241,12 @@ and (-webkit-min-device-pixel-ratio: 1){
 		display: none;
 	}
 
+	#deal-history-filter-form .btn {
+		bottom: 10px;
+		width: auto;
+		min-height: auto;
+	}
+
 }
 
 
@@ -1201,19 +1266,21 @@ and (-webkit-min-device-pixel-ratio: 1){
 	}
 
   .btn-icon-round {
-    width: 44px;
-    height: 44px;
     font-size: 20px;
-    padding-top: 8px;
+    padding-top: 5px;
+		padding-right: 11px;
+		padding-bottom: 6px;
+		padding-left: 12px;
 		margin-top: -10px;
+		vertical-align: middle;
   }
 
-	.deal-summary-items-page .btn-outline {
-		margin-top: -10px;
-	}
+	.btn-icon-round i {
+		vertical-align: middle;
+  }
 
   .btn-pills {
-    min-width: 120px;
+    min-width: 110px;
   }
 
   #sidebar .btn {

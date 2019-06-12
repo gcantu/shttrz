@@ -1,0 +1,105 @@
+{% load widget_tweaks %}
+
+<div class="scroll-section">
+  <!-- <form action="{% url 'deals:blind-style-default' %}" method="post"> -->
+  {% with prod_name=items.0.product|stringformat:"s"|lower|slice:":-1" %}
+  {% with 'deals:'|add:prod_name|add:'-style-default' as prod_url %}
+    {% if items.0.product == "Sunscreens" %}
+      <form action="" method="post">
+    {% else %}
+      <form action="{% url prod_url %}" method="post">
+    {% endif %}
+  {% endwith %}
+  {% endwith %}
+  {% csrf_token %}
+  <table id="shutter-detail-table">
+    <thead>
+      <tr>
+        <th class="hidden edit-hidden-btn"></th>
+        <th class="hidden delete-hidden-btn"></th>
+        <th class="hidden {{ items.0.product|lower }}-style-hidden-btn no-padding"><input type="checkbox" id="checkAll{{ items.0.product }}" name="checkAll{{ items.0.product }}"/></th>
+        <th>#</th>
+        <th>Product</th>
+        {% if items.0.product == "Blinds" %}
+          <th class="blinds-style-colname">Color</th>
+          <th class="blinds-style-colname">Faux Wood Style</th>
+
+          <th class="nav-item dropdown blinds-style-dropdown hidden">
+            <input class="nav-link disabled" disabled type="submit" name="color_{{ items.0.product|lower }}" value="Color" />
+          </th>
+
+          <th class="nav-item dropdown blinds-style-dropdown hidden">
+            <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Faux Wood Style</a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <input class="dropdown-item" type="submit" name="faux_wood_style" value="Ecowood (Smooth)" />
+              <input class="dropdown-item" type="submit" name="faux_wood_style" value="Facade (Textured)" />
+            </div>
+          </th>
+        {% elif items.0.product == "Shades" %}
+          <th class="shades-style-colname">Color</th>
+
+          <th class="nav-item dropdown shades-style-dropdown hidden">
+            <input class="nav-link disabled" disabled type="submit" name="color_{{ items.0.product|lower }}" value="Color" />
+          </th>
+        {% endif %}
+        <th>Location</th>
+        <th>Width</th>
+        <th>Height</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td class="hidden {{ item.product|lower }}-style-hidden-btn">
+          <input class="{{ item.product|lower }}-item-checkbox" type="checkbox" name="item_list" value="{{item.id}}" />
+        </td>
+
+        <td class="hidden edit-hidden-btn">
+          {% with prod=item.product|stringformat:"s"|lower %}
+          {% with 'deals:update-'|add:prod|add:'-item' as prod_url %}
+            <a class="icon-btn" type="button" href="{% url prod_url item.id item.deal_id %}">
+              <i class="fas fa-pencil-alt"></i>
+            </a>
+          {% endwith %}
+          {% endwith %}
+        </td>
+
+        <td class="hidden delete-hidden-btn">
+          {% with prod=item.product|stringformat:"s"|lower %}
+          {% with 'deals:delete-'|add:prod|add:'-item' as prod_url %}
+            <a class="icon-btn" type="button" href="{% url prod_url item.id %}">
+              <i class="fas fa-times"></i>
+            </a>
+          {% endwith %}
+          {% endwith %}
+
+          <!-- <a class="icon-btn btn-delete" type="button" href="{% url 'deals:delete-shutter-item' item.id %}">
+            <i class="fas fa-times"></i>
+          </a> -->
+        </td>
+
+        <td>{{ forloop.counter }}</td>
+
+        {% if item.product == "Sunscreens" %}
+          <td>{{ item.sunscreen_type }}</td>
+        {% elif item.product == "Blinds" %}
+          <td>{{ item.blind_type }}</td>
+          <td>{{ item.color|title }}</td>
+          <td>{{ item.faux_wood_style|default_if_none:"" }}</td>
+        {% elif item.product == "Shades" %}
+          <td>{{ item.shade_type }}</td>
+          <td>{{ item.color|title }}</td>
+        {% endif %}
+
+        <td>{{ item.location|title }}</td>
+        <td>{{ item.width }} {{ item.get_width_fraction_display }}</td>
+        <td>{{ item.height|default_if_none:"" }} {{ item.get_height_fraction_display }}</td>
+        <td>$ {{ item.total_price }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </form>
+</div>

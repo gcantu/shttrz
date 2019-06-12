@@ -6,10 +6,16 @@
 
 {% block pageclass %}form-page shutter-style-form-page{% endblock %}
 
-{% block contenttitle %}Shutter Style{% endblock %}
+{% block contenttitle %}
+<div class="col-8 content-title">
+  <div class="heading-md">Shutter Style</div>
+</div> <!-- END col -->
+{% endblock %}
 
 {% block menu %}
-<a  class="btn btn-pills" role="button" href="{% url 'deals:deal-summary-items' form.deal.value %}">Cancel</a>
+<div class="col-4">
+  <a  class="btn btn-pills" role="button" href="{% url 'deals:deal-summary-items' form.deal.value %}">Cancel</a>
+</div>
 {% endblock %}
 
 {% block content %}

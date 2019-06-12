@@ -2,8 +2,11 @@ from django.db import models
 
 
 class Tenant(models.Model):
+    PLAN_CHOICES = (('Basic', 'Basic'), ('Premium', 'Premium'))
+
     name = models.CharField(max_length=100)
     subdomain_prefix = models.CharField(max_length=100, unique=True)
+    plan = models.CharField(max_length=10, choices=PLAN_CHOICES, default='Basic')
 
     def __str__(self):
         return self.name
