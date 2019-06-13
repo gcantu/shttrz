@@ -1,0 +1,146 @@
+{% extends "core/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block title %}Deal Item Form{% endblock %}
+
+{% block pageclass %}form-page product-form-page{% endblock %}
+
+{% block contenttitle %}
+<div class="col content-title">
+  <div class="heading-md">Create Item</div>
+</div> <!-- END col -->
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col">
+    <div class="card-section">
+      <form id="product-form" method="post">
+      {% csrf_token %}
+      {{ form.deal.as_hidden }}
+      {{ form.tenant.as_hidden }}
+      {{ form.product.as_hidden }}
+        <div class="container">
+
+          <div class="row">
+            {% if product == "Sunscreens" or form.product.value == "Sunscreens" %}
+              <div class="col-8">
+                <div class="form-section">
+                  <div class="form-row">
+                    <div class="col-12">
+                      {{ form.sunscreen_type.label_tag }}
+                      {% render_field  form.sunscreen_type class="custom-select mr-sm-2" %}
+                    </div>
+
+                    <div class="col-12">
+                    {{ form.location.label_tag }}
+                    {% render_field  form.location class="form-control location_name_search_input" %}
+                    </div>
+                  </div>
+                </div>
+              </div> <!-- END col -->
+
+              <div class="col-4">
+                <div class="form-section textcenter">
+                  <div class="product-img-section hidden">
+                    {% with img_id=sunscreen_type_id|stringformat:"s" %}
+                    {% with 'img/model'|add:img_id|add:'.png' as image_static %}
+                      <img class="product-img" src="{% static image_static %}" alt="">
+                    {% endwith %}
+                    {% endwith %}
+                  </div>
+                </div>
+              </div> <!-- END col -->
+            {% else %}
+              <div class="col-12">
+                <div class="form-section">
+                  <div class="form-row">
+                    {% if product == "Blinds" or form.product.value == "Blinds" %}
+                      <div class="col-7">
+                      {{ form.blind_type.label_tag }}
+                      {% render_field  form.blind_type class="custom-select mr-sm-2" %}
+                      </div>
+                      <div class="col-5 faux-wood-field hidden">
+                      <label for='id_faux_wood_style'>Style:</label>
+                      {% render_field  form.faux_wood_style class="custom-select mr-sm-2" %}
+                      </div>
+                      <div class="col-6">
+                      {{ form.color.label_tag }}
+                      {% render_field  form.color class="form-control" %}
+                      </div>
+                    {% elif product == "Shades" or form.product.value == "Shades" %}
+                      <div class="col-6">
+                        {{ form.shade_type.label_tag }}
+                        {% render_field  form.shade_type class="custom-select mr-sm-2" %}
+                      </div>
+                      <div class="col-6">
+                      {{ form.color.label_tag }}
+                      {% render_field  form.color class="form-control" %}
+                      </div>
+                    {% endif %}
+
+                    <div class="col-6">
+                    {{ form.location.label_tag }}
+                    {% render_field  form.location class="form-control location_name_search_input" %}
+                    </div>
+                  </div>
+                </div>
+              </div> <!-- END col -->
+            {% endif %}
+          </div> <!-- END row -->
+
+          <div class="row">
+            <div class="col-12">
+              <div class="form-section">
+                <div class="form-row">
+                  <div class="col-3">
+                    {{ form.width.label_tag }}
+                    {% render_field  form.width class="form-control" %}
+                  </div>
+                  <div class="col-3 no-label">
+                    {% render_field  form.width_fraction class="custom-select mr-sm-2" %}
+                  </div>
+                  <div class="col-3">
+                    {{ form.height.label_tag }}
+                    {% render_field  form.height class="form-control" %}
+                  </div>
+                  <div class="col-3 no-label">
+                    {% render_field  form.height_fraction class="custom-select mr-sm-2" %}
+                  </div>
+                </div>
+              </div>
+            </div> <!-- END col -->
+          </div> <!-- END row -->
+
+          <input class="btn" type="submit" value="Add"/><br>
+
+        </div> <!-- END container -->
+      </form><br> <!-- END form -->
+    </div> <!-- END section -->
+  </div> <!-- END col -->
+</div><br> <!-- END row -->
+
+{% if items %}
+<div class="row">
+  <div class="col">
+    <div class="card-section wrapper">
+      {% include 'products/product_detail.html' %}<br>
+
+      <a class="btn" href="{% url 'deals:deal-specs' form.deal.value %}" role="button">Continue</a><br><br>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block extrajs %}
+<script>
+  $('.location_name_search_input').autocomplete({
+        source: "{% url 'deals:location-name-search' %}",
+        minLength: 1,
+        delay: 200,
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "core/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block title %}Confirm{% endblock %}
+
+{% block pageclass %}confirmation-page{% endblock %}
+
+{% block contenttitle %}
+<div class="col content-title">
+  <div class="heading-md">Confirm Delete?</div>
+</div> <!-- END col -->
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col">
+    <div class="card-section wrapper textcenter">
+      <form method="post">
+        {% csrf_token %}
+        <p>Are you sure you want to delete this item?</p>
+
+        <a  class="btn inline nf" type="button" href="{% url 'deals:deal-summary' object.deal_id %}">Cancel</a> <!-- CANCEL -->
+
+        <input class="btn inline nf" type="submit" value="Confirm"/> <!-- CONFIRM delete -->
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

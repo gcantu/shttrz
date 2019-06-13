@@ -1,0 +1,60 @@
+{% load widget_tweaks %}
+
+<div class="scroll-section">
+  <!-- <form action="{% url 'deals:blind-style-default' %}" method="post"> -->
+  {% with prod_name=items.0.product|stringformat:"s"|lower|slice:":-1" %}
+  {% with 'deals:'|add:prod_name|add:'-style-default' as prod_url %}
+  <form action="{% url 'deals:update-deal-item-status' items.0.deal_id items.0.product %}" method="post">
+  {% endwith %}
+  {% endwith %}
+  {% csrf_token %}
+    <table id="shutter-detail-table">
+      <thead>
+        <tr>
+          <th class="hidden {{ items.0.product|lower }}-status-hidden-btn no-padding"><input type="checkbox" id="checkAll{{ items.0.product }}" name="checkAll{{ items.0.product }}"/></th>
+          <th>#</th>
+          <th>Product</th>
+          <th>Location</th>
+          <th>Width</th>
+          <th>Height</th>
+          <th>Total</th>
+          <th class="{{ items.0.product|lower }}-status-colname">Status</th>
+
+          <th class="nav-item dropdown {{ items.0.product|lower }}-status-dropdown hidden">
+            <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Status</a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <input class="dropdown-item" type="submit" name="status" value='Approved' />
+              <input class="dropdown-item" type="submit" name="status" value='Canceled' />
+            </div>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for item in items %}
+        <tr>
+          <td class="hidden {{ item.product|lower }}-status-hidden-btn">
+            <input class="{{ item.product|lower }}-item-checkbox" type="checkbox" name="item_list" value="{{item.id}}" />
+          </td>
+
+          <td>{{ forloop.counter }}</td>
+
+          {% if item.product == "Sunscreens" %}
+            <td>{{ item.sunscreen_type }}</td>
+          {% elif item.product == "Blinds" %}
+            <td>{{ item.blind_type }}</td>
+          {% elif item.product == "Shades" %}
+            <td>{{ item.shade_type }}</td>
+          {% endif %}
+
+          <td>{{ item.location|title }}</td>
+          <td>{{ item.width }} {{ item.get_width_fraction_display }}</td>
+          <td>{{ item.height|default_if_none:"" }} {{ item.get_height_fraction_display }}</td>
+          <td>$ {{ item.total_price }}</td>
+          <td>{{ item.status }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </form>
+</div>

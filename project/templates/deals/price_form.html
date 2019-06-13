@@ -1,12 +1,17 @@
 {% extends "core/base.html" %}
 {% load widget_tweaks %}
 {% load static %}
+{% load humanize %}
 
 {% block title %}Update Pricing{% endblock %}
 
 {% block pageclass %}form-page price-form-page{% endblock %}
 
-{% block contenttitle %}Update Pricing{% endblock %}
+{% block contenttitle %}
+<div class="col content-title">
+  <div class="heading-md">Update Pricing</div>
+</div> <!-- END col -->
+{% endblock %}
 
 {% block content %}
 <div class="row">
@@ -57,13 +62,73 @@
           <table id="price-table">
             <tbody>
               <tr>
-                <th>Subtotal: </th>
-                <td>$ {{ price.subtotal }}</td>
+                <th>Shutters:</th>
+                <td>$ {{ price.shutters_subtotal|intcomma }} </td>
+              </tr>
+
+              <tr class="underline">
+                <th>Add  {% render_field  form.shutters_premium_rate class="form-control inline" %} % </th>
+                <td>$ {{ price.shutters_premium }} </td>
               </tr>
 
               <tr>
-                <th>Tax  {% render_field  form.tax_rate class="form-control inline" %} % </th>
-                <td>$ {{ price.tax }} </td>
+                <th style="padding-bottom:30px; font-weight:bold;">Shutters Total:</th>
+                <td style="padding-bottom:30px; font-weight:bold;">$ {{ price.shutters_total }} </td>
+              </tr>
+
+              <tr>
+                <th>Blinds:</th>
+                <td>$ {{ price.blinds_subtotal|intcomma }} </td>
+              </tr>
+
+              <tr class="underline">
+                <th>Add  {% render_field  form.blinds_premium_rate class="form-control inline" %} % </th>
+                <td>$ {{ price.blinds_premium }} </td>
+              </tr>
+
+              <tr>
+                <th style="padding-bottom:30px; font-weight:bold;">Blinds Total:</th>
+                <td style="padding-bottom:30px; font-weight:bold;">$ {{ price.blinds_total }} </td>
+              </tr>
+
+              <tr>
+                <th>Shades:</th>
+                <td>$ {{ price.shades_subtotal|intcomma }} </td>
+              </tr>
+
+              <tr class="underline">
+                <th>Add  {% render_field  form.shades_premium_rate class="form-control inline" %} % </th>
+                <td>$ {{ price.shades_premium }} </td>
+              </tr>
+
+              <tr>
+                <th style="padding-bottom:30px; font-weight:bold;">Shades Total:</th>
+                <td style="padding-bottom:30px; font-weight:bold;">$ {{ price.shades_total }} </td>
+              </tr>
+
+              <tr>
+                <th>Sunscreens:</th>
+                <td>$ {{ price.sunscreens_subtotal|intcomma }} </td>
+              </tr>
+
+              <tr class="underline">
+                <th>Add  {% render_field  form.sunscreens_premium_rate class="form-control inline" %} % </th>
+                <td>$ {{ price.sunscreens_premium }} </td>
+              </tr>
+
+              <tr>
+                <th style="padding-bottom:30px; font-weight:bold;">Sunscreens Total:</th>
+                <td style="padding-bottom:30px; font-weight:bold;">$ {{ price.sunscreens_total }} </td>
+              </tr>
+
+              <tr class="underline topline">
+                <th style="font-weight:bold;"> Total: </th>
+                <td style="font-weight:bold;">$ {{ price.subtotal }}</td>
+              </tr>
+
+              <tr>
+                <th style="padding-top:20px;">Tax  {% render_field  form.tax_rate class="form-control inline" %} % </th>
+                <td style="padding-top:20px;">$ {{ price.tax }} </td>
               </tr>
 
               <tr class="cc-fee-field underline">
@@ -71,7 +136,7 @@
                 <td>$ {{ price.credit_card_fee }} </td>
               </tr>
 
-              <tr class="topline">
+              <tr>
                 <th>Total: </th>
                 <td>$ {{ price.total }}</td>
               </tr>

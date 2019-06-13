@@ -2,14 +2,10 @@
 
 <div class="filter-section">
   <form action="" method="get">
-      <div class="form-group">
-        {{ filter.form.date_range.label_tag }}
-        {% render_field  filter.form.date_range class="custom-select mr-sm-2" %}
-      </div>
-      <div class="form-group">
-        {{ filter.form.status.label_tag }}
-        {% render_field  filter.form.status class="custom-select mr-sm-2" %}
-      </div>
+    <div class="form-group">
+      {{ filter.form.date_range.label_tag }}
+      {% render_field  filter.form.date_range class="custom-select mr-sm-2" %}
+    </div>
     <input class="btn" type="submit" value="Submit"/>
   </form><br>
 

@@ -1,35 +1,76 @@
 {% load humanize %}
 
 <table id="proposal-table">
-    <thead>
-      <tr>
-        <th>No.</th>
-        <th>Model</th>
-        <th>Location</th>
-        <th>Panels</th>
-        <th>Louver</th>
-        <th>T-rod</th>
-        <th>Trim</th>
-        <th>Finish</th>
-        <th>Hinges</th>
-        <th>Total</th>
-      </tr>
-    </thead>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>No.</th>
+      <th>Model</th>
+      <th>Finish</th>
+      <th>Location</th>
+      <th>Description</th>
+      <!-- <th>Panels</th>
+      <th>Louver</th>
+      <th>T-rod</th>
+      <th>Trim</th>
+      <th>Hinges</th> -->
+      <th>Total</th>
+    </tr>
+  </thead>
 
-    <tbody>
-    {% for item in items %}
-      <tr>
-        <td>{{ forloop.counter }}</td>
-        <td># {{ item.shutter_type_id }}</td>
-        <td>{{ item.location|title }}</td>
-        <td>{{ item.panels|default_if_none:"" }}</td>
-        <td>{{ item.get_louver_display }}</td>
-        <td>{{ item.tilt_rod }}</td>
-        <td>{{ item.trim_style|default_if_none:"" }} /{{ item.frame|default_if_none:"" }}</td>
+  <tbody>
+  {% for items in product_list %}
+  {% if items.0.product %}
+  <tr>
+    <td>{{ items.0.product }}</td>
+    <td colspan=5 class="underline"></td>
+    {% if items.0.product == "Shutters" %}
+      <td class="underline"><b>$ {{ price.shutters_subtotal|floatformat:"0"|intcomma }}</b></td>
+    {% elif items.0.product == "Sunscreens" %}
+      <td class="underline"><b>$ {{ price.sunscreens_subtotal|floatformat:"0"|intcomma }}</b></td>
+    {% elif items.0.product == "Blinds" %}
+      <td class="underline"><b>$ {{ price.blinds_subtotal|floatformat:"0"|intcomma }}</b></td>
+    {% elif items.0.product == "Shades" %}
+      <td class="underline"><b>$ {{ price.shades_subtotal|floatformat:"0"|intcomma }}</b></td>
+    {% endif %}
+  </tr>
+
+  {% for item in items %}
+    <tr>
+      <td></td>
+      <td>{{ forloop.counter }}</td>
+
+      {% if item.product == "Shutters" %}
+        <td>{{ item.shutter_type|cut:"Modelo " }}</td>
         <td>{{ item.stain|default_if_none:"" }} {{ item.finish|default_if_none:"" }} - {{ item.color|default_if_none:"" }}</td>
-        <td>{{ item.hinge_color|default_if_none:"" }}</td>
-        <td>$ {{ item.total_price|floatformat:"0"|intcomma }}</td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
+      {% elif item.product == "Sunscreens" %}
+        <td>{{ item.sunscreen_type }}</td>
+        <td></td>
+      {% elif item.product == "Blinds" %}
+        <td>{{ item.blind_type }}</td>
+        <td>{{ item.faux_wood_style|default_if_none:""|cut:" (Smooth)"|cut:" (Textured)" }} - {{ item.color|title|default_if_none:"" }}</td>
+      {% elif item.product == "Shades" %}
+        <td>{{ item.shade_type }}</td>
+        <td></td>
+      {% endif %}
+
+      <td>{{ item.location|title }}</td>
+
+      {% if item.product == "Shutters" %}
+      <td>{{ item.trim_style|default_if_none:"" }} Trim/{{ item.frame|default_if_none:"" }}</td>
+      {% else %}
+      <td></td>
+      {% endif %}
+      <!-- <td>{{ item.panels|default_if_none:"" }}</td>
+      <td>{{ item.get_louver_display|default_if_none:"" }}</td>
+      <td>{{ item.tilt_rod|default_if_none:"" }}</td>
+      <td>{{ item.trim_style|default_if_none:"" }} /{{ item.frame|default_if_none:"" }}</td>
+      <td>{{ item.hinge_color|default_if_none:"" }}</td> -->
+      <td>$ {{ item.total_price|floatformat:"0"|intcomma|default_if_none:"" }}</td>
+    </tr>
+  {% endfor %}
+  <tr><td></td></tr>
+  {% endif %}
+  {% endfor %}
+  </tbody>
+</table>

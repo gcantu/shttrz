@@ -2,10 +2,14 @@ from django.forms import ModelForm
 from deals.models import Deal, Price
 from customers.models import Customer
 from shutters.models import Shutter
+from blinds.models import Blind
+from shades.models import Shade
+from sunscreens.models import Sunscreen
 from tenants.utils import tenant_from_request
 from django.contrib.auth import get_user_model
 from django.forms.widgets import TextInput
 from django.forms import fields
+from django import forms
 
 User = get_user_model()
 
@@ -47,13 +51,56 @@ class FormPercentageField(fields.FloatField):
 class PriceForm(ModelForm):
     tax_rate = FormPercentageField()
     credit_card_fee_rate = FormPercentageField()
+    shutters_premium_rate = FormPercentageField()
+    blinds_premium_rate = FormPercentageField()
+    shades_premium_rate = FormPercentageField()
+    sunscreens_premium_rate = FormPercentageField()
 
     class Meta:
         model = Price
-        exclude = ['deal', 'tenant', 'subtotal', 'tax', 'credit_card_fee', 'total', 'balance', 'add_tax']
+        exclude = ['deal', 'tenant', 'subtotal', 'tax', 'credit_card_fee', 'total', 'balance', 'add_tax', 'shutters_subtotal', 'blinds_subtotal', 'shades_subtotal', 'sunscreens_subtotal', 'shutters_total', 'blinds_total', 'shades_total', 'sunscreens_total', 'shutters_premium', 'blinds_premium', 'shades_premium', 'sunscreens_premium']
 
 
 class ShutterForm(ModelForm):
     class Meta:
         model = Shutter
-        exclude = ['frame_style', 'product', 'default_style']
+        exclude = ['product', 'default_style', 'status']
+
+
+class BlindForm(ModelForm):
+    class Meta:
+        model = Blind
+        exclude = ['price_per_sq_ft', 'status']
+        # fields = '__all__'
+
+
+class ShadeForm(ModelForm):
+    class Meta:
+        model = Shade
+        exclude = ['price_per_sq_ft', 'status']
+        # fields = '__all__'
+
+
+class SunscreenForm(ModelForm):
+    class Meta:
+        model = Sunscreen
+        exclude = ['price_per_sq_ft', 'status']
+        # fields = '__all__'
+
+
+def getKey(item):
+    return item[0]
+
+class DealFilterForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        years = sorted(kwargs.pop('years', None), key=getKey)
+        months = sorted(kwargs.pop('months', None), key=getKey)
+        all = ('All', 'All')
+        months.insert(0, all)
+        years.insert(0, all)
+        super(DealFilterForm, self).__init__(*args, **kwargs)
+        if years:
+            self.fields['year'] = forms.ChoiceField(choices=years)
+
+        if months:
+            self.fields['month'] = forms.ChoiceField(choices=months)

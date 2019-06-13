@@ -10,7 +10,7 @@
     <ul class="side-menu">
       <li>
         <a class="btn nf {% block summaryactiveclass %}btn-inactive{% endblock %}" href="{% url 'deals:deal-summary' deal.id %}" role="button">
-          <i class="fas fa-pencil-alt"></i><br>Summary
+          <i class="fas fa-pencil-alt"></i><br>Details
         </a>
       </li>
 
@@ -33,7 +33,7 @@
       </li>
 
       <li>
-        <a class="btn nf {% block manufacturingactiveclass %}btn-inactive{% endblock %}" href="{% url 'reports:manufacturing-report' deal.id 'Simple' %}" role="button">
+        <a class="btn nf {% block manufacturingactiveclass %}btn-inactive{% endblock %}" href="{% url 'reports:manufacturing-report' deal.id 'All' %}" role="button">
           <i class="fas fa-pencil-ruler"></i><br>Manuf.<br>Report
         </a>
       </li>

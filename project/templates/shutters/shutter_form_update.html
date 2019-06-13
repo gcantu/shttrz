@@ -1,0 +1,329 @@
+{% extends "core/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Deal Item Form{% endblock %}
+
+{% block pageclass %}form-page shutter-form-page{% endblock %}
+
+{% block contenttitle %}
+<div class="col content-title">
+  <div class="heading-md">Create Item</div>
+</div> <!-- END col -->
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col">
+    <div class="card-section">
+      <form id="shutter-form" method="post">
+      {% csrf_token %}
+      {{ form.deal.as_hidden }}
+      {{ form.tenant.as_hidden }}
+        <div class="container">
+          {% if form.shutter_type.value == 4 %}
+            {% trans "hidden" as no_4 %}
+          {% else %}
+            {% trans "hidden" as no_door %}
+          {% endif %}
+
+          {% if form.shutter_type.value == 7 or form.shutter_type.value == 8 %}
+            {% trans "hidden" as no_height %}
+          {% endif %}
+
+          {% if form.shutter_type.value == 12 or form.shutter_type.value == 14 or form.shutter_type.value == 17 or form.shutter_type.value == 18 %}
+            {% trans "hidden" as no_middle %}
+          {% endif %}
+
+          {% if form.shutter_type.value == 6 or form.shutter_type.value == 8 or form.shutter_type.value == 13 or form.shutter_type.value == 15 or form.shutter_type.value == 11 or form.shutter_type.value == 18 %}
+            {% trans "hidden" as two_piece %}
+          {% else %}
+            {% trans "hidden" as one_piece %}
+          {% endif %}
+
+          {% if form.side.value == "L" %}
+            {% trans "hidden" as no_right %}
+          {% elif form.side.value == "R" %}
+            {% trans "hidden" as no_left %}
+          {% endif %}
+
+          {% if form.shutter_type.value == 10 or form.shutter_type.value == 17 %}
+            {% trans "hidden" as arch %}
+          {% endif %}
+
+          {% if form.shutter_type.value < 12 %}
+            {% trans "hidden" as no_extra %}
+          {% endif %}
+
+          {% if form.shutter_type.value < 7 or form.shutter_type.value == 10 or form.shutter_type.value == 11 or form.shutter_type.value == 12 or form.shutter_type.value == 13 or form.shutter_type.value == 17 or form.shutter_type.value == 18 %}
+            {% trans "hidden" as no_center %}
+          {% endif %}
+
+          <div class="row">
+            <div class="col-8">
+              <div class="form-section">
+                <div class="form-row">
+                  <div class="col">
+                  {{ form.shutter_type.label_tag }}
+                  {% render_field  form.shutter_type class="custom-select mr-sm-2" %}
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="col-sm-5">
+                  {{ form.location.label_tag }}
+                  {% render_field  form.location class="form-control location_name_search_input" %}
+                  </div>
+                  <div class="col mount-field {{ no_4 }}">
+                  {{ form.mount.label_tag }}
+                  {% render_field  form.mount class="custom-select mr-sm-2" %}
+                  </div>
+                  <div class="col frame-field {{ no_4 }}">
+                  {{ form.frame.label_tag }}
+                  {% render_field  form.frame class="custom-select mr-sm-2" %}
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <div class="form-row">
+                  <div class="col col-md-2">
+                    {{ form.width.label_tag }}
+                    {% render_field  form.width class="form-control" %}
+                  </div>
+                  <div class="col col-md-2 no-label">
+                    {% render_field  form.width_fraction class="custom-select mr-sm-2" %}
+                  </div>
+
+                  <div class="col col-md-2 offset-sm-1 height-field {{ no_height }}">
+                    {{ form.height.label_tag }}
+                    {% render_field  form.height class="form-control" %}
+                  </div>
+                  <div class="col col-md-2 no-label height-field {{ no_height }}">
+                    {% render_field  form.height_fraction class="custom-select mr-sm-2" %}
+                  </div>
+                </div>
+
+                <div class="form-row {{ no_center }}">
+                  <div class="col col-md-2 center-height-field">
+                    <label>Center Height:</label>
+                    {% render_field  form.height_center class="form-control" %}
+                  </div>
+                  <div class="col col-md-2 no-label center-height-field">
+                    {% render_field  form.height_center_fraction class="custom-select mr-sm-2" %}
+                  </div>
+                </div>
+              </div>
+            </div> <!-- END col -->
+
+            <div class="col-4">
+              <div class="form-section textcenter">
+                <div class="form-group row wrapper side-field {{ one_piece }}">
+                  <label class="col-4 col-md-3 col-lg-2 col-form-label">Side: </label>
+                  <div class="col-8 col-sm-7 col-md-5 col-lg-4">
+                    {% render_field  form.side class="custom-select mr-sm-2" %}
+                  </div>
+                </div>
+
+                <div class="product-img-section">
+                  {% with img_id=form.shutter_type.value|stringformat:"s" %}
+                  {% with 'img/model'|add:img_id|add:'.png' as image_static %}
+                    <img class="product-img" src="{% static image_static %}" alt="hey">
+                  {% endwith %}
+                  {% endwith %}
+                </div>
+              </div>
+
+              <button id="divider-button" class="btn btn-block" type="button">Divider</button><br>
+
+              <div class="form-section divider-field">
+                <div class="form-row">
+                  <div class="col">
+                    {% render_field  form.height_divider class="form-control" %}
+                  </div>
+                  <div class="col">
+                    {% render_field  form.height_divider_fraction class="custom-select mr-sm-2" %}
+                  </div>
+                </div>
+              </div>
+            </div> <!-- END col -->
+          </div> <!-- END row -->
+
+          <div class="row">
+            <div class="col-12">
+              <div class="form-section lr-height-field {{ no_extra }}">
+                <div class="field-message">Additional Height Measurements</div>
+                <div class="form-row">
+                  <div class="col left-field {{ no_left }}">
+                    <label>Left</label>
+                    {% render_field  form.height_left class="form-control" %}
+                  </div>
+                  <div class="col no-label left-field {{ no_left }}">
+                    {% render_field  form.height_left_fraction class="custom-select mr-sm-2" %}
+                  </div>
+                  <div class="col offset-sm-1 right-field {{ no_right }}">
+                    <label>Right</label>
+                    {% render_field  form.height_right class="form-control" %}
+                  </div>
+                  <div class="col no-label right-field {{ no_right }}">
+                    {% render_field  form.height_right_fraction class="custom-select mr-sm-2" %}
+                  </div>
+                </div>
+
+                <div class="form-row {{ no_middle }}">
+                  <div class="col-4 col-sm-3 middle-height-field">
+                    <label>Middle Height:</label>
+                    {% render_field  form.height_middle class="form-control" %}
+                  </div>
+                  <div class="col-2 no-label middle-height-field">
+                    {% render_field  form.height_middle_fraction class="custom-select mr-sm-2" %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> <!-- END row -->
+
+          <div class="row door-field {{ no_door }}">
+            <div class="col-12">
+              <div class="form-section">
+                <div class="form-row">
+                  <div class="col-4 col-sm-3 col-lg-2">
+                    <label>Door Knob Height</label>
+                    {% render_field  form.height_door_knob class="form-control" %}
+                  </div>
+                  <div class="col-2 col-lg-1 no-label">
+                    {% render_field  form.height_door_knob_fraction class="custom-select mr-sm-2" %}
+                  </div>
+
+                  <div class="col-4 col-sm-3 col-lg-2 offset-sm-1 offset-lg-1">
+                    <label>Tilt Rod Split @</label>
+                    {% render_field  form.height_tilt_rod_split class="form-control" %}
+                  </div>
+                  <div class="col-2 col-lg-1 no-label">
+                    {% render_field  form.height_tilt_rod_split_fraction class="custom-select mr-sm-2" %}
+                  </div>
+
+                  <div class="col-6 col-md-3 col-lg-2 offset-lg-1">
+                    <label>Cut Out</label>
+                    {% render_field  form.door_handle_cutout class="custom-select mr-sm-2" %}
+                  </div>
+
+                  <div class="col-6 col-md-3 col-lg-2">
+                    <label>Resaque Lframe</label>
+                    {% render_field  form.inset_lframe class="custom-select mr-sm-2" %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-8">
+              <div class="form-section two-piece-exclude-fields {{ two_piece }} {{ arch }}">
+                <div class="form-row">
+                  <div class="col-3 col-md-2 panel-field {{ no_4 }}">
+                    <label>Panels</label>
+                    {{ field.errors }}
+                    {% render_field  form.panels class="form-control" %}
+                  </div>
+
+                  <div class="col-5 col-md-4 hinges-field">
+                    {{ form.hinges.label_tag }}
+                    {% render_field  form.hinges class="custom-select mr-sm-2" %}
+                  </div>
+
+                  <div class="col-4 col-sm-3 t-post-field {{ no_4 }}">
+                    <label># T-post</label>
+                    {% render_field  form.t_post class="form-control" %}
+                  </div>
+                </div>
+              </div>
+            </div> <!-- END form col -->
+
+            <div class="col-4">
+              <div class="form-section">
+                <div class="form-row">
+                  <div class="col col-md-8">
+                    {{ form.price_per_sq_ft.label_tag }}
+                    {% render_field  form.price_per_sq_ft class="form-control" %}
+                  </div>
+                </div>
+              </div>
+            </div> <!-- END form col -->
+          </div> <!-- END row -->
+
+          <div class="row">
+            <div class="col-12">
+              <button id="style-button" class="btn btn-block nf" type="button">Style</button>
+
+              <div class="form-section style-section">
+                <div class="form-row">
+                  <div class="col-4 col-md-3">
+                    {{ form.finish.label_tag }}
+                    {% render_field  form.finish class="custom-select mr-sm-2" %}
+                  </div>
+                  <div class="col-4 col-md-3 stain-field">
+                    {{ form.stain.label_tag }}
+                    {% render_field  form.stain class="custom-select mr-sm-2" %}
+                  </div>
+                  <div class="col-4 col-md-3">
+                    {{ form.color.label_tag }}
+                    {% render_field  form.color class="form-control" %}
+                  </div>
+                  <div class="col-4 col-md-3">
+                  {{ form.frame_style.label_tag }}
+                  {% render_field  form.frame_style class="custom-select mr-sm-2" %}
+                  </div>
+                  <div class="col-4 col-md-3">
+                    {{ form.louver.label_tag }}
+                    {% render_field  form.louver class="custom-select mr-sm-2" %}
+                  </div>
+                  <div class="col-4 col-md-3">
+                    {{ form.tilt_rod.label_tag }}
+                    {% render_field  form.tilt_rod class="custom-select mr-sm-2" %}
+                  </div>
+                  <div class="col-4 col-md-3 trim-field {{ no_4 }}">
+                  {{ form.trim_style.label_tag }}
+                  {% render_field  form.trim_style class="custom-select mr-sm-2" %}
+                  </div>
+                  <div class="col-4 col-md-3">
+                    {{ form.hinge_color.label_tag }}
+                    {% render_field  form.hinge_color class="custom-select mr-sm-2" %}
+                  </div>
+                </div>
+              </div>
+            </div> <!-- END form col -->
+          </div> <!-- END row -->
+
+          <input class="btn" type="submit" value="Add"/><br>
+
+        </div> <!-- END container -->
+      </form><br> <!-- END form -->
+    </div><br> <!-- END section -->
+  </div> <!-- END col -->
+</div><br> <!-- END row -->
+
+{% if items %}
+<div class="row">
+  <div class="col">
+    <div class="card-section wrapper">
+      {% include 'shutters/shutter_detail.html' %}<br>
+
+      <a class="btn" href="{% url 'deals:deal-specs' form.deal.value %}" role="button">Continue</a><br><br>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block extrajs %}
+<script>
+  $('.location_name_search_input').autocomplete({
+        source: "{% url 'deals:location-name-search' %}",
+        minLength: 1,
+        delay: 200,
+  });
+</script>
+{% endblock %}

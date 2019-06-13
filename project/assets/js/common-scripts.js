@@ -11,8 +11,10 @@ $('#id_mount').on('change', function() { // show frame field when mount = 'outsi
 
   if (selectedItem == "Out") {
     $(".frame-field").removeClass("hidden");
+    $(".trim-field").removeClass("hidden");
   } else {
     $(".frame-field").addClass("hidden");
+    $(".trim-field").addClass("hidden");
     $("#id_frame").val(0);
     $("#id_trim_style").val("");
   }
@@ -41,6 +43,30 @@ $('#delete-item-button').on('click', function() { // show/hide line item edit bu
   $(".style-hidden-btn").addClass("hidden");
 });
 
+$('#status-item-button').on('click', function() { // show/hide line item edit buttons
+  $(".status-hidden-btn").toggleClass("hidden");
+  $(".status-colname").toggleClass("hidden");
+  $(".status-dropdown").toggleClass("hidden");
+});
+
+$('#blinds-status-item-button').on('click', function() { // show/hide line item edit buttons
+  $(".blinds-status-hidden-btn").toggleClass("hidden");
+  $(".blinds-status-colname").toggleClass("hidden");
+  $(".blinds-status-dropdown").toggleClass("hidden");
+});
+
+$('#shades-status-item-button').on('click', function() { // show/hide line item edit buttons
+  $(".shades-status-hidden-btn").toggleClass("hidden");
+  $(".shades-status-colname").toggleClass("hidden");
+  $(".shades-status-dropdown").toggleClass("hidden");
+});
+
+$('#sunscreens-status-item-button').on('click', function() { // show/hide line item edit buttons
+  $(".sunscreens-status-hidden-btn").toggleClass("hidden");
+  $(".sunscreens-status-colname").toggleClass("hidden");
+  $(".sunscreens-status-dropdown").toggleClass("hidden");
+});
+
 $('#style-item-button').on('click', function() { // show/hide line item edit buttons
   $(".style-hidden-btn").toggleClass("hidden");
   $(".style-colname").toggleClass("hidden");
@@ -48,6 +74,18 @@ $('#style-item-button').on('click', function() { // show/hide line item edit but
   $(".edit-hidden-btn").addClass("hidden");
   $(".delete-hidden-btn").addClass("hidden");
 
+});
+
+$('#blinds-style-item-button').on('click', function() { // show/hide line item edit buttons
+  $(".blinds-style-hidden-btn").toggleClass("hidden");
+  $(".blinds-style-colname").toggleClass("hidden");
+  $(".blinds-style-dropdown").toggleClass("hidden");
+});
+
+$('#shades-style-item-button').on('click', function() { // show/hide line item edit buttons
+  $(".shades-style-hidden-btn").toggleClass("hidden");
+  $(".shades-style-colname").toggleClass("hidden");
+  $(".shades-style-dropdown").toggleClass("hidden");
 });
 
 $('#divider-button').on('click', function() { // add/remove divider field in line item form
@@ -75,7 +113,12 @@ $('#id_shutter_type').on('change', function() { // render shutter model image
 $('#id_side').on('change', function() { // render shutter model image
   var prod_type = $('#id_shutter_type').val()
   var side = $(this).val()
-  var model = "/static/img/model" + prod_type + "_" + side + ".png";
+  if (side) {
+    var model = "/static/img/model" + prod_type + "_" + side + ".png";
+  } else {
+    var model = "/static/img/model" + prod_type + ".png";
+  }
+
   $(".product-img-section").removeClass("hidden");
   $('.product-img').prop('src', model);
 
@@ -139,45 +182,129 @@ $('input:checkbox').on('change', function() {
     }
 });
 
+// Other Products
+$('#id_sunscreen_type').on('change', function() { // render shutter model image
+  var model = "/static/img/grid" + $(this).val() + ".png";
+  $(".product-img-section").removeClass("hidden");
+  $('.product-img').prop('src', model);
+});
+
+$('#id_blind_type').on('change', function() { // show stain field when finish = 'stain'
+  var selectedItem = $(this).val();
+
+  if (selectedItem == 2) {
+    $(".faux-wood-field").removeClass("hidden");
+  } else {
+    $(".faux-wood-field").addClass("hidden");
+    $("#id_faux_wood_style").val("");
+  }
+});
+
+
+$("#checkAllBlinds").on('click', function () {
+    $(".blinds-item-checkbox").prop('checked', $(this).prop('checked'));
+
+    if ($('#checkAllBlinds:checked').length) {
+        $('.nav-link').removeClass('disabled');
+        $('input:submit').prop('disabled', false)
+        $('.blinds-item-checkbox').parent().parent().addClass("checked-row");
+    } else {
+        $('.nav-link').addClass('disabled');
+        $('input:submit').prop('disabled', true)
+        $('.blinds-item-checkbox').parent().parent().removeClass("checked-row");
+    }
+});
+
+$(".blinds-item-checkbox").on('change', function() {
+  if (!$(this).prop("checked")) {
+    $("#checkAllBlinds").prop("checked", false);
+  }
+});
+
+
+$("#checkAllShades").on('click', function () {
+    $(".shades-item-checkbox").prop('checked', $(this).prop('checked'));
+
+    if ($('#checkAllShades:checked').length) {
+        $('.nav-link').removeClass('disabled');
+        $('input:submit').prop('disabled', false)
+        $('.shades-item-checkbox').parent().parent().addClass("checked-row");
+    } else {
+        $('.nav-link').addClass('disabled');
+        $('input:submit').prop('disabled', true)
+        $('.shades-item-checkbox').parent().parent().removeClass("checked-row");
+    }
+});
+
+$(".shades-item-checkbox").on('change', function() {
+  if (!$(this).prop("checked")) {
+    $("#checkAllShades").prop("checked", false);
+  }
+});
+
+
+$("#checkAllSunscreens").on('click', function () {
+    $(".sunscreens-item-checkbox").prop('checked', $(this).prop('checked'));
+
+    if ($('#checkAllSunscreens:checked').length) {
+        $('.nav-link').removeClass('disabled');
+        $('input:submit').prop('disabled', false)
+        $('.sunscreens-item-checkbox').parent().parent().addClass("checked-row");
+    } else {
+        $('.nav-link').addClass('disabled');
+        $('input:submit').prop('disabled', true)
+        $('.sunscreens-item-checkbox').parent().parent().removeClass("checked-row");
+    }
+});
+
+$(".sunscreens-item-checkbox").on('change', function() {
+  if (!$(this).prop("checked")) {
+    $("#checkAllSunscreens").prop("checked", false);
+  }
+});
+
 
 // FUNCTIONS
 function showMeasureField(val){ // function to render hidden fields in line item form
   var val = val;
 
-  if (val == 6 || val == 8 || val == 13 || val == 15 || val == 4) { // remove t-post from these models
-    $(".panel-field").addClass("hidden");
-    $("#tpost-button").addClass("hidden");
-    $("#id_t_post").val("");
-    if (val == 4) {
-      $(".side-field").addClass("hidden");
-      $("#id_side").val("");
-    } else {
-      $(".side-field").removeClass("hidden");
-    }
-
+  if (val == 7 || val == 8) { // add center height to models #13 and #15
+    $(".height-field").addClass("hidden");
   } else {
-    $(".panel-field").removeClass("hidden");
-    $("#tpost-button").removeClass("hidden");
+    $(".height-field").removeClass("hidden");
+  }
+
+  if (val == 6 || val == 8 || val == 13 || val == 15 || val == 11 || val == 18) { // models with 2 pieces
+    $(".side-field").removeClass("hidden");
+  } else {
     $(".side-field").addClass("hidden");
     $("#id_side").val("");
   }
 
-  if (val > 13) { // add panel height to model #14 and #15
-    $(".panel-height-field").removeClass("hidden");
+  if (val == 6 || val == 8 || val == 13 || val == 15 || val == 11 || val == 18 || val == 10 || val == 17) { // models with 2 pieces
+    $(".two-piece-exclude-fields").addClass("hidden");
   } else {
-    $(".panel-height-field").addClass("hidden");
+    $(".two-piece-exclude-fields").removeClass("hidden");
+  }
+
+  if (val == 7 || val == 8 || val == 14 || val == 15) { // add center height to model #14 and #15
+    $(".center-height-field").removeClass("hidden");
+  } else {
+    $(".center-height-field").addClass("hidden");
   }
 
   if (val > 11) { // add left and right height to models #12 - #15
     $(".lr-height-field").removeClass("hidden");
+    $(".left-field").removeClass("hidden");
+    $(".right-field").removeClass("hidden");
   } else {
     $(".lr-height-field").addClass("hidden");
   }
 
-  if (val == 13 || val == 15) { // add center height to models #13 and #15
-    $(".center-height-field").removeClass("hidden");
+  if (val == 13 || val == 15) { // add middle height to models #13 and #15
+    $(".middle-height-field").removeClass("hidden");
   } else {
-    $(".center-height-field").addClass("hidden");
+    $(".middle-height-field").addClass("hidden");
   }
 
   if (val == 4) {
@@ -188,11 +315,15 @@ function showMeasureField(val){ // function to render hidden fields in line item
     $("#id_mount").val("");
     $("#id_frame").val(0);
     $("#id_trim_style").val("");
+    $(".panel-field").addClass("hidden");
+    $(".t-post-field").addClass("hidden");
   } else {
     $(".door-field").addClass("hidden");
     $(".mount-field").removeClass("hidden");
     $(".frame-field").removeClass("hidden");
     $(".trim-field").removeClass("hidden");
+    $(".panel-field").removeClass("hidden");
+    $(".t-post-field").removeClass("hidden");
   }
 
 };
