@@ -6,5 +6,6 @@ app_name = 'reports'
 urlpatterns = [
     path('proposal/<int:pk>', views.proposal_report, name='proposal-report'),
     path('manufacturing_report/<int:pk>/<product>', views.manufacturing_report, name='manufacturing-report'),
+    path('generate_pdf/<int:pk>/<product>', views.GeneratePDF.as_view(), name='generate-pdf'),
     path('invoice_report/<int:pk>', views.invoice_report, name='invoice-report'),
 ]

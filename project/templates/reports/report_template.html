@@ -13,11 +13,13 @@
 {% endblock %}
 
 {% block menu %}
+{% if report != 'Manufacturing Report' %}
 <div class="col-6">
   <div id="content-menu" class="rf noprint">
     <button class="btn btn-pills" onclick="javascript:print();">Print</button>
   </div>
 </div>
+{% endif %}
 {% endblock %}
 
 {% block navbar %}{% endblock %}

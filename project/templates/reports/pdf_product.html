@@ -1,0 +1,45 @@
+{% for items in product_list %}
+{% if items.0.product == product %}
+  <div class="title">{{ product }}</div>
+  <table id="manufacturing-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Model</th>
+        {% if items.0.product == "Blinds" %}
+          <th>Color</th>
+          <th>Faux Wood Style</th>
+        {% endif %}
+        <th>Location</th>
+        <th>Width</th>
+        <th>Height</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td style="width: 25px;">{{ forloop.counter }}</td>
+
+        {% if item.product == "Sunscreens" %}
+          <td>{{ item.sunscreen_type }}</td>
+        {% elif item.product == "Blinds" %}
+          <td>{{ item.blind_type }}</td>
+          <td>{{ item.color|title }}</td>
+          <td>{{ item.faux_wood_style|default_if_none:"" }}</td>
+        {% elif item.product == "Shades" %}
+          <td>{{ item.shade_type }}</td>
+        {% else %}
+          <td>{{ item.product }}</td>
+        {% endif %}
+
+        <td>{{ item.location|title }}</td>
+        <td style="width: 100px;">{{ item.width }} {{ item.get_width_fraction_display }}</td>
+        <td style="width: 100px;">{{ item.height|default_if_none:"" }} {{ item.get_height_fraction_display }}</td>
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+{% endfor %}

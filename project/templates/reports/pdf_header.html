@@ -1,0 +1,21 @@
+<div id="report-logo">
+  <img src="{{ image_logo }}" alt="JM Curtain Designer and Blinds L.L.C">
+</div>
+<div class="header">Manufacturing Report</div>
+<hr> <!-- END letterhead -->
+
+<table>
+  <tbody>
+    <tr>
+      <td class="la">Customer: {{ customer.first_name }} {{ customer.last_name }}</td>
+      <td class="la">Agent: {{ deal.agent.first_name }} {{ deal.agent.last_name }}</td>
+      <td class="ra">Created Date: {{ deal.created_date.date }}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td class="la">Measured by: {{ deal.measured_by.first_name }} {{ deal.measured_by.last_name }}</td>
+      <td class="ra">Install Date: {{ deal.install_date }}</td>
+    </tr>
+  </tbody>
+</table>
+<hr>

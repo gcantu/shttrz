@@ -21,6 +21,20 @@
 {% block extraclass %}landscape{% endblock %}
 
 {% block reportheader %}
+{% if product == "All" %}
+  <a class="btn btn-pills" href="{% url 'reports:generate-pdf' deal.id items.0.product %}">Save as PDF</a>
+{% else %}
+  {% if product == "Shutters" %}
+    <a class="btn btn-pills" href="{% url 'reports:generate-pdf' deal.id items.0.product %}">Save as PDF</a>
+  {% else %}
+    {% for items in product_list %}
+    {% if items.0.product == product %}
+      <a class="btn btn-pills" href="{% url 'reports:generate-pdf' deal.id items.0.product %}">Save as PDF</a>
+    {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endif %}
+
 <div class="row">
   <div class = "col-6">
     <div id="report-logo">
