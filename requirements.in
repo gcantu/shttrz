@@ -6,3 +6,5 @@ mysqlclient
 django-widget-tweaks
 
 django-filter
+
+xhtml2pdf

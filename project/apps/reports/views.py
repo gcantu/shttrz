@@ -1,10 +1,16 @@
+from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.generic import View
+from django.template.loader import get_template
+from django.conf import settings
+from django.contrib.staticfiles.storage import staticfiles_storage
 from customers.models import Customer
 from deals.models import Deal, Price
 from shutters.models import Shutter, Material
 from blinds.models import Blind
 from shades.models import Shade
 from sunscreens.models import Sunscreen
+from .utils import render_to_pdf
 
 
 class Order:
@@ -62,3 +68,43 @@ def manufacturing_report(request, pk, product):
     order = Order(pk=pk)
 
     return render(request, 'reports/manufacturing_report.html', {'deal': order.deal(), 'customer': order.customer(), 'items': order.shutter(), 'product_list': order.product_list(), 'material': order.material(), 'door_shutter': order.door_shutter(), 'arch_shutter': order.arch_shutter(), 'report': 'Manufacturing Report', 'page_class': 'manufacturing-page', 'product': product})
+
+
+class GeneratePDF(View):
+    def get(self, request, *args, **kwargs):
+        order = Order(pk=self.kwargs.get('pk'))
+
+        if settings.STATIC_ROOT:
+            img_path = staticfiles_storage.path('img/jmblinds_logo.png')
+        else:
+            base_dir = settings.BASE_DIR
+            img_path = base_dir + '/assets/img/jmblinds_logo.png'
+
+
+        template = get_template('reports/pdf.html')
+        context = {
+            'customer': order.customer(),
+            'deal': order.deal(),
+            'image_logo': img_path,
+            'product': self.kwargs.get('product'),
+            'material': order.material(),
+            'items': order.shutter(),
+            'door_shutter': order.door_shutter(),
+            'arch_shutter': order.arch_shutter(),
+            'product_list': order.product_list(),
+        }
+
+        html = template.render(context)
+        pdf = render_to_pdf('reports/pdf.html', context)
+        if pdf:
+            response = HttpResponse(pdf, content_type='application/pdf')
+            cust_name = order.customer().first_name + '_' + order.customer().last_name
+            filename = cust_name + '_manufacturing_report.pdf'
+            content = "inline; filename=%s" %(filename)
+            download = request.GET.get("download")
+            if download:
+                content = "attachment; filename='%s'" %(filename)
+            response['Content-Disposition'] = content
+            return response
+
+        return HttpResponse("Not found")

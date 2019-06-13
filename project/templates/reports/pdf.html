@@ -1,0 +1,26 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Manufacturing Report</title>
+        {% include 'reports/pdf_style.html' %}
+    </head>
+
+    <body>
+      {% include 'reports/pdf_header.html' %}
+
+      {% if product == "All" %}
+        {% with prod=items.0.product|stringformat:"s"|lower %}
+        {% with 'reports/pdf_'|add:prod|add:'.html' as prod_url %}
+          {% include prod_url %}
+        {% endwith %}
+        {% endwith %}
+
+      {% else %}
+        {% if product == "Shutters" %}
+          {% include 'reports/pdf_shutters.html' %}
+        {% else %}
+          {% include 'reports/pdf_product.html' %}
+        {% endif %}
+      {% endif %}
+    </body>
+</html>
